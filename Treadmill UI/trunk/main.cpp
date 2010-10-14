@@ -1,0 +1,32 @@
+#include <iostream>
+
+#include <QtGui/QApplication>
+#include <qfile.h>
+#include <QTextStream>
+#include <QtDebug>
+
+#include "mainwindow.h"
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+
+    /*
+    QFile styleFile("style.css");
+    QTextStream styleStream(&styleFile);
+    QString styleString = styleStream.readAll();
+
+    qDebug() << styleString;
+    */
+
+//    a.setStyleSheet("\
+//                    QWidget{font-family: Tamworth Gothic};"
+//            );
+
+    MainWindow w;
+    w.show();
+
+    return a.exec();
+}

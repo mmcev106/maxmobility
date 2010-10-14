@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/stickman.png</file>
+        <file>images/usb button.png</file>
+        <file>images/question mark button.png</file>
+        <file>images/background.png</file>
+        <file>images/background_vertical_bar.png</file>
+        <file>images/background_left_diagonal.png</file>
+    </qresource>
+</RCC>
