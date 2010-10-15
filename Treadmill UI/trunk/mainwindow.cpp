@@ -24,6 +24,7 @@ void MainWindow::on_exerciseButton_clicked()
 
     exercise_hills *window = new exercise_hills();
     window->show();
+    window->deleteLater();
 
 }
 
@@ -32,5 +33,5 @@ void MainWindow::on_exerciseButton_2_clicked()
 
     VideoTest *window = new VideoTest();
     window->show();
-
+    window->deleteLater();
 }
