@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "exercise_hills.h"
+//#include "exercise_hills.h"
 #include "videotest.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -22,8 +22,8 @@ void MainWindow::on_exerciseButton_clicked()
 {
     //hide();
 
-    exercise_hills *window = new exercise_hills();
-    window->show();
+//    exercise_hills *window = new exercise_hills();
+//    window->show();
 
 }
 

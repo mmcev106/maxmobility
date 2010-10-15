@@ -1,4 +1,4 @@
-#include "exercise_hills.h"
+/*#include "exercise_hills.h"
 #include "ui_exercise_hills.h"
 #include <qwt_plot.h>
 #include <qwt_plot_marker.h>
@@ -250,3 +250,4 @@ void exercise_hills::on_pushButton_6_released()
 {
     gradeDownPressed = false;
 }
+*/

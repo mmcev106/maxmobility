@@ -1,4 +1,4 @@
-#ifndef EXERCISE_HILLS_H
+/*#ifndef EXERCISE_HILLS_H
 #define EXERCISE_HILLS_H
 
 #include <QWidget>
@@ -50,3 +50,4 @@ private slots:
 };
 
 #endif // EXERCISE_HILLS_H
+*/

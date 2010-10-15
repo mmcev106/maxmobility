@@ -23,5 +23,5 @@ OTHER_FILES += \
     style.css
 
 QT += phonon
-LIBS += -lqwtd5
-DEFINES += QWT_DLL
+#LIBS += -lqwtd5
+#DEFINES += QWT_DLL
