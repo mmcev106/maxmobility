@@ -2,7 +2,7 @@
 #define VIDEOTEST_H
 
 #include <QWidget>
-#include <Phonon/VideoPlayer>
+#include <phonon/VideoPlayer>
 
 namespace Ui {
     class VideoTest;

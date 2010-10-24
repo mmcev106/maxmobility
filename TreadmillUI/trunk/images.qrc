@@ -6,5 +6,6 @@
         <file>images/background.png</file>
         <file>images/background_vertical_bar.png</file>
         <file>images/background_left_diagonal.png</file>
+        <file>images/home_screen.png</file>
     </qresource>
 </RCC>

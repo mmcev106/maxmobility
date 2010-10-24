@@ -8,14 +8,13 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 # Input
-HEADERS += mainwindow.h \
+HEADERS += startupwindow.h \
     exercise_hills.h \
     videotest.h
-FORMS += mainwindow.ui \
+FORMS += startupwindow.ui \
     exercise_hills.ui \
     videotest.ui
-SOURCES += main.cpp mainwindow.cpp \
-    exercise_hills.cpp \
+SOURCES += main.cpp startupwindow.cpp \
     videotest.cpp
 RESOURCES += images.qrc
 

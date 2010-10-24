@@ -5,7 +5,7 @@
 #include <QTextStream>
 #include <QtDebug>
 
-#include "mainwindow.h"
+#include "startupWindow.h"
 
 using namespace std;
 
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 //                    QWidget{font-family: Tamworth Gothic};"
 //            );
 
-    MainWindow w;
+    StartupWindow w;
     w.show();
 
     return a.exec();
