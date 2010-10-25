@@ -5,7 +5,7 @@
 #include <QTextStream>
 #include <QtDebug>
 
-#include "startupWindow.h"
+#include "startupwindow.h"
 
 using namespace std;
 
