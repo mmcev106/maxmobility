@@ -22,15 +22,12 @@ int main(int argc, char *argv[])
     qDebug() << styleString;
     */
 
-//    a.setStyleSheet("\
-//                    QWidget{font-family: Tamworth Gothic};"
-//            );
+/*    a.setStyleSheet("\
+                    QWidget{font-family: Tamworth Gothic};"
+            );*/
 
     StartupWindow w;
     w.show();
-
-//    VideoTest test;
-//    test.show();
 
     return a.exec();
 }

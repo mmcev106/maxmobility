@@ -33,7 +33,7 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/home_screen.png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/startup_screen_background.png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="invisibleButton">
