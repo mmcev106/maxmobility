@@ -3,34 +3,52 @@
 
 #include "exercise_hills.h"
 #include "videotest.h"
+#include <phonon/VideoWidget>
+#include <QBitmap>
+
+using namespace std;
 
 StartupWindow::StartupWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::StartupWindow)
+    QWidget(parent)
+    ,ui(new Ui::StartupWindow)
+    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
 {
     ui->setupUi(this);
+
+    player->setFixedSize(QSize(212,212));
+    player->move(567,121);
+    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
+
+    QPixmap pixmap(":/images/images/startup_screen_video_mask.png");
+    player->setMask(pixmap.mask());
+
+
+    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("/test video.avi");
+
+    player->setVolume(0);
+    player->play(*mediaSource);
+    player->setVisible(true);
+    player->show();
+
+    //Put the background behind the player
+    QWidget *backgroundLabel = qFindChild<QWidget*>(this, "backgroundLabel");
+    backgroundLabel->lower();
+
+    connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
+}
+
+void StartupWindow::restartVideo(){
+
+    player->stop();
+    player->play();
 }
 
 StartupWindow::~StartupWindow()
 {
     delete ui;
-}
 
-void StartupWindow::on_exerciseButton_clicked()
-{
-    //hide();
-
-//    exercise_hills *window = new exercise_hills();
-//    window->show();
-
-}
-
-void StartupWindow::on_exerciseButton_2_clicked()
-{
-
-    VideoTest *window = new VideoTest();
-    window->show();
-
+    player->stop();
+    delete player;
 }
 
 
@@ -40,7 +58,7 @@ void showMainScreen(QString action){
 
 void StartupWindow::on_invisibleButton_pressed()
 {
-        showMainScreen("walk");
+     showMainScreen("walk");
 }
 
 
@@ -109,3 +127,4 @@ void StartupWindow::on_invisibleButton_13_pressed()
 {
     showMainScreen("Help");
 }
+

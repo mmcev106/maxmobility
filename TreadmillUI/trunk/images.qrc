@@ -7,5 +7,7 @@
         <file>images/background_vertical_bar.png</file>
         <file>images/background_left_diagonal.png</file>
         <file>images/home_screen.png</file>
+        <file>images/video_selector_image.png</file>
+        <file>images/startup_screen_video_mask.png</file>
     </qresource>
 </RCC>

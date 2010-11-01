@@ -6,6 +6,7 @@
 #include <QtDebug>
 
 #include "startupwindow.h"
+#include "videotest.h"
 
 using namespace std;
 
@@ -27,6 +28,9 @@ int main(int argc, char *argv[])
 
     StartupWindow w;
     w.show();
+
+//    VideoTest test;
+//    test.show();
 
     return a.exec();
 }

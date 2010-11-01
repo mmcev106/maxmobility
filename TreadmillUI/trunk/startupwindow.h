@@ -1,13 +1,14 @@
 #ifndef STARTUPWINDOW_H
 #define STARTUPWINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
+#include <phonon/VideoPlayer>
 
 namespace Ui {
     class StartupWindow;
 }
 
-class StartupWindow : public QMainWindow
+class StartupWindow : public QWidget
 {
     Q_OBJECT
 
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::StartupWindow *ui;
+    Phonon::VideoPlayer *player;
 
 private slots:
     void on_invisibleButton_13_pressed();
@@ -33,8 +35,7 @@ private slots:
     void on_invisibleButton_3_pressed();
     void on_invisibleButton_2_pressed();
     void on_invisibleButton_pressed();
-    void on_exerciseButton_2_clicked();
-    void on_exerciseButton_clicked();
+    void restartVideo();
 };
 
 #endif // STARTUPWINDOW_H
