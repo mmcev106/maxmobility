@@ -10,12 +10,15 @@ INCLUDEPATH += .
 # Input
 HEADERS += startupwindow.h \
     exercise_hills.h \
-    videotest.h
+    videotest.h \
+    mainscreen.h
 FORMS += startupwindow.ui \
     exercise_hills.ui \
-    videotest.ui
+    videotest.ui \
+    mainscreen.ui
 SOURCES += main.cpp startupwindow.cpp \
-    videotest.cpp
+    videotest.cpp \
+    mainscreen.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \

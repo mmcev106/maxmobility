@@ -1,7 +1,7 @@
 #include "startupwindow.h"
 #include "ui_startupwindow.h"
 
-#include "exercise_hills.h"
+#include "mainscreen.h"
 #include "videotest.h"
 #include <phonon/VideoWidget>
 #include <QBitmap>
@@ -53,7 +53,9 @@ StartupWindow::~StartupWindow()
 
 
 void showMainScreen(QString action){
-    qDebug() << action;
+    qDebug() << "User Pressed: " << action;
+    MainScreen *mainScreen = new MainScreen(0, action);
+    mainScreen->show();
 }
 
 void StartupWindow::on_invisibleButton_pressed()
