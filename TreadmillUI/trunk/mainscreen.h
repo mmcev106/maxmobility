@@ -2,6 +2,7 @@
 #define MAINSCREEN_H
 
 #include <QWidget>
+#include <QTimer>
 
 namespace Ui {
     class MainScreen;
@@ -17,6 +18,11 @@ public:
 
 private:
     Ui::MainScreen *ui;
+    int elapsedTime;
+    QTimer *secondTimer;
+
+private slots:
+    void secondElapsed();
 };
 
 #endif // MAINSCREEN_H
