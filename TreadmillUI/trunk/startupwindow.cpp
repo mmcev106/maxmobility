@@ -8,6 +8,12 @@
 
 using namespace std;
 
+void showMainScreen(QString action){
+    qDebug() << "User Pressed: " << action;
+    MainScreen *mainScreen = new MainScreen(0, action);
+    mainScreen->show();
+}
+
 StartupWindow::StartupWindow(QWidget *parent) :
     QWidget(parent)
     ,ui(new Ui::StartupWindow)
@@ -30,11 +36,13 @@ StartupWindow::StartupWindow(QWidget *parent) :
     player->setVisible(true);
     player->show();
 
+    connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
+
     //Put the background behind the player
     QWidget *backgroundLabel = qFindChild<QWidget*>(this, "backgroundLabel");
     backgroundLabel->lower();
 
-    connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
+//    showMainScreen("Video");
 }
 
 void StartupWindow::restartVideo(){
@@ -52,11 +60,7 @@ StartupWindow::~StartupWindow()
 }
 
 
-void showMainScreen(QString action){
-    qDebug() << "User Pressed: " << action;
-    MainScreen *mainScreen = new MainScreen(0, action);
-    mainScreen->show();
-}
+
 
 void StartupWindow::on_invisibleButton_pressed()
 {
@@ -130,3 +134,7 @@ void StartupWindow::on_invisibleButton_13_pressed()
     showMainScreen("Help");
 }
 
+void StartupWindow::on_invisibleButton_15_pressed()
+{
+    showMainScreen("Video");
+}

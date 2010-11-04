@@ -313,7 +313,7 @@ QLabel{color: #42b4ff; }</string>
   <widget class="QLabel" name="dateLabel">
    <property name="geometry">
     <rect>
-     <x>407</x>
+     <x>404</x>
      <y>710</y>
      <width>211</width>
      <height>41</height>
@@ -322,14 +322,14 @@ QLabel{color: #42b4ff; }</string>
    <property name="font">
     <font>
      <family>Tamworth Gothic</family>
-     <pointsize>18</pointsize>
+     <pointsize>15</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="text">
-    <string>Friday, 9/10/10</string>
+    <string>Saturday, 11/10/10</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

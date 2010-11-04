@@ -21,6 +21,7 @@ private:
     Phonon::VideoPlayer *player;
 
 private slots:
+    void on_invisibleButton_15_pressed();
     void on_invisibleButton_13_pressed();
     void on_invisibleButton_12_pressed();
     void on_invisibleButton_11_pressed();

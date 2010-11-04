@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTimer>
+#include <phonon/VideoPlayer>
 
 namespace Ui {
     class MainScreen;
@@ -20,6 +21,7 @@ private:
     Ui::MainScreen *ui;
     int elapsedTime;
     QTimer *secondTimer;
+    Phonon::VideoPlayer *player;
 
 private slots:
     void secondElapsed();

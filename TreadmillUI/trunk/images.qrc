@@ -10,5 +10,6 @@
         <file>images/startup_screen_video_mask.png</file>
         <file>images/main_screen_background.png</file>
         <file>images/startup_screen_background.png</file>
+        <file>images/main_screen_large_video_mask.png</file>
     </qresource>
 </RCC>
