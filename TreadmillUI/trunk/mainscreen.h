@@ -22,8 +22,10 @@ public:
 
 private:
     Ui::MainScreen *ui;
+    void playVideo();
     int elapsedTime;
     QTimer *secondTimer;
+    QTimer *playTimer;
     Phonon::VideoPlayer *player;
     int speedHistory[HISTORY_LENGTH];
     int gradeHistory[HISTORY_LENGTH];
@@ -31,6 +33,7 @@ private:
     HistoryWidget gradeHistoryWidget;
 
 private slots:
+    void on_videoThumbButton_invisibleButton_pressed();
     void updateDisplay();
 };
 

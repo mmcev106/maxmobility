@@ -5,6 +5,8 @@
 #include "videotest.h"
 #include <phonon/VideoWidget>
 #include <QBitmap>
+#include <QDir>
+#include <QCoreApplication>
 
 using namespace std;
 
@@ -21,6 +23,8 @@ StartupWindow::StartupWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QDir::setCurrent(QCoreApplication::applicationDirPath());
+
     player->setFixedSize(QSize(212,212));
     player->move(567,121);
     player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
@@ -29,7 +33,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     player->setMask(pixmap.mask());
 
 
-    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("/test video.avi");
+    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("test video.avi");
 
     player->setVolume(0);
     player->play(*mediaSource);
@@ -42,7 +46,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     QWidget *backgroundLabel = qFindChild<QWidget*>(this, "backgroundLabel");
     backgroundLabel->lower();
 
-    showMainScreen("Video");
+//    showMainScreen("Video");
 }
 
 void StartupWindow::restartVideo(){

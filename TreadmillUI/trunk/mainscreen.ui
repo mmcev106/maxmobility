@@ -335,6 +335,35 @@ QLabel{color: #42b4ff; }</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="videoThumb">
+   <property name="geometry">
+    <rect>
+     <x>29</x>
+     <y>241</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="videoThumbButton_invisibleButton">
+   <property name="geometry">
+    <rect>
+     <x>29</x>
+     <y>241</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: none;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <resources>
   <include location="images.qrc"/>

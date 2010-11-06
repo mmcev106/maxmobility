@@ -5,10 +5,12 @@
 #include <phonon/VideoWidget>
 #include <QBitmap>
 
+static int HISTORY_HEIGHT =31;
+
 void zero(int array[], int length){
 
     for(int i=0;i<length;i++){
-        array[i] = 31;
+        array[i] = 0;
     }
 }
 
@@ -16,28 +18,22 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
     QWidget(parent)
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer)
+    ,playTimer(new QTimer)
     ,elapsedTime(0)
     ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
-    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, 31)
-    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, 31)
+    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT)
+    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT)
 {
     ui->setupUi(this);
+    setAttribute( Qt::WA_DeleteOnClose );
 
-    if(action.compare("Video") == 0){
-        player->setFixedSize(QSize(528,396));
-        player->move(249,93);
-        player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
+    //Put the background behind the player
+    QWidget *backgroundLabel = qFindChild<QWidget*>(this, "backgroundLabel");
+    backgroundLabel->lower();
 
-        QPixmap pixmap(":/images/images/main_screen_large_video_mask.png");
-        player->setMask(pixmap.mask());
 
-        Phonon::MediaSource *mediaSource = new Phonon::MediaSource("/test video.avi");
 
-        player->setVolume(0);
-        player->play(*mediaSource);
-        player->setVisible(true);
-        player->show();
-    }
+
 
     connect(secondTimer, SIGNAL(timeout()), this, SLOT( updateDisplay()));
     secondTimer->setSingleShot(false);
@@ -47,23 +43,62 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
     //update the fields before the windows is initially displayed
     updateDisplay();
 
-    //Put the background behind the player
-    QWidget *backgroundLabel = qFindChild<QWidget*>(this, "backgroundLabel");
-    backgroundLabel->lower();
-
     // add the history widgets
     zero(speedHistory, HISTORY_LENGTH);
     zero(gradeHistory, HISTORY_LENGTH);
     gradeHistoryWidget.move(36,528);
-    speedHistoryWidget.move(665,528);
+    speedHistoryWidget.move(664,528);
 
+    ui->videoThumb->setPixmap(QPixmap("test video_thumb.jpg"));
+    QPixmap thumbMask(":/images/images/video_thumb_mask.png");
+    ui->videoThumb->setMask(thumbMask.mask());
 
+    if(action.compare("Video") == 0){
+        /* We must use a timer to start playback to allow this method to finish before setting the scale.
+           The scale is not set properly otherwise. */
+
+        connect(playTimer, SIGNAL(timeout()), this, SLOT( on_videoThumbButton_invisibleButton_pressed()));
+        playTimer->setInterval(0);
+        playTimer->setSingleShot(true);
+        playTimer->start();
+    }
 }
 
 MainScreen::~MainScreen()
 {
     delete ui;
-    deleteLater();
+
+    player->stop();
+    delete player;
+    delete secondTimer;
+}
+
+void MainScreen::playVideo(){
+
+    player->play(Phonon::MediaSource("test video.avi"));
+
+    player->move(249,103);
+
+    player->setVisible(true);
+    player->show();
+
+    player->setFixedSize(528,396);
+    player->videoWidget()->setFixedSize(528,396);
+    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
+
+
+
+
+    QPixmap pixmap(":/images/images/main_screen_large_video_mask.png");
+    player->setMask(pixmap.mask());
+
+
+//    player->setVolume(0);
+
+
+
+
+
 }
 
 void MainScreen::updateDisplay(){
@@ -123,4 +158,11 @@ void MainScreen::updateDisplay(){
     gradeHistoryWidget.update();
 
     elapsedTime++;
+}
+
+void MainScreen::on_videoThumbButton_invisibleButton_pressed()
+{
+    qDebug() << "asdf";
+    playVideo();
+
 }
