@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QTimer>
 #include <phonon/VideoPlayer>
+#include "historywidget.h"
+
+const int HISTORY_LENGTH = 30;
 
 namespace Ui {
     class MainScreen;
@@ -22,9 +25,13 @@ private:
     int elapsedTime;
     QTimer *secondTimer;
     Phonon::VideoPlayer *player;
+    int speedHistory[HISTORY_LENGTH];
+    int gradeHistory[HISTORY_LENGTH];
+    HistoryWidget speedHistoryWidget;
+    HistoryWidget gradeHistoryWidget;
 
 private slots:
-    void secondElapsed();
+    void updateDisplay();
 };
 
 #endif // MAINSCREEN_H

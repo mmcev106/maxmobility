@@ -21,7 +21,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>-10</y>
+     <y>0</y>
      <width>1024</width>
      <height>768</height>
     </rect>
@@ -44,7 +44,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>287</x>
-     <y>17</y>
+     <y>27</y>
      <width>141</width>
      <height>41</height>
     </rect>
@@ -68,8 +68,8 @@ QLabel{color: #42b4ff; }</string>
   <widget class="QLabel" name="distanceLabel">
    <property name="geometry">
     <rect>
-     <x>594</x>
-     <y>18</y>
+     <x>593</x>
+     <y>27</y>
      <width>141</width>
      <height>41</height>
     </rect>
@@ -94,7 +94,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>900</x>
-     <y>353</y>
+     <y>363</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -118,7 +118,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>900</x>
-     <y>270</y>
+     <y>280</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -142,7 +142,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>900</x>
-     <y>190</y>
+     <y>200</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -166,7 +166,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>900</x>
-     <y>110</y>
+     <y>120</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -190,7 +190,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>900</x>
-     <y>440</y>
+     <y>450</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -213,8 +213,8 @@ QLabel{color: #42b4ff; }</string>
   <widget class="QLabel" name="speedLabel">
    <property name="geometry">
     <rect>
-     <x>671</x>
-     <y>694</y>
+     <x>667</x>
+     <y>705</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -238,8 +238,8 @@ QLabel{color: #42b4ff; }</string>
   <widget class="QLabel" name="gradeLabel">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>690</y>
+     <x>223</x>
+     <y>705</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -254,7 +254,7 @@ QLabel{color: #42b4ff; }</string>
     </font>
    </property>
    <property name="text">
-    <string>99.9</string>
+    <string>9.9</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -264,7 +264,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>680</y>
+     <y>690</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -289,7 +289,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>504</x>
-     <y>681</y>
+     <y>691</y>
      <width>111</width>
      <height>41</height>
     </rect>
@@ -314,7 +314,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="geometry">
     <rect>
      <x>404</x>
-     <y>710</y>
+     <y>720</y>
      <width>211</width>
      <height>41</height>
     </rect>

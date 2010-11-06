@@ -11,14 +11,16 @@ INCLUDEPATH += .
 HEADERS += startupwindow.h \
     exercise_hills.h \
     videotest.h \
-    mainscreen.h
+    mainscreen.h \
+    historywidget.h
 FORMS += startupwindow.ui \
     exercise_hills.ui \
     videotest.ui \
     mainscreen.ui
 SOURCES += main.cpp startupwindow.cpp \
     videotest.cpp \
-    mainscreen.cpp
+    mainscreen.cpp \
+    historywidget.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \

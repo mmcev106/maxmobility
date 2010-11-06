@@ -42,7 +42,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     QWidget *backgroundLabel = qFindChild<QWidget*>(this, "backgroundLabel");
     backgroundLabel->lower();
 
-//    showMainScreen("Video");
+    showMainScreen("Video");
 }
 
 void StartupWindow::restartVideo(){
