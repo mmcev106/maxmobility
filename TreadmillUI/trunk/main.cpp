@@ -4,6 +4,7 @@
 #include <qfile.h>
 #include <QTextStream>
 #include <QtDebug>
+#include <QDir>
 
 #include "startupwindow.h"
 #include "videotest.h"
@@ -14,17 +15,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    /*
-    QFile styleFile("style.css");
-    QTextStream styleStream(&styleFile);
-    QString styleString = styleStream.readAll();
-
-    qDebug() << styleString;
-    */
-
-/*    a.setStyleSheet("\
-                    QWidget{font-family: Tamworth Gothic};"
-            );*/
+    QDir::setCurrent(QCoreApplication::applicationDirPath());
 
     StartupWindow w;
     w.show();

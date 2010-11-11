@@ -23,15 +23,12 @@ StartupWindow::StartupWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QDir::setCurrent(QCoreApplication::applicationDirPath());
-
-    player->setFixedSize(QSize(212,212));
+    player->setFixedSize(212,212);
     player->move(567,121);
     player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
 
     QPixmap pixmap(":/images/images/startup_screen_video_mask.png");
     player->setMask(pixmap.mask());
-
 
     Phonon::MediaSource *mediaSource = new Phonon::MediaSource("test video.avi");
 
