@@ -5,9 +5,9 @@
 #include <QTextStream>
 #include <QtDebug>
 #include <QDir>
+#include <Phonon>
 
 #include "startupwindow.h"
-#include "videotest.h"
 
 using namespace std;
 

@@ -5,8 +5,7 @@
 #include <QTimer>
 #include <phonon/VideoPlayer>
 #include "historywidget.h"
-
-const int HISTORY_LENGTH = 30;
+#include <QKeyEvent>
 
 namespace Ui {
     class MainScreen;
@@ -20,6 +19,9 @@ public:
     explicit MainScreen(QWidget *parent = 0, QString action = "");
     ~MainScreen();
 
+protected:
+//    void keyPressEvent ( QKeyEvent * event );
+
 private:
     Ui::MainScreen *ui;
     void playVideo();
@@ -27,10 +29,11 @@ private:
     QTimer *secondTimer;
     QTimer *playTimer;
     Phonon::VideoPlayer *player;
-    int speedHistory[HISTORY_LENGTH];
-    int gradeHistory[HISTORY_LENGTH];
-    HistoryWidget speedHistoryWidget;
-    HistoryWidget gradeHistoryWidget;
+    static const int HISTORY_LENGTH = 30;
+//    int speedHistory[HISTORY_LENGTH];
+//    int gradeHistory[HISTORY_LENGTH];
+//    HistoryWidget speedHistoryWidget;
+//    HistoryWidget gradeHistoryWidget;
 
 private slots:
     void on_videoThumbButton_invisibleButton_pressed();

@@ -2,19 +2,14 @@
 #include "ui_startupwindow.h"
 
 #include "mainscreen.h"
-#include "videotest.h"
+#include "heartratescreen.h"
+#include "fitnesstestscreen.h"
 #include <phonon/VideoWidget>
 #include <QBitmap>
 #include <QDir>
 #include <QCoreApplication>
 
 using namespace std;
-
-void showMainScreen(QString action){
-    qDebug() << "User Pressed: " << action;
-    MainScreen *mainScreen = new MainScreen(0, action);
-    mainScreen->show();
-}
 
 StartupWindow::StartupWindow(QWidget *parent) :
     QWidget(parent)
@@ -23,12 +18,12 @@ StartupWindow::StartupWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    player->setFixedSize(212,212);
-    player->move(567,121);
-    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
+    player->setFixedSize(240,189);
+    player->move(673,112);
+//    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
 
-    QPixmap pixmap(":/images/images/startup_screen_video_mask.png");
-    player->setMask(pixmap.mask());
+//    QPixmap pixmap(":/images/images/startup_screen_video_mask.png");
+//    player->setMask(pixmap.mask());
 
     Phonon::MediaSource *mediaSource = new Phonon::MediaSource("test video.avi");
 
@@ -60,15 +55,22 @@ StartupWindow::~StartupWindow()
     delete player;
 }
 
+void StartupWindow::showMainScreen(QString action){
+    qDebug() << "User Pressed: " << action;
+    MainScreen *mainScreen = new MainScreen(0, action);
+    mainScreen->show();
+}
 
-
+void QWidget::keyPressEvent(QKeyEvent* event){
+    if (event->key() == Qt::Key_Escape){
+        close();
+    }
+}
 
 void StartupWindow::on_invisibleButton_pressed()
 {
      showMainScreen("walk");
 }
-
-
 
 void StartupWindow::on_invisibleButton_2_pressed()
 {
@@ -112,7 +114,8 @@ void StartupWindow::on_invisibleButton_10_pressed()
 
 void StartupWindow::on_invisibleButton_9_pressed()
 {
-    showMainScreen("Fitness Tests");
+    FitnessTestScreen* w = new FitnessTestScreen(0);
+     w->show();
 }
 
 void StartupWindow::on_invisibleButton_14_pressed()
@@ -138,4 +141,10 @@ void StartupWindow::on_invisibleButton_13_pressed()
 void StartupWindow::on_invisibleButton_15_pressed()
 {
     showMainScreen("Video");
+}
+
+void StartupWindow::on_invisibleButton_16_pressed()
+{
+    HeartRateScreen* w = new HeartRateScreen(0);
+     w->show();
 }

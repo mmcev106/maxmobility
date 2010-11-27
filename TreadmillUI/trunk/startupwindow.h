@@ -20,7 +20,10 @@ private:
     Ui::StartupWindow *ui;
     Phonon::VideoPlayer *player;
 
+    void showMainScreen(QString action);
+
 private slots:
+    void on_invisibleButton_16_pressed();
     void on_invisibleButton_15_pressed();
     void on_invisibleButton_13_pressed();
     void on_invisibleButton_12_pressed();

@@ -3,7 +3,9 @@
 #include <QStringBuilder>
 #include <QDateTime>
 #include <phonon/VideoWidget>
+#include <phonon/MediaObject>
 #include <QBitmap>
+#include <QPainter>
 
 static int HISTORY_HEIGHT =31;
 
@@ -14,40 +16,90 @@ void zero(int array[], int length){
     }
 }
 
+static int *history;
+
+class VideoWrapper : public Phonon::VideoWidget
+{
+
+    const static int length = 31;
+
+    const static int VERTICAL_PADDING = 1;
+    const static int HORIZONTAL_PADDING = 3;
+    const static int SQUARE_WIDTH = 8;
+    const static int SQUARE_HEIGHT = 4;
+
+public:
+    VideoWrapper(QWidget *parent) :
+            VideoWidget( parent)
+    {
+    }
+
+    void paintEvent(QPaintEvent *){
+//        QPainter qpainter (this);
+
+//        qDebug() << "foo";
+//        QColor myColor(0,0,0,0);
+//        qpainter.fillRect(10,10, SQUARE_WIDTH, SQUARE_HEIGHT, myColor.blue());
+
+//        for(int i=0;i<length;i++){
+//            int x = i*(SQUARE_WIDTH+HORIZONTAL_PADDING);
+//            int y = height() - SQUARE_HEIGHT;
+
+//            if(y<=0){
+//                qDebug() << "y is bad!";
+//            }
+
+//            QColor color(255,255,255, 50);
+//            int squares = history[i];
+
+//            while(squares > 0){
+
+//                qpainter.fillRect(x,y, SQUARE_WIDTH, SQUARE_HEIGHT, color);
+
+//                y -= SQUARE_HEIGHT+VERTICAL_PADDING;
+//                color.setAlpha(color.alpha()+6);
+
+//                squares--;
+//            }
+//        }
+    }
+};
+
 MainScreen::MainScreen(QWidget *parent, QString action) :
     QWidget(parent)
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer)
     ,playTimer(new QTimer)
     ,elapsedTime(0)
-    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
-    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT)
-    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT)
+        ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+//    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
+//    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
 
     //Put the background behind the player
-    QWidget *backgroundLabel = qFindChild<QWidget*>(this, "backgroundLabel");
-    backgroundLabel->lower();
+    ui->backgroundLabel->lower();
 
-
-
-
+//    Phonon::MediaObject *media = new Phonon::MediaObject(this);
+//    VideoWrapper *test = new VideoWrapper(this);
+//    Phonon::createPath(media, test);
+//    media->setCurrentSource(Phonon::MediaSource("test video.avi"));
+//    media->play();
 
     connect(secondTimer, SIGNAL(timeout()), this, SLOT( updateDisplay()));
     secondTimer->setSingleShot(false);
     secondTimer->setInterval(1000);
     secondTimer->start();
 
-    //update the fields before the windows is initially displayed
+//    update the fields before the windows is initially displayed
     updateDisplay();
 
-    // add the history widgets
-    zero(speedHistory, HISTORY_LENGTH);
-    zero(gradeHistory, HISTORY_LENGTH);
-    gradeHistoryWidget.move(36,528);
-    speedHistoryWidget.move(664,528);
+//     add the history widgets
+//    zero(speedHistory, HISTORY_LENGTH);
+//    zero(gradeHistory, HISTORY_LENGTH);
+//    gradeHistoryWidget.move(36,528);
+//    speedHistoryWidget.move(664,528);
 
     ui->videoThumb->setPixmap(QPixmap("test video_thumb.jpg"));
     QPixmap thumbMask(":/images/images/video_thumb_mask.png");
@@ -73,31 +125,30 @@ MainScreen::~MainScreen()
     delete secondTimer;
 }
 
+//void MainScreen::keyPressEvent(QKeyEvent* event){
+//    if (event->key() == Qt::Key_Escape){
+//        close();
+//    }
+//}
+
 void MainScreen::playVideo(){
 
-    player->play(Phonon::MediaSource("test video.avi"));
+//    player->play(Phonon::MediaSource("test video.avi"));
 
-    player->move(249,103);
+//    player->move(0,0);
 
-    player->setVisible(true);
-    player->show();
+//    player->setVisible(true);
+//    player->show();
 
-    player->setFixedSize(528,396);
-    player->videoWidget()->setFixedSize(528,396);
-    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
-
-
-
-
-    QPixmap pixmap(":/images/images/main_screen_large_video_mask.png");
-    player->setMask(pixmap.mask());
-
-
-//    player->setVolume(0);
+//    player->setFixedSize(528,396);
+//    player->videoWidget()->setFixedSize(528,396);
+//    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
 
 
 
 
+//    QPixmap pixmap(":/images/images/main_screen_large_video_mask.png");
+//    player->setMask(pixmap.mask());
 
 }
 
@@ -121,7 +172,6 @@ void MainScreen::updateDisplay(){
     ui->heartRateLabel->setText(secondsString);
     ui->caloriesLabel->setText(secondsString);
     ui->cadenceLabel->setText(secondsString);
-    ui->elevationGainLabel->setText(secondsString);
     ui->paceLabel->setText(secondsString);
 
     QString pointNumber;
@@ -146,16 +196,16 @@ void MainScreen::updateDisplay(){
     ui->ampmLabel->setText(time.right(2) );
     ui->dateLabel->setText(currentTime.toString(QString("dddd, M/d/yy")));
 
-    for(int i=0;i<HISTORY_LENGTH-1;i++){
-        speedHistory[i] = speedHistory[i+1];
-        gradeHistory[i] = gradeHistory[i+1];
-    }
+//    for(int i=0;i<HISTORY_LENGTH-1;i++){
+//        speedHistory[i] = speedHistory[i+1];
+//        gradeHistory[i] = gradeHistory[i+1];
+//    }
 
-    speedHistory[HISTORY_LENGTH-1] = elapsedTime%31;
-    gradeHistory[HISTORY_LENGTH-1] = elapsedTime%31;
+//    speedHistory[HISTORY_LENGTH-1] = elapsedTime%HISTORY_HEIGHT;
+//    gradeHistory[HISTORY_LENGTH-1] = elapsedTime%HISTORY_HEIGHT;
 
-    speedHistoryWidget.update();
-    gradeHistoryWidget.update();
+//    speedHistoryWidget.update();
+//    gradeHistoryWidget.update();
 
     elapsedTime++;
 }

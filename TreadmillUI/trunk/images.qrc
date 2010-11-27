@@ -7,10 +7,18 @@
         <file>images/background_vertical_bar.png</file>
         <file>images/background_left_diagonal.png</file>
         <file>images/video_selector_image.png</file>
-        <file>images/startup_screen_video_mask.png</file>
         <file>images/main_screen_background.png</file>
         <file>images/startup_screen_background.png</file>
         <file>images/main_screen_large_video_mask.png</file>
         <file>images/video_thumb_mask.png</file>
+        <file>images/heart_rate_background.png</file>
+        <file>images/slider_left_arrow.png</file>
+        <file>images/slider_right_arrow.png</file>
+        <file>images/slider_middle.png</file>
+        <file>images/RadioButton_Selected.png</file>
+        <file>images/big_brick.png</file>
+        <file>images/big_brick_highlighted.png</file>
+        <file>images/fitnesstest_background.png</file>
+        <file>images/stopwatch.png</file>
     </qresource>
 </RCC>
