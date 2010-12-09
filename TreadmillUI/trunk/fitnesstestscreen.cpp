@@ -3,22 +3,20 @@
 
 #include "mainscreen.h"
 
+static int SLIDER_X = 13;
+
 FitnessTestScreen::FitnessTestScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FitnessTestScreen)
     ,weightSlider(this)
     ,ageSlider(this)
-    ,timeSlider(this)
+    ,initialSpeedSlider(this, 5, 20)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
 
-    weightSlider.move(45,434);
-    ageSlider.move(45,551);
-    timeSlider.move(45,668);
-
-    hideAllRadioButtonSelectedImages();
-    ui->fitnessSelectedLabel->show();
+    initialSpeedSlider.move(SLIDER_X,437);
+    on_invisibleButton_fitness_pressed();
 
     ui->backgroundLabel->lower();
 }
@@ -41,50 +39,55 @@ void FitnessTestScreen::on_invisibleButton_6_pressed()
     close();
 }
 
-void FitnessTestScreen::hideAllRadioButtonSelectedImages(){
-    for( int i=0; i < children().size();i++){
-        QObject* child = children().at(i);
+void FitnessTestScreen::showTwoSliders(){
 
+    initialSpeedSlider.hide();
 
-        if(child->objectName().endsWith("SelectedLabel")){
-            QWidget* childWidget = (QWidget*)child;
-            childWidget->hide();
-        }
-    }
+    ageSlider.move(SLIDER_X,479);
+    weightSlider.move(SLIDER_X,598);
 }
 
-void FitnessTestScreen::on_invisibleButton_pressed()
-{
-    hideAllRadioButtonSelectedImages();
-    ui->fitnessSelectedLabel->show();
+void FitnessTestScreen::showThreeSliders(){
+
+    initialSpeedSlider.show();
+
+    ageSlider.move(SLIDER_X,556);
+    weightSlider.move(SLIDER_X,675);
 }
 
 void FitnessTestScreen::on_invisibleButton_8_pressed()
 {
-    hideAllRadioButtonSelectedImages();
-    ui->fireSelectedLabel->show();
+    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Fire-Fighter---Standard).png")));
+    showThreeSliders();
 }
 
 void FitnessTestScreen::on_invisibleButton_4_pressed()
 {
-    hideAllRadioButtonSelectedImages();
-    ui->airSelectedLabel->show();
+    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Air-Force---Standard).png")));
+    showThreeSliders();
 }
 
 void FitnessTestScreen::on_invisibleButton_7_pressed()
 {
-    hideAllRadioButtonSelectedImages();
-    ui->marinesSelectedLabel->show();
+    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Marines---Standard).png")));
+    showThreeSliders();
 }
 
 void FitnessTestScreen::on_invisibleButton_2_pressed()
 {
-    hideAllRadioButtonSelectedImages();
-    ui->navySelectedLabel->show();
+    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Navy---Standard).png")));
+    showThreeSliders();
 }
 
 void FitnessTestScreen::on_invisibleButton_3_pressed()
 {
-    hideAllRadioButtonSelectedImages();
-    ui->armySelectedLabel->show();
+    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Army---Standard).png")));
+    showThreeSliders();
+}
+
+void FitnessTestScreen::on_invisibleButton_fitness_pressed()
+{
+
+    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Fitness---Standard).png")));
+    showTwoSliders();
 }

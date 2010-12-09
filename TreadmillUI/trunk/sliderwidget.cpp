@@ -79,7 +79,7 @@ void SliderWidget::paintEvent(QPaintEvent *){
 
     painter.drawPixmap( x, 0, *getMiddlePixmap());
 
-    if(value > min){
+    if( x > 70 ){
         leftArrowPosition = x - getLeftArrowPixmap()->width();
         painter.drawPixmap( leftArrowPosition, 0, *getLeftArrowPixmap());
     }
@@ -87,8 +87,8 @@ void SliderWidget::paintEvent(QPaintEvent *){
         leftArrowPosition = NOT_VISIBLE;
     }
 
-    if (value < max){
-        rightArrowPosition = x + getMiddlePixmap()->width();
+    rightArrowPosition = x + getMiddlePixmap()->width();
+    if ( width() - rightArrowPosition > 70 ){
         painter.drawPixmap( rightArrowPosition, 0, *getRightArrowPixmap());
     }
     else{

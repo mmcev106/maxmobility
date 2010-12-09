@@ -4,6 +4,7 @@
 #include "mainscreen.h"
 #include "heartratescreen.h"
 #include "fitnesstestscreen.h"
+#include "fatburnscreen.h"
 #include <phonon/VideoWidget>
 #include <QBitmap>
 #include <QDir>
@@ -109,7 +110,8 @@ void StartupWindow::on_invisibleButton_8_pressed()
 
 void StartupWindow::on_invisibleButton_10_pressed()
 {
-    showMainScreen("Fat Burn");
+    FatBurnScreen* w = new FatBurnScreen(0);
+     w->show();
 }
 
 void StartupWindow::on_invisibleButton_9_pressed()

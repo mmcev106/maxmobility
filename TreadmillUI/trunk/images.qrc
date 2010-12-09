@@ -3,9 +3,6 @@
         <file>images/stickman.png</file>
         <file>images/usb button.png</file>
         <file>images/question mark button.png</file>
-        <file>images/background.png</file>
-        <file>images/background_vertical_bar.png</file>
-        <file>images/background_left_diagonal.png</file>
         <file>images/video_selector_image.png</file>
         <file>images/main_screen_background.png</file>
         <file>images/startup_screen_background.png</file>
@@ -18,7 +15,13 @@
         <file>images/RadioButton_Selected.png</file>
         <file>images/big_brick.png</file>
         <file>images/big_brick_highlighted.png</file>
-        <file>images/fitnesstest_background.png</file>
         <file>images/stopwatch.png</file>
+        <file>images/fat_burn_background.png</file>
+        <file>images/Fitness-Test---06---(Air-Force---Standard).png</file>
+        <file>images/Fitness-Test---06---(Army---Standard).png</file>
+        <file>images/Fitness-Test---06---(Fire-Fighter---Standard).png</file>
+        <file>images/Fitness-Test---06---(Fitness---Standard).png</file>
+        <file>images/Fitness-Test---06---(Marines---Standard).png</file>
+        <file>images/Fitness-Test---06---(Navy---Standard).png</file>
     </qresource>
 </RCC>

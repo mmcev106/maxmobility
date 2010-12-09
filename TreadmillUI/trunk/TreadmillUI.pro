@@ -18,13 +18,15 @@ HEADERS += startupwindow.h \
     fitnesstestscreen.h \
     weightsliderwidget.h \
     agesliderwidget.h \
-    timesliderwidget.h
+    timesliderwidget.h \
+    fatburnscreen.h
 FORMS += startupwindow.ui \
     exercise_hills.ui \
     videotest.ui \
     mainscreen.ui \
     heartratescreen.ui \
-    fitnesstestscreen.ui
+    fitnesstestscreen.ui \
+    fatburnscreen.ui
 SOURCES += main.cpp startupwindow.cpp \
     videotest.cpp \
     mainscreen.cpp \
@@ -34,7 +36,8 @@ SOURCES += main.cpp startupwindow.cpp \
     fitnesstestscreen.cpp \
     weightsliderwidget.cpp \
     agesliderwidget.cpp \
-    timesliderwidget.cpp
+    timesliderwidget.cpp \
+    fatburnscreen.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \

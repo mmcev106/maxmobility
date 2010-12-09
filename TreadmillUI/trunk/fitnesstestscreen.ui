@@ -29,7 +29,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/fitnesstest_background.png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/Fitness-Test---06---(Fitness---Standard).png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="invisibleButton_5">
@@ -58,103 +58,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="fitnessSelectedLabel">
-   <property name="geometry">
-    <rect>
-     <x>76</x>
-     <y>196</y>
-     <width>61</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QLabel" name="fireSelectedLabel">
-   <property name="geometry">
-    <rect>
-     <x>277</x>
-     <y>196</y>
-     <width>61</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QLabel" name="airSelectedLabel">
-   <property name="geometry">
-    <rect>
-     <x>490</x>
-     <y>196</y>
-     <width>61</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QLabel" name="marinesSelectedLabel">
-   <property name="geometry">
-    <rect>
-     <x>76</x>
-     <y>316</y>
-     <width>61</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QLabel" name="navySelectedLabel">
-   <property name="geometry">
-    <rect>
-     <x>277</x>
-     <y>316</y>
-     <width>61</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QLabel" name="armySelectedLabel">
-   <property name="geometry">
-    <rect>
-     <x>490</x>
-     <y>316</y>
-     <width>61</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="invisibleButton">
+  <widget class="QPushButton" name="invisibleButton_fitness">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -232,38 +136,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>760</x>
-     <y>220</y>
-     <width>151</width>
-     <height>241</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/stopwatch.png</pixmap>
-   </property>
-  </widget>
-  <zorder>backgroundLabel</zorder>
-  <zorder>invisibleButton_5</zorder>
-  <zorder>invisibleButton_6</zorder>
-  <zorder>fitnessSelectedLabel</zorder>
-  <zorder>fireSelectedLabel</zorder>
-  <zorder>airSelectedLabel</zorder>
-  <zorder>marinesSelectedLabel</zorder>
-  <zorder>navySelectedLabel</zorder>
-  <zorder>armySelectedLabel</zorder>
-  <zorder>invisibleButton</zorder>
-  <zorder>invisibleButton_3</zorder>
-  <zorder>invisibleButton_4</zorder>
-  <zorder>invisibleButton_7</zorder>
-  <zorder>label</zorder>
-  <zorder>invisibleButton_2</zorder>
-  <zorder>invisibleButton_8</zorder>
  </widget>
  <resources>
   <include location="images.qrc"/>

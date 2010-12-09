@@ -1,6 +1,6 @@
 #include "weightsliderwidget.h"
 
 WeightSliderWidget::WeightSliderWidget(QWidget *parent) :
-    SliderWidget(parent, 70, 999)
+    SliderWidget(parent, 70, 600)
 {
 }

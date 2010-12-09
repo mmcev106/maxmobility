@@ -21,19 +21,21 @@ public:
 
 private:
     Ui::FitnessTestScreen *ui;
+
     WeightSliderWidget weightSlider;
     AgeSliderWidget ageSlider;
-    TimeSliderWidget timeSlider;
+    SliderWidget initialSpeedSlider;
 
-    void hideAllRadioButtonSelectedImages();
+    void showTwoSliders();
+    void showThreeSliders();
 
 private slots:
+    void on_invisibleButton_fitness_pressed();
     void on_invisibleButton_3_pressed();
     void on_invisibleButton_2_pressed();
     void on_invisibleButton_7_pressed();
     void on_invisibleButton_4_pressed();
     void on_invisibleButton_8_pressed();
-    void on_invisibleButton_pressed();
     void on_invisibleButton_6_pressed();
     void on_invisibleButton_5_pressed();
 };
