@@ -2,30 +2,23 @@
 #include "ui_heartratescreen.h"
 
 #include "mainscreen.h"
-
-int CONSTANT_HISTORY[12] = {15,15,15,15,15,15,15,15,15,15,15,15};
-int DYNAMIC_HISTORY[12] = {9,9,26,26,9,9,26,26,9,9,26,26};
+#include "pointerevent.h"
 
 HeartRateScreen::HeartRateScreen(QWidget *parent) :
-    QWidget(parent)
+    AbstractMultiSliderScreen(parent)
     ,ui(new Ui::HeartRateScreen)
     ,weightSlider(this)
     ,ageSlider(this)
     ,timeSlider(this)
-    ,lowSpeedSlider(this, 1, 15)
-    ,highSpeedSlider(this, 1, 15)
-    ,gradeHistoryWidget(this, CONSTANT_HISTORY, HISTORY_LENGTH, 26, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
+    ,speedSlider1(this)
+    ,speedSlider2(this)
 {
     ui->setupUi(this);
-    setAttribute( Qt::WA_DeleteOnClose );
 
-    weightSlider.move(15,202);
-    ageSlider.move(15,319);
-    timeSlider.move(15,436);
-    lowSpeedSlider.move(15,554);
-    highSpeedSlider.move(15,671);
+    timeSlider.move(SLIDER_X,SLIDER1_Y);
+    speedSlider1.move(SLIDER_X,SLIDER2_Y);
+    speedSlider2.move(SLIDER_X, SLIDER3_Y);
 
-    gradeHistoryWidget.move(729,223);
     setConstantGrade();
 
     //Put the background behind the sliders
@@ -37,18 +30,50 @@ HeartRateScreen::~HeartRateScreen()
     delete ui;
 }
 
-void HeartRateScreen::setConstantGrade(){
-    ui->constantSelectedLabel->setVisible(true);
-    ui->dynamicSelectedLabel->setVisible(false);
+bool HeartRateScreen::event(QEvent *event)
+{
+    if(event->type() == POINTER_EVENT_TYPE){
+        PointerEvent* pointerEvent = (PointerEvent*)event;
 
-    gradeHistoryWidget.setHistory(CONSTANT_HISTORY);
+        if(pointerEvent->pointer == &speedSlider1 || pointerEvent->pointer == &speedSlider2){
+            updateHistory();
+        }
+    }
+
+    return AbstractMultiSliderScreen::event(event);
+}
+
+void HeartRateScreen::setConstantGrade(){
+
+    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Heart-Rate-Control---(Fixed).png")));
+
+    speedSlider2.hide();
+
+    ageSlider.move(SLIDER_X, SLIDER3_Y);
+    weightSlider.move(SLIDER_X, SLIDER4_Y);
+
+    updateHistory();
 }
 
 void HeartRateScreen::setDynamicGrade(){
-    ui->constantSelectedLabel->setVisible(false);
-    ui->dynamicSelectedLabel->setVisible(true);
+    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Heart-Rate-Control---(Dynamic).png")));
 
-    gradeHistoryWidget.setHistory(DYNAMIC_HISTORY);
+    speedSlider2.show();
+
+    ageSlider.move(SLIDER_X, SLIDER4_Y);
+    weightSlider.move(SLIDER_X, SLIDER5_Y);
+
+    updateHistory();
+}
+
+void HeartRateScreen::updateHistory()
+{
+    if(speedSlider2.isVisible()){
+        AbstractMultiSliderScreen::updateHistory(speedSlider1.value, speedSlider2.value);
+    }
+    else{
+        AbstractMultiSliderScreen::updateHistory(speedSlider1.value, speedSlider1.value);
+    }
 }
 
 void HeartRateScreen::on_invisibleButton_3_pressed()
@@ -64,9 +89,9 @@ void HeartRateScreen::on_invisibleButton_4_pressed()
 void HeartRateScreen::on_invisibleButton_6_pressed()
 {
     MainScreen* w = new MainScreen(0);
-     w->show();
+    w->show();
 
-     close();
+    close();
 }
 
 void HeartRateScreen::on_invisibleButton_5_pressed()

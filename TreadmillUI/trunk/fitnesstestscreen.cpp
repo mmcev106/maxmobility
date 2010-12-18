@@ -2,6 +2,7 @@
 #include "ui_fitnesstestscreen.h"
 
 #include "mainscreen.h"
+#include "userinfo.h"
 
 static int SLIDER_X = 13;
 
@@ -10,7 +11,7 @@ FitnessTestScreen::FitnessTestScreen(QWidget *parent) :
     ui(new Ui::FitnessTestScreen)
     ,weightSlider(this)
     ,ageSlider(this)
-    ,initialSpeedSlider(this, 5, 20)
+    ,initialSpeedSlider(this)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
@@ -19,6 +20,13 @@ FitnessTestScreen::FitnessTestScreen(QWidget *parent) :
     on_invisibleButton_fitness_pressed();
 
     ui->backgroundLabel->lower();
+
+    if(UserInfo::gender == MALE){
+        on_invisibleButton_maleRadio_pressed();
+    }
+    else{
+        on_invisibleButton_femaleRadio_pressed();
+    }
 }
 
 FitnessTestScreen::~FitnessTestScreen()
@@ -90,4 +98,22 @@ void FitnessTestScreen::on_invisibleButton_fitness_pressed()
 
     ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Fitness---Standard).png")));
     showTwoSliders();
+}
+
+void FitnessTestScreen::on_invisibleButton_femaleRadio_pressed()
+{
+    UserInfo::gender = FEMALE;
+
+    ui->femaleSelectedLabel->show();
+    ui->maleSelectedLabel->hide();
+}
+
+
+
+void FitnessTestScreen::on_invisibleButton_maleRadio_pressed()
+{
+    UserInfo::gender = MALE;
+
+    ui->maleSelectedLabel->show();
+    ui->femaleSelectedLabel->hide();
 }

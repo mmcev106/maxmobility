@@ -12,9 +12,9 @@ class HistoryWidget : public QWidget
 public:
     explicit HistoryWidget(QWidget *parent, int history[], int historyWidth, int historyHeight, QString brickImageUrl, QString highlightedBrickImageUrl);
     void setHistory(int*);
+    int *history;
 
 private:
-    int *history;
     int length;
     void paintEvent(QPaintEvent *);
 

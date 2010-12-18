@@ -2,16 +2,27 @@
 #include "ui_fatburnscreen.h"
 
 #include "mainscreen.h"
+#include "pointerevent.h"
+
+#include <QThread>
+#include <QMutex>
+#include <QWaitCondition>
 
 FatBurnScreen::FatBurnScreen(QWidget *parent) :
-    QWidget(parent),
+    AbstractMultiSliderScreen(parent),
     ui(new Ui::FatBurnScreen)
     ,timeSlider(this)
-    ,intensitySlider(this, 1, 100)
+    ,intensitySlider(this, 1, 25)
     ,weightSlider(this)
 {
     ui->setupUi(this);
-    setAttribute( Qt::WA_DeleteOnClose );
+
+    /*QMutex dummy;
+    dummy.lock();
+    QWaitCondition waitCondition;
+    waitCondition.wait(&dummy, 500);*/
+
+    historyWidget.move(HISTORY_X+1,HISTORY_Y+36);
 
     int x = 14;
     timeSlider.move(x,275);
@@ -19,6 +30,8 @@ FatBurnScreen::FatBurnScreen(QWidget *parent) :
     weightSlider.move(x,514);
 
     ui->backgroundLabel->lower();
+
+    updateHistory();
 }
 
 FatBurnScreen::~FatBurnScreen()
@@ -37,4 +50,37 @@ void FatBurnScreen::on_invisibleButton_6_pressed()
     w->show();
 
     close();
+}
+
+void FatBurnScreen::updateHistory(){
+
+    int midpoint = HISTORY_WIDTH/2;
+    int intensity = intensitySlider.value;
+
+    for(int i=0;i<midpoint;i++){
+        historyWidget.history[i] = intensity;
+        intensity++;
+    }
+
+    intensity--;
+
+    for(int i=midpoint;i<HISTORY_WIDTH;i++){
+        historyWidget.history[i] = intensity;
+        intensity--;
+    }
+
+    historyWidget.repaint();
+}
+
+bool FatBurnScreen::event(QEvent *event)
+{
+    if(event->type() == POINTER_EVENT_TYPE){
+        PointerEvent* pointerEvent = (PointerEvent*)event;
+
+        if(pointerEvent->pointer == &intensitySlider){
+            updateHistory();
+        }
+    }
+
+    return AbstractMultiSliderScreen::event(event);
 }

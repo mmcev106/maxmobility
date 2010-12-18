@@ -35,10 +35,10 @@
   <widget class="QPushButton" name="invisibleButton_5">
    <property name="geometry">
     <rect>
-     <x>760</x>
-     <y>660</y>
-     <width>131</width>
-     <height>51</height>
+     <x>920</x>
+     <y>40</y>
+     <width>71</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">
@@ -48,10 +48,10 @@
   <widget class="QPushButton" name="invisibleButton_6">
    <property name="geometry">
     <rect>
-     <x>740</x>
-     <y>570</y>
-     <width>171</width>
-     <height>81</height>
+     <x>730</x>
+     <y>640</y>
+     <width>181</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="text">
@@ -130,6 +130,64 @@
      <y>160</y>
      <width>191</width>
      <height>101</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="maleSelectedLabel">
+   <property name="geometry">
+    <rect>
+     <x>717</x>
+     <y>523</y>
+     <width>61</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="femaleSelectedLabel">
+   <property name="geometry">
+    <rect>
+     <x>849</x>
+     <y>523</y>
+     <width>61</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invisibleButton_femaleRadio">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>490</y>
+     <width>101</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invisibleButton_maleRadio">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>490</y>
+     <width>91</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="text">

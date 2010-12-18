@@ -6,18 +6,22 @@
 #include "timesliderwidget.h"
 #include "weightsliderwidget.h"
 #include "sliderwidget.h"
+#include "abstractmultisliderscreen.h"
 
 namespace Ui {
     class FatBurnScreen;
 }
 
-class FatBurnScreen : public QWidget
+class FatBurnScreen : public AbstractMultiSliderScreen
 {
     Q_OBJECT
 
 public:
     explicit FatBurnScreen(QWidget *parent = 0);
     ~FatBurnScreen();
+
+protected:
+    bool event(QEvent *event);
 
 private:
     Ui::FatBurnScreen *ui;
@@ -26,6 +30,7 @@ private:
     SliderWidget intensitySlider;
     WeightSliderWidget weightSlider;
 
+    void updateHistory();
 
 private slots:
     void on_invisibleButton_6_pressed();

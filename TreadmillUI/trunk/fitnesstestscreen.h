@@ -5,6 +5,7 @@
 #include <weightsliderwidget.h>
 #include "agesliderwidget.h"
 #include "timesliderwidget.h"
+#include "speedsliderwidget.h"
 #include <sliderwidget.h>
 
 namespace Ui {
@@ -24,12 +25,14 @@ private:
 
     WeightSliderWidget weightSlider;
     AgeSliderWidget ageSlider;
-    SliderWidget initialSpeedSlider;
+    SpeedSliderWidget initialSpeedSlider;
 
     void showTwoSliders();
     void showThreeSliders();
 
 private slots:
+    void on_invisibleButton_maleRadio_pressed();
+    void on_invisibleButton_femaleRadio_pressed();
     void on_invisibleButton_fitness_pressed();
     void on_invisibleButton_3_pressed();
     void on_invisibleButton_2_pressed();

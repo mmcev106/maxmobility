@@ -29,7 +29,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/fat_burn_background.png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/Fat-Burn---06---(Standard)-(with-Reflection).png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="invisibleButton_6">

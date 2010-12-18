@@ -5,12 +5,12 @@
 static int VERTICAL_PADDING = 1;
 static int HORIZONTAL_PADDING = 3;
 
-HistoryWidget::HistoryWidget(QWidget *parent, int history[], int historyWidth, int historyHeight, QString brickImageUrl, QString highlightedBrickImageUrl) :
+HistoryWidget::HistoryWidget(QWidget *parent,int history[], int historyWidth, int historyHeight, QString brickImageUrl, QString highlightedBrickImageUrl) :
     QWidget(parent)
     ,brickPixmap(brickImageUrl)
     ,highlightedBrickPixmap(highlightedBrickImageUrl)
 {
-    this->history = history;
+    setHistory(history);
     this->length = historyWidth;
 
     int width = (brickPixmap.width()+HORIZONTAL_PADDING)*historyWidth;

@@ -1,19 +1,20 @@
 #ifndef HEARTRATESCREEN_H
 #define HEARTRATESCREEN_H
 
-#include <QWidget>
+#include "abstractmultisliderscreen.h"
 
 #include "sliderwidget.h"
 #include "weightsliderwidget.h"
 #include "agesliderwidget.h"
 #include "timesliderwidget.h"
+#include "speedsliderwidget.h"
 #include "historywidget.h"
 
 namespace Ui {
     class HeartRateScreen;
 }
 
-class HeartRateScreen : public QWidget
+class HeartRateScreen : public AbstractMultiSliderScreen
 {
     Q_OBJECT
 
@@ -21,19 +22,20 @@ public:
     explicit HeartRateScreen(QWidget *parent = 0);
     ~HeartRateScreen();
 
+protected:
+    bool event(QEvent *event);
+
 private:
     Ui::HeartRateScreen *ui;
     WeightSliderWidget weightSlider;
     AgeSliderWidget ageSlider;
     TimeSliderWidget timeSlider;
-    SliderWidget lowSpeedSlider;
-    SliderWidget highSpeedSlider;
-
-    static const int HISTORY_LENGTH = 12;
-    HistoryWidget gradeHistoryWidget;
+    SpeedSliderWidget speedSlider1;
+    SpeedSliderWidget speedSlider2;
 
     void setConstantGrade();
     void setDynamicGrade();
+    void updateHistory();
 
 private slots:
     void on_invisibleButton_5_pressed();
