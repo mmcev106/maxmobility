@@ -9,8 +9,6 @@ INCLUDEPATH += .
 
 # Input
 HEADERS += startupwindow.h \
-    exercise_hills.h \
-    videotest.h \
     mainscreen.h \
     historywidget.h \
     heartratescreen.h \
@@ -19,16 +17,23 @@ HEADERS += startupwindow.h \
     weightsliderwidget.h \
     agesliderwidget.h \
     timesliderwidget.h \
-    fatburnscreen.h
+    fatburnscreen.h \
+    userinfo.h \
+    intervalscreen.h \
+    speedsliderwidget.h \
+    gradesliderwidget.h \
+    abstractscreen.h \
+    abstractmultisliderscreen.h \
+    pointerevent.h \
+    testwidget.h
 FORMS += startupwindow.ui \
-    exercise_hills.ui \
-    videotest.ui \
     mainscreen.ui \
     heartratescreen.ui \
     fitnesstestscreen.ui \
-    fatburnscreen.ui
+    fatburnscreen.ui \
+    intervalscreen.ui \
+    fooform.ui
 SOURCES += main.cpp startupwindow.cpp \
-    videotest.cpp \
     mainscreen.cpp \
     historywidget.cpp \
     heartratescreen.cpp \
@@ -37,7 +42,15 @@ SOURCES += main.cpp startupwindow.cpp \
     weightsliderwidget.cpp \
     agesliderwidget.cpp \
     timesliderwidget.cpp \
-    fatburnscreen.cpp
+    fatburnscreen.cpp \
+    userinfo.cpp \
+    intervalscreen.cpp \
+    speedsliderwidget.cpp \
+    gradesliderwidget.cpp \
+    abstractscreen.cpp \
+    abstractmultisliderscreen.cpp \
+    pointerevent.cpp \
+    testwidget.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \

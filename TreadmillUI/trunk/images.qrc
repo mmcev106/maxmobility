@@ -1,27 +1,25 @@
 <RCC>
     <qresource prefix="/images">
-        <file>images/stickman.png</file>
-        <file>images/usb button.png</file>
-        <file>images/question mark button.png</file>
-        <file>images/video_selector_image.png</file>
         <file>images/main_screen_background.png</file>
         <file>images/startup_screen_background.png</file>
         <file>images/main_screen_large_video_mask.png</file>
         <file>images/video_thumb_mask.png</file>
-        <file>images/heart_rate_background.png</file>
         <file>images/slider_left_arrow.png</file>
         <file>images/slider_right_arrow.png</file>
-        <file>images/slider_middle.png</file>
         <file>images/RadioButton_Selected.png</file>
         <file>images/big_brick.png</file>
         <file>images/big_brick_highlighted.png</file>
-        <file>images/stopwatch.png</file>
-        <file>images/fat_burn_background.png</file>
         <file>images/Fitness-Test---06---(Air-Force---Standard).png</file>
         <file>images/Fitness-Test---06---(Army---Standard).png</file>
         <file>images/Fitness-Test---06---(Fire-Fighter---Standard).png</file>
         <file>images/Fitness-Test---06---(Fitness---Standard).png</file>
         <file>images/Fitness-Test---06---(Marines---Standard).png</file>
         <file>images/Fitness-Test---06---(Navy---Standard).png</file>
+        <file>images/slider_both_arrows.png</file>
+        <file>images/Heart-Rate-Control---(Dynamic).png</file>
+        <file>images/Heart-Rate-Control---(Fixed).png</file>
+        <file>images/Interval---(Hills).png</file>
+        <file>images/Interval---(Sprints).png</file>
+        <file>images/Fat-Burn---06---(Standard)-(with-Reflection).png</file>
     </qresource>
 </RCC>

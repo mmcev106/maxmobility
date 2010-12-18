@@ -4,18 +4,25 @@
 #include <QMouseEvent>
 #include <QFont>
 
-static int NOT_VISIBLE = -9999;
+#include "pointerevent.h"
+#include <QApplication>
 
-static QPixmap *middlePixmap = 0;
+static int LEFT_ARROW_WIDTH = 38;
+static int SLIDER_MIDDLE_WIDTH = 93;
+static int RIGHT_ARROW_WIDTH = 38;
+
+static int HIDE_ARROW_THRESHOLD = 70;
+
+static QPixmap *bothArrowsPixmap = 0;
 static QPixmap *leftArrowPixmap = 0;
 static QPixmap *rightArrowPixmap = 0;
 
-static QPixmap* getMiddlePixmap(){
-    if(middlePixmap == 0){
-        middlePixmap = new QPixmap(":/images/images/slider_middle.png");
+static QPixmap* getBothArrowsPixmap(){
+    if(bothArrowsPixmap == 0){
+        bothArrowsPixmap = new QPixmap(":/images/images/slider_both_arrows.png");
     }
 
-    return middlePixmap;
+    return bothArrowsPixmap;
 }
 
 static QPixmap* getLeftArrowPixmap(){
@@ -46,18 +53,13 @@ SliderWidget::SliderWidget(QWidget *parent, int min, int max) :
     setFixedSize(540,57);
     show();
 
-    minXValue = getLeftArrowPixmap()->width();
-    maxXValue = width() - getRightArrowPixmap()->width() - getMiddlePixmap()->width();
+    minXValue = LEFT_ARROW_WIDTH;
+    maxXValue = width() - getRightArrowPixmap()->width();
     xRange = maxXValue - minXValue;
     range = max - min;
-    leftArrowPosition = NOT_VISIBLE;
-    rightArrowPosition = NOT_VISIBLE;
-
-    qDebug() << "test: " << max << "," << min << ",  " << range;
-    qDebug() << "range1: " << range;
 }
 
-int SliderWidget::getX(){
+int SliderWidget::getSliderMiddleX(){
 
     int disanceFromMin = value - min;
 //    qDebug() << "disanceFromMin: " << disanceFromMin;
@@ -70,39 +72,28 @@ int SliderWidget::getX(){
 
 void SliderWidget::paintEvent(QPaintEvent *){
 
-    qDebug() << "range1: " << range;
-
     QPainter painter (this);
 
-    int x = getX();
-    qDebug() << "x: " << x;
+    int sliderMiddleX = getSliderMiddleX();
 
-    painter.drawPixmap( x, 0, *getMiddlePixmap());
-
-    if( x > 70 ){
-        leftArrowPosition = x - getLeftArrowPixmap()->width();
-        painter.drawPixmap( leftArrowPosition, 0, *getLeftArrowPixmap());
+    if( sliderMiddleX < HIDE_ARROW_THRESHOLD ){
+        painter.drawPixmap( sliderMiddleX, 0, *getRightArrowPixmap());
+    }
+    else if ( sliderMiddleX + SLIDER_MIDDLE_WIDTH > width() - HIDE_ARROW_THRESHOLD ){
+        painter.drawPixmap( sliderMiddleX - LEFT_ARROW_WIDTH, 0, *getLeftArrowPixmap());
     }
     else{
-        leftArrowPosition = NOT_VISIBLE;
-    }
-
-    rightArrowPosition = x + getMiddlePixmap()->width();
-    if ( width() - rightArrowPosition > 70 ){
-        painter.drawPixmap( rightArrowPosition, 0, *getRightArrowPixmap());
-    }
-    else{
-        rightArrowPosition = NOT_VISIBLE;
+        painter.drawPixmap( sliderMiddleX - LEFT_ARROW_WIDTH, 0, *getBothArrowsPixmap());
     }
 
     painter.setFont(QFont("Tamworth Gothic", 18));
     QString text = QString("%1").arg(value);
     int textWidth = painter.fontMetrics().width(text);
 
-    int textX = x + getMiddlePixmap()->width()/2 -1;
+    int textX = sliderMiddleX + SLIDER_MIDDLE_WIDTH/2;
     textX -= textWidth/2;
 
-    painter.drawText(textX, 32, text);
+    painter.drawText(textX, 33, text);
 }
 
 void SliderWidget::setValue(int value){
@@ -128,44 +119,48 @@ void SliderWidget::setValueFromX(int x){
 //    qDebug() << "setting value: " << (int) (percent * range) + min;
 
     setValue((int) (percent * range) + min);
+
+    PointerEvent* event = new PointerEvent(this);
+    QApplication::postEvent(parent(), event);
 }
 
 void SliderWidget::mouseMoveEvent(QMouseEvent *event){
     setValueFromX(event->x() - touchDistanceFromX);
 }
 
-bool SliderWidget::isLeftArrowPressed(QMouseEvent * event){
-    return event->x() >= leftArrowPosition && event->x() < leftArrowPosition + leftArrowPixmap->width();
+bool SliderWidget::isLeftArrowPressed(QMouseEvent * event, int sliderMiddleX){
+    return event->x() >= sliderMiddleX-LEFT_ARROW_WIDTH && event->x() < sliderMiddleX;
 }
 
-bool SliderWidget::isRightArrowPressed(QMouseEvent * event){
-    return event->x() >= rightArrowPosition && event->x() < rightArrowPosition + rightArrowPixmap->width();
+bool SliderWidget::isRightArrowPressed(QMouseEvent * event, int sliderMiddleX){
+    int sliderRightEdge = sliderMiddleX + SLIDER_MIDDLE_WIDTH;
+    return event->x() >= sliderRightEdge && event->x() < sliderRightEdge+RIGHT_ARROW_WIDTH;
 }
 
-bool SliderWidget::isMiddlePressed(QMouseEvent * event){
-    int x = event->x();
-    return x > leftArrowPosition + leftArrowPixmap->width() && x < rightArrowPosition;
+bool SliderWidget::isMiddlePressed(QMouseEvent * event, int sliderMiddleX){
+    return  event->x() > sliderMiddleX &&  event->x() < sliderMiddleX+SLIDER_MIDDLE_WIDTH;
 }
 
 void SliderWidget::mousePressEvent(QMouseEvent * event){
-    qDebug() << "range1: " << range;
 
-    if(isLeftArrowPressed(event)){
+    int sliderMiddleX = getSliderMiddleX();
+
+    if(isLeftArrowPressed(event, sliderMiddleX)){
         setValue(value - 1);
     }
-    else if (isRightArrowPressed(event)){
+    else if (isRightArrowPressed(event, sliderMiddleX)){
         setValue(value + 1);
     }
-    else if (!isMiddlePressed(event)){
+    else if (!isMiddlePressed(event, sliderMiddleX)){
         //The user touched outside of the current slider position.  Move the slider.
 
         //adjust x so that the user's finger ends up in the middle of the slider
-        int x = event->x() - getMiddlePixmap()->width()/2;
+        int x = event->x() - SLIDER_MIDDLE_WIDTH/2;
 
         qDebug() << "Moving the slider to " << x;
 
         setValueFromX(x);
     }
 
-    touchDistanceFromX =  event->x() - getX();
+    touchDistanceFromX =  event->x() - getSliderMiddleX();
 }

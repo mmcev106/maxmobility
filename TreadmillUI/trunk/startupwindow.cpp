@@ -1,14 +1,18 @@
 #include "startupwindow.h"
 #include "ui_startupwindow.h"
+#include "testwidget.h"
 
 #include "mainscreen.h"
 #include "heartratescreen.h"
 #include "fitnesstestscreen.h"
 #include "fatburnscreen.h"
+#include "intervalscreen.h"
 #include <phonon/VideoWidget>
 #include <QBitmap>
 #include <QDir>
 #include <QCoreApplication>
+
+#include "testwidget.h"
 
 using namespace std;
 
@@ -105,13 +109,14 @@ void StartupWindow::on_invisibleButton_7_pressed()
 
 void StartupWindow::on_invisibleButton_8_pressed()
 {
-    showMainScreen("Interval Training");
+    (new IntervalScreen(0))->show();
 }
 
 void StartupWindow::on_invisibleButton_10_pressed()
 {
+
     FatBurnScreen* w = new FatBurnScreen(0);
-     w->show();
+    w->show();
 }
 
 void StartupWindow::on_invisibleButton_9_pressed()
