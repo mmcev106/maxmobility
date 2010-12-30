@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <phonon/VideoPlayer>
 #include "historywidget.h"
+#include "audiosettingswidget.h"
 #include <QKeyEvent>
 
 namespace Ui {
@@ -35,7 +36,10 @@ private:
 //    HistoryWidget speedHistoryWidget;
 //    HistoryWidget gradeHistoryWidget;
 
+    AudioSettingsWidget audioSettingsWidget;
+
 private slots:
+    void on_audioButton_invisibleButton_pressed();
     void on_videoThumbButton_invisibleButton_pressed();
     void updateDisplay();
 };

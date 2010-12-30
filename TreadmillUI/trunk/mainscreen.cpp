@@ -71,9 +71,10 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
     ,secondTimer(new QTimer)
     ,playTimer(new QTimer)
     ,elapsedTime(0)
-        ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
 //    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
 //    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
+    ,audioSettingsWidget(this)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
@@ -114,6 +115,10 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
         playTimer->setSingleShot(true);
         playTimer->start();
     }
+
+
+    audioSettingsWidget.move(140, 108);
+    audioSettingsWidget.setVisible(false);
 }
 
 MainScreen::~MainScreen()
@@ -215,4 +220,9 @@ void MainScreen::on_videoThumbButton_invisibleButton_pressed()
     qDebug() << "asdf";
     playVideo();
 
+}
+
+void MainScreen::on_audioButton_invisibleButton_pressed()
+{
+    audioSettingsWidget.setVisible(!audioSettingsWidget.isVisible());
 }

@@ -42,11 +42,13 @@ static QPixmap* getRightArrowPixmap(){
 }
 
 
-SliderWidget::SliderWidget(QWidget *parent, int min, int max) :
+SliderWidget::SliderWidget(QWidget *parent, double min, double max) :
     QWidget(parent)
 {
     this->min = min;
     this->max = max;
+
+    this->step = 1;
 
     this->value = min;
 

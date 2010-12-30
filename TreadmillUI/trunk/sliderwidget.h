@@ -8,16 +8,17 @@ class SliderWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SliderWidget(QWidget *parent = 0, int min=0, int max=0);
-    int value;
+    explicit SliderWidget(QWidget *parent = 0, double min=0, double max=0);
+    double value;
+    double step;
 
 protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent * event);
 
 private:
-    int min;
-    int max;
+    double min;
+    double max;
 
     int minXValue;
     int maxXValue;

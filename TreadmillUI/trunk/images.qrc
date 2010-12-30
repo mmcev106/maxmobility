@@ -21,5 +21,9 @@
         <file>images/Interval---(Hills).png</file>
         <file>images/Interval---(Sprints).png</file>
         <file>images/Fat-Burn---06---(Standard)-(with-Reflection).png</file>
+        <file>images/Audio Screen - (Feedback).png</file>
+        <file>images/Audio Screen - (FM).png</file>
+        <file>images/Audio Screen - (Line In).png</file>
+        <file>images/Audio Screen - (USB).png</file>
     </qresource>
 </RCC>
