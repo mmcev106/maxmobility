@@ -14,7 +14,8 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }</string>
+   <string notr="true">QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
+QWidget{font-family: Tamworth Gothic}</string>
   </property>
   <widget class="QLabel" name="backgroundLabel">
    <property name="geometry">
@@ -79,6 +80,120 @@
      <width>101</width>
      <height>81</height>
     </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invisibleButton_preset_1">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>463</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tamworth Gothic</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invisibleButton_preset_2">
+   <property name="geometry">
+    <rect>
+     <x>135</x>
+     <y>463</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tamworth Gothic</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invisibleButton_preset_3">
+   <property name="geometry">
+    <rect>
+     <x>262</x>
+     <y>463</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tamworth Gothic</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invisibleButton_preset_4">
+   <property name="geometry">
+    <rect>
+     <x>389</x>
+     <y>463</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tamworth Gothic</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invisibleButton_preset_5">
+   <property name="geometry">
+    <rect>
+     <x>516</x>
+     <y>463</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tamworth Gothic</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invisibleButton_preset_6">
+   <property name="geometry">
+    <rect>
+     <x>642</x>
+     <y>463</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tamworth Gothic</family>
+     <pointsize>16</pointsize>
+    </font>
    </property>
    <property name="text">
     <string/>

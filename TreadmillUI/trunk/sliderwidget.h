@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPixmap>
+#include <QDebug>
 
 class SliderWidget : public QWidget
 {
@@ -12,9 +13,17 @@ public:
     double value;
     double step;
 
+    void setValue(double);
+
 protected:
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent * event);
+
+    static const int DEFAULT_WIDTH = 540;
+    static const int DEFAULT_HEIGHT = 57;
+
+    void initialize();
+    virtual int fontSize();
 
 private:
     double min;
@@ -29,7 +38,6 @@ private:
 
     void paintEvent(QPaintEvent *);
     int getSliderMiddleX();
-    void setValue(int);
     void setValueFromX(int);
     bool isLeftArrowPressed(QMouseEvent*, int);
     bool isRightArrowPressed(QMouseEvent*, int);

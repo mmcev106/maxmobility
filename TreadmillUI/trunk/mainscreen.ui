@@ -356,7 +356,7 @@ QLabel{color: #42b4ff; }</string>
     </font>
    </property>
    <property name="text">
-    <string>(mins/mi)</string>
+    <string>(mins/km)</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -378,7 +378,7 @@ QLabel{color: #42b4ff; }</string>
     </font>
    </property>
    <property name="text">
-    <string>mph</string>
+    <string>km/h</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -387,7 +387,7 @@ QLabel{color: #42b4ff; }</string>
   <widget class="QLabel" name="distanceMetricLabel">
    <property name="geometry">
     <rect>
-     <x>711</x>
+     <x>713</x>
      <y>41</y>
      <width>61</width>
      <height>31</height>
@@ -400,7 +400,7 @@ QLabel{color: #42b4ff; }</string>
     </font>
    </property>
    <property name="text">
-    <string>mi</string>
+    <string>km</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

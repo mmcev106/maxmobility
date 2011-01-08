@@ -7,11 +7,11 @@
 #include "pointerevent.h"
 #include <QApplication>
 
-static int LEFT_ARROW_WIDTH = 38;
-static int SLIDER_MIDDLE_WIDTH = 93;
-static int RIGHT_ARROW_WIDTH = 38;
+static const int LEFT_ARROW_WIDTH = 38;
+static const int SLIDER_MIDDLE_WIDTH = 93;
+static const int RIGHT_ARROW_WIDTH = 38;
 
-static int HIDE_ARROW_THRESHOLD = 70;
+static const int HIDE_ARROW_THRESHOLD = 70;
 
 static QPixmap *bothArrowsPixmap = 0;
 static QPixmap *leftArrowPixmap = 0;
@@ -52,8 +52,12 @@ SliderWidget::SliderWidget(QWidget *parent, double min, double max) :
 
     this->value = min;
 
-    setFixedSize(540,57);
+    setFixedSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     show();
+    initialize();
+}
+
+void SliderWidget::initialize(){
 
     minXValue = LEFT_ARROW_WIDTH;
     maxXValue = width() - getRightArrowPixmap()->width();
@@ -63,11 +67,8 @@ SliderWidget::SliderWidget(QWidget *parent, double min, double max) :
 
 int SliderWidget::getSliderMiddleX(){
 
-    int disanceFromMin = value - min;
-//    qDebug() << "disanceFromMin: " << disanceFromMin;
-//    qDebug() << "range: " << range;
-    double percent = ((double)disanceFromMin)/range;
-//    qDebug() << "percent: " << percent;
+    double disanceFromMin = value - min;
+    double percent = (disanceFromMin)/range;
 
     return (int) (percent * xRange + minXValue );
 }
@@ -88,7 +89,7 @@ void SliderWidget::paintEvent(QPaintEvent *){
         painter.drawPixmap( sliderMiddleX - LEFT_ARROW_WIDTH, 0, *getBothArrowsPixmap());
     }
 
-    painter.setFont(QFont("Tamworth Gothic", 18));
+    painter.setFont(QFont("Tamworth Gothic", fontSize()));
     QString text = QString("%1").arg(value);
     int textWidth = painter.fontMetrics().width(text);
 
@@ -98,7 +99,21 @@ void SliderWidget::paintEvent(QPaintEvent *){
     painter.drawText(textX, 33, text);
 }
 
-void SliderWidget::setValue(int value){
+int SliderWidget::fontSize(){
+    return 18;
+}
+
+void SliderWidget::setValue(double value){
+
+    qDebug() << "attempted value: " << value;
+
+    double newValue = min;
+
+    while(newValue < value){
+        newValue += step;
+    }
+
+    value = newValue;
 
     if(value < min){
         value = min;
@@ -107,20 +122,23 @@ void SliderWidget::setValue(int value){
         value = max;
     }
 
+    qDebug() << "actual value: " << value;
+
     this->value = value;
     update();
 }
 
 void SliderWidget::setValueFromX(int x){
-//    qDebug() << "value from x x: " << x;
 
+    qDebug() << "x: " << x;
     int distanceFromMin = x - minXValue;
     double percent = ((double)distanceFromMin) / xRange;
 
-//    qDebug() << "percent: " << percent;
-//    qDebug() << "setting value: " << (int) (percent * range) + min;
+    double value = min + (percent * range);
 
-    setValue((int) (percent * range) + min);
+    qDebug() << "value: " << value;
+
+    setValue(value);
 
     PointerEvent* event = new PointerEvent(this);
     QApplication::postEvent(parent(), event);
@@ -135,8 +153,10 @@ bool SliderWidget::isLeftArrowPressed(QMouseEvent * event, int sliderMiddleX){
 }
 
 bool SliderWidget::isRightArrowPressed(QMouseEvent * event, int sliderMiddleX){
+    int x = event->x();
     int sliderRightEdge = sliderMiddleX + SLIDER_MIDDLE_WIDTH;
-    return event->x() >= sliderRightEdge && event->x() < sliderRightEdge+RIGHT_ARROW_WIDTH;
+    int rightArrowRightEdge = sliderRightEdge+RIGHT_ARROW_WIDTH;
+    return x >= sliderRightEdge && x < rightArrowRightEdge;
 }
 
 bool SliderWidget::isMiddlePressed(QMouseEvent * event, int sliderMiddleX){
@@ -148,10 +168,10 @@ void SliderWidget::mousePressEvent(QMouseEvent * event){
     int sliderMiddleX = getSliderMiddleX();
 
     if(isLeftArrowPressed(event, sliderMiddleX)){
-        setValue(value - 1);
+        setValue(value - step);
     }
     else if (isRightArrowPressed(event, sliderMiddleX)){
-        setValue(value + 1);
+        setValue(value + step);
     }
     else if (!isMiddlePressed(event, sliderMiddleX)){
         //The user touched outside of the current slider position.  Move the slider.

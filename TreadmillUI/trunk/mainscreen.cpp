@@ -6,6 +6,7 @@
 #include <phonon/MediaObject>
 #include <QBitmap>
 #include <QPainter>
+#include "preferences.h"
 
 static int HISTORY_HEIGHT =31;
 
@@ -78,6 +79,17 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
+
+    if(Preferences::measurementSystem == STANDARD){
+        ui->distanceMetricLabel->setText("mi");
+        ui->paceMetricLabel->setText("(mins/mi)");
+        ui->speedMetricLabel->setText("mph");
+    }
+    else {
+        ui->distanceMetricLabel->setText("km");
+        ui->paceMetricLabel->setText("(mins/km)");
+        ui->speedMetricLabel->setText("km/h");
+    }
 
     //Put the background behind the player
     ui->backgroundLabel->lower();

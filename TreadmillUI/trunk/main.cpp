@@ -8,8 +8,32 @@
 #include <Phonon>
 
 #include "startupwindow.h"
+#include "preferences.h"
 
 using namespace std;
+
+void loadPreferences(){
+    QFile file(Preferences::FILENAME);
+    if(file.exists()){
+        file.open(QFile::ReadOnly);
+
+        QDataStream stream(&file);
+
+        stream >> Preferences::measurementSystem;
+
+        file.close();
+    }
+}
+
+void savePreferences(){
+    QFile file(Preferences::FILENAME);
+    file.open(QFile::WriteOnly);
+    QDataStream stream(&file);
+
+    stream << Preferences::measurementSystem;
+
+    file.close();
+}
 
 int main(int argc, char *argv[])
 {
@@ -17,8 +41,14 @@ int main(int argc, char *argv[])
 
     QDir::setCurrent(QCoreApplication::applicationDirPath());
 
+    loadPreferences();
+
     StartupWindow w;
     w.show();
 
-    return a.exec();
+    a.exec();
+
+    savePreferences();
+
+    return 0;
 }

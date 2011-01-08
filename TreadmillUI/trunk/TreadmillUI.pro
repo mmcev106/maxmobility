@@ -18,7 +18,7 @@ HEADERS += startupwindow.h \
     agesliderwidget.h \
     timesliderwidget.h \
     fatburnscreen.h \
-    userinfo.h \
+    preferences.h \
     intervalscreen.h \
     speedsliderwidget.h \
     gradesliderwidget.h \
@@ -26,15 +26,17 @@ HEADERS += startupwindow.h \
     abstractmultisliderscreen.h \
     pointerevent.h \
     testwidget.h \
-    audiosettingswidget.h
+    audiosettingswidget.h \
+    radiosliderwidget.h \
+    keyboardwidget.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
     fitnesstestscreen.ui \
     fatburnscreen.ui \
     intervalscreen.ui \
-    fooform.ui \
-    audiosettingswidget.ui
+    audiosettingswidget.ui \
+    keyboardwidget.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -45,7 +47,7 @@ SOURCES += main.cpp startupwindow.cpp \
     agesliderwidget.cpp \
     timesliderwidget.cpp \
     fatburnscreen.cpp \
-    userinfo.cpp \
+    preferences.cpp \
     intervalscreen.cpp \
     speedsliderwidget.cpp \
     gradesliderwidget.cpp \
@@ -53,7 +55,9 @@ SOURCES += main.cpp startupwindow.cpp \
     abstractmultisliderscreen.cpp \
     pointerevent.cpp \
     testwidget.cpp \
-    audiosettingswidget.cpp
+    audiosettingswidget.cpp \
+    radiosliderwidget.cpp \
+    keyboardwidget.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \

@@ -2,7 +2,7 @@
 #include "ui_fitnesstestscreen.h"
 
 #include "mainscreen.h"
-#include "userinfo.h"
+#include "preferences.h"
 
 static int SLIDER_X = 13;
 
@@ -21,7 +21,7 @@ FitnessTestScreen::FitnessTestScreen(QWidget *parent) :
 
     ui->backgroundLabel->lower();
 
-    if(UserInfo::gender == MALE){
+    if(Preferences::gender == MALE){
         on_invisibleButton_maleRadio_pressed();
     }
     else{
@@ -102,7 +102,7 @@ void FitnessTestScreen::on_invisibleButton_fitness_pressed()
 
 void FitnessTestScreen::on_invisibleButton_femaleRadio_pressed()
 {
-    UserInfo::gender = FEMALE;
+    Preferences::gender = FEMALE;
 
     ui->femaleSelectedLabel->show();
     ui->maleSelectedLabel->hide();
@@ -112,7 +112,7 @@ void FitnessTestScreen::on_invisibleButton_femaleRadio_pressed()
 
 void FitnessTestScreen::on_invisibleButton_maleRadio_pressed()
 {
-    UserInfo::gender = MALE;
+    Preferences::gender = MALE;
 
     ui->maleSelectedLabel->show();
     ui->femaleSelectedLabel->hide();

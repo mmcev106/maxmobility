@@ -25,5 +25,6 @@
         <file>images/Audio Screen - (FM).png</file>
         <file>images/Audio Screen - (Line In).png</file>
         <file>images/Audio Screen - (USB).png</file>
+        <file>images/Keyboard Background.png</file>
     </qresource>
 </RCC>

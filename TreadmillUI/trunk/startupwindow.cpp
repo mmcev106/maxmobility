@@ -11,6 +11,8 @@
 #include <QBitmap>
 #include <QDir>
 #include <QCoreApplication>
+#include "preferences.h"
+#include <QMessageBox>
 
 #include "testwidget.h"
 
@@ -67,8 +69,20 @@ void StartupWindow::showMainScreen(QString action){
 }
 
 void QWidget::keyPressEvent(QKeyEvent* event){
-    if (event->key() == Qt::Key_Escape){
+    int key = event->key();
+
+    if (key == Qt::Key_Escape){
         close();
+    }
+    else if (key == Qt::Key_M){
+        if(Preferences::measurementSystem == STANDARD){
+            Preferences::measurementSystem = METRIC;
+            QMessageBox::about(this, "", "The measurement system has been changed to metric.");
+        }
+        else{
+            Preferences::measurementSystem = STANDARD;
+            QMessageBox::about(this, "", "The measurement system has been changed to standard.");
+        }
     }
 }
 
