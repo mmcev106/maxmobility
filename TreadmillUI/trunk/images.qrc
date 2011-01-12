@@ -26,5 +26,7 @@
         <file>images/Audio Screen - (Line In).png</file>
         <file>images/Audio Screen - (USB).png</file>
         <file>images/Keyboard Background.png</file>
+        <file>images/My Workouts.png</file>
+        <file>images/Name Workout (updated).png</file>
     </qresource>
 </RCC>

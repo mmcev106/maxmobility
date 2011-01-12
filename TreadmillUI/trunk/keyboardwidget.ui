@@ -17,7 +17,7 @@
    <string notr="true">QWidget{font-family: Tamworth Gothic}
 QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="backgroundLabel">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -33,7 +33,7 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }</string>
     <pixmap resource="images.qrc">:/images/images/Keyboard Background.png</pixmap>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="inputLabel">
    <property name="geometry">
     <rect>
      <x>171</x>
@@ -52,7 +52,53 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }</string>
     <string/>
    </property>
   </widget>
+  <widget class="InvisibleButton" name="invisibleButton_6" native="true">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>340</y>
+     <width>131</width>
+     <height>45</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="invisibleButton_7" native="true">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>340</y>
+     <width>391</width>
+     <height>45</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="invisibleButton_shift" native="true">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>340</y>
+     <width>131</width>
+     <height>45</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>InvisibleButton</class>
+   <extends>QWidget</extends>
+   <header>invisiblebutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

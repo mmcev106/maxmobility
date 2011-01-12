@@ -7,6 +7,7 @@
 #include "fitnesstestscreen.h"
 #include "fatburnscreen.h"
 #include "intervalscreen.h"
+#include "myworkoutsscreen.h"
 #include <phonon/VideoWidget>
 #include <QBitmap>
 #include <QDir>
@@ -146,7 +147,7 @@ void StartupWindow::on_invisibleButton_14_pressed()
 
 void StartupWindow::on_invisibleButton_11_pressed()
 {
-    showMainScreen("Workouts");
+    (new MyWorkoutsScreen())->show();
 }
 
 void StartupWindow::on_invisibleButton_12_pressed()

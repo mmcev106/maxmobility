@@ -18,16 +18,22 @@ public:
     ~KeyboardWidget();
 
 private:
-    static const int KEYS_START_X = 32;
-    static const int KEYS_START_Y = 76;
+    static const int KEYS_START_X = 30;
+    static const int KEYS_START_Y = 73;
 
-    static const int KEY_WIDTH = 60;
-    static const int KEY_HEIGHT = 60;
+    static const int KEY_WIDTH = 65;
+    static const int KEY_HEIGHT = 67;
     static const int KEYS_PER_ROW = 10;
 
     Ui::KeyboardWidget *ui;
-    QList<QPushButton> buttons;
-    void addKeyButton(char c );
+    QList<QPushButton*> buttons;
+    void addKeyButton(QString c );
+
+private slots:
+    void on_invisibleButton_shift_pressed();
+    void on_invisibleButton_7_pressed();
+    void on_invisibleButton_6_pressed();
+    void buttonPressed();
 
 };
 

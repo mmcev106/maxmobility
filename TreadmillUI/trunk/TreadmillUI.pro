@@ -28,7 +28,10 @@ HEADERS += startupwindow.h \
     testwidget.h \
     audiosettingswidget.h \
     radiosliderwidget.h \
-    keyboardwidget.h
+    keyboardwidget.h \
+    myworkoutsscreen.h \
+    newworkoutscreen.h \
+    invisiblebutton.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -36,7 +39,9 @@ FORMS += startupwindow.ui \
     fatburnscreen.ui \
     intervalscreen.ui \
     audiosettingswidget.ui \
-    keyboardwidget.ui
+    keyboardwidget.ui \
+    myworkoutsscreen.ui \
+    newworkoutscreen.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -57,7 +62,10 @@ SOURCES += main.cpp startupwindow.cpp \
     testwidget.cpp \
     audiosettingswidget.cpp \
     radiosliderwidget.cpp \
-    keyboardwidget.cpp
+    keyboardwidget.cpp \
+    myworkoutsscreen.cpp \
+    newworkoutscreen.cpp \
+    invisiblebutton.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \
