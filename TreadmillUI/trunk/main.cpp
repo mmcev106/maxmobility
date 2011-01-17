@@ -5,7 +5,6 @@
 #include <QTextStream>
 #include <QtDebug>
 #include <QDir>
-#include <Phonon>
 
 #include "startupwindow.h"
 #include "preferences.h"
