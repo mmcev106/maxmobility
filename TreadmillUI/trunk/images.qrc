@@ -29,4 +29,9 @@
         <file>images/My Workouts.png</file>
         <file>images/Name Workout (updated).png</file>
     </qresource>
+    <qresource prefix="/My Workouts">
+        <file>images/Down Arrow.png</file>
+        <file>images/My Workouts Title Bar.png</file>
+        <file>images/Up-Arrow.png</file>
+    </qresource>
 </RCC>

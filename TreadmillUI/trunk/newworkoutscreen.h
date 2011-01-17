@@ -20,6 +20,11 @@ public:
 private:
     Ui::NewWorkoutScreen *ui;
     KeyboardWidget keyboardWidget;
+
+private slots:
+    void on_invisibleButton_7_clicked();
+    void on_invisibleButton_6_pressed();
+    void on_invisibleButton_7_pressed();
 };
 
 #endif // NEWWORKOUTSCREEN_H

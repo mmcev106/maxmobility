@@ -16,6 +16,7 @@ class KeyboardWidget : public QWidget
 public:
     explicit KeyboardWidget(QWidget *parent = 0);
     ~KeyboardWidget();
+    QString text();
 
 private:
     static const int KEYS_START_X = 30;
@@ -31,8 +32,8 @@ private:
 
 private slots:
     void on_invisibleButton_shift_pressed();
-    void on_invisibleButton_7_pressed();
-    void on_invisibleButton_6_pressed();
+    void on_invisibleButton_space_pressed();
+    void on_invisibleButton_backspace_pressed();
     void buttonPressed();
 
 };

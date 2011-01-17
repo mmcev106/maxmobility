@@ -100,14 +100,14 @@ KeyboardWidget::~KeyboardWidget()
     delete ui;
 }
 
-void KeyboardWidget::on_invisibleButton_6_pressed()
+void KeyboardWidget::on_invisibleButton_backspace_pressed()
 {
     QLabel* inputLabel = ui->inputLabel;
     QString text = inputLabel->text();
     inputLabel->setText(text.left(text.length()-1));
 }
 
-void KeyboardWidget::on_invisibleButton_7_pressed()
+void KeyboardWidget::on_invisibleButton_space_pressed()
 {
     QLabel* inputLabel = ui->inputLabel;
     inputLabel->setText(inputLabel->text().append(' '));
@@ -117,4 +117,8 @@ void KeyboardWidget::on_invisibleButton_shift_pressed()
 {
     ui->invisibleButton_shift->setHighlighted(!ui->invisibleButton_shift->isHighlighted());
     update();
+}
+
+QString KeyboardWidget::text(){
+    return ui->inputLabel->text();
 }

@@ -52,7 +52,7 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }</string>
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_6" native="true">
+  <widget class="InvisibleButton" name="invisibleButton_backspace" native="true">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -65,7 +65,7 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }</string>
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_7" native="true">
+  <widget class="InvisibleButton" name="invisibleButton_space" native="true">
    <property name="geometry">
     <rect>
      <x>160</x>
