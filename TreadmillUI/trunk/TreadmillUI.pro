@@ -71,6 +71,6 @@ RESOURCES += images.qrc
 OTHER_FILES += \
     style.css
 
-QT += phonon
+#QT += phonon
 #LIBS += -lqwtd5
 #DEFINES += QWT_DLL

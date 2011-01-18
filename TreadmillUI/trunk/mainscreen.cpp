@@ -2,8 +2,8 @@
 #include "ui_mainscreen.h"
 #include <QStringBuilder>
 #include <QDateTime>
-#include <phonon/VideoWidget>
-#include <phonon/MediaObject>
+//#include <phonon/VideoWidget>
+//#include <phonon/MediaObject>
 #include <QBitmap>
 #include <QPainter>
 #include "preferences.h"
@@ -19,7 +19,7 @@ void zero(int array[], int length){
 
 static int *history;
 
-class VideoWrapper : public Phonon::VideoWidget
+/*class VideoWrapper : public Phonon::VideoWidget
 {
 
     const static int length = 31;
@@ -65,14 +65,14 @@ public:
 //        }
     }
 };
-
+*/
 MainScreen::MainScreen(QWidget *parent, QString action) :
     QWidget(parent)
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer)
     ,playTimer(new QTimer)
     ,elapsedTime(0)
-    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+//    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
 //    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
 //    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,audioSettingsWidget(this)
@@ -137,8 +137,8 @@ MainScreen::~MainScreen()
 {
     delete ui;
 
-    player->stop();
-    delete player;
+//    player->stop();
+//    delete player;
     delete secondTimer;
 }
 

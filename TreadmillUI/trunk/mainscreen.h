@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QTimer>
-#include <phonon/VideoPlayer>
+//#include <phonon/VideoPlayer>
 #include "historywidget.h"
 #include "audiosettingswidget.h"
 #include <QKeyEvent>
@@ -29,7 +29,7 @@ private:
     int elapsedTime;
     QTimer *secondTimer;
     QTimer *playTimer;
-    Phonon::VideoPlayer *player;
+//    Phonon::VideoPlayer *player;
     static const int HISTORY_LENGTH = 30;
 //    int speedHistory[HISTORY_LENGTH];
 //    int gradeHistory[HISTORY_LENGTH];

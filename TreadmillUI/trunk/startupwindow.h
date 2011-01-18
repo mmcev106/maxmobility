@@ -2,7 +2,7 @@
 #define STARTUPWINDOW_H
 
 #include <QWidget>
-#include <phonon/VideoPlayer>
+//#include <phonon/VideoPlayer>
 
 namespace Ui {
     class StartupWindow;
@@ -18,7 +18,7 @@ public:
 
 private:
     Ui::StartupWindow *ui;
-    Phonon::VideoPlayer *player;
+//    Phonon::VideoPlayer *player;
 
     void showMainScreen(QString action);
 

@@ -8,7 +8,7 @@
 #include "fatburnscreen.h"
 #include "intervalscreen.h"
 #include "myworkoutsscreen.h"
-#include <phonon/VideoWidget>
+//#include <phonon/VideoWidget>
 #include <QBitmap>
 #include <QDir>
 #include <QCoreApplication>
@@ -22,18 +22,18 @@ using namespace std;
 StartupWindow::StartupWindow(QWidget *parent) :
     QWidget(parent)
     ,ui(new Ui::StartupWindow)
-    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+//    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
 {
     ui->setupUi(this);
 
-    player->setFixedSize(240,189);
-    player->move(673,112);
+//    player->setFixedSize(240,189);
+//    player->move(673,112);
 //    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
 
 //    QPixmap pixmap(":/images/images/startup_screen_video_mask.png");
 //    player->setMask(pixmap.mask());
 
-    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("test video.avi");
+/*    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("test video.avi");
 
     player->setVolume(0);
     player->play(*mediaSource);
@@ -41,26 +41,25 @@ StartupWindow::StartupWindow(QWidget *parent) :
     player->show();
 
     connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
-
+*/
     //Put the background behind the player
-    QWidget *backgroundLabel = qFindChild<QWidget*>(this, "backgroundLabel");
-    backgroundLabel->lower();
+    ui->backgroundLabel->lower();
 
 //    showMainScreen("Video");
 }
 
 void StartupWindow::restartVideo(){
 
-    player->stop();
-    player->play();
+//    player->stop();
+//    player->play();
 }
 
 StartupWindow::~StartupWindow()
 {
     delete ui;
 
-    player->stop();
-    delete player;
+//    player->stop();
+//    delete player;
 }
 
 void StartupWindow::showMainScreen(QString action){
