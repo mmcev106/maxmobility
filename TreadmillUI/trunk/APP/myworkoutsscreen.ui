@@ -78,32 +78,32 @@ QWidget{font-family: Tamworth Gothic}</string>
     <pixmap resource="images.qrc">:/My Workouts/images/Up-Arrow.png</pixmap>
    </property>
   </widget>
-  <widget class="QScrollArea" name="scrollArea">
+  <widget class="QScrollArea" name="scrollArea" native="true">
    <property name="geometry">
     <rect>
-     <x>288</x>
+     <x>303</x>
      <y>330</y>
-     <width>456</width>
-     <height>351</height>
+     <width>420</width>
+     <height>364</height>
     </rect>
    </property>
    <property name="autoFillBackground">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: black;
+    <string notr="true">background: rgba(255,255,255,0);
 border: none;</string>
    </property>
-   <property name="widgetResizable">
+   <property name="widgetResizable" stdset="0">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents">
+   <widget class="QWidget" name="scrollAreaWidgetContents" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>456</width>
-      <height>351</height>
+      <width>420</width>
+      <height>296</height>
      </rect>
     </property>
    </widget>
@@ -131,6 +131,19 @@ border: none;</string>
     </rect>
    </property>
    <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="invisibleButton_7">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>40</y>
+     <width>71</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
     <string/>
    </property>
   </widget>

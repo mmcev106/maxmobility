@@ -9,10 +9,14 @@ NewWorkoutScreen::NewWorkoutScreen(QWidget *parent) :
     AbstractScreen(parent),
     ui(new Ui::NewWorkoutScreen)
     ,keyboardWidget(this)
+    ,speedSlider(this)
+    ,gradeSlider(this)
 {
     ui->setupUi(this);
 
     keyboardWidget.move(157,148);
+    speedSlider.move(122, 585);
+    gradeSlider.move(122, 677);
 
     ui->backgroundLabel->lower();
 }
@@ -31,21 +35,24 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
 {
     QDir::current().mkdir(WORKOUTS);
 
-    QString filename(WORKOUTS + "/" + keyboardWidget.text());
-    QFile* workout = new QFile(filename);
+    if( keyboardWidget.text().length() > 0){
 
-    while(workout->exists()){
+        QString filename(WORKOUTS + "/" + keyboardWidget.text());
+        QFile* workout = new QFile(filename);
+
+        while(workout->exists()){
+            delete workout;
+            filename = filename.append(" (2)");
+            workout = new QFile(filename);
+        }
+
+        workout->open(QFile::ReadWrite);
+        workout->close();
         delete workout;
-        filename = filename.append(" (2)");
-        workout = new QFile(filename);
+
+        (new MainScreen())->show();
+        close();
     }
-
-    workout->open(QFile::ReadWrite);
-    workout->close();
-    delete workout;
-
-    (new MainScreen())->show();
-    close();
 }
 
 void NewWorkoutScreen::on_invisibleButton_7_clicked()

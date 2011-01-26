@@ -4,6 +4,8 @@
 #include <QWidget>
 #include "abstractscreen.h"
 #include "keyboardwidget.h"
+#include "gradesliderwidget.h"
+#include "speedsliderwidget.h"
 
 namespace Ui {
     class NewWorkoutScreen;
@@ -20,6 +22,8 @@ public:
 private:
     Ui::NewWorkoutScreen *ui;
     KeyboardWidget keyboardWidget;
+    SpeedSliderWidget speedSlider;
+    GradeSliderWidget gradeSlider;
 
 private slots:
     void on_invisibleButton_7_clicked();

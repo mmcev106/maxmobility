@@ -11,8 +11,6 @@ public:
     bool isHighlighted();
     void setHighlighted(bool highlight);
 
-    void setBackgroundPixmap(QPixmap*);
-
     bool highlightOnPress;
 
 
@@ -24,7 +22,9 @@ private:
     bool currentlyPressed;
     bool highlighted;
     void paintEvent(QPaintEvent *);
-    QPixmap* backgroundPixmap;
+
+public:
+    void setVisible(bool);
 
 private slots:
     void pressed();

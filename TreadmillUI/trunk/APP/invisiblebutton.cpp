@@ -6,7 +6,6 @@ InvisibleButton::InvisibleButton(QWidget *parent) :
     QPushButton(parent)
     ,currentlyPressed(false)
     ,highlighted(false)
-    ,backgroundPixmap(NULL)
     ,highlightOnPress(true)
 {
     setStyleSheet("border: none;");
@@ -35,12 +34,16 @@ void InvisibleButton::setHighlighted(bool highlighted){
    update();
 }
 
-void InvisibleButton::paintEvent(QPaintEvent * event){
+void InvisibleButton::setVisible(bool visible){
+    QPushButton::setVisible(visible);
 
-    if(backgroundPixmap != NULL){
-        QPainter qpainter (this);
-        qpainter.drawPixmap(0,0, *backgroundPixmap);
+    if(visible == false){
+        currentlyPressed = false;
     }
+}
+
+
+void InvisibleButton::paintEvent(QPaintEvent * event){
 
     QPushButton::paintEvent(event);
 
@@ -53,10 +56,4 @@ void InvisibleButton::paintEvent(QPaintEvent * event){
 
         qpainter.fillPath(roundedRectPath, HIGHLIGHT_BLUE);
     }
-}
-
-
-void InvisibleButton::setBackgroundPixmap(QPixmap* backgroundPixmap){
-    this->backgroundPixmap = backgroundPixmap;
-    setFixedSize(backgroundPixmap->size());
 }
