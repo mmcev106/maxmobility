@@ -31,7 +31,8 @@ HEADERS += startupwindow.h \
     keyboardwidget.h \
     myworkoutsscreen.h \
     newworkoutscreen.h \
-    invisiblebutton.h
+    invisiblebutton.h \
+    scrollarea.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -65,7 +66,8 @@ SOURCES += main.cpp startupwindow.cpp \
     keyboardwidget.cpp \
     myworkoutsscreen.cpp \
     newworkoutscreen.cpp \
-    invisiblebutton.cpp
+    invisiblebutton.cpp \
+    scrollarea.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \
