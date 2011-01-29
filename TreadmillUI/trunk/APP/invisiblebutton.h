@@ -13,6 +13,8 @@ public:
 
     bool highlightOnPress;
 
+    void setBackgroundPixmap(QPixmap*);
+
 
 signals:
 
@@ -22,6 +24,7 @@ private:
     bool currentlyPressed;
     bool highlighted;
     void paintEvent(QPaintEvent *);
+    QPixmap* backgroundPixmap;
 
 public:
     void setVisible(bool);

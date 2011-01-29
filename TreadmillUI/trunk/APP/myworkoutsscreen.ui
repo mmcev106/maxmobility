@@ -78,12 +78,12 @@ QWidget{font-family: Tamworth Gothic}</string>
     <pixmap resource="images.qrc">:/My Workouts/images/Up-Arrow.png</pixmap>
    </property>
   </widget>
-  <widget class="QScrollArea" name="scrollArea" native="true">
+  <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>303</x>
+     <x>222</x>
      <y>330</y>
-     <width>420</width>
+     <width>501</width>
      <height>364</height>
     </rect>
    </property>
@@ -94,16 +94,16 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string notr="true">background: rgba(255,255,255,0);
 border: none;</string>
    </property>
-   <property name="widgetResizable" stdset="0">
+   <property name="widgetResizable">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents" native="true">
+   <widget class="QWidget" name="scrollAreaWidgetContents">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>420</width>
-      <height>296</height>
+      <width>501</width>
+      <height>364</height>
      </rect>
     </property>
    </widget>

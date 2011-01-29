@@ -19,6 +19,7 @@ public:
 private:
     Ui::MyWorkoutsScreen *ui;
     QPixmap workoutListItemBackground;
+    QPixmap xPixmap;
     void updateArrowVisibility();
     void setUpArrowVisibility(bool);
     void setDownArrowVisibility(bool);
@@ -30,6 +31,7 @@ private slots:
     void on_invisibleButton_upArrowButton_pressed();
     void on_invisibleButton_6_pressed();
     void workoutSelected();
+    void deleteWorkout();
 };
 
 #endif // MYWORKOUTSSCREEN_H

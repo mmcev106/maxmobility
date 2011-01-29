@@ -16,12 +16,14 @@ MyWorkoutsScreen::MyWorkoutsScreen(QWidget *parent) :
     AbstractScreen(parent),
     ui(new Ui::MyWorkoutsScreen)
     ,workoutListItemBackground(":/My Workouts/images/My Workouts Title Bar.png")
+    ,xPixmap(":/My Workouts/images/My Workouts - 'x'.png")
 {
     ui->setupUi(this);
 
     QDir workoutsDir(WORKOUTS);
 
     QStringList children = workoutsDir.entryList(QDir::Files, QDir::Name);
+
 
     QWidget * scollAreaContents = new QWidget(ui->scrollArea);
 
@@ -37,20 +39,36 @@ MyWorkoutsScreen::MyWorkoutsScreen(QWidget *parent) :
         qDebug() << workout << endl;
 
         QWidget* listItem = new QWidget(scollAreaContents);
-        listItem->setFixedSize(workoutListItemBackground.size());
+        QHBoxLayout* listItemLayout = new QHBoxLayout;
+        listItemLayout->setMargin(0);
+        listItem->setLayout(listItemLayout);
+        layout->addWidget(listItem);
 
-        QLabel* background = new QLabel(listItem);
+        InvisibleButton* deleteLabel = new InvisibleButton(listItem);
+        deleteLabel->setAccessibleName(workout);
+        deleteLabel->setBackgroundPixmap(&xPixmap);
+        deleteLabel->setFixedHeight(deleteLabel->height()+10);
+        listItemLayout->addWidget(deleteLabel, Qt::AlignVCenter);
+        connect( deleteLabel, SIGNAL(pressed()), this, SLOT(deleteWorkout()) );
+
+        QWidget* spacer = new QWidget(listItem);
+        spacer->setFixedSize(25, 1);
+        listItemLayout->addWidget(spacer);
+
+        QWidget* workoutButton = new QWidget(listItem);
+        workoutButton->setFixedSize(workoutListItemBackground.size());
+        listItemLayout->addWidget(workoutButton, Qt::AlignVCenter);
+
+        QLabel* background = new QLabel(workoutButton);
         background->setPixmap(workoutListItemBackground);
         background->setFixedSize(workoutListItemBackground.size());
 
-        InvisibleButton* button = new InvisibleButton(listItem);
+        InvisibleButton* button = new InvisibleButton(workoutButton);
         button->highlightOnPress = false;
         button->setText(workout);
         button->setStyleSheet("font-size: 20px");
         button->setFixedSize(workoutListItemBackground.size());
         connect( button, SIGNAL(pressed()), this, SLOT(workoutSelected()) );
-
-        layout->addWidget(listItem, Qt::AlignVCenter);
     }
 
     scollAreaContents->adjustSize();
@@ -79,6 +97,22 @@ MyWorkoutsScreen::~MyWorkoutsScreen()
 void MyWorkoutsScreen::workoutSelected(){
     (new MainScreen)->show();
     close();
+}
+
+void MyWorkoutsScreen::deleteWorkout(){
+    InvisibleButton* button = (InvisibleButton*)sender();
+    QString workoutName = button->accessibleName();
+
+    QFile file(WORKOUTS + "/" + workoutName);
+    file.remove();
+
+    QWidget* listItem = button->parentWidget();
+    listItem->setParent(NULL);
+
+    QWidget* scrollAreaContents = ui->scrollArea->widget();
+
+    scrollAreaContents->layout()->removeWidget(listItem);
+    updateArrowVisibility();
 }
 
 void MyWorkoutsScreen::on_invisibleButton_6_pressed()
