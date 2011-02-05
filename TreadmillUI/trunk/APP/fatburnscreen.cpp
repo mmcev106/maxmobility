@@ -47,7 +47,7 @@ void FatBurnScreen::on_invisibleButton_7_pressed()
 void FatBurnScreen::on_invisibleButton_6_pressed()
 {
     MainScreen* w = new MainScreen(0);
-    w->show();
+    w->showFullScreen();
 
     close();
 }

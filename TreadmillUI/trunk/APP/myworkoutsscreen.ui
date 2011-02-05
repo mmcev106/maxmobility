@@ -81,9 +81,9 @@ QWidget{font-family: Tamworth Gothic}</string>
   <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>222</x>
+     <x>217</x>
      <y>330</y>
-     <width>501</width>
+     <width>506</width>
      <height>364</height>
     </rect>
    </property>
@@ -102,7 +102,7 @@ border: none;</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>501</width>
+      <width>506</width>
       <height>364</height>
      </rect>
     </property>

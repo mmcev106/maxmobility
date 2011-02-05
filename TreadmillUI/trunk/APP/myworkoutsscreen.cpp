@@ -95,7 +95,7 @@ MyWorkoutsScreen::~MyWorkoutsScreen()
 }
 
 void MyWorkoutsScreen::workoutSelected(){
-    (new MainScreen)->show();
+    (new MainScreen)->showFullScreen();
     close();
 }
 
@@ -117,7 +117,7 @@ void MyWorkoutsScreen::deleteWorkout(){
 
 void MyWorkoutsScreen::on_invisibleButton_6_pressed()
 {
-    (new NewWorkoutScreen())->show();
+    (new NewWorkoutScreen())->showFullScreen();
     close();
 }
 

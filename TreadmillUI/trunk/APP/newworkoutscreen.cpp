@@ -50,7 +50,7 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
         workout->close();
         delete workout;
 
-        (new MainScreen())->show();
+        (new MainScreen())->showFullScreen();
         close();
     }
 }

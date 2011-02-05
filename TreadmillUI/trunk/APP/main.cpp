@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
     loadPreferences();
 
     StartupWindow w;
-    w.show();
+    w.showFullScreen();
 
     a.exec();
 

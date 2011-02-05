@@ -42,7 +42,7 @@ void FitnessTestScreen::on_invisibleButton_5_pressed()
 void FitnessTestScreen::on_invisibleButton_6_pressed()
 {
     MainScreen* w = new MainScreen(0);
-    w->show();
+    w->showFullScreen();
 
     close();
 }

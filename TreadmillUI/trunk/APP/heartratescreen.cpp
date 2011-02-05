@@ -89,7 +89,7 @@ void HeartRateScreen::on_invisibleButton_4_pressed()
 void HeartRateScreen::on_invisibleButton_6_pressed()
 {
     MainScreen* w = new MainScreen(0);
-    w->show();
+    w->showFullScreen();
 
     close();
 }

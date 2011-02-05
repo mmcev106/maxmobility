@@ -96,6 +96,6 @@ void IntervalScreen::on_invisibleButton_hills_2_pressed()
 
 void IntervalScreen::on_invisibleButton_hills_3_pressed()
 {
-    (new MainScreen(0))->show();
+    (new MainScreen(0))->showFullScreen();
     close();
 }
