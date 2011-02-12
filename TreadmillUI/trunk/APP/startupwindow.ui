@@ -18,7 +18,8 @@
 QWidget[objectName|=&quot;quickStart&quot;]{font-size: 14pt; }
 QWidget[objectName|=&quot;exerciseButton&quot;]{font-size: 18pt; }
 QWidget[objectName|=&quot;headerLabel&quot;]{font-size: 30pt; }
-QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }</string>
+QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
+</string>
   </property>
   <widget class="QLabel" name="backgroundLabel">
    <property name="geometry">

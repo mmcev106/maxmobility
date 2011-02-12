@@ -6,7 +6,7 @@
 #include <QtDebug>
 #include <QDir>
 
-#include "qextserialport.h"
+//#include "qextserialport.h"
 #include "startupwindow.h"
 #include "preferences.h"
 
