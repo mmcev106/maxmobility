@@ -2,13 +2,14 @@
 #define STARTUPWINDOW_H
 
 #include <QWidget>
+#include "abstractscreen.h"
 //#include <phonon/VideoPlayer>
 
 namespace Ui {
     class StartupWindow;
 }
 
-class StartupWindow : public QWidget
+class StartupWindow : public AbstractScreen
 {
     Q_OBJECT
 

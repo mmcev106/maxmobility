@@ -1,7 +1,7 @@
 #ifndef FITNESSTESTSCREEN_H
 #define FITNESSTESTSCREEN_H
 
-#include <QWidget>
+#include "abstractscreen.h"
 #include <weightsliderwidget.h>
 #include "agesliderwidget.h"
 #include "timesliderwidget.h"
@@ -12,7 +12,7 @@ namespace Ui {
     class FitnessTestScreen;
 }
 
-class FitnessTestScreen : public QWidget
+class FitnessTestScreen : public AbstractScreen
 {
     Q_OBJECT
 

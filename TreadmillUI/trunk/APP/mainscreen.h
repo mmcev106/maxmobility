@@ -1,7 +1,7 @@
 #ifndef MAINSCREEN_H
 #define MAINSCREEN_H
 
-#include <QWidget>
+#include "abstractscreen.h"
 #include <QTimer>
 //#include <phonon/VideoPlayer>
 #include "historywidget.h"
@@ -12,7 +12,7 @@ namespace Ui {
     class MainScreen;
 }
 
-class MainScreen : public QWidget
+class MainScreen : public AbstractScreen
 {
     Q_OBJECT
 

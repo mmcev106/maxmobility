@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QDir::setCurrent(QCoreApplication::applicationDirPath());
-    a.setStyleSheet(" QWidget:hover { background-color: orange } ");
+//    a.setStyleSheet(" QWidget:hover { background-color: orange } ");
 
     /*QDeclarativeView view;
         view.setSource(QUrl("/redmouse.qml"));
@@ -57,8 +57,8 @@ int main(int argc, char *argv[])
 
 //    Preferences::initializeSerialPort();
 
-    StartupWindow w;
-    w.showFullScreen();
+    StartupWindow* w = new StartupWindow();
+    w->showFullScreen();
 
     a.exec();
 

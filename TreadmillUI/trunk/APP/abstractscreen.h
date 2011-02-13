@@ -2,6 +2,8 @@
 #define ABSTRACTSCREEN_H
 
 #include <QWidget>
+#include <QTimer>
+#include <QLabel>
 
 class AbstractScreen : public QWidget
 {
@@ -10,9 +12,16 @@ class AbstractScreen : public QWidget
 public:
     explicit AbstractScreen(QWidget *parent = 0);
 
+private:
+    QTimer* mouseTimer;
+    QLabel mouseLabel;
+
+
 signals:
 
 public slots:
+    void surroundCursor();
+
 
 };
 

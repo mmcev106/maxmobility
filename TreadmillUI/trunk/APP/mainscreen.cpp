@@ -67,7 +67,7 @@ public:
 };
 */
 MainScreen::MainScreen(QWidget *parent, QString action) :
-    QWidget(parent)
+    AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer)
     ,playTimer(new QTimer)

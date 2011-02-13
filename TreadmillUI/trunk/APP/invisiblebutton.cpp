@@ -1,6 +1,7 @@
 #include "invisiblebutton.h"
 #include <QPainter>
 #include "preferences.h"
+#include <QDebug>
 
 InvisibleButton::InvisibleButton(QWidget *parent) :
     QPushButton(parent)
@@ -13,7 +14,6 @@ InvisibleButton::InvisibleButton(QWidget *parent) :
 
     connect( this, SIGNAL(pressed()), this, SLOT(pressed() ));
     connect( this, SIGNAL(released()), this, SLOT(released() ));
-
 }
 
 void InvisibleButton::pressed(){

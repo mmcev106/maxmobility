@@ -2,6 +2,7 @@
 #define INVISIBLEBUTTON_H
 
 #include <QPushButton>
+#include <QMouseEvent>
 
 class InvisibleButton : public QPushButton
 {

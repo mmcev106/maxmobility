@@ -20,7 +20,7 @@
 using namespace std;
 
 StartupWindow::StartupWindow(QWidget *parent) :
-    QWidget(parent)
+    AbstractScreen(parent)
     ,ui(new Ui::StartupWindow)
 //    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
 {

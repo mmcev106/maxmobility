@@ -7,7 +7,7 @@
 static int SLIDER_X = 13;
 
 FitnessTestScreen::FitnessTestScreen(QWidget *parent) :
-    QWidget(parent),
+    AbstractScreen(parent),
     ui(new Ui::FitnessTestScreen)
     ,weightSlider(this)
     ,ageSlider(this)
