@@ -2,6 +2,7 @@
 #include "ui_keyboardwidget.h"
 #include <QDebug>
 #include <QPainter>
+
 #include "invisiblebutton.h"
 
 KeyboardWidget::KeyboardWidget(QWidget *parent) :
