@@ -7,8 +7,10 @@
 #include <QBitmap>
 #include <QPainter>
 #include "preferences.h"
+#include <QDir>
 
 static int HISTORY_HEIGHT =31;
+static QString RUNNING_DUDE_IMAGE_PATH ="/images/Running Dude";
 
 void zero(int array[], int length){
 
@@ -70,8 +72,12 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
     AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer)
+    ,milliSecondTimer(new QTimer)
     ,playTimer(new QTimer)
     ,elapsedTime(0)
+    ,elapsedTimeMillis(0)
+    ,trackWidget(new QLabel(this))
+    ,runningDudeWidget(new QLabel(this))
 //    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
 //    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
 //    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
@@ -105,6 +111,11 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
     secondTimer->setInterval(1000);
     secondTimer->start();
 
+    connect(milliSecondTimer, SIGNAL(timeout()), this, SLOT( updateRunningDudeImage()));
+    milliSecondTimer->setSingleShot(false);
+    milliSecondTimer->setInterval(10);
+    milliSecondTimer->start();
+
 //    update the fields before the windows is initially displayed
     updateDisplay();
 
@@ -128,9 +139,21 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
         playTimer->start();
     }
 
-
     audioSettingsWidget.move(140, 108);
     audioSettingsWidget.setVisible(false);
+
+
+    QPixmap trackBitmap(RUNNING_DUDE_IMAGE_PATH + "/Track_Background.png");
+    trackWidget->setFixedSize(trackBitmap.size());
+    trackWidget->move(139, 107);
+    trackWidget->setPixmap(trackBitmap);
+    trackWidget->show();
+
+    runningDudeWidget->show();
+    runningDudeWidget->move(139, 107);
+    runningDudeWidget->setFixedSize(trackBitmap.size());
+
+
 }
 
 MainScreen::~MainScreen()
@@ -225,6 +248,43 @@ void MainScreen::updateDisplay(){
 //    gradeHistoryWidget.update();
 
     elapsedTime++;
+}
+
+void MainScreen::updateRunningDudeImage(){
+
+       long distanceTraveled = elapsedTimeMillis;
+       long speed = distanceTraveled/10;
+       int trackLength = 30000;
+       double dudePosition = distanceTraveled%trackLength;
+       double percentageAroundTrack = dudePosition/trackLength;
+
+       QString type;
+       int imageCount;
+
+//       if(speed < 6){
+            type= "Walk";
+            imageCount = 149;
+//       }
+//       else if (speed < 9){
+//           type = "Jog";
+//           imageCount = 99;
+//       }
+//       else {
+//           type = "Run";
+//           imageCount = 49;
+//       }
+
+       qDebug() << "% around track: " << percentageAroundTrack;
+       double imageNumberDouble = percentageAroundTrack*imageCount + 1;
+       qDebug() << "image # double: " << imageNumberDouble;
+       int imageNumber = imageNumberDouble;
+
+       QString imagePath = RUNNING_DUDE_IMAGE_PATH + "/" + type + "/" + type + QString("%1").arg(imageNumber) + ".png";
+       qDebug() << "image path: " + imagePath;
+       QPixmap runningDudePixmap(imagePath);
+       runningDudeWidget->setPixmap(runningDudePixmap);
+
+       elapsedTimeMillis+=10;
 }
 
 void MainScreen::on_videoThumbButton_invisibleButton_pressed()

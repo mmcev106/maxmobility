@@ -7,6 +7,7 @@
 #include <QThread>
 #include <QMutex>
 #include <QWaitCondition>
+#include "screens.h"
 
 FatBurnScreen::FatBurnScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent),
@@ -46,8 +47,7 @@ void FatBurnScreen::on_invisibleButton_7_pressed()
 
 void FatBurnScreen::on_invisibleButton_6_pressed()
 {
-    MainScreen* w = new MainScreen(0);
-    w->showFullScreen();
+    Screens::show( new MainScreen(0) );
 
     close();
 }

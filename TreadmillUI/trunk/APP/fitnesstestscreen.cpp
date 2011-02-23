@@ -3,6 +3,7 @@
 
 #include "mainscreen.h"
 #include "preferences.h"
+#include "screens.h"
 
 static int SLIDER_X = 13;
 
@@ -41,8 +42,7 @@ void FitnessTestScreen::on_invisibleButton_5_pressed()
 
 void FitnessTestScreen::on_invisibleButton_6_pressed()
 {
-    MainScreen* w = new MainScreen(0);
-    w->showFullScreen();
+    Screens::show(new MainScreen(0));
 
     close();
 }

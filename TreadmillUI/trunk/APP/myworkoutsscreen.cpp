@@ -4,6 +4,7 @@
 #include "preferences.h"
 #include "invisiblebutton.h"
 #include "mainscreen.h"
+#include "screens.h"
 
 #include <QDir>
 #include <QDebug>
@@ -95,7 +96,7 @@ MyWorkoutsScreen::~MyWorkoutsScreen()
 }
 
 void MyWorkoutsScreen::workoutSelected(){
-    (new MainScreen)->showFullScreen();
+    Screens::show(new MainScreen);
     close();
 }
 
@@ -117,7 +118,7 @@ void MyWorkoutsScreen::deleteWorkout(){
 
 void MyWorkoutsScreen::on_invisibleButton_6_pressed()
 {
-    (new NewWorkoutScreen())->showFullScreen();
+    Screens::show(new NewWorkoutScreen());
     close();
 }
 

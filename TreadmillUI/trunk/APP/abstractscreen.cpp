@@ -1,6 +1,7 @@
 #include "abstractscreen.h"
 #include <QDebug>
 #include <QMouseEvent>
+#include "screens.h"
 
 AbstractScreen::AbstractScreen(QWidget *parent) :
     QWidget(parent)
@@ -25,4 +26,12 @@ void AbstractScreen::surroundCursor(){
     int y = QCursor::pos().y()+1 ;
     mouseLabel.move(x, y);
     mouseLabel.raise();
+}
+
+void QWidget::mouseMoveEvent( QMouseEvent * event ){
+    Screens::allowScreenShows = FALSE;
+}
+
+void QWidget::mouseReleaseEvent( QMouseEvent * event ){
+    Screens::allowScreenShows = TRUE;
 }

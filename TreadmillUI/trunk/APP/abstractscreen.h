@@ -16,6 +16,8 @@ private:
     QTimer* mouseTimer;
     QLabel mouseLabel;
 
+//protected:
+//    void mouseReleaseEvent(QMouseEvent *event);
 
 signals:
 

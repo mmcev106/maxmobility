@@ -3,6 +3,7 @@
 
 #include "mainscreen.h"
 #include "pointerevent.h"
+#include "screens.h"
 
 HeartRateScreen::HeartRateScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent)
@@ -88,8 +89,7 @@ void HeartRateScreen::on_invisibleButton_4_pressed()
 
 void HeartRateScreen::on_invisibleButton_6_pressed()
 {
-    MainScreen* w = new MainScreen(0);
-    w->showFullScreen();
+    Screens::show(new MainScreen(0));
 
     close();
 }

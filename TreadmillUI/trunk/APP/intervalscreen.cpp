@@ -5,6 +5,7 @@
 
 #include "pointerevent.h"
 #include "mainscreen.h"
+#include "screens.h"
 
 IntervalScreen::IntervalScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent),
@@ -96,6 +97,6 @@ void IntervalScreen::on_invisibleButton_hills_2_pressed()
 
 void IntervalScreen::on_invisibleButton_hills_3_pressed()
 {
-    (new MainScreen(0))->showFullScreen();
+    Screens::show(new MainScreen(0));
     close();
 }

@@ -2,6 +2,7 @@
 #include "ui_newworkoutscreen.h"
 #include "mainscreen.h"
 #include "preferences.h"
+#include "screens.h"
 
 #include <QDir>
 
@@ -50,7 +51,7 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
         workout->close();
         delete workout;
 
-        (new MainScreen())->showFullScreen();
+        Screens::show(new MainScreen());
         close();
     }
 }

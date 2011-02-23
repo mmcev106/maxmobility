@@ -31,7 +31,10 @@ HEADERS += startupwindow.h \
     keyboardwidget.h \
     myworkoutsscreen.h \
     newworkoutscreen.h \
-    invisiblebutton.h
+    invisiblebutton.h \
+    screens.h \
+    seriallistenerthread.h \
+    serialsenderthread.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -65,12 +68,15 @@ SOURCES += main.cpp startupwindow.cpp \
     keyboardwidget.cpp \
     myworkoutsscreen.cpp \
     newworkoutscreen.cpp \
-    invisiblebutton.cpp
+    invisiblebutton.cpp \
+    screens.cpp \
+    seriallistenerthread.cpp \
+    serialsenderthread.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \
     style.css
 
 #QT += phonon
-#LIBS += -lqwtd5
+LIBS += -lqextserialport
 #DEFINES += QWT_DLL

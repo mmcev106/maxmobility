@@ -8,6 +8,7 @@
 #include "fatburnscreen.h"
 #include "intervalscreen.h"
 #include "myworkoutsscreen.h"
+#include "screens.h"
 //#include <phonon/VideoWidget>
 #include <QBitmap>
 #include <QDir>
@@ -64,8 +65,7 @@ StartupWindow::~StartupWindow()
 
 void StartupWindow::showMainScreen(QString action){
     qDebug() << "User Pressed: " << action;
-    MainScreen *mainScreen = new MainScreen(0, action);
-    mainScreen->showFullScreen();
+    Screens::show( new MainScreen(0, action));
 }
 
 void QWidget::keyPressEvent(QKeyEvent* event){
@@ -123,20 +123,18 @@ void StartupWindow::on_invisibleButton_7_pressed()
 
 void StartupWindow::on_invisibleButton_8_pressed()
 {
-    (new IntervalScreen(0))->showFullScreen();
+    Screens::show(new IntervalScreen(0));
 }
 
 void StartupWindow::on_invisibleButton_10_pressed()
 {
 
-    FatBurnScreen* w = new FatBurnScreen(0);
-    w->showFullScreen();
+    Screens::show( new FatBurnScreen(0));
 }
 
 void StartupWindow::on_invisibleButton_9_pressed()
 {
-    FitnessTestScreen* w = new FitnessTestScreen(0);
-     w->showFullScreen();
+    Screens::show( new FitnessTestScreen(0));
 }
 
 void StartupWindow::on_invisibleButton_14_pressed()
@@ -146,7 +144,7 @@ void StartupWindow::on_invisibleButton_14_pressed()
 
 void StartupWindow::on_invisibleButton_11_pressed()
 {
-    (new MyWorkoutsScreen())->showFullScreen();
+    Screens::show(new MyWorkoutsScreen());
 }
 
 void StartupWindow::on_invisibleButton_12_pressed()
@@ -166,6 +164,5 @@ void StartupWindow::on_invisibleButton_15_pressed()
 
 void StartupWindow::on_invisibleButton_16_pressed()
 {
-    HeartRateScreen* w = new HeartRateScreen(0);
-     w->showFullScreen();
+    Screens::show( new HeartRateScreen(0));
 }

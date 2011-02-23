@@ -27,8 +27,12 @@ private:
     Ui::MainScreen *ui;
     void playVideo();
     int elapsedTime;
+    long elapsedTimeMillis;
     QTimer *secondTimer;
+    QTimer *milliSecondTimer;
     QTimer *playTimer;
+    QLabel* trackWidget;
+    QLabel* runningDudeWidget;
 //    Phonon::VideoPlayer *player;
     static const int HISTORY_LENGTH = 30;
 //    int speedHistory[HISTORY_LENGTH];
@@ -38,10 +42,13 @@ private:
 
     AudioSettingsWidget audioSettingsWidget;
 
+
+
 private slots:
     void on_audioButton_invisibleButton_pressed();
     void on_videoThumbButton_invisibleButton_pressed();
     void updateDisplay();
+    void updateRunningDudeImage();
 };
 
 #endif // MAINSCREEN_H
