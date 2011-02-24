@@ -8,6 +8,7 @@
 #include <QPainter>
 #include "preferences.h"
 #include <QDir>
+#include "upperboardevent.h"
 
 static int HISTORY_HEIGHT =31;
 static QString RUNNING_DUDE_IMAGE_PATH ="/images/Running Dude";
@@ -154,6 +155,7 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
     runningDudeWidget->setFixedSize(trackBitmap.size());
 
 
+    Preferences::application->installEventFilter(this);
 }
 
 MainScreen::~MainScreen()
@@ -192,6 +194,17 @@ void MainScreen::playVideo(){
 
 }
 
+bool MainScreen::eventFilter(QObject * watched, QEvent *event)
+{
+    if(event->type() == UPPER_BOARD_EVENT_TYPE){
+        UpperBoardEvent* upperBoardEvent = (UpperBoardEvent*)event;
+
+        ui->heartRateLabel->setText(QString("%1").arg((int)upperBoardEvent->heartRate));
+        ui->cadenceLabel->setText(QString("%1").arg((int)upperBoardEvent->cadence));
+    }
+}
+
+
 void MainScreen::updateDisplay(){
     QString elapsedTimeString;
     int minutes = elapsedTime/60;
@@ -209,9 +222,9 @@ void MainScreen::updateDisplay(){
 
     QString secondsString = QString("%1").arg(elapsedTime);
 
-    ui->heartRateLabel->setText(secondsString);
+//    ui->heartRateLabel->setText(secondsString);
     ui->caloriesLabel->setText(secondsString);
-    ui->cadenceLabel->setText(secondsString);
+//    ui->cadenceLabel->setText(secondsString);
     ui->paceLabel->setText(secondsString);
 
     QString pointNumber;
@@ -274,13 +287,13 @@ void MainScreen::updateRunningDudeImage(){
 //           imageCount = 49;
 //       }
 
-       qDebug() << "% around track: " << percentageAroundTrack;
+//       qDebug() << "% around track: " << percentageAroundTrack;
        double imageNumberDouble = percentageAroundTrack*imageCount + 1;
-       qDebug() << "image # double: " << imageNumberDouble;
+//       qDebug() << "image # double: " << imageNumberDouble;
        int imageNumber = imageNumberDouble;
 
        QString imagePath = RUNNING_DUDE_IMAGE_PATH + "/" + type + "/" + type + QString("%1").arg(imageNumber) + ".png";
-       qDebug() << "image path: " + imagePath;
+//       qDebug() << "image path: " + imagePath;
        QPixmap runningDudePixmap(imagePath);
        runningDudeWidget->setPixmap(runningDudePixmap);
 

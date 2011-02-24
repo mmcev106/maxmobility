@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QColor>
+#include <QApplication>
 
 #include "qextserialport.h"
 
@@ -27,6 +28,7 @@ public:
 
 
     static QextSerialPort* serialPort;
+    static QApplication* application;
 
 };
 

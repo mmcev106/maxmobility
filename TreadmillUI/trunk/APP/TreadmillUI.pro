@@ -34,7 +34,8 @@ HEADERS += startupwindow.h \
     invisiblebutton.h \
     screens.h \
     seriallistenerthread.h \
-    serialsenderthread.h
+    serialsenderthread.h \
+    upperboardevent.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -71,7 +72,8 @@ SOURCES += main.cpp startupwindow.cpp \
     invisiblebutton.cpp \
     screens.cpp \
     seriallistenerthread.cpp \
-    serialsenderthread.cpp
+    serialsenderthread.cpp \
+    upperboardevent.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \

@@ -21,7 +21,7 @@ public:
     ~MainScreen();
 
 protected:
-//    void keyPressEvent ( QKeyEvent * event );
+    bool eventFilter(QObject * watched, QEvent *event);
 
 private:
     Ui::MainScreen *ui;

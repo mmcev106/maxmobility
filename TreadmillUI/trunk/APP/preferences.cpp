@@ -6,4 +6,5 @@ bool Preferences::gender = MALE;
 bool Preferences::measurementSystem = STANDARD;
 
 QextSerialPort* Preferences::serialPort = NULL;
+QApplication* Preferences::application = NULL;
 
