@@ -6,12 +6,15 @@
 #include <QApplication>
 
 #include "qextserialport.h"
+#include "state.h"
 
 static const bool MALE = true;
 static const bool FEMALE = false;
 
 static const bool STANDARD = true;
 static const bool METRIC = false;
+
+static const int BEAGLE_BOARD_MESSAGE_LENGTH = 7;
 
 static const QColor HIGHLIGHT_BLUE(66, 180, 255, 200);
 
@@ -29,6 +32,9 @@ public:
 
     static QextSerialPort* serialPort;
     static QApplication* application;
+
+    static unsigned char messageData[];
+    static State currentState;
 
 };
 

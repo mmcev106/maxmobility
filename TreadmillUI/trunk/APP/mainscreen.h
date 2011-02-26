@@ -7,6 +7,7 @@
 #include "historywidget.h"
 #include "audiosettingswidget.h"
 #include <QKeyEvent>
+#include <QCloseEvent>
 
 namespace Ui {
     class MainScreen;
@@ -22,6 +23,7 @@ public:
 
 protected:
     bool eventFilter(QObject * watched, QEvent *event);
+    void closeEvent(QCloseEvent * event);
 
 private:
     Ui::MainScreen *ui;
@@ -42,13 +44,12 @@ private:
 
     AudioSettingsWidget audioSettingsWidget;
 
-
-
 private slots:
     void on_audioButton_invisibleButton_pressed();
     void on_videoThumbButton_invisibleButton_pressed();
     void updateDisplay();
     void updateRunningDudeImage();
+
 };
 
 #endif // MAINSCREEN_H

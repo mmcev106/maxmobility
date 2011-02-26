@@ -13,6 +13,7 @@
 #include "screens.h"
 #include "seriallistenerthread.h"
 #include "serialsenderthread.h"
+#include "state.h"
 
 using namespace std;
 
@@ -43,17 +44,29 @@ void initializeSerialPortConnection(){
 
     QString portName = QextSerialEnumerator::getPorts().at(0).portName;
 
+    if(!portName.startsWith("/dev/")){
+        portName = portName.prepend("/dev/");
+    }
+
+    qDebug() << "Serial Port: " + portName;
+
     QextSerialPort* port = new QextSerialPort(portName, QextSerialPort::EventDriven);
     port->setBaudRate(BAUD56000);
     port->setFlowControl(FLOW_OFF);
     port->setParity(PAR_NONE);
     port->setDataBits(DATA_8);
     port->setStopBits(STOP_2);
+    bool open = port->open(QextSerialPort::ReadWrite);
 
-    Preferences::serialPort = port;
+    if(open){
 
-    (new SerialListenerThread())->start();
-    (new SerialSenderThread())->start();
+        Preferences::serialPort = port;
+
+        (new SerialListenerThread())->start();
+        (new SerialSenderThread())->start();
+    }else{
+        qDebug() << "An error occurred while opening the serial port!";
+    }
 }
 
 

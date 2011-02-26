@@ -5,6 +5,7 @@
 #include "qextserialport.h"
 #include "upperboardevent.h"
 #include "QApplication"
+#include "utils.h";
 
 static const int READ_WAIT_LIMIT = 1000 * 60 * 5;
 static const int MESSAGE_LENGTH = 8;
@@ -27,7 +28,7 @@ void SerialListenerThread::run(){
         QByteArray data((char*)rawData, 8);*/
 
         if(data.length() < 100){
-            qDebug() << "Received Data: " << data.data();
+            qDebug() << "Received Data: " << Utils::toString ( (unsigned char* )data.data(), data.length());
         }
 
 

@@ -35,7 +35,9 @@ HEADERS += startupwindow.h \
     screens.h \
     seriallistenerthread.h \
     serialsenderthread.h \
-    upperboardevent.h
+    upperboardevent.h \
+    utils.h \
+    state.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -73,7 +75,9 @@ SOURCES += main.cpp startupwindow.cpp \
     screens.cpp \
     seriallistenerthread.cpp \
     serialsenderthread.cpp \
-    upperboardevent.cpp
+    upperboardevent.cpp \
+    utils.cpp \
+    state.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \

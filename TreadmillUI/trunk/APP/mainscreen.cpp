@@ -154,8 +154,13 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
     runningDudeWidget->move(139, 107);
     runningDudeWidget->setFixedSize(trackBitmap.size());
 
-
     Preferences::application->installEventFilter(this);
+
+    Preferences::currentState.setOn();
+}
+
+void MainScreen::closeEvent(QCloseEvent * event){
+    Preferences::currentState.setOff();
 }
 
 MainScreen::~MainScreen()
@@ -202,6 +207,8 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
         ui->heartRateLabel->setText(QString("%1").arg((int)upperBoardEvent->heartRate));
         ui->cadenceLabel->setText(QString("%1").arg((int)upperBoardEvent->cadence));
     }
+
+    return QWidget::eventFilter(watched, event);
 }
 
 
