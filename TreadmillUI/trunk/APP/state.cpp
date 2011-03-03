@@ -2,7 +2,7 @@
 
 
 
-State::State() : state(0)
+State::State() : state(NULL)
 {
 }
 

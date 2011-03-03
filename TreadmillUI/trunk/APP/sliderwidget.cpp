@@ -105,7 +105,7 @@ int SliderWidget::fontSize(){
 
 void SliderWidget::setValue(double value){
 
-    qDebug() << "attempted value: " << value;
+//    qDebug() << "attempted value: " << value;
 
     double newValue = min;
 
@@ -122,7 +122,7 @@ void SliderWidget::setValue(double value){
         value = max;
     }
 
-    qDebug() << "actual value: " << value;
+//    qDebug() << "actual value: " << value;
 
     this->value = value;
     update();

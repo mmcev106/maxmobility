@@ -6,7 +6,7 @@
 #include "agesliderwidget.h"
 #include "timesliderwidget.h"
 #include "speedsliderwidget.h"
-#include <sliderwidget.h>
+#include "sliderwidget.h"
 
 namespace Ui {
     class FitnessTestScreen;

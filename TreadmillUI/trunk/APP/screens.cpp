@@ -5,7 +5,8 @@
 
  bool Screens::allowScreenShows = TRUE;
 
-static int SCREEN_SHOW_THRESHOLD = 100;
+static int SCREEN_SHOW_THRESHOLD = 500;
+long lastScreenShown = 0;
 
  void Screens::show(QWidget *screen){
 
@@ -16,6 +17,16 @@ static int SCREEN_SHOW_THRESHOLD = 100;
       * next release event.
       */
     if(allowScreenShows){
-        screen->showFullScreen();
+        long now = QDateTime::currentMSecsSinceEpoch();
+
+        if(lastScreenShown < now - SCREEN_SHOW_THRESHOLD){
+
+            qDebug() << now <<  " - Showing screen";
+            lastScreenShown = now;
+            screen->showFullScreen();
+        }
+        else{
+            qDebug() << now <<  " - Ignoring show screen call";
+        }
     }
 }

@@ -14,6 +14,8 @@ InvisibleButton::InvisibleButton(QWidget *parent) :
 
     connect( this, SIGNAL(pressed()), this, SLOT(pressed() ));
     connect( this, SIGNAL(released()), this, SLOT(released() ));
+
+    setFocusPolicy(Qt::NoFocus);
 }
 
 void InvisibleButton::pressed(){

@@ -54,7 +54,7 @@ void SerialListenerThread::handleMessage(unsigned char* data){
     char keyPress = data[1];
     char heartRate = data[2];
     char cadence = data[3];
-    char state = data[4];
+    unsigned char rawState = data[4];
     char crcMsb = data[5];
     char crcLsb = data[6];
 
@@ -62,6 +62,9 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         qDebug() << "Ignoring message because the last byte was not a new line!";
         return;
     }
+
+    State state;
+    state.state = &rawState;
 
     UpperBoardEvent event(heartRate, cadence);
     QApplication::sendEvent(Preferences::application,  &event);

@@ -42,7 +42,18 @@ void savePreferences(){
 
 void initializeSerialPortConnection(){
 
-    QString portName = QextSerialEnumerator::getPorts().at(0).portName;
+    unsigned char* messageData =  Preferences::messageData;
+    messageData[0] = 0xFF;
+    messageData[1] = 1;
+    messageData[2] = 1;
+    messageData[3] = 0;
+    messageData[4] = 0;
+    messageData[5] = 0;
+    messageData[6] = '\n';
+
+    Preferences::currentState.state = &messageData[3];
+
+    QString portName = QextSerialEnumerator::getPorts().at(1).portName;
 
     if(!portName.startsWith("/dev/")){
         portName = portName.prepend("/dev/");

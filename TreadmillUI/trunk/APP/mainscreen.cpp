@@ -173,9 +173,16 @@ MainScreen::~MainScreen()
 }
 
 //void MainScreen::keyPressEvent(QKeyEvent* event){
-//    if (event->key() == Qt::Key_Escape){
-//        close();
+//    if (event->key() == Qt::UpArrow){
+//        Preferences::setCurrentSpeed(Preferences::getCurrentSpeed()+2);
+//        Preferences::setCurrentGrade(Preferences::getCurrentGrade()+1);
 //    }
+//    else if (event->key() == Qt::DownArrow){
+//        Preferences::setCurrentSpeed(Preferences::getCurrentSpeed()-2);
+//        Preferences::setCurrentGrade(Preferences::getCurrentGrade()-1);
+//    }
+
+//    QWidget::keyPressEvent(event);
 //}
 
 void MainScreen::playVideo(){
@@ -204,8 +211,8 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
     if(event->type() == UPPER_BOARD_EVENT_TYPE){
         UpperBoardEvent* upperBoardEvent = (UpperBoardEvent*)event;
 
-        ui->heartRateLabel->setText(QString("%1").arg((int)upperBoardEvent->heartRate));
-        ui->cadenceLabel->setText(QString("%1").arg((int)upperBoardEvent->cadence));
+        ui->heartRateLabel->setText(QString("%1").arg((unsigned int)upperBoardEvent->heartRate));
+        ui->cadenceLabel->setText(QString("%1").arg((unsigned int)upperBoardEvent->cadence));
     }
 
     return QWidget::eventFilter(watched, event);
@@ -246,8 +253,14 @@ void MainScreen::updateDisplay(){
     pointNumber.append(QString("%1").arg(elapsedTime%10));
 
     ui->distanceLabel->setText(pointNumber);
-    ui->gradeLabel->setText(pointNumber);
-    ui->speedLabel->setText(pointNumber);
+
+//    unsigned int grade = Preferences::getCurrentGrade();
+//    QString gradeString = QString("%1.%2").arg(grade/10, grade%10);
+//    ui->gradeLabel->setText(gradeString);
+
+//    unsigned int speed = Preferences::getCurrentSpeed();
+//    QString speedString = QString("%1.%2").arg(speed/10, speed%10);
+//    ui->speedLabel->setText(speedString);
 
     QDateTime currentTime = QDateTime::currentDateTime();
     QString time = currentTime.toString("h:mma");

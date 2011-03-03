@@ -8,7 +8,7 @@ const QEvent::Type UPPER_BOARD_EVENT_TYPE = (QEvent::Type)2001;
 class UpperBoardEvent : public QEvent
 {
 public:
-    explicit UpperBoardEvent( char heartRate,  char cadence);
+    explicit UpperBoardEvent(unsigned char heartRate, unsigned char cadence);
     char heartRate;
     char cadence;
 

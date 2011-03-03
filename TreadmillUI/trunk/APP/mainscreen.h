@@ -24,6 +24,7 @@ public:
 protected:
     bool eventFilter(QObject * watched, QEvent *event);
     void closeEvent(QCloseEvent * event);
+//    void keyPressEvent(QKeyEvent* event);
 
 private:
     Ui::MainScreen *ui;

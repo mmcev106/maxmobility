@@ -19,6 +19,8 @@ AbstractScreen::AbstractScreen(QWidget *parent) :
     mouseLabel.setStyleSheet("background-color: red;");
     mouseLabel.setFixedSize(10,10);
     mouseLabel.show();
+
+    setFocusProxy(&mouseLabel);
 }
 
 void AbstractScreen::surroundCursor(){
@@ -29,9 +31,11 @@ void AbstractScreen::surroundCursor(){
 }
 
 void QWidget::mouseMoveEvent( QMouseEvent * event ){
+    qDebug() << "mouse moved";
     Screens::allowScreenShows = FALSE;
 }
 
 void QWidget::mouseReleaseEvent( QMouseEvent * event ){
+    qDebug() << "mouse released";
     Screens::allowScreenShows = TRUE;
 }

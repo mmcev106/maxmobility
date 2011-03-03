@@ -2,8 +2,8 @@
 #include "ui_startupwindow.h"
 #include "testwidget.h"
 
-#include "mainscreen.h"
 #include "heartratescreen.h"
+#include "mainscreen.h"
 #include "fitnesstestscreen.h"
 #include "fatburnscreen.h"
 #include "intervalscreen.h"
@@ -45,6 +45,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
 */
     //Put the background behind the player
     ui->backgroundLabel->lower();
+    ui->invisibleButton->setFocusPolicy(Qt::NoFocus);
 
 //    showMainScreen("Video");
 }
@@ -64,7 +65,6 @@ StartupWindow::~StartupWindow()
 }
 
 void StartupWindow::showMainScreen(QString action){
-    qDebug() << "User Pressed: " << action;
     Screens::show( new MainScreen(0, action));
 }
 

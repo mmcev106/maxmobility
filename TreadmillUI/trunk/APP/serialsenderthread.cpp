@@ -15,15 +15,6 @@ void SerialSenderThread::run(){
     QextSerialPort* port =  Preferences::serialPort;
 
     unsigned char* messageData = Preferences::messageData;
-    messageData[0] = 0xFF;
-    messageData[1] = 1;
-    messageData[2] = 1;
-    messageData[3] = 0;
-    messageData[4] = 0;
-    messageData[5] = 0;
-    messageData[6] = '\n';
-
-    Preferences::currentState.state = &messageData[3];
 
     while(true){
 

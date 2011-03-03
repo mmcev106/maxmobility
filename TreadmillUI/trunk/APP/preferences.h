@@ -33,8 +33,13 @@ public:
     static QextSerialPort* serialPort;
     static QApplication* application;
 
-    static unsigned char messageData[];
+    static unsigned char messageData[BEAGLE_BOARD_MESSAGE_LENGTH];
     static State currentState;
+
+    static unsigned char getCurrentSpeed();
+    static void setCurrentSpeed(unsigned char speed);
+    static unsigned char getCurrentGrade();
+    static void setCurrentGrade(unsigned char grade);
 
 };
 
