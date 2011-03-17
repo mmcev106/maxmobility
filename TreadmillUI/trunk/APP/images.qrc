@@ -28,6 +28,7 @@
         <file>images/Keyboard Background.png</file>
         <file>images/My Workouts.png</file>
         <file>images/Name Workout (updated).png</file>
+        <file>images/Audio Screen - (Video).png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>

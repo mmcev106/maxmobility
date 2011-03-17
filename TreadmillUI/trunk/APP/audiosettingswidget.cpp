@@ -9,13 +9,14 @@ AudioSettingsWidget::AudioSettingsWidget(QWidget *parent) :
     ,fmPixmap(":/images/images/Audio Screen - (FM).png")
     ,usbPixmap(":/images/images/Audio Screen - (USB).png")
     ,feedbackPixmap(":/images/images/Audio Screen - (Feedback).png")
+    ,videoPixmap(":/images/images/Audio Screen - (Video).png")
     ,fmSlider(this)
 //    ,pressTimer(this)
 {
     ui->setupUi(this);
     ui->backgroundLabel->lower();
 
-    fmSlider.move(-11, 239);
+    fmSlider.move(-18, 286);
     fmSlider.step = .2;
 
     pressTimer.setSingleShot(true);
@@ -108,6 +109,12 @@ void AudioSettingsWidget::on_invisibleButton_feedback_pressed()
 {
     hideFMWidgets();
     ui->backgroundLabel->setPixmap(feedbackPixmap);
+}
+
+void AudioSettingsWidget::on_invisibleButton_video_pressed()
+{
+    hideFMWidgets();
+    ui->backgroundLabel->setPixmap(videoPixmap);
 }
 
 void AudioSettingsWidget::hideFMWidgets(){
@@ -213,4 +220,9 @@ void AudioSettingsWidget::on_invisibleButton_preset_5_released()
 void AudioSettingsWidget::on_invisibleButton_preset_6_released()
 {
     presetButtonReleased(ui->invisibleButton_preset_6);
+}
+
+void AudioSettingsWidget::on_invisibleButton_close_pressed()
+{
+    setVisible(false);
 }

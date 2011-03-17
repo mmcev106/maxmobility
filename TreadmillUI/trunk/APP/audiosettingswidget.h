@@ -26,6 +26,7 @@ private:
     QPixmap fmPixmap;
     QPixmap usbPixmap;
     QPixmap feedbackPixmap;
+    QPixmap videoPixmap;
 
     RadioSliderWidget fmSlider;
     QTimer pressTimer;
@@ -35,6 +36,8 @@ private:
     void presetButtonReleased(QPushButton* button);
 
 private slots:
+    void on_invisibleButton_close_pressed();
+    void on_invisibleButton_video_pressed();
     void on_invisibleButton_preset_6_released();
     void on_invisibleButton_preset_5_released();
     void on_invisibleButton_preset_4_released();

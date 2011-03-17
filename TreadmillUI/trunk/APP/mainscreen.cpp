@@ -126,9 +126,9 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
 //    gradeHistoryWidget.move(36,528);
 //    speedHistoryWidget.move(664,528);
 
-    ui->videoThumb->setPixmap(QPixmap("test video_thumb.jpg"));
-    QPixmap thumbMask(":/images/images/video_thumb_mask.png");
-    ui->videoThumb->setMask(thumbMask.mask());
+//    ui->videoThumb->setPixmap(QPixmap("test video_thumb.jpg"));
+//    QPixmap thumbMask(":/images/images/video_thumb_mask.png");
+//    ui->videoThumb->setMask(thumbMask.mask());
 
     if(action.compare("Video") == 0){
         /* We must use a timer to start playback to allow this method to finish before setting the scale.
@@ -140,18 +140,20 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
         playTimer->start();
     }
 
-    audioSettingsWidget.move(140, 108);
-    audioSettingsWidget.setVisible(false);
+    QPoint centerPosition(147, 105);
 
+    audioSettingsWidget.move(centerPosition);
+    audioSettingsWidget.setVisible(false);
 
     QPixmap trackBitmap(RUNNING_DUDE_IMAGE_PATH + "/Track_Background.png");
     trackWidget->setFixedSize(trackBitmap.size());
-    trackWidget->move(139, 107);
+    trackWidget->move(centerPosition);
     trackWidget->setPixmap(trackBitmap);
     trackWidget->show();
+    trackWidget->lower();
 
     runningDudeWidget->show();
-    runningDudeWidget->move(139, 107);
+    runningDudeWidget->move(centerPosition);
     runningDudeWidget->setFixedSize(trackBitmap.size());
 
     Preferences::application->installEventFilter(this);
@@ -212,7 +214,7 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
         UpperBoardEvent* upperBoardEvent = (UpperBoardEvent*)event;
 
         ui->heartRateLabel->setText(QString("%1").arg((unsigned int)upperBoardEvent->heartRate));
-        ui->cadenceLabel->setText(QString("%1").arg((unsigned int)upperBoardEvent->cadence));
+//        ui->cadenceLabel->setText(QString("%1").arg((unsigned int)upperBoardEvent->cadence));
     }
 
     return QWidget::eventFilter(watched, event);
@@ -220,19 +222,21 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
 
 
 void MainScreen::updateDisplay(){
-    QString elapsedTimeString;
+
     int minutes = elapsedTime/60;
+    ui->elapsedTimeMinutesLabel->setText( QString("%1").arg(minutes) );
+
     int seconds = elapsedTime%60;
-    elapsedTimeString.append(QString("%1").arg(minutes));
-    elapsedTimeString.append(":");
+
+    QString elapsedTimeSecondsString;
 
     if(seconds < 10){
-        elapsedTimeString.append("0");
+       elapsedTimeSecondsString = "0";
     }
 
-    elapsedTimeString.append(QString("%1").arg(seconds));
+    elapsedTimeSecondsString.append(QString("%1").arg(seconds));
 
-    ui->elapsedTimeLabel->setText(elapsedTimeString);
+    ui->elapsedTimeSecondsLabel->setText(elapsedTimeSecondsString);
 
     QString secondsString = QString("%1").arg(elapsedTime);
 
@@ -241,18 +245,8 @@ void MainScreen::updateDisplay(){
 //    ui->cadenceLabel->setText(secondsString);
     ui->paceLabel->setText(secondsString);
 
-    QString pointNumber;
-    if(elapsedTime < 10){
-        pointNumber.append("0");
-    }
-    else{
-        pointNumber.append(QString("%1").arg(elapsedTime/10));
-    }
-
-    pointNumber.append(".");
-    pointNumber.append(QString("%1").arg(elapsedTime%10));
-
-    ui->distanceLabel->setText(pointNumber);
+    ui->distanceIntegerLabel->setText(QString("%1").arg(elapsedTime/10));
+    ui->distanceDecimalLabel->setText(QString("%1").arg(elapsedTime%10));
 
 //    unsigned int grade = Preferences::getCurrentGrade();
 //    QString gradeString = QString("%1.%2").arg(grade/10, grade%10);
