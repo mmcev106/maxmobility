@@ -32,7 +32,7 @@
     <pixmap resource="images.qrc">:/images/images/Fat-Burn---06---(Standard)-(with-Reflection).png</pixmap>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_6">
+  <widget class="InvisibleButton" name="invisibleButton_6">
    <property name="geometry">
     <rect>
      <x>740</x>
@@ -45,7 +45,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_7">
+  <widget class="InvisibleButton" name="invisibleButton_7">
    <property name="geometry">
     <rect>
      <x>919</x>

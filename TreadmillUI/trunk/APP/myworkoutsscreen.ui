@@ -33,7 +33,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <pixmap resource="images.qrc">:/images/images/My Workouts.png</pixmap>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_6">
+  <widget class="InvisibleButton" name="invisibleButton_6">
    <property name="geometry">
     <rect>
      <x>290</x>
@@ -134,7 +134,7 @@ border: none;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_7">
+  <widget class="InvisibleButton" name="invisibleButton_7">
    <property name="geometry">
     <rect>
      <x>920</x>

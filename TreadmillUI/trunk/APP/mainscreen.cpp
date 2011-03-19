@@ -140,7 +140,7 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
         playTimer->start();
     }
 
-    QPoint centerPosition(147, 105);
+    QPoint centerPosition(137, 105);
 
     audioSettingsWidget.move(centerPosition);
     audioSettingsWidget.setVisible(false);

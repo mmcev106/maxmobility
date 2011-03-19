@@ -33,7 +33,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <pixmap resource="images.qrc">:/images/images/Audio Screen - (FM).png</pixmap>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_fm">
+  <widget class="InvisibleButton" name="invisibleButton_fm">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -46,7 +46,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_usb">
+  <widget class="InvisibleButton" name="invisibleButton_usb">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -59,7 +59,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_feedback">
+  <widget class="InvisibleButton" name="invisibleButton_feedback">
    <property name="geometry">
     <rect>
      <x>580</x>
@@ -72,7 +72,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_lineIn">
+  <widget class="InvisibleButton" name="invisibleButton_lineIn">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -85,7 +85,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_preset_1">
+  <widget class="InvisibleButton" name="invisibleButton_preset_1">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -104,7 +104,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_preset_2">
+  <widget class="InvisibleButton" name="invisibleButton_preset_2">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -123,7 +123,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_preset_3">
+  <widget class="InvisibleButton" name="invisibleButton_preset_3">
    <property name="geometry">
     <rect>
      <x>250</x>
@@ -142,7 +142,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_preset_4">
+  <widget class="InvisibleButton" name="invisibleButton_preset_4">
    <property name="geometry">
     <rect>
      <x>380</x>
@@ -161,7 +161,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_preset_5">
+  <widget class="InvisibleButton" name="invisibleButton_preset_5">
    <property name="geometry">
     <rect>
      <x>510</x>
@@ -180,7 +180,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_preset_6">
+  <widget class="InvisibleButton" name="invisibleButton_preset_6">
    <property name="geometry">
     <rect>
      <x>640</x>
@@ -199,7 +199,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_video">
+  <widget class="InvisibleButton" name="invisibleButton_video">
    <property name="geometry">
     <rect>
      <x>450</x>
@@ -212,7 +212,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_close">
+  <widget class="InvisibleButton" name="invisibleButton_close">
    <property name="geometry">
     <rect>
      <x>680</x>

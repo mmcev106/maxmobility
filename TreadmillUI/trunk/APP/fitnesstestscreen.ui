@@ -32,7 +32,7 @@
     <pixmap resource="images.qrc">:/images/images/Fitness-Test---06---(Fitness---Standard).png</pixmap>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_5">
+  <widget class="InvisibleButton" name="invisibleButton_5">
    <property name="geometry">
     <rect>
      <x>920</x>
@@ -45,7 +45,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_6">
+  <widget class="InvisibleButton" name="invisibleButton_6">
    <property name="geometry">
     <rect>
      <x>730</x>
@@ -58,7 +58,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_fitness">
+  <widget class="InvisibleButton" name="invisibleButton_fitness">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -71,7 +71,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_2">
+  <widget class="InvisibleButton" name="invisibleButton_2">
    <property name="geometry">
     <rect>
      <x>250</x>
@@ -84,7 +84,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_3">
+  <widget class="InvisibleButton" name="invisibleButton_3">
    <property name="geometry">
     <rect>
      <x>460</x>
@@ -97,7 +97,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_4">
+  <widget class="InvisibleButton" name="invisibleButton_4">
    <property name="geometry">
     <rect>
      <x>430</x>
@@ -110,7 +110,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_7">
+  <widget class="InvisibleButton" name="invisibleButton_7">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -123,7 +123,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_8">
+  <widget class="InvisibleButton" name="invisibleButton_8">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -168,7 +168,7 @@
     <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_femaleRadio">
+  <widget class="InvisibleButton" name="invisibleButton_femaleRadio">
    <property name="geometry">
     <rect>
      <x>830</x>
@@ -181,7 +181,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_maleRadio">
+  <widget class="InvisibleButton" name="invisibleButton_maleRadio">
    <property name="geometry">
     <rect>
      <x>700</x>

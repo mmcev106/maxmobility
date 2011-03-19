@@ -35,7 +35,7 @@
     <pixmap resource="images.qrc">:/images/images/Interval---(Hills).png</pixmap>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_hills">
+  <widget class="InvisibleButton" name="invisibleButton_hills">
    <property name="geometry">
     <rect>
      <x>710</x>
@@ -48,7 +48,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_4">
+  <widget class="InvisibleButton" name="invisibleButton_4">
    <property name="geometry">
     <rect>
      <x>840</x>
@@ -61,7 +61,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_hills_2">
+  <widget class="InvisibleButton" name="invisibleButton_hills_2">
    <property name="geometry">
     <rect>
      <x>918</x>
@@ -74,7 +74,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="invisibleButton_hills_3">
+  <widget class="InvisibleButton" name="invisibleButton_hills_3">
    <property name="geometry">
     <rect>
      <x>740</x>
