@@ -314,13 +314,6 @@ void MainScreen::updateRunningDudeImage(){
        elapsedTimeMillis+=10;
 }
 
-void MainScreen::on_videoThumbButton_invisibleButton_pressed()
-{
-    qDebug() << "asdf";
-    playVideo();
-
-}
-
 void MainScreen::on_audioButton_invisibleButton_pressed()
 {
     audioSettingsWidget.setVisible(!audioSettingsWidget.isVisible());
