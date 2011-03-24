@@ -47,7 +47,6 @@ private:
 
 private slots:
     void on_audioButton_invisibleButton_pressed();
-    void on_videoThumbButton_invisibleButton_pressed();
     void updateDisplay();
     void updateRunningDudeImage();
 

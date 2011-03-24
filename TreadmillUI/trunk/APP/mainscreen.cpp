@@ -134,10 +134,10 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
         /* We must use a timer to start playback to allow this method to finish before setting the scale.
            The scale is not set properly otherwise. */
 
-        connect(playTimer, SIGNAL(timeout()), this, SLOT( on_videoThumbButton_invisibleButton_pressed()));
-        playTimer->setInterval(0);
-        playTimer->setSingleShot(true);
-        playTimer->start();
+//        connect(playTimer, SIGNAL(timeout()), this, SLOT( on_videoThumbButton_invisibleButton_pressed()));
+//        playTimer->setInterval(0);
+//        playTimer->setSingleShot(true);
+//        playTimer->start();
     }
 
     QPoint centerPosition(137, 105);
