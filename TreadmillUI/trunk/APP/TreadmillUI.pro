@@ -85,4 +85,4 @@ OTHER_FILES += \
 
 #QT += phonon
 LIBS += -lqextserialport
-#DEFINES += QWT_DLL
+DEFINES += QT_NO_DEBUG_OUTPUT NDEBUG
