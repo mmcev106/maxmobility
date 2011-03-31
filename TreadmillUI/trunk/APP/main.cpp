@@ -53,7 +53,14 @@ void initializeSerialPortConnection(){
 
     Preferences::currentState.state = &messageData[3];
 
-    QString portName = QextSerialEnumerator::getPorts().at(1).portName;
+    QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
+
+    if(ports.length() < 2){
+        qDebug() << "A second serial port was not found.  Disabling serial communication.";
+        return;
+    }
+
+    QString portName = ports.at(1).portName;
 
     if(!portName.startsWith("/dev/")){
         portName = portName.prepend("/dev/");
