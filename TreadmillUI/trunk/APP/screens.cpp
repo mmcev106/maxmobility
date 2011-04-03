@@ -1,3 +1,5 @@
+#include <limits>
+
 #include "screens.h"
 
 #include <QDateTime>
@@ -6,7 +8,7 @@
  bool Screens::allowScreenShows = TRUE;
 
 static int SCREEN_SHOW_THRESHOLD = 500;
-long lastScreenShown = 0;
+long lastScreenShown = std::numeric_limits<long>::min();;
 
  void Screens::show(QWidget *screen){
 
