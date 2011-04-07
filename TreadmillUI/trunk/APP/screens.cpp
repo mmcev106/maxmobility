@@ -8,7 +8,7 @@
  bool Screens::allowScreenShows = TRUE;
 
 static int SCREEN_SHOW_THRESHOLD = 500;
-long lastScreenShown = std::numeric_limits<long>::min();;
+long lastScreenShown = std::numeric_limits<long>::min();
 
  void Screens::show(QWidget *screen){
 

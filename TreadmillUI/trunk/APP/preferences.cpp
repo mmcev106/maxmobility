@@ -1,4 +1,5 @@
 #include "preferences.h"
+#include <QDebug>
 
 const QString Preferences::FILENAME = "Preferences.txt";
 
@@ -12,18 +13,25 @@ unsigned char Preferences::messageData[BEAGLE_BOARD_MESSAGE_LENGTH];
 
 State Preferences::currentState;
 
-unsigned char Preferences::getCurrentSpeed(){
-    return messageData[1];
+float Preferences::getCurrentSpeed(){
+    float speed = messageData[1];
+    speed /= 10;
+
+    return  speed;
 }
 
-void Preferences::setCurrentSpeed(unsigned char speed){
-    messageData[1] = speed;
+void Preferences::setCurrentSpeed(float speed)
+{
+    messageData[1] = (unsigned char) speed * 10;
 }
 
-unsigned char Preferences::getCurrentGrade(){
-    return messageData[2];
+float Preferences::getCurrentGrade(){
+    float speed = messageData[2];
+    speed /= 10;
+
+    return  speed;
 }
 
-void Preferences::setCurrentGrade(unsigned char grade){
-    messageData[2] = grade;
+void Preferences::setCurrentGrade(float grade){
+    messageData[2] = (unsigned char) grade * 10;
 }

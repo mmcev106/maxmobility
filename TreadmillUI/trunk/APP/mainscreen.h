@@ -8,6 +8,7 @@
 #include "audiosettingswidget.h"
 #include <QKeyEvent>
 #include <QCloseEvent>
+#include "step.h"
 
 namespace Ui {
     class MainScreen;
@@ -18,7 +19,7 @@ class MainScreen : public AbstractScreen
     Q_OBJECT
 
 public:
-    explicit MainScreen(QWidget *parent = 0, QString action = "");
+    explicit MainScreen(QWidget *parent = 0, QList<Step*>* workout = NULL);
     ~MainScreen();
 
 protected:
@@ -29,13 +30,15 @@ protected:
 private:
     Ui::MainScreen *ui;
     void playVideo();
-    int elapsedTime;
-    long elapsedTimeMillis;
+    long startTime;
     QTimer *secondTimer;
     QTimer *milliSecondTimer;
     QTimer *playTimer;
     QLabel* trackWidget;
     QLabel* runningDudeWidget;
+    int nextWorkoutStepIndex;
+    long nextWorkoutStepTime;
+    QList<Step*>* workout;
 //    Phonon::VideoPlayer *player;
     static const int HISTORY_LENGTH = 30;
 //    int speedHistory[HISTORY_LENGTH];
@@ -49,6 +52,7 @@ private slots:
     void on_audioButton_invisibleButton_pressed();
     void updateDisplay();
     void updateRunningDudeImage();
+    void processNextWorkoutStep();
 
 };
 

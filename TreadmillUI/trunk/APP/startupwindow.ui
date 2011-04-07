@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>StartupWindow</string>
   </property>
-  <property name="styleSheet">f
+  <property name="styleSheet">
    <string notr="true">QWidget{font-family: Tamworth Gothic}
 QWidget[objectName|=&quot;quickStart&quot;]{font-size: 14pt; }
 QWidget[objectName|=&quot;exerciseButton&quot;]{font-size: 18pt; }
@@ -37,7 +37,7 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
     <pixmap resource="images.qrc">:/images/images/startup_screen_background.png</pixmap>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton">
+  <widget class="InvisibleButton" name="invisibleButton" native="true">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -46,11 +46,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>151</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_2">
+  <widget class="InvisibleButton" name="invisibleButton_2" native="true">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -59,11 +59,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>151</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_3">
+  <widget class="InvisibleButton" name="invisibleButton_3" native="true">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -72,11 +72,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>151</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_4">
+  <widget class="InvisibleButton" name="invisibleButton_4" native="true">
    <property name="geometry">
     <rect>
      <x>360</x>
@@ -85,11 +85,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>151</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_5">
+  <widget class="InvisibleButton" name="invisibleButton_5" native="true">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -98,11 +98,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>151</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_6">
+  <widget class="InvisibleButton" name="invisibleButton_6" native="true">
    <property name="geometry">
     <rect>
      <x>250</x>
@@ -111,24 +111,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>151</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_7">
-   <property name="geometry">
-    <rect>
-     <x>600</x>
-     <y>370</y>
-     <width>181</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_8">
+  <widget class="InvisibleButton" name="invisibleButton_8" native="true">
    <property name="geometry">
     <rect>
      <x>800</x>
@@ -137,11 +124,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>61</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_9">
+  <widget class="InvisibleButton" name="invisibleButton_9" native="true">
    <property name="geometry">
     <rect>
      <x>810</x>
@@ -150,11 +137,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>61</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_10">
+  <widget class="InvisibleButton" name="invisibleButton_10" native="true">
    <property name="geometry">
     <rect>
      <x>600</x>
@@ -163,11 +150,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>61</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_11">
+  <widget class="InvisibleButton" name="invisibleButton_11" native="true">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -176,11 +163,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>61</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_12">
+  <widget class="InvisibleButton" name="invisibleButton_12" native="true">
    <property name="geometry">
     <rect>
      <x>540</x>
@@ -189,11 +176,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>61</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_13">
+  <widget class="InvisibleButton" name="invisibleButton_13" native="true">
    <property name="geometry">
     <rect>
      <x>780</x>
@@ -202,11 +189,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>81</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_14">
+  <widget class="InvisibleButton" name="invisibleButton_14" native="true">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -215,11 +202,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>81</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_15">
+  <widget class="InvisibleButton" name="invisibleButton_15" native="true">
    <property name="geometry">
     <rect>
      <x>640</x>
@@ -228,11 +215,11 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>41</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_16">
+  <widget class="InvisibleButton" name="invisibleButton_16" native="true">
    <property name="geometry">
     <rect>
      <x>600</x>
@@ -241,12 +228,19 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
      <height>71</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>InvisibleButton</class>
+   <extends>QWidget</extends>
+   <header>invisiblebutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

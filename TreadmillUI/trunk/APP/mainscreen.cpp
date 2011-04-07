@@ -9,6 +9,9 @@
 #include "preferences.h"
 #include <QDir>
 #include "upperboardevent.h"
+#include "changespeedstep.h"
+#include "changegradestep.h"
+#include "waitstep.h"
 
 static int HISTORY_HEIGHT =31;
 static QString RUNNING_DUDE_IMAGE_PATH ="/images/Running Dude";
@@ -69,20 +72,22 @@ public:
     }
 };
 */
-MainScreen::MainScreen(QWidget *parent, QString action) :
+MainScreen::MainScreen(QWidget *parent, QList<Step*>* workout) :
     AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
-    ,secondTimer(new QTimer)
-    ,milliSecondTimer(new QTimer)
-    ,playTimer(new QTimer)
-    ,elapsedTime(0)
-    ,elapsedTimeMillis(0)
+    ,secondTimer(new QTimer(this))
+    ,milliSecondTimer(new QTimer(this))
+    ,playTimer(new QTimer(this))
+    ,startTime(QDateTime::currentMSecsSinceEpoch())
     ,trackWidget(new QLabel(this))
     ,runningDudeWidget(new QLabel(this))
 //    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
 //    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
 //    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,audioSettingsWidget(this)
+    ,nextWorkoutStepIndex(0)
+    ,nextWorkoutStepTime(0)
+    ,workout(workout)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
@@ -117,9 +122,6 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
     milliSecondTimer->setInterval(10);
     milliSecondTimer->start();
 
-//    update the fields before the windows is initially displayed
-    updateDisplay();
-
 //     add the history widgets
 //    zero(speedHistory, HISTORY_LENGTH);
 //    zero(gradeHistory, HISTORY_LENGTH);
@@ -130,7 +132,6 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
 //    QPixmap thumbMask(":/images/images/video_thumb_mask.png");
 //    ui->videoThumb->setMask(thumbMask.mask());
 
-    if(action.compare("Video") == 0){
         /* We must use a timer to start playback to allow this method to finish before setting the scale.
            The scale is not set properly otherwise. */
 
@@ -138,7 +139,6 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
 //        playTimer->setInterval(0);
 //        playTimer->setSingleShot(true);
 //        playTimer->start();
-    }
 
     QPoint centerPosition(137, 105);
 
@@ -159,6 +159,39 @@ MainScreen::MainScreen(QWidget *parent, QString action) :
     Preferences::application->installEventFilter(this);
 
     Preferences::currentState.setOn();
+
+    //    update the fields before the windows is initially displayed
+    updateDisplay();
+}
+
+void MainScreen::processNextWorkoutStep() {
+
+    for( int i=nextWorkoutStepIndex;i<workout->length();i++){
+        Step* step = workout->at(nextWorkoutStepIndex);
+        nextWorkoutStepIndex++;
+
+        if(step->getType() == SPEED_CHANGE_TYPE){
+            ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
+            Preferences::setCurrentSpeed(changeSpeedStep->speed);
+        }
+        else if(step->getType() == GRADE_CHANGE_TYPE){
+            ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
+            Preferences::setCurrentGrade(changeGradeStep->grade);
+        }
+        else if(step->getType() == WAIT_TYPE){
+            WaitStep* waitStep = (WaitStep*) step;
+            nextWorkoutStepTime += waitStep->time;
+
+            /**
+              * Return.  This method will get called again during updateDisplay()
+              * and will pick up where it left off.
+              */
+            return;
+        }
+    }
+
+    // We've completed the workout
+    close();
 }
 
 void MainScreen::closeEvent(QCloseEvent * event){
@@ -167,6 +200,11 @@ void MainScreen::closeEvent(QCloseEvent * event){
 
 MainScreen::~MainScreen()
 {
+    for(int i=0;i<workout->length();i++){
+        delete workout->at(i);
+    }
+
+    delete workout;
     delete ui;
 
 //    player->stop();
@@ -223,6 +261,14 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
 
 void MainScreen::updateDisplay(){
 
+    long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
+    long elapsedTime = elapsedTimeMillis/1000;
+
+    if(elapsedTimeMillis >= nextWorkoutStepTime){
+        processNextWorkoutStep();
+    }
+
+
     int minutes = elapsedTime/60;
     ui->elapsedTimeMinutesLabel->setText( QString("%1").arg(minutes) );
 
@@ -248,13 +294,17 @@ void MainScreen::updateDisplay(){
     ui->distanceIntegerLabel->setText(QString("%1").arg(elapsedTime/10));
     ui->distanceDecimalLabel->setText(QString("%1").arg(elapsedTime%10));
 
-//    unsigned int grade = Preferences::getCurrentGrade();
-//    QString gradeString = QString("%1.%2").arg(grade/10, grade%10);
-//    ui->gradeLabel->setText(gradeString);
+    float grade = Preferences::getCurrentGrade();
+    int gradeInt = (int) grade;
+    int gradeDecimal = (grade - gradeInt) * 10;
+    ui->gradeIntegerLabel->setText(QString("%1").arg(gradeInt));
+    ui->gradeDecimalLabel->setText(QString("%1").arg(gradeDecimal));
 
-//    unsigned int speed = Preferences::getCurrentSpeed();
-//    QString speedString = QString("%1.%2").arg(speed/10, speed%10);
-//    ui->speedLabel->setText(speedString);
+    float speed = Preferences::getCurrentSpeed();
+    int speedInt = (int) speed;
+    int speedDecimal = (speed - speedInt) * 10;
+    ui->speedIntegerLabel->setText(QString("%1").arg(speedInt));
+    ui->speedDecimalLabel->setText(QString("%1").arg(speedDecimal));
 
     QDateTime currentTime = QDateTime::currentDateTime();
     QString time = currentTime.toString("h:mma");
@@ -273,11 +323,11 @@ void MainScreen::updateDisplay(){
 
 //    speedHistoryWidget.update();
 //    gradeHistoryWidget.update();
-
-    elapsedTime++;
 }
 
 void MainScreen::updateRunningDudeImage(){
+
+        long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
 
        long distanceTraveled = elapsedTimeMillis;
        long speed = distanceTraveled/10;
@@ -310,8 +360,6 @@ void MainScreen::updateRunningDudeImage(){
 //       qDebug() << "image path: " + imagePath;
        QPixmap runningDudePixmap(imagePath);
        runningDudeWidget->setPixmap(runningDudePixmap);
-
-       elapsedTimeMillis+=10;
 }
 
 void MainScreen::on_audioButton_invisibleButton_pressed()

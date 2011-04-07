@@ -4,6 +4,8 @@
 #include "mainscreen.h"
 #include "pointerevent.h"
 #include "screens.h"
+#include "step.h"
+#include "utils.h"
 
 HeartRateScreen::HeartRateScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent)
@@ -89,7 +91,21 @@ void HeartRateScreen::on_invisibleButton_4_pressed()
 
 void HeartRateScreen::on_invisibleButton_6_pressed()
 {
-    Screens::show(new MainScreen(0));
+    int minutes = (int) timeSlider.value;
+    int lowSpeed = (int) speedSlider1.value;
+    int age = (int) ageSlider.value;
+    int weight = (int) weightSlider.value;
+
+    int highSpeed;
+    if(speedSlider2.isVisible()){
+        highSpeed = (int) speedSlider2.value;
+    }
+    else{
+        highSpeed = lowSpeed;
+    }
+
+    QList<Step*>* workout = Utils::createDynamicSpeedWorkout(minutes, lowSpeed, highSpeed, age, weight);
+    Screens::show(new MainScreen(0, workout));
 
     close();
 }

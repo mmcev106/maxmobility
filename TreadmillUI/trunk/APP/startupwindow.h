@@ -21,7 +21,8 @@ private:
     Ui::StartupWindow *ui;
 //    Phonon::VideoPlayer *player;
 
-    void showMainScreen(QString action);
+    void showMainScreen(float speed, float grade, int minutes);
+
 
 private slots:
     void on_invisibleButton_16_pressed();
@@ -33,7 +34,6 @@ private slots:
     void on_invisibleButton_9_pressed();
     void on_invisibleButton_10_pressed();
     void on_invisibleButton_8_pressed();
-    void on_invisibleButton_7_pressed();
     void on_invisibleButton_6_pressed();
     void on_invisibleButton_5_pressed();
     void on_invisibleButton_4_pressed();

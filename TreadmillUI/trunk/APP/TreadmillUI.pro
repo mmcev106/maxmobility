@@ -37,7 +37,11 @@ HEADERS += startupwindow.h \
     serialsenderthread.h \
     upperboardevent.h \
     utils.h \
-    state.h
+    state.h \
+    changespeedstep.h \
+    changegradestep.h \
+    waitstep.h \
+    step.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -77,7 +81,11 @@ SOURCES += main.cpp startupwindow.cpp \
     serialsenderthread.cpp \
     upperboardevent.cpp \
     utils.cpp \
-    state.cpp
+    state.cpp \
+    changespeedstep.cpp \
+    changegradestep.cpp \
+    waitstep.cpp \
+    step.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \
@@ -85,4 +93,4 @@ OTHER_FILES += \
 
 #QT += phonon
 LIBS += -lqextserialport
-DEFINES += QT_NO_DEBUG_OUTPUT NDEBUG
+#DEFINES += QT_NO_DEBUG_OUTPUT NDEBUG

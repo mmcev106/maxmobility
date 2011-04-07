@@ -6,6 +6,7 @@
 #include "pointerevent.h"
 #include "mainscreen.h"
 #include "screens.h"
+#include "utils.h"
 
 IntervalScreen::IntervalScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent),
@@ -97,6 +98,27 @@ void IntervalScreen::on_invisibleButton_hills_2_pressed()
 
 void IntervalScreen::on_invisibleButton_hills_3_pressed()
 {
-    Screens::show(new MainScreen(0));
+    int minutes = timeSlider.value;
+    int age = ageSlider.value;
+    int weight = weightSlider.value;
+
+    QList<Step*>* workout;
+    if(lowSpeedSlider.isVisible()){
+
+        int lowSpeed = lowSpeedSlider.value;
+        int highSpeed = highSpeedSlider.value;
+
+        workout = Utils::createDynamicSpeedWorkout(minutes, lowSpeed, highSpeed, age, weight);
+    }
+    else{
+
+        int lowGrade = lowGradeSlider.value;
+        int highGrade = highGradeSlider.value;
+
+        workout = Utils::createDynamicGradeWorkout(minutes, lowGrade, highGrade, age, weight);
+    }
+
+
+    Screens::show(new MainScreen(0, workout));
     close();
 }

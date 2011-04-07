@@ -17,8 +17,17 @@
 #include <QMessageBox>
 
 #include "testwidget.h"
+#include "utils.h"
 
 using namespace std;
+
+static int QUICK_WORKOUT_LENGTH = 1; //minutes
+static int WALKING_SPEED = 3;
+static int FAST_SPEED = 6;
+static int JOGGING_SPEED = 9;
+static int RUNNING_SPEED = 12;
+static int HILL_GRADE = 5;
+static int STEEP_GRADE = 10;
 
 StartupWindow::StartupWindow(QWidget *parent) :
     AbstractScreen(parent)
@@ -64,61 +73,44 @@ StartupWindow::~StartupWindow()
 //    delete player;
 }
 
-void StartupWindow::showMainScreen(QString action){
-    Screens::show( new MainScreen(0, action));
-}
-
-void QWidget::keyPressEvent(QKeyEvent* event){
-    int key = event->key();
-
-    if (key == Qt::Key_Escape){
-        close();
-    }
-    else if (key == Qt::Key_M){
-        if(Preferences::measurementSystem == STANDARD){
-            Preferences::measurementSystem = METRIC;
-            QMessageBox::about(this, "", "The measurement system has been changed to metric.");
-        }
-        else{
-            Preferences::measurementSystem = STANDARD;
-            QMessageBox::about(this, "", "The measurement system has been changed to standard.");
-        }
-    }
+void StartupWindow::showMainScreen(float speed, float grade, int minutes){
+    Screens::show( new MainScreen(this, Utils::createWorkout(speed, grade, minutes)));
 }
 
 void StartupWindow::on_invisibleButton_pressed()
 {
-     showMainScreen("walk");
+    //walk
+    showMainScreen(WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_2_pressed()
 {
-    showMainScreen("fast");
+    //fast
+    showMainScreen(FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_3_pressed()
 {
-    showMainScreen("jog");
+    //jog
+    showMainScreen(JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_4_pressed()
 {
-    showMainScreen("run");
+    //run
+    showMainScreen(RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_5_pressed()
 {
-    showMainScreen("hill");
+    //hill
+    showMainScreen(WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_6_pressed()
 {
-    showMainScreen("steep");
-}
-
-void StartupWindow::on_invisibleButton_7_pressed()
-{
-    showMainScreen("HR Control");
+    //steep
+    showMainScreen(WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_8_pressed()
@@ -139,7 +131,7 @@ void StartupWindow::on_invisibleButton_9_pressed()
 
 void StartupWindow::on_invisibleButton_14_pressed()
 {
-    showMainScreen("USB");
+    //showMainScreen("USB");
 }
 
 void StartupWindow::on_invisibleButton_11_pressed()
@@ -149,17 +141,17 @@ void StartupWindow::on_invisibleButton_11_pressed()
 
 void StartupWindow::on_invisibleButton_12_pressed()
 {
-    showMainScreen("History");
+    //showMainScreen("History");
 }
 
 void StartupWindow::on_invisibleButton_13_pressed()
 {
-    showMainScreen("Help");
+    //showMainScreen("Help");
 }
 
 void StartupWindow::on_invisibleButton_15_pressed()
 {
-    showMainScreen("Video");
+    //showMainScreen("Video");
 }
 
 void StartupWindow::on_invisibleButton_16_pressed()
