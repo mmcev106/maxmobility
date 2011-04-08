@@ -12,15 +12,15 @@ AbstractScreen::AbstractScreen(QWidget *parent) :
 {
     setAttribute( Qt::WA_DeleteOnClose );
 
-    mouseTimer = new QTimer(this);
-    mouseTimer->setSingleShot(false);
-    mouseTimer->setInterval(100);
-    connect(mouseTimer, SIGNAL(timeout()), this, SLOT( surroundCursor()));
-    mouseTimer->start();
+//    mouseTimer = new QTimer(this);
+//    mouseTimer->setSingleShot(false);
+//    mouseTimer->setInterval(100);
+//    connect(mouseTimer, SIGNAL(timeout()), this, SLOT( surroundCursor()));
+//    mouseTimer->start();
 
-    mouseLabel.setStyleSheet("background-color: red;");
-    mouseLabel.setFixedSize(10,10);
-    mouseLabel.show();
+//    mouseLabel.setStyleSheet("background-color: red;");
+//    mouseLabel.setFixedSize(10,10);
+//    mouseLabel.show();
 
     setFocusPolicy(Qt::ClickFocus);
     setFocus();
