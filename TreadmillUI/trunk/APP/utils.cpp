@@ -5,6 +5,7 @@
 #include "changegradestep.h"
 #include "changespeedstep.h"
 #include "waitstep.h"
+#include <QDebug>
 
 static const long MILLIS_PER_SECOND = 1000;
 static const long MILLIS_PER_MINUTE = MILLIS_PER_SECOND * 60;
@@ -50,6 +51,63 @@ QList<Step*>* Utils::createDynamicSpeedWorkout(int minutes, int lowSpeed , int h
     return steps;
 }
 
+QList<Step*>* Utils::createIntensityWorkout(int minutes, double intensityPercent, int weight){
+
+    //adjust the percent, so that it goes between .1 and 1 instead of 0 and 1
+    int minimumPercent = .1;
+    intensityPercent = intensityPercent + minimumPercent - intensityPercent*minimumPercent;
+
+    QList<Step*> *steps = new QList<Step*>();
+
+    long currentTime = 0;
+    long totalTime = minutes * MILLIS_PER_MINUTE;
+    long halfTime = totalTime/2;
+    long waitTime = MILLIS_PER_SECOND;
+    int levels = halfTime/waitTime;
+
+    int startingSpeed = 3;
+    int startingGrade = 0;
+    float maxGradeChange = (MAX_GRADE - startingGrade)*intensityPercent;
+    float maxSpeedChange = (MAX_SPEED - startingSpeed)*intensityPercent;
+
+    float gradeIncrement = maxGradeChange/levels;
+    float speedIncrement = maxSpeedChange/levels;
+
+    qDebug() << "speedIncrement: " << speedIncrement;
+
+    float speed = startingSpeed;
+    float grade = startingGrade;
+
+    steps->append(new ChangeGradeStep(grade));
+    steps->append(new ChangeSpeedStep(speed));
+
+    while(currentTime < halfTime){
+        steps->append(new WaitStep(waitTime));
+
+        grade += gradeIncrement;
+        speed += speedIncrement;
+
+        steps->append(new ChangeGradeStep(grade));
+        steps->append(new ChangeSpeedStep(speed));
+
+        currentTime += waitTime;
+    }
+
+    while(currentTime < totalTime){
+        steps->append(new WaitStep(waitTime));
+
+        grade -= gradeIncrement;
+        speed -= speedIncrement;
+
+        steps->append(new ChangeGradeStep(grade));
+        steps->append(new ChangeSpeedStep(speed));
+
+        currentTime += waitTime;
+    }
+
+    return steps;
+}
+
 QList<Step*>* Utils::createDynamicGradeWorkout(int minutes, int lowGrade , int highGrade, int age, int weight){
 
     QList<Step*> *steps = new QList<Step*>();
@@ -75,8 +133,6 @@ QList<Step*>* Utils::createDynamicGradeWorkout(int minutes, int lowGrade , int h
 
     return steps;
 }
-
-
 
 QString Utils::toString(unsigned char *array, int len){
     QString string;

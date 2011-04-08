@@ -6,8 +6,8 @@
 class ChangeGradeStep : public Step
 {
 public:
-    ChangeGradeStep(int grade);
-    int grade;
+    ChangeGradeStep(float grade);
+    float grade;
     StepType getType();
 };
 

@@ -128,6 +128,13 @@ void SliderWidget::setValue(double value){
     update();
 }
 
+double SliderWidget::getPercentage(){
+    double range = max - min;
+    double distanceFromMin = value - min;
+
+    return distanceFromMin/range;
+}
+
 void SliderWidget::setValueFromX(int x){
 
     qDebug() << "x: " << x;

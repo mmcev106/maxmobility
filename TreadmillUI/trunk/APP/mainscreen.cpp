@@ -7,7 +7,7 @@
 #include <QBitmap>
 #include <QPainter>
 #include "preferences.h"
-#include <QDir>
+#include <QDir>g
 #include "upperboardevent.h"
 #include "changespeedstep.h"
 #include "changegradestep.h"

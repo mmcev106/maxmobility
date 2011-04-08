@@ -1,6 +1,6 @@
 #include "changegradestep.h"
 
-ChangeGradeStep::ChangeGradeStep(int grade)
+ChangeGradeStep::ChangeGradeStep(float grade)
 {
     this->grade = grade;
 }

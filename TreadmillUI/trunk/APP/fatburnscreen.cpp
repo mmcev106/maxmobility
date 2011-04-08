@@ -8,6 +8,7 @@
 #include <QMutex>
 #include <QWaitCondition>
 #include "screens.h"
+#include "utils.h"
 
 FatBurnScreen::FatBurnScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent),
@@ -47,7 +48,13 @@ void FatBurnScreen::on_invisibleButton_7_pressed()
 
 void FatBurnScreen::on_invisibleButton_6_pressed()
 {
-    Screens::show( new MainScreen(0) );
+    int minutes = timeSlider.value;
+    double percent = intensitySlider.getPercentage();
+    int weight = weightSlider.value;
+
+    QList<Step*>* workout = Utils::createIntensityWorkout(minutes, percent, weight);
+
+    Screens::show( new MainScreen(0, workout) );
 
     close();
 }

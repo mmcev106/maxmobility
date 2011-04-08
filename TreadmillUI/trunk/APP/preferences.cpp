@@ -22,7 +22,7 @@ float Preferences::getCurrentSpeed(){
 
 void Preferences::setCurrentSpeed(float speed)
 {
-    messageData[1] = (unsigned char) speed * 10;
+    messageData[1] = (unsigned char) (speed * 10) ;
 }
 
 float Preferences::getCurrentGrade(){
@@ -33,5 +33,5 @@ float Preferences::getCurrentGrade(){
 }
 
 void Preferences::setCurrentGrade(float grade){
-    messageData[2] = (unsigned char) grade * 10;
+    messageData[2] = (unsigned char) (grade * 10);
 }

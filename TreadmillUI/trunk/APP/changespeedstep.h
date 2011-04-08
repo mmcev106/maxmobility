@@ -6,8 +6,8 @@
 class ChangeSpeedStep : public Step
 {
 public:
-    ChangeSpeedStep(int speed);
-    int speed;
+    ChangeSpeedStep(float speed);
+    float speed;
     StepType getType();
 };
 

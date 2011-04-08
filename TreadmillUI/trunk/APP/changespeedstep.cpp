@@ -1,6 +1,6 @@
 #include "changespeedstep.h"
 
-ChangeSpeedStep::ChangeSpeedStep(int speed)
+ChangeSpeedStep::ChangeSpeedStep(float speed)
 {
     this->speed = speed;
 }

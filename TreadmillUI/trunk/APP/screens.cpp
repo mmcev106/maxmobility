@@ -23,7 +23,7 @@ long lastScreenShown = std::numeric_limits<long>::min();
 
         if(lastScreenShown < now - SCREEN_SHOW_THRESHOLD){
 
-            qDebug() << now <<  " - Showing screen";
+//            qDebug() << now <<  " - Showing screen";
             lastScreenShown = now;
             screen->showFullScreen();
         }

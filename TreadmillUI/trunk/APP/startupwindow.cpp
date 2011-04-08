@@ -25,9 +25,9 @@ static int QUICK_WORKOUT_LENGTH = 1; //minutes
 static int WALKING_SPEED = 3;
 static int FAST_SPEED = 6;
 static int JOGGING_SPEED = 9;
-static int RUNNING_SPEED = 12;
+static int RUNNING_SPEED = MAX_SPEED;
 static int HILL_GRADE = 5;
-static int STEEP_GRADE = 10;
+static int STEEP_GRADE = MAX_GRADE;
 
 StartupWindow::StartupWindow(QWidget *parent) :
     AbstractScreen(parent)

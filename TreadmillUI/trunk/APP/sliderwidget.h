@@ -14,6 +14,7 @@ public:
     double step;
 
     void setValue(double);
+    double getPercentage();
 
 protected:
     void mouseMoveEvent(QMouseEvent *event);
