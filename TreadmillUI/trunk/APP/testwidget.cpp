@@ -89,7 +89,7 @@ void HeartRateScreen2::on_invisibleButton_4_pressed()
 
 void HeartRateScreen2::on_invisibleButton_6_pressed()
 {
-    Screens::show( new MainScreen(0) );
+    Screens::show( new MainScreen(0, NULL) );
 
     close();
 }

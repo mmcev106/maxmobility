@@ -42,7 +42,7 @@ void FitnessTestScreen::on_invisibleButton_5_pressed()
 
 void FitnessTestScreen::on_invisibleButton_6_pressed()
 {
-    Screens::show(new MainScreen(0));
+    Screens::show(new MainScreen(0, NULL));
 
     close();
 }

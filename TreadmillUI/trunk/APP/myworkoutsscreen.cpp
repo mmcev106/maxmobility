@@ -96,7 +96,7 @@ MyWorkoutsScreen::~MyWorkoutsScreen()
 }
 
 void MyWorkoutsScreen::workoutSelected(){
-    Screens::show(new MainScreen);
+    Screens::show(new MainScreen(0, NULL));
     close();
 }
 

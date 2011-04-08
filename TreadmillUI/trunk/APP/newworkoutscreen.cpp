@@ -51,7 +51,7 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
         workout->close();
         delete workout;
 
-        Screens::show(new MainScreen());
+        Screens::show(new MainScreen(0, NULL));
         close();
     }
 }

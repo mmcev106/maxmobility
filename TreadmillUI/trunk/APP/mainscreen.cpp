@@ -166,32 +166,34 @@ MainScreen::MainScreen(QWidget *parent, QList<Step*>* workout) :
 
 void MainScreen::processNextWorkoutStep() {
 
-    for( int i=nextWorkoutStepIndex;i<workout->length();i++){
-        Step* step = workout->at(nextWorkoutStepIndex);
-        nextWorkoutStepIndex++;
+    if(workout != NULL){
+        for( int i=nextWorkoutStepIndex;i<workout->length();i++){
+            Step* step = workout->at(nextWorkoutStepIndex);
+            nextWorkoutStepIndex++;
 
-        if(step->getType() == SPEED_CHANGE_TYPE){
-            ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
-            Preferences::setCurrentSpeed(changeSpeedStep->speed);
-        }
-        else if(step->getType() == GRADE_CHANGE_TYPE){
-            ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
-            Preferences::setCurrentGrade(changeGradeStep->grade);
-        }
-        else if(step->getType() == WAIT_TYPE){
-            WaitStep* waitStep = (WaitStep*) step;
-            nextWorkoutStepTime += waitStep->time;
+            if(step->getType() == SPEED_CHANGE_TYPE){
+                ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
+                Preferences::setCurrentSpeed(changeSpeedStep->speed);
+            }
+            else if(step->getType() == GRADE_CHANGE_TYPE){
+                ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
+                Preferences::setCurrentGrade(changeGradeStep->grade);
+            }
+            else if(step->getType() == WAIT_TYPE){
+                WaitStep* waitStep = (WaitStep*) step;
+                nextWorkoutStepTime += waitStep->time;
 
-            /**
-              * Return.  This method will get called again during updateDisplay()
-              * and will pick up where it left off.
-              */
-            return;
+                /**
+                  * Return.  This method will get called again during updateDisplay()
+                  * and will pick up where it left off.
+                  */
+                return;
+            }
         }
+
+        // We've completed the workout
+        close();
     }
-
-    // We've completed the workout
-    close();
 }
 
 void MainScreen::closeEvent(QCloseEvent * event){
@@ -200,11 +202,15 @@ void MainScreen::closeEvent(QCloseEvent * event){
 
 MainScreen::~MainScreen()
 {
-    for(int i=0;i<workout->length();i++){
-        delete workout->at(i);
+    if(workout != NULL){
+
+        for(int i=0;i<workout->length();i++){
+            delete workout->at(i);
+        }
+
+        delete workout;
     }
 
-    delete workout;
     delete ui;
 
 //    player->stop();

@@ -19,7 +19,7 @@ class MainScreen : public AbstractScreen
     Q_OBJECT
 
 public:
-    explicit MainScreen(QWidget *parent = 0, QList<Step*>* workout = NULL);
+    explicit MainScreen(QWidget *parent, QList<Step*>* workout);
     ~MainScreen();
 
 protected:
