@@ -7,9 +7,6 @@
 #include "waitstep.h"
 #include <QDebug>
 
-static const long MILLIS_PER_SECOND = 1000;
-static const long MILLIS_PER_MINUTE = MILLIS_PER_SECOND * 60;
-
 Utils::Utils()
 {
 }

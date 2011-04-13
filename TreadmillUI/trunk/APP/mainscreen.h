@@ -39,6 +39,7 @@ private:
     int nextWorkoutStepIndex;
     long nextWorkoutStepTime;
     QList<Step*>* workout;
+    double distance;
 //    Phonon::VideoPlayer *player;
     static const int HISTORY_LENGTH = 30;
 //    int speedHistory[HISTORY_LENGTH];

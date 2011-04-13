@@ -12,6 +12,7 @@
 #include "changespeedstep.h"
 #include "changegradestep.h"
 #include "waitstep.h"
+#include "utils.h"
 
 static int HISTORY_HEIGHT =31;
 static QString RUNNING_DUDE_IMAGE_PATH ="/images/Running Dude";
@@ -72,6 +73,10 @@ public:
     }
 };
 */
+
+static const int UPDATE_DISPLAY_DELAY = 1000;
+static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER_HOUR;
+
 MainScreen::MainScreen(QWidget *parent, QList<Step*>* workout) :
     AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
@@ -88,6 +93,7 @@ MainScreen::MainScreen(QWidget *parent, QList<Step*>* workout) :
     ,nextWorkoutStepIndex(0)
     ,nextWorkoutStepTime(0)
     ,workout(workout)
+    ,distance(0)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
@@ -114,7 +120,7 @@ MainScreen::MainScreen(QWidget *parent, QList<Step*>* workout) :
 
     connect(secondTimer, SIGNAL(timeout()), this, SLOT( updateDisplay()));
     secondTimer->setSingleShot(false);
-    secondTimer->setInterval(1000);
+    secondTimer->setInterval(UPDATE_DISPLAY_DELAY);
     secondTimer->start();
 
     connect(milliSecondTimer, SIGNAL(timeout()), this, SLOT( updateRunningDudeImage()));
@@ -268,6 +274,7 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
 void MainScreen::updateDisplay(){
 
     long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
+
     long elapsedTime = elapsedTimeMillis/1000;
 
     if(elapsedTimeMillis >= nextWorkoutStepTime){
@@ -297,20 +304,25 @@ void MainScreen::updateDisplay(){
 //    ui->cadenceLabel->setText(secondsString);
     ui->paceLabel->setText(secondsString);
 
-    ui->distanceIntegerLabel->setText(QString("%1").arg(elapsedTime/10));
-    ui->distanceDecimalLabel->setText(QString("%1").arg(elapsedTime%10));
-
     float grade = Preferences::getCurrentGrade();
     int gradeInt = (int) grade;
     int gradeDecimal = (grade - gradeInt) * 10;
     ui->gradeIntegerLabel->setText(QString("%1").arg(gradeInt));
     ui->gradeDecimalLabel->setText(QString("%1").arg(gradeDecimal));
 
-    float speed = Preferences::getCurrentSpeed();
+    double speed = Preferences::getCurrentSpeed();
     int speedInt = (int) speed;
     int speedDecimal = (speed - speedInt) * 10;
     ui->speedIntegerLabel->setText(QString("%1").arg(speedInt));
     ui->speedDecimalLabel->setText(QString("%1").arg(speedDecimal));
+
+
+    distance += speed*HOURS_PER_UPDATE;
+    int distanceInt = (int) distance;
+    int distanceDecimal = (distance - distanceInt) * 10;
+
+    ui->distanceIntegerLabel->setText(QString("%1").arg(distanceInt));
+    ui->distanceDecimalLabel->setText(QString("%1").arg(distanceDecimal));
 
     QDateTime currentTime = QDateTime::currentDateTime();
     QString time = currentTime.toString("h:mma");
