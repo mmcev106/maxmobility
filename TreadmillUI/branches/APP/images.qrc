@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/main_screen_background.png</file>
+        <file>images/startup_screen_background.png</file>
+        <file>images/main_screen_large_video_mask.png</file>
+        <file>images/video_thumb_mask.png</file>
+        <file>images/slider_left_arrow.png</file>
+        <file>images/slider_right_arrow.png</file>
+        <file>images/RadioButton_Selected.png</file>
+        <file>images/big_brick.png</file>
+        <file>images/big_brick_highlighted.png</file>
+        <file>images/Fitness-Test---06---(Air-Force---Standard).png</file>
+        <file>images/Fitness-Test---06---(Army---Standard).png</file>
+        <file>images/Fitness-Test---06---(Fire-Fighter---Standard).png</file>
+        <file>images/Fitness-Test---06---(Fitness---Standard).png</file>
+        <file>images/Fitness-Test---06---(Marines---Standard).png</file>
+        <file>images/Fitness-Test---06---(Navy---Standard).png</file>
+        <file>images/slider_both_arrows.png</file>
+        <file>images/Heart-Rate-Control---(Dynamic).png</file>
+        <file>images/Heart-Rate-Control---(Fixed).png</file>
+        <file>images/Interval---(Hills).png</file>
+        <file>images/Interval---(Sprints).png</file>
+        <file>images/Fat-Burn---06---(Standard)-(with-Reflection).png</file>
+        <file>images/Audio Screen - (Feedback).png</file>
+        <file>images/Audio Screen - (FM).png</file>
+        <file>images/Audio Screen - (Line In).png</file>
+        <file>images/Audio Screen - (USB).png</file>
+        <file>images/Keyboard Background.png</file>
+        <file>images/My Workouts.png</file>
+        <file>images/Name Workout (updated).png</file>
+        <file>images/Audio Screen - (Video).png</file>
+    </qresource>
+    <qresource prefix="/My Workouts">
+        <file>images/Down Arrow.png</file>
+        <file>images/My Workouts Title Bar.png</file>
+        <file>images/Up-Arrow.png</file>
+        <file>images/My Workouts - 'x'.png</file>
+    </qresource>
+</RCC>
