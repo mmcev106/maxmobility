@@ -11,10 +11,49 @@
 
  QString HistoryScreen::DATE_FORMAT = "M-d-yyyy";
 
+ bool sortByDateDescending(HistoryItem* item1, HistoryItem* item2){
+      return item1->date >= item2->date;
+ }
+
+ bool sortByDateAcending(HistoryItem* item1, HistoryItem* item2){
+      return item1->date < item2->date;
+ }
+
+ bool sortByNameDescending(HistoryItem* item1, HistoryItem* item2){
+      return item1->name.toLower() >= item2->name.toLower();
+ }
+
+ bool sortByNameAcending(HistoryItem* item1, HistoryItem* item2){
+      return item1->name.toLower() < item2->name.toLower();
+ }
+
+ bool sortByTimeDescending(HistoryItem* item1, HistoryItem* item2){
+      return item1->calories >= item2->calories;
+ }
+
+ bool sortByTimeAcending(HistoryItem* item1, HistoryItem* item2){
+      return item1->seconds < item2->seconds;
+ }
+
+ bool sortByCaloriesDescending(HistoryItem* item1, HistoryItem* item2){
+      return item1->calories >= item2->calories;
+ }
+
+ bool sortByCaloriesAcending(HistoryItem* item1, HistoryItem* item2){
+      return item1->calories < item2->calories;
+ }
+
+ bool sortByDistanceDescending(HistoryItem* item1, HistoryItem* item2){
+      return item1->distance >= item2->distance;
+ }
+
+ bool sortByDistanceAcending(HistoryItem* item1, HistoryItem* item2){
+      return item1->distance < item2->distance;
+ }
+
 HistoryScreen::HistoryScreen(QWidget *parent) :
     AbstractScreen(parent),
     ui(new Ui::HistoryScreen)
-    ,history(loadHistory())
     ,rowHeight(55)
 {
     ui->setupUi(this);
@@ -28,17 +67,40 @@ HistoryScreen::HistoryScreen(QWidget *parent) :
     ui->scrollArea->setWidgetResizable(true);
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    // qSort(history.begin(), history.end(), foo);
 
-    int totalSeconds = 0;
-    int totalCalories = 0;
-    float totalDistance = 0;
+    history = loadHistory();
+
+    displayHistory(sortByDateDescending);
+
+    scollAreaContents->setFixedHeight(rowHeight * history->length());
+
+    ui->scrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+
+    setUpArrowVisibility(false);
+
+    if(scollAreaContents->height() <= ui->scrollArea->height()){
+        setDownArrowVisibility(false);
+    }
+}
+
+void HistoryScreen::displayHistory(bool (*sortFunction)(HistoryItem*, HistoryItem*)){
+    lastSortFunction = sortFunction;
+
+    QVBoxLayout* layout = (QVBoxLayout*) ui->scrollArea->widget()->layout();
+
+    QLayoutItem * widget;
+    while( (widget = layout->takeAt(0)) != NULL){
+        delete widget;
+        widget->widget()->setParent(NULL);
+    }
+
+    qSort(history->begin(), history->end(), sortFunction);
 
     for(int i=0; i<history->length(); i++){
 
         HistoryItem* item = history->at(i);
 
-        QWidget* listItem = new QWidget(scollAreaContents);
+        QWidget* listItem = new QWidget(ui->scrollArea->widget());
         listItem->setFixedHeight(rowHeight-10);
         QHBoxLayout* listItemLayout = new QHBoxLayout;
         listItemLayout->setMargin(0);
@@ -88,41 +150,85 @@ HistoryScreen::HistoryScreen(QWidget *parent) :
         distanceLabel->setMargin(5);
         distanceLabel->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
         listItemLayout->addWidget(distanceLabel);
-
-        totalSeconds += item->seconds;
-        totalCalories += item->calories;
-        totalDistance += item->distance;
     }
+}
 
-    int averageSeconds = 0;
-    int averageCalories = 0;
-    float averageDistance = 0;
+void HistoryScreen::on_invisibleButton_date_pressed(){
 
-    if(history->length() > 0){
-        averageSeconds = totalSeconds/history->length();
-        averageCalories = totalCalories/history->length();
-        averageDistance = totalDistance/history->length();
-        averageDistance = ((float)(int)(averageDistance*10))/10;
+    resetHeaderImages();
+
+    if(lastSortFunction == sortByDateDescending){
+        displayHistory(sortByDateAcending);
+        ui->dateHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Date Title (ascending).png")));
     }
-
-
-    qDebug() << "averageSeconds%60: " << averageSeconds%60;
-
-    ui->workoutsLabel->setText(QString("%1").arg(history->length()));
-    ui->averageTimeLabel->setText(QString("%1:%2").arg(averageSeconds/60).arg(averageSeconds%60));
-    ui->averageCaloriesLabel->setText(QString("%1").arg(averageCalories));
-
-    ui->averageDistanceLabel->setText(QString("%1").arg(averageDistance));
-
-    scollAreaContents->setFixedHeight(rowHeight * history->length());
-
-    ui->scrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-
-    setUpArrowVisibility(false);
-
-    if(scollAreaContents->height() <= ui->scrollArea->height()){
-        setDownArrowVisibility(false);
+    else{
+        displayHistory(sortByDateDescending);
+        ui->dateHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Date Title (descending).png")));
     }
+}
+
+void HistoryScreen::on_invisibleButton_workout_pressed(){
+
+    resetHeaderImages();
+
+    if(lastSortFunction == sortByNameAcending){
+        displayHistory(sortByNameDescending);
+        ui->workoutHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Workout Title (descending).png")));
+    }
+    else{
+        displayHistory(sortByNameAcending);
+        ui->workoutHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Workout Title (ascending).png")));
+    }
+}
+
+void HistoryScreen::on_invisibleButton_time_pressed(){
+
+    resetHeaderImages();
+
+    if(lastSortFunction == sortByTimeDescending){
+        displayHistory(sortByTimeAcending);
+        ui->timeHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Time Title (ascending).png")));
+    }
+    else{
+        displayHistory(sortByTimeDescending);
+        ui->timeHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Time Title (descending).png")));
+    }
+}
+
+void HistoryScreen::on_invisibleButton_calories_pressed(){
+
+    resetHeaderImages();
+
+    if(lastSortFunction == sortByCaloriesDescending){
+        displayHistory(sortByCaloriesAcending);
+        ui->caloriesHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Calories Title (ascending).png")));
+    }
+    else{
+        displayHistory(sortByCaloriesDescending);
+        ui->caloriesHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Calories Title (descending).png")));
+    }
+}
+
+void HistoryScreen::on_invisibleButton_distance_pressed(){
+
+    resetHeaderImages();
+
+    if(lastSortFunction == sortByDistanceDescending){
+        displayHistory(sortByDistanceAcending);
+        ui->distanceHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Distance Title (ascending).png")));
+    }
+    else{
+        displayHistory(sortByDistanceDescending);
+        ui->distanceHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Distance Title (descending).png")));
+    }
+}
+
+void HistoryScreen::resetHeaderImages(){
+    ui->dateHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Date Title (default).png")));
+    ui->workoutHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Workout Title (default).png")));
+    ui->timeHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Time Title (default).png")));
+    ui->caloriesHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Calories Title (default).png")));
+    ui->distanceHeader->setPixmap(QPixmap(QString::fromUtf8(":/images/images/Distance Title (default).png")));
 }
 
 void HistoryScreen::on_invisibleButton_upArrowButton_pressed()
@@ -148,6 +254,11 @@ QList<HistoryItem*>* HistoryScreen::loadHistory(){
 
     QList<HistoryItem*>* history = new QList<HistoryItem*>;
 
+
+    int totalSeconds = 0;
+    int totalCalories = 0;
+    float totalDistance = 0;
+
     QFile historyFile(HISTORY);
     historyFile.open(QFile::ReadOnly);
 
@@ -172,9 +283,29 @@ QList<HistoryItem*>* HistoryScreen::loadHistory(){
         item->distance = QLocale(QLocale::C).toFloat(args.at(4));
 
         history->append(item);
+
+        totalSeconds += item->seconds;
+        totalCalories += item->calories;
+        totalDistance += item->distance;
     }
 
     historyFile.close();
+
+    int averageSeconds = 0;
+    int averageCalories = 0;
+    float averageDistance = 0;
+
+    if(history->length() > 0){
+        averageSeconds = totalSeconds/history->length();
+        averageCalories = totalCalories/history->length();
+        averageDistance = totalDistance/history->length();
+        averageDistance = ((float)(int)(averageDistance*10))/10;
+    }
+
+    ui->workoutsLabel->setText(QString("%1").arg(history->length()));
+    ui->averageTimeLabel->setText(QString("%1:%2").arg(averageSeconds/60).arg(averageSeconds%60));
+    ui->averageCaloriesLabel->setText(QString("%1").arg(averageCalories));
+    ui->averageDistanceLabel->setText(QString("%1").arg(averageDistance));
 
     return history;
 }
