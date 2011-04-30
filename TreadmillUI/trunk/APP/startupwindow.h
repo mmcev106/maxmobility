@@ -21,7 +21,7 @@ private:
     Ui::StartupWindow *ui;
 //    Phonon::VideoPlayer *player;
 
-    void showMainScreen(float speed, float grade, int minutes);
+    void showMainScreen(QString name, float speed, float grade, int minutes);
 
 
 private slots:

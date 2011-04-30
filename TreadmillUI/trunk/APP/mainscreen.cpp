@@ -2,8 +2,8 @@
 #include "ui_mainscreen.h"
 #include <QStringBuilder>
 #include <QDateTime>
-//#include <phonon/VideoWidget>
-//#include <phonon/MediaObject>
+#include <phonon/VideoWidget>
+#include <phonon/MediaObject>
 #include <QBitmap>
 #include <QPainter>
 #include "preferences.h"
@@ -77,7 +77,7 @@ public:
 static const int UPDATE_DISPLAY_DELAY = 1000;
 static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER_HOUR;
 
-MainScreen::MainScreen(QWidget *parent, QList<Step*>* workout) :
+MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer(this))
@@ -86,7 +86,7 @@ MainScreen::MainScreen(QWidget *parent, QList<Step*>* workout) :
     ,startTime(QDateTime::currentMSecsSinceEpoch())
     ,trackWidget(new QLabel(this))
     ,runningDudeWidget(new QLabel(this))
-//    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
 //    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
 //    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,audioSettingsWidget(this)
@@ -155,10 +155,9 @@ MainScreen::MainScreen(QWidget *parent, QList<Step*>* workout) :
     trackWidget->setFixedSize(trackBitmap.size());
     trackWidget->move(centerPosition);
     trackWidget->setPixmap(trackBitmap);
-    trackWidget->show();
+    trackWidget->hide();
     trackWidget->lower();
 
-    runningDudeWidget->show();
     runningDudeWidget->move(centerPosition);
     runningDudeWidget->setFixedSize(trackBitmap.size());
 
@@ -168,13 +167,18 @@ MainScreen::MainScreen(QWidget *parent, QList<Step*>* workout) :
 
     //    update the fields before the windows is initially displayed
     updateDisplay();
+
+    playVideo();
 }
 
 void MainScreen::processNextWorkoutStep() {
 
     if(workout != NULL){
-        for( int i=nextWorkoutStepIndex;i<workout->length();i++){
-            Step* step = workout->at(nextWorkoutStepIndex);
+
+        QList<Step*>* steps = workout->steps;
+
+        for( int i=nextWorkoutStepIndex;i<steps->length();i++){
+            Step* step = steps->at(nextWorkoutStepIndex);
             nextWorkoutStepIndex++;
 
             if(step->getType() == SPEED_CHANGE_TYPE){
@@ -202,21 +206,46 @@ void MainScreen::processNextWorkoutStep() {
     }
 }
 
+void MainScreen::writeHistoryEntry(){
+    QFile historyFile(HISTORY);
+    historyFile.open(QFile::Append);
+
+    QTextStream stream(&historyFile);
+
+    QDate today = QDate::currentDate();
+
+    stream << QString("%1").arg(today.month());
+    stream << '-' << QString("%1").arg(today.day());
+    stream << '-' << QString("%1").arg(today.year());
+    stream << "\t";
+
+    stream << workout->name;
+    stream << "\t";
+
+    stream << ui->elapsedTimeMinutesLabel->text();
+    stream << ":" << ui->elapsedTimeSecondsLabel->text();
+    stream << "\t";
+
+    stream << ui->caloriesLabel->text();
+    stream << "\t";
+
+    stream << ui->distanceIntegerLabel->text() << '.' << ui->distanceDecimalLabel->text();
+    stream << "\n";
+
+    stream.flush();
+    historyFile.close();
+}
+
 void MainScreen::closeEvent(QCloseEvent * event){
+
     Preferences::currentState.setOff();
+
+    writeHistoryEntry();
 }
 
 MainScreen::~MainScreen()
 {
-    if(workout != NULL){
-
-        for(int i=0;i<workout->length();i++){
-            delete workout->at(i);
-        }
-
-        delete workout;
-    }
-
+    delete workout;
     delete ui;
 
 //    player->stop();
@@ -239,22 +268,20 @@ MainScreen::~MainScreen()
 
 void MainScreen::playVideo(){
 
-//    player->play(Phonon::MediaSource("test video.avi"));
+    player->play(Phonon::MediaSource("/test.mov"));
 
-//    player->move(0,0);
+    player->move(134,102);
 
-//    player->setVisible(true);
-//    player->show();
+    player->setVisible(true);
 
-//    player->setFixedSize(528,396);
-//    player->videoWidget()->setFixedSize(528,396);
-//    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
+    QSize size(756, 564);
+    player->setFixedSize(size);
+    player->videoWidget()->setFixedSize(size);
+    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
 
-
-
-
-//    QPixmap pixmap(":/images/images/main_screen_large_video_mask.png");
-//    player->setMask(pixmap.mask());
+    QPixmap pixmap(":/images/images/main_screen_large_video_mask.png");
+    player->setMask(pixmap.mask());
+    ui->snapshot->setMask(pixmap.mask());
 
 }
 

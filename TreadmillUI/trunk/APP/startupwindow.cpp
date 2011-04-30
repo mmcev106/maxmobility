@@ -15,6 +15,7 @@
 #include <QCoreApplication>
 #include "preferences.h"
 #include <QMessageBox>
+#include "historyscreen.h"
 
 #include "testwidget.h"
 #include "utils.h"
@@ -73,44 +74,44 @@ StartupWindow::~StartupWindow()
 //    delete player;
 }
 
-void StartupWindow::showMainScreen(float speed, float grade, int minutes){
-    Screens::show( new MainScreen(this, Utils::createWorkout(speed, grade, minutes)));
+void StartupWindow::showMainScreen(QString name, float speed, float grade, int minutes){
+    Screens::show( new MainScreen(this, Workout::createWorkout(name, speed, grade, minutes)));
 }
 
 void StartupWindow::on_invisibleButton_pressed()
 {
     //walk
-    showMainScreen(WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Walk", WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_2_pressed()
 {
     //fast
-    showMainScreen(FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Fast Walk", FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_3_pressed()
 {
     //jog
-    showMainScreen(JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Jog", JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_4_pressed()
 {
     //run
-    showMainScreen(RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Run", RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_5_pressed()
 {
     //hill
-    showMainScreen(WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Hill Walk", WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_6_pressed()
 {
     //steep
-    showMainScreen(WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Steep Walk", WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_8_pressed()
@@ -141,7 +142,7 @@ void StartupWindow::on_invisibleButton_11_pressed()
 
 void StartupWindow::on_invisibleButton_12_pressed()
 {
-    //showMainScreen("History");
+    Screens::show(new HistoryScreen());
 }
 
 void StartupWindow::on_invisibleButton_13_pressed()

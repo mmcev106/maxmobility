@@ -4,6 +4,7 @@
 #include <QString>
 #include <QColor>
 #include <QApplication>
+#include <QDir>
 
 #include "qextserialport.h"
 #include "state.h"
@@ -19,6 +20,7 @@ static const int BEAGLE_BOARD_MESSAGE_LENGTH = 7;
 static const QColor HIGHLIGHT_BLUE(66, 180, 255, 200);
 
 static const QString WORKOUTS = "workouts";
+static const QString HISTORY = "history";
 
 class Preferences
 {
@@ -32,6 +34,7 @@ public:
 
     static QextSerialPort* serialPort;
     static QApplication* application;
+    static QDir dataDirectory;
 
     static unsigned char messageData[BEAGLE_BOARD_MESSAGE_LENGTH];
     static State currentState;

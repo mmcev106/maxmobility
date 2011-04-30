@@ -29,6 +29,23 @@
         <file>images/My Workouts.png</file>
         <file>images/Name Workout (updated).png</file>
         <file>images/Audio Screen - (Video).png</file>
+        <file>images/History.png</file>
+        <file>images/Calories Title (ascending).png</file>
+        <file>images/Calories Title (default).png</file>
+        <file>images/Calories Title (descending).png</file>
+        <file>images/Date Title (ascending).png</file>
+        <file>images/Date Title (default).png</file>
+        <file>images/Date Title (descending).png</file>
+        <file>images/Distance Title (ascending).png</file>
+        <file>images/Distance Title (default).png</file>
+        <file>images/Distance Title (descending).png</file>
+        <file>images/Time Title (ascending).png</file>
+        <file>images/Time Title (default).png</file>
+        <file>images/Time Title (descending).png</file>
+        <file>images/Workout Title (ascending).png</file>
+        <file>images/Workout Title (default).png</file>
+        <file>images/Workout Title (descending).png</file>
+        <file>images/snap.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>

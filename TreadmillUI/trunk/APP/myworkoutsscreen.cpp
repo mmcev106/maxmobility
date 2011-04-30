@@ -34,10 +34,8 @@ MyWorkoutsScreen::MyWorkoutsScreen(QWidget *parent) :
     ui->scrollArea->setWidget(scollAreaContents);
     ui->scrollArea->setWidgetResizable(true);
 
-
     for(int i=0;i<children.length();i++){
         QString workout = children.at(i);
-        qDebug() << workout << endl;
 
         QWidget* listItem = new QWidget(scollAreaContents);
         QHBoxLayout* listItemLayout = new QHBoxLayout;
@@ -77,11 +75,6 @@ MyWorkoutsScreen::MyWorkoutsScreen(QWidget *parent) :
     rowHeight = workoutListItemBackground.height() + 6;
 
     ui->scrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-
-    qDebug() << ui->scrollArea->verticalScrollBar()->minimum();
-    qDebug() << ui->scrollArea->verticalScrollBar()->maximum();
-    qDebug() << ui->scrollArea->verticalScrollBar()->value();
-    qDebug() << "---------";
 
     setUpArrowVisibility(false);
 

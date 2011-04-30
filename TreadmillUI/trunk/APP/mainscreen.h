@@ -3,12 +3,13 @@
 
 #include "abstractscreen.h"
 #include <QTimer>
-//#include <phonon/VideoPlayer>
+#include <phonon/VideoPlayer>
 #include "historywidget.h"
 #include "audiosettingswidget.h"
 #include <QKeyEvent>
 #include <QCloseEvent>
 #include "step.h"
+#include "workout.h"
 
 namespace Ui {
     class MainScreen;
@@ -19,7 +20,7 @@ class MainScreen : public AbstractScreen
     Q_OBJECT
 
 public:
-    explicit MainScreen(QWidget *parent, QList<Step*>* workout);
+    explicit MainScreen(QWidget *parent, Workout* workout);
     ~MainScreen();
 
 protected:
@@ -38,9 +39,9 @@ private:
     QLabel* runningDudeWidget;
     int nextWorkoutStepIndex;
     long nextWorkoutStepTime;
-    QList<Step*>* workout;
+    Workout* workout;
     double distance;
-//    Phonon::VideoPlayer *player;
+    Phonon::VideoPlayer *player;
     static const int HISTORY_LENGTH = 30;
 //    int speedHistory[HISTORY_LENGTH];
 //    int gradeHistory[HISTORY_LENGTH];
@@ -48,6 +49,8 @@ private:
 //    HistoryWidget gradeHistoryWidget;
 
     AudioSettingsWidget audioSettingsWidget;
+
+    void writeHistoryEntry();
 
 private slots:
     void on_audioButton_invisibleButton_pressed();

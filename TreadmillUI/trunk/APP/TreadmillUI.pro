@@ -41,7 +41,10 @@ HEADERS += startupwindow.h \
     changespeedstep.h \
     changegradestep.h \
     waitstep.h \
-    step.h
+    step.h \
+    historyscreen.h \
+    workout.h \
+    historyitem.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -51,7 +54,8 @@ FORMS += startupwindow.ui \
     audiosettingswidget.ui \
     keyboardwidget.ui \
     myworkoutsscreen.ui \
-    newworkoutscreen.ui
+    newworkoutscreen.ui \
+    historyscreen.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -85,12 +89,15 @@ SOURCES += main.cpp startupwindow.cpp \
     changespeedstep.cpp \
     changegradestep.cpp \
     waitstep.cpp \
-    step.cpp
+    step.cpp \
+    historyscreen.cpp \
+    workout.cpp \
+    historyitem.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \
     style.css
 
-#QT += phonon
+QT += phonon
 LIBS += -lqextserialport
 #DEFINES += QT_NO_DEBUG_OUTPUT NDEBUG

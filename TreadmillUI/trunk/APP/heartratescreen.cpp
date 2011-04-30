@@ -104,7 +104,7 @@ void HeartRateScreen::on_invisibleButton_6_pressed()
         highSpeed = lowSpeed;
     }
 
-    QList<Step*>* workout = Utils::createDynamicSpeedWorkout(minutes, lowSpeed, highSpeed, age, weight);
+    Workout* workout = Workout::createDynamicSpeedWorkout("Heart Rate", minutes, lowSpeed, highSpeed, age, weight);
     Screens::show(new MainScreen(0, workout));
 
     close();

@@ -102,20 +102,20 @@ void IntervalScreen::on_invisibleButton_hills_3_pressed()
     int age = ageSlider.value;
     int weight = weightSlider.value;
 
-    QList<Step*>* workout;
+    Workout* workout;
     if(lowSpeedSlider.isVisible()){
 
         int lowSpeed = lowSpeedSlider.value;
         int highSpeed = highSpeedSlider.value;
 
-        workout = Utils::createDynamicSpeedWorkout(minutes, lowSpeed, highSpeed, age, weight);
+        workout = Workout::createDynamicSpeedWorkout("Speed Interval", minutes, lowSpeed, highSpeed, age, weight);
     }
     else{
 
         int lowGrade = lowGradeSlider.value;
         int highGrade = highGradeSlider.value;
 
-        workout = Utils::createDynamicGradeWorkout(minutes, lowGrade, highGrade, age, weight);
+        workout = Workout::createDynamicGradeWorkout("Grade Interval", minutes, lowGrade, highGrade, age, weight);
     }
 
 

@@ -9,6 +9,8 @@ bool Preferences::measurementSystem = STANDARD;
 QextSerialPort* Preferences::serialPort = NULL;
 QApplication* Preferences::application = NULL;
 
+QDir Preferences::dataDirectory = QDir::current();
+
 unsigned char Preferences::messageData[BEAGLE_BOARD_MESSAGE_LENGTH];
 
 State Preferences::currentState;

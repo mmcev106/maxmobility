@@ -365,7 +365,7 @@ QLabel{color: #42b4ff; }</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="audioButton_invisibleButton">
+  <widget class="InvisibleButton" name="audioButton_invisibleButton" native="true">
    <property name="geometry">
     <rect>
      <x>910</x>
@@ -377,7 +377,7 @@ QLabel{color: #42b4ff; }</string>
    <property name="styleSheet">
     <string notr="true">border: none;</string>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
@@ -485,6 +485,13 @@ QLabel{color: #42b4ff; }</string>
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>InvisibleButton</class>
+   <extends>QWidget</extends>
+   <header>invisiblebutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

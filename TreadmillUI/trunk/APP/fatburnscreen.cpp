@@ -52,7 +52,7 @@ void FatBurnScreen::on_invisibleButton_6_pressed()
     double percent = intensitySlider.getPercentage();
     int weight = weightSlider.value;
 
-    QList<Step*>* workout = Utils::createIntensityWorkout(minutes, percent, weight);
+    Workout* workout = Workout::createIntensityWorkout("Fat Burn", minutes, percent, weight);
 
     Screens::show( new MainScreen(0, workout) );
 

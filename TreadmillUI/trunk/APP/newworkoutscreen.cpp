@@ -34,7 +34,7 @@ void NewWorkoutScreen::on_invisibleButton_7_pressed()
 
 void NewWorkoutScreen::on_invisibleButton_6_pressed()
 {
-    QDir::current().mkdir(WORKOUTS);
+    Preferences::dataDirectory.mkdir(WORKOUTS);
 
     if( keyboardWidget.text().length() > 0){
 

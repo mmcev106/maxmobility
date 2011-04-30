@@ -94,7 +94,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Preferences::application=&a;
 
-    QDir::setCurrent(QCoreApplication::applicationDirPath());
+    QString workingDir = QCoreApplication::applicationDirPath();
+    QDir::setCurrent(workingDir);
+    qDebug() << "Working Directory: " << workingDir;
 
     loadPreferences();
 
