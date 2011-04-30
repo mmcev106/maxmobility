@@ -42,8 +42,14 @@ QLabel{color: #42b4ff; }</string>
      <x>45</x>
      <y>330</y>
      <width>901</width>
-     <height>331</height>
+     <height>381</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
    </property>
    <property name="font">
     <font>
@@ -68,8 +74,14 @@ font-size: 25px;</string>
       <x>0</x>
       <y>0</y>
       <width>901</width>
-      <height>331</height>
+      <height>381</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
    </widget>
   </widget>
@@ -90,7 +102,7 @@ font-size: 25px;</string>
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>670</y>
+     <y>701</y>
      <width>101</width>
      <height>41</height>
     </rect>
@@ -122,7 +134,7 @@ font-size: 25px;</string>
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>660</y>
+     <y>690</y>
      <width>108</width>
      <height>71</height>
     </rect>
@@ -189,7 +201,7 @@ font-size: 25px;</string>
     <string>workouts</string>
    </property>
   </widget>
-  <widget class="QLabel" name="timeLabel">
+  <widget class="QLabel" name="averageTimeLabel">
    <property name="geometry">
     <rect>
      <x>513</x>
@@ -215,7 +227,7 @@ font-size: 25px;</string>
     <number>5</number>
    </property>
   </widget>
-  <widget class="QLabel" name="caloriesLabel">
+  <widget class="QLabel" name="averageCaloriesLabel">
    <property name="geometry">
     <rect>
      <x>690</x>
@@ -241,7 +253,7 @@ font-size: 25px;</string>
     <number>5</number>
    </property>
   </widget>
-  <widget class="QLabel" name="distanceLabel">
+  <widget class="QLabel" name="averageDistanceLabel">
    <property name="geometry">
     <rect>
      <x>834</x>

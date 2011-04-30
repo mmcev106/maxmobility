@@ -26,18 +26,20 @@ MyWorkoutsScreen::MyWorkoutsScreen(QWidget *parent) :
     QStringList children = workoutsDir.entryList(QDir::Files, QDir::Name);
 
 
-    QWidget * scollAreaContents = new QWidget(ui->scrollArea);
+    rowHeight = workoutListItemBackground.height() + 10;
+
+    QWidget * scrollAreaContents = new QWidget(ui->scrollArea);
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setMargin(0);
-    scollAreaContents->setLayout(layout);
-    ui->scrollArea->setWidget(scollAreaContents);
+    scrollAreaContents->setLayout(layout);
+    ui->scrollArea->setWidget(scrollAreaContents);
     ui->scrollArea->setWidgetResizable(true);
 
     for(int i=0;i<children.length();i++){
         QString workout = children.at(i);
 
-        QWidget* listItem = new QWidget(scollAreaContents);
+        QWidget* listItem = new QWidget(scrollAreaContents);
         QHBoxLayout* listItemLayout = new QHBoxLayout;
         listItemLayout->setMargin(0);
         listItem->setLayout(listItemLayout);
@@ -70,15 +72,13 @@ MyWorkoutsScreen::MyWorkoutsScreen(QWidget *parent) :
         connect( button, SIGNAL(pressed()), this, SLOT(workoutSelected()) );
     }
 
-    scollAreaContents->adjustSize();
-
-    rowHeight = workoutListItemBackground.height() + 6;
+    scrollAreaContents->setFixedHeight((rowHeight-2) * children.length());
 
     ui->scrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
     setUpArrowVisibility(false);
 
-    if(scollAreaContents->height() <= ui->scrollArea->height()){
+    if(scrollAreaContents->height() <= ui->scrollArea->height()){
         setDownArrowVisibility(false);
     }
 }
@@ -106,6 +106,7 @@ void MyWorkoutsScreen::deleteWorkout(){
     QWidget* scrollAreaContents = ui->scrollArea->widget();
 
     scrollAreaContents->layout()->removeWidget(listItem);
+    scrollAreaContents->setFixedHeight(scrollAreaContents->height() - rowHeight);
     updateArrowVisibility();
 }
 

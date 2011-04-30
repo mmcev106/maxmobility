@@ -45,7 +45,6 @@
         <file>images/Workout Title (ascending).png</file>
         <file>images/Workout Title (default).png</file>
         <file>images/Workout Title (descending).png</file>
-        <file>images/snap.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>

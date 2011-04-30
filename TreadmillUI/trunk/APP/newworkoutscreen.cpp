@@ -36,9 +36,11 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
 {
     Preferences::dataDirectory.mkdir(WORKOUTS);
 
-    if( keyboardWidget.text().length() > 0){
+    QString workoutName = keyboardWidget.text();
 
-        QString filename(WORKOUTS + "/" + keyboardWidget.text());
+    if( workoutName.length() > 0){
+
+        QString filename(WORKOUTS + "/" + workoutName);
         QFile* workout = new QFile(filename);
 
         while(workout->exists()){
@@ -51,7 +53,7 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
         workout->close();
         delete workout;
 
-        Screens::show(new MainScreen(0, NULL));
+        Screens::show(new MainScreen(0, new Workout(workoutName, NULL)));
         close();
     }
 }

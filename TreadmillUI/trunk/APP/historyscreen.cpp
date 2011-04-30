@@ -7,11 +7,15 @@
 #include "screens.h"
 #include "preferences.h"
 #include <QTextStream>
+#include <QScrollBar>
+
+ QString HistoryScreen::DATE_FORMAT = "M-d-yyyy";
 
 HistoryScreen::HistoryScreen(QWidget *parent) :
     AbstractScreen(parent),
     ui(new Ui::HistoryScreen)
     ,history(loadHistory())
+    ,rowHeight(55)
 {
     ui->setupUi(this);
 
@@ -26,11 +30,16 @@ HistoryScreen::HistoryScreen(QWidget *parent) :
 
     // qSort(history.begin(), history.end(), foo);
 
+    int totalSeconds = 0;
+    int totalCalories = 0;
+    float totalDistance = 0;
+
     for(int i=0; i<history->length(); i++){
 
         HistoryItem* item = history->at(i);
 
         QWidget* listItem = new QWidget(scollAreaContents);
+        listItem->setFixedHeight(rowHeight-10);
         QHBoxLayout* listItemLayout = new QHBoxLayout;
         listItemLayout->setMargin(0);
         listItem->setLayout(listItemLayout);
@@ -50,7 +59,9 @@ HistoryScreen::HistoryScreen(QWidget *parent) :
 
         listItemLayout->addSpacerItem(new QSpacerItem(35, 1));;
 
-        /*QString timeString = args.at(2);
+        short seconds = item->seconds%60;
+        short minutes = item->seconds/60;
+        QString timeString = QString("%1:%2").arg(minutes).arg(seconds);
 
         QLabel* timeLabel = new QLabel(listItem);
         timeLabel->setText(timeString);
@@ -59,7 +70,7 @@ HistoryScreen::HistoryScreen(QWidget *parent) :
         timeLabel->setFixedWidth(120);
         listItemLayout->addWidget(timeLabel);
 
-        QString caloriesString = args.at(3);
+        QString caloriesString = QString("%1").arg(item->calories);
 
         QLabel* caloriesLabel = new QLabel(listItem);
         caloriesLabel->setText(caloriesString);
@@ -68,16 +79,42 @@ HistoryScreen::HistoryScreen(QWidget *parent) :
         caloriesLabel->setFixedWidth(125);
         listItemLayout->addWidget(caloriesLabel);
 
-        QString distanceString = args.at(4);
+        int distanceInteger = (int) item->distance;
+        int distanceDecimal = item->distance - distanceInteger;
+        QString distanceString = QString("%1.%2").arg(distanceInteger).arg(distanceDecimal);
 
         QLabel* distanceLabel = new QLabel(listItem);
         distanceLabel->setText(distanceString);
         distanceLabel->setMargin(5);
         distanceLabel->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
-        listItemLayout->addWidget(distanceLabel);*/
+        listItemLayout->addWidget(distanceLabel);
+
+        totalSeconds += item->seconds;
+        totalCalories += item->calories;
+        totalDistance += item->distance;
     }
 
-    scollAreaContents->adjustSize();
+    int averageSeconds = 0;
+    int averageCalories = 0;
+    float averageDistance = 0;
+
+    if(history->length() > 0){
+        averageSeconds = totalSeconds/history->length();
+        averageCalories = totalCalories/history->length();
+        averageDistance = totalDistance/history->length();
+        averageDistance = ((float)(int)(averageDistance*10))/10;
+    }
+
+
+    qDebug() << "averageSeconds%60: " << averageSeconds%60;
+
+    ui->workoutsLabel->setText(QString("%1").arg(history->length()));
+    ui->averageTimeLabel->setText(QString("%1:%2").arg(averageSeconds/60).arg(averageSeconds%60));
+    ui->averageCaloriesLabel->setText(QString("%1").arg(averageCalories));
+
+    ui->averageDistanceLabel->setText(QString("%1").arg(averageDistance));
+
+    scollAreaContents->setFixedHeight(rowHeight * history->length());
 
     ui->scrollArea->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
@@ -86,6 +123,25 @@ HistoryScreen::HistoryScreen(QWidget *parent) :
     if(scollAreaContents->height() <= ui->scrollArea->height()){
         setDownArrowVisibility(false);
     }
+}
+
+void HistoryScreen::on_invisibleButton_upArrowButton_pressed()
+{
+    ui->scrollArea->verticalScrollBar()->setValue(ui->scrollArea->verticalScrollBar()->value() - rowHeight);
+    updateArrowVisibility();
+}
+
+void HistoryScreen::on_invisibleButton_downArrowButton_pressed()
+{
+    ui->scrollArea->verticalScrollBar()->setValue(ui->scrollArea->verticalScrollBar()->value() + rowHeight);
+    updateArrowVisibility();
+}
+
+void HistoryScreen::updateArrowVisibility(){
+    QScrollBar *scrollBar = ui->scrollArea->verticalScrollBar();
+
+    setUpArrowVisibility(scrollBar->value() != scrollBar->minimum());
+    setDownArrowVisibility( scrollBar->value() != scrollBar->maximum() );
 }
 
 QList<HistoryItem*>* HistoryScreen::loadHistory(){
@@ -107,9 +163,14 @@ QList<HistoryItem*>* HistoryScreen::loadHistory(){
             continue;
         }
 
-        //date args.at(0)
-
         HistoryItem* item = new HistoryItem();
+
+        item->date = QDate::fromString(args.at(0), DATE_FORMAT);
+        item->name = args.at(1);
+        item->seconds = QLocale(QLocale::C).toInt(args.at(2));
+        item->calories = QLocale(QLocale::C).toInt(args.at(3));
+        item->distance = QLocale(QLocale::C).toFloat(args.at(4));
+
         history->append(item);
     }
 

@@ -13,11 +13,13 @@ Workout::Workout(QString name, QList<Step*>* steps = new QList<Step*>()) :
 
 Workout::~Workout()
 {
-    for(int i=0;i<steps->length();i++){
-        delete steps->at(i);
-    }
+    if(steps != NULL){
+        for(int i=0;i<steps->length();i++){
+            delete steps->at(i);
+        }
 
-    delete steps;
+        delete steps;
+    }
 }
 
 Workout* Workout::createWorkout(QString name, float speed, float grade, int minutes){

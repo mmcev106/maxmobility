@@ -24,11 +24,17 @@ private:
 
     void setUpArrowVisibility(bool);
     void setDownArrowVisibility(bool);
+    void updateArrowVisibility();
 
     QList<HistoryItem*>* loadHistory();
 
+    static QString DATE_FORMAT;
+    int rowHeight;
+
 private slots:
     void on_invisibleButton_6_pressed();
+    void on_invisibleButton_downArrowButton_pressed();
+    void on_invisibleButton_upArrowButton_pressed();
 };
 
 #endif // HISTORYSCREEN_H

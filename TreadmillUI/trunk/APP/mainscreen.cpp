@@ -24,7 +24,7 @@ void zero(int array[], int length){
     }
 }
 
-static int *history;
+//static int *history;
 
 /*class VideoWrapper : public Phonon::VideoWidget
 {
@@ -168,12 +168,12 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     //    update the fields before the windows is initially displayed
     updateDisplay();
 
-    playVideo();
+//    playVideo();
 }
 
 void MainScreen::processNextWorkoutStep() {
 
-    if(workout != NULL){
+    if(workout != NULL && workout->steps != NULL){
 
         QList<Step*>* steps = workout->steps;
 
@@ -222,14 +222,16 @@ void MainScreen::writeHistoryEntry(){
     stream << workout->name;
     stream << "\t";
 
-    stream << ui->elapsedTimeMinutesLabel->text();
-    stream << ":" << ui->elapsedTimeSecondsLabel->text();
+    long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
+    long seconds = elapsedTimeMillis/1000;
+
+    stream << seconds;
     stream << "\t";
 
-    stream << ui->caloriesLabel->text();
+    stream << seconds; //TODO
     stream << "\t";
 
-    stream << ui->distanceIntegerLabel->text() << '.' << ui->distanceDecimalLabel->text();
+    stream << distance;
     stream << "\n";
 
     stream.flush();
@@ -278,11 +280,6 @@ void MainScreen::playVideo(){
     player->setFixedSize(size);
     player->videoWidget()->setFixedSize(size);
     player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
-
-    QPixmap pixmap(":/images/images/main_screen_large_video_mask.png");
-    player->setMask(pixmap.mask());
-    ui->snapshot->setMask(pixmap.mask());
-
 }
 
 bool MainScreen::eventFilter(QObject * watched, QEvent *event)
@@ -375,7 +372,7 @@ void MainScreen::updateRunningDudeImage(){
         long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
 
        long distanceTraveled = elapsedTimeMillis;
-       long speed = distanceTraveled/10;
+//       long speed = distanceTraveled/10;
        int trackLength = 30000;
        double dudePosition = distanceTraveled%trackLength;
        double percentageAroundTrack = dudePosition/trackLength;
