@@ -10,6 +10,7 @@
 #include <QCloseEvent>
 #include "step.h"
 #include "workout.h"
+#include <QtOpenGL/QGLWidget>
 
 namespace Ui {
     class MainScreen;
@@ -43,10 +44,11 @@ private:
     double distance;
     Phonon::VideoPlayer *player;
     static const int HISTORY_LENGTH = 30;
-//    int speedHistory[HISTORY_LENGTH];
-//    int gradeHistory[HISTORY_LENGTH];
-//    HistoryWidget speedHistoryWidget;
-//    HistoryWidget gradeHistoryWidget;
+    int speedHistory[HISTORY_LENGTH];
+    int gradeHistory[HISTORY_LENGTH];
+    HistoryWidget speedHistoryWidget;
+    HistoryWidget gradeHistoryWidget;
+    QGLWidget* glWidget;
 
     AudioSettingsWidget audioSettingsWidget;
 

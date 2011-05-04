@@ -99,5 +99,6 @@ OTHER_FILES += \
     style.css
 
 QT += phonon
+QT += opengl
 LIBS += -lqextserialport
 #DEFINES += QT_NO_DEBUG_OUTPUT NDEBUG

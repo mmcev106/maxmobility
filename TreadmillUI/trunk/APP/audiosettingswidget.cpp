@@ -20,7 +20,7 @@ AudioSettingsWidget::AudioSettingsWidget(QWidget *parent) :
     fmSlider.step = .2;
 
     pressTimer.setSingleShot(true);
-    pressTimer.setInterval(1500);
+    pressTimer.setInterval(750);
     connect(&pressTimer, SIGNAL(timeout()), this, SLOT( pressTimerTimeout()));
 
     loadRadioSettings();
