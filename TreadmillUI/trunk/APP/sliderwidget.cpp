@@ -137,13 +137,13 @@ double SliderWidget::getPercentage(){
 
 void SliderWidget::setValueFromX(int x){
 
-    qDebug() << "x: " << x;
+//    qDebug() << "x: " << x;
     int distanceFromMin = x - minXValue;
     double percent = ((double)distanceFromMin) / xRange;
 
     double value = min + (percent * range);
 
-    qDebug() << "value: " << value;
+//    qDebug() << "value: " << value;
 
     setValue(value);
 
