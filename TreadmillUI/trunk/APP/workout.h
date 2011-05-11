@@ -17,7 +17,7 @@ public:
     static Workout* createDynamicSpeedWorkout(QString name, int minutes, int lowSpeed , int highSpeed, int age, int weight);
     static Workout* createWorkout(QString name, float speed, float grade, int minutes);
     static Workout* createDynamicGradeWorkout(QString name, int minutes, int lowGrade , int highGrade, int age, int weight);
-    static Workout* createIntensityWorkout(QString name, int minutes, double percent, int weight);
+    static Workout* createIntensityWorkout(QString name, int minutes, int initialSpeed, double intensityPercent, int weight);
 };
 
 #endif // WORKOUT_H

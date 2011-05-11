@@ -29,10 +29,10 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Fat-Burn---06---(Standard)-(with-Reflection).png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/Fat Burn.png</pixmap>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_6">
+  <widget class="InvisibleButton" name="invisibleButton_6" native="true">
    <property name="geometry">
     <rect>
      <x>740</x>
@@ -41,11 +41,11 @@
      <height>91</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_7">
+  <widget class="InvisibleButton" name="invisibleButton_7" native="true">
    <property name="geometry">
     <rect>
      <x>919</x>
@@ -54,11 +54,18 @@
      <height>71</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>InvisibleButton</class>
+   <extends>QWidget</extends>
+   <header>invisiblebutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

@@ -9,6 +9,7 @@ HistoryWidget::HistoryWidget(QWidget *parent,int history[], int historyWidth, in
     QWidget(parent)
     ,brickPixmap(brickImageUrl)
     ,highlightedBrickPixmap(highlightedBrickImageUrl)
+    ,historyHeight(historyHeight)
 {
     setHistory(history);
     this->length = historyWidth;
@@ -36,6 +37,9 @@ void HistoryWidget::paintEvent(QPaintEvent *){
         }
 
         int squares = history[i];
+        if(squares > historyHeight){
+            squares = historyHeight;
+        }
 
         while(squares > 0){
 

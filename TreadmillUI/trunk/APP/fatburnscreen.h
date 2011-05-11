@@ -7,6 +7,7 @@
 #include "weightsliderwidget.h"
 #include "sliderwidget.h"
 #include "abstractmultisliderscreen.h"
+#include "speedsliderwidget.h"
 
 namespace Ui {
     class FatBurnScreen;
@@ -28,6 +29,7 @@ private:
 
     TimeSliderWidget timeSlider;
     SliderWidget intensitySlider;
+    SpeedSliderWidget speedSlider;
     WeightSliderWidget weightSlider;
 
     void updateHistory();

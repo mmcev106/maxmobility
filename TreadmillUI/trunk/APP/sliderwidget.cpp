@@ -126,6 +126,9 @@ void SliderWidget::setValue(double value){
 
     this->value = value;
     update();
+
+    PointerEvent* event = new PointerEvent(this);
+    QApplication::postEvent(parent(), event);
 }
 
 double SliderWidget::getPercentage(){
@@ -146,9 +149,6 @@ void SliderWidget::setValueFromX(int x){
 //    qDebug() << "value: " << value;
 
     setValue(value);
-
-    PointerEvent* event = new PointerEvent(this);
-    QApplication::postEvent(parent(), event);
 }
 
 void SliderWidget::mouseMoveEvent(QMouseEvent *event){

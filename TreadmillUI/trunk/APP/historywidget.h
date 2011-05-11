@@ -16,6 +16,7 @@ public:
 
 private:
     int length;
+    int historyHeight;
     void paintEvent(QPaintEvent *);
 
     QPixmap brickPixmap;

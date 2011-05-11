@@ -1,5 +1,7 @@
 #include "preferences.h"
+#include "utils.h"
 #include <QDebug>
+
 
 const QString Preferences::FILENAME = "Preferences.txt";
 
@@ -24,6 +26,10 @@ float Preferences::getCurrentSpeed(){
 
 void Preferences::setCurrentSpeed(float speed)
 {
+    if(speed > MAX_GRADE){
+        speed = MAX_GRADE;
+    }
+
     messageData[1] = (unsigned char) (speed * 10) ;
 }
 
@@ -35,5 +41,10 @@ float Preferences::getCurrentGrade(){
 }
 
 void Preferences::setCurrentGrade(float grade){
+
+    if(grade > MAX_GRADE){
+        grade = MAX_GRADE;
+    }
+
     messageData[2] = (unsigned char) (grade * 10);
 }

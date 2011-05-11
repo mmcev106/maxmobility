@@ -14,7 +14,8 @@ FatBurnScreen::FatBurnScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent),
     ui(new Ui::FatBurnScreen)
     ,timeSlider(this)
-    ,intensitySlider(this, 1, 25)
+    ,intensitySlider(this, 1, 5)
+    ,speedSlider(this)
     ,weightSlider(this)
 {
     ui->setupUi(this);
@@ -27,9 +28,10 @@ FatBurnScreen::FatBurnScreen(QWidget *parent) :
     historyWidget.move(HISTORY_X+1,HISTORY_Y+36);
 
     int x = 14;
-    timeSlider.move(x,275);
-    intensitySlider.move(x,395);
-    weightSlider.move(x,514);
+    timeSlider.move(x,201);
+    intensitySlider.move(x,320);
+    speedSlider.move(x, 439);
+    weightSlider.move(x,556);
 
     ui->backgroundLabel->lower();
 
@@ -49,10 +51,9 @@ void FatBurnScreen::on_invisibleButton_7_pressed()
 void FatBurnScreen::on_invisibleButton_6_pressed()
 {
     int minutes = timeSlider.value;
-    double percent = intensitySlider.getPercentage();
     int weight = weightSlider.value;
 
-    Workout* workout = Workout::createIntensityWorkout("Fat Burn", minutes, percent, weight);
+    Workout* workout = Workout::createIntensityWorkout("Fat Burn", minutes, speedSlider.value, intensitySlider.getPercentage(), weight);
 
     Screens::show( new MainScreen(0, workout) );
 
@@ -62,18 +63,18 @@ void FatBurnScreen::on_invisibleButton_6_pressed()
 void FatBurnScreen::updateHistory(){
 
     int midpoint = HISTORY_WIDTH/2;
-    int intensity = intensitySlider.value;
+    int value = speedSlider.value;
 
     for(int i=0;i<midpoint;i++){
-        historyWidget.history[i] = intensity;
-        intensity++;
+        historyWidget.history[i] = value;
+        value+=intensitySlider.value;
     }
 
-    intensity--;
+    value-=intensitySlider.value;
 
     for(int i=midpoint;i<HISTORY_WIDTH;i++){
-        historyWidget.history[i] = intensity;
-        intensity--;
+        historyWidget.history[i] = value;
+        value-=intensitySlider.value;
     }
 
     historyWidget.repaint();
@@ -84,7 +85,7 @@ bool FatBurnScreen::event(QEvent *event)
     if(event->type() == POINTER_EVENT_TYPE){
         PointerEvent* pointerEvent = (PointerEvent*)event;
 
-        if(pointerEvent->pointer == &intensitySlider){
+        if(pointerEvent->pointer == &intensitySlider || pointerEvent->pointer == &speedSlider){
             updateHistory();
         }
     }

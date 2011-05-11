@@ -20,7 +20,6 @@
         <file>images/Heart-Rate-Control---(Fixed).png</file>
         <file>images/Interval---(Hills).png</file>
         <file>images/Interval---(Sprints).png</file>
-        <file>images/Fat-Burn---06---(Standard)-(with-Reflection).png</file>
         <file>images/Audio Screen - (Feedback).png</file>
         <file>images/Audio Screen - (FM).png</file>
         <file>images/Audio Screen - (Line In).png</file>
@@ -45,6 +44,7 @@
         <file>images/Workout Title (ascending).png</file>
         <file>images/Workout Title (default).png</file>
         <file>images/Workout Title (descending).png</file>
+        <file>images/Fat Burn.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>
