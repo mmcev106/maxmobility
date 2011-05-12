@@ -16,7 +16,8 @@ IntervalScreen::IntervalScreen(QWidget *parent) :
     ,highGradeSlider(this)
     ,lowSpeedSlider(this)
     ,highSpeedSlider(this)
-    ,ageSlider(this)
+    ,initialSpeedSlider(this)
+    ,initialGradeSlider(this)
     ,weightSlider(this)
 {
     ui->setupUi(this);
@@ -26,7 +27,8 @@ IntervalScreen::IntervalScreen(QWidget *parent) :
     highGradeSlider.move(SLIDER_X, SLIDER3_Y);
     lowSpeedSlider.move(SLIDER_X, SLIDER2_Y);
     highSpeedSlider.move(SLIDER_X, SLIDER3_Y);
-    ageSlider.move(SLIDER_X, SLIDER4_Y);
+    initialGradeSlider.move(SLIDER_X, SLIDER4_Y);
+    initialSpeedSlider.move(SLIDER_X, SLIDER4_Y);
     weightSlider.move(SLIDER_X, SLIDER5_Y);
 
     on_invisibleButton_hills_pressed();
@@ -45,9 +47,11 @@ void IntervalScreen::on_invisibleButton_hills_pressed()
 
     lowGradeSlider.show();
     highGradeSlider.show();
+    initialSpeedSlider.show();
 
     lowSpeedSlider.hide();
     highSpeedSlider.hide();
+    initialGradeSlider.hide();
 
     updateHistoryFromGrades();
 }
@@ -58,9 +62,11 @@ void IntervalScreen::on_invisibleButton_4_pressed()
 
     lowGradeSlider.hide();
     highGradeSlider.hide();
+    initialSpeedSlider.hide();
 
     lowSpeedSlider.show();
     highSpeedSlider.show();
+    initialGradeSlider.show();
 
     updateHistoryFromSpeeds();
 }
@@ -99,7 +105,6 @@ void IntervalScreen::on_invisibleButton_hills_2_pressed()
 void IntervalScreen::on_invisibleButton_hills_3_pressed()
 {
     int minutes = timeSlider.value;
-    int age = ageSlider.value;
     int weight = weightSlider.value;
 
     Workout* workout;
@@ -108,14 +113,14 @@ void IntervalScreen::on_invisibleButton_hills_3_pressed()
         int lowSpeed = lowSpeedSlider.value;
         int highSpeed = highSpeedSlider.value;
 
-        workout = Workout::createDynamicSpeedWorkout("Speed Interval", minutes, lowSpeed, highSpeed, age, weight);
+        workout = Workout::createDynamicSpeedWorkout("Speed Interval", minutes, lowSpeed, highSpeed, initialGradeSlider.value, weight);
     }
     else{
 
         int lowGrade = lowGradeSlider.value;
         int highGrade = highGradeSlider.value;
 
-        workout = Workout::createDynamicGradeWorkout("Grade Interval", minutes, lowGrade, highGrade, age, weight);
+        workout = Workout::createDynamicGradeWorkout("Grade Interval", minutes, lowGrade, highGrade, initialSpeedSlider.value, weight);
     }
 
 

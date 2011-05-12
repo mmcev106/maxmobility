@@ -109,7 +109,7 @@ void HeartRateScreen::on_invisibleButton_6_pressed()
         highPercentage = lowPercentage;
     }
 
-    Workout* workout = Workout::createDynamicSpeedWorkout("Heart Rate", minutes, lowPercentage, highPercentage, age, weight);
+    Workout* workout = Workout::createHeartRateWorkout("Heart Rate", minutes, lowPercentage, highPercentage, age, weight);
     Screens::show(new MainScreen(0, workout));
 
     close();

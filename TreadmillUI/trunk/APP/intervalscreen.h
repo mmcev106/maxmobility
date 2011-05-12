@@ -33,7 +33,8 @@ private:
     GradeSliderWidget highGradeSlider;
     SpeedSliderWidget lowSpeedSlider;
     SpeedSliderWidget highSpeedSlider;
-    AgeSliderWidget ageSlider;
+    SpeedSliderWidget initialSpeedSlider;
+    GradeSliderWidget initialGradeSlider;
     WeightSliderWidget weightSlider;
 
     void updateHistoryFromSpeeds();

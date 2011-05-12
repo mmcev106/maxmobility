@@ -37,11 +37,15 @@ Workout* Workout::createWorkout(QString name, float speed, float grade, int minu
     return workout;
 }
 
-Workout* Workout::createDynamicSpeedWorkout(QString name, int minutes, float lowPercentage , float highPercentage, int age, int weight){
-
+Workout* Workout::createHeartRateWorkout(QString name, int minutes, float lowPercentage , float highPercentage, int age, int weight){
     float range = MAX_SPEED - MIN_SPEED;
     float lowSpeed = MIN_SPEED + lowPercentage*range;
     float highSpeed = MIN_SPEED + highPercentage*range;
+
+    return createDynamicSpeedWorkout(name, minutes, lowSpeed, highSpeed, age, weight);
+}
+
+Workout* Workout::createDynamicSpeedWorkout(QString name, int minutes, int lowSpeed , int highSpeed, int initialGrade, int weight){
 
     Workout* workout = new Workout(name);
     QList<Step*> *steps = workout->steps;
@@ -51,7 +55,7 @@ Workout* Workout::createDynamicSpeedWorkout(QString name, int minutes, float low
 
     int sprints = endTime / sprintLength;
 
-    steps->append(new ChangeGradeStep(0));
+    steps->append(new ChangeGradeStep(initialGrade));
 
     for(int i=0; i< sprints; i++){
 
@@ -127,7 +131,7 @@ Workout* Workout::createIntensityWorkout(QString name, int minutes, int starting
     return workout;
 }
 
-Workout* Workout::createDynamicGradeWorkout(QString name, int minutes, int lowGrade , int highGrade, int age, int weight){
+Workout* Workout::createDynamicGradeWorkout(QString name, int minutes, int lowGrade , int highGrade, int initialSpeed, int weight){
 
     Workout* workout = new Workout(name);
     QList<Step*> *steps = workout->steps;
@@ -137,7 +141,7 @@ Workout* Workout::createDynamicGradeWorkout(QString name, int minutes, int lowGr
 
     int sprints = endTime / sprintLength;
 
-    steps->append(new ChangeSpeedStep(0));
+    steps->append(new ChangeSpeedStep(initialSpeed));
 
     for(int i=0; i< sprints; i++){
 
