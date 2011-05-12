@@ -30,8 +30,8 @@ private:
     WeightSliderWidget weightSlider;
     AgeSliderWidget ageSlider;
     TimeSliderWidget timeSlider;
-    SpeedSliderWidget speedSlider1;
-    SpeedSliderWidget speedSlider2;
+    SliderWidget lowPercentageSlider;
+    SliderWidget highPercentageSlider;
 
     void setConstantGrade();
     void setDynamicGrade();

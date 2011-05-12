@@ -13,10 +13,10 @@ public:
     explicit HistoryWidget(QWidget *parent, int history[], int historyWidth, int historyHeight, QString brickImageUrl, QString highlightedBrickImageUrl);
     void setHistory(int*);
     int *history;
+    int historyHeight;
 
 private:
     int length;
-    int historyHeight;
     void paintEvent(QPaintEvent *);
 
     QPixmap brickPixmap;

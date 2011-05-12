@@ -6,6 +6,8 @@
 #include "utils.h"
 #include <QDebug>
 
+static int MIN_SPEED = 1;
+
 Workout::Workout(QString name, QList<Step*>* steps = new QList<Step*>()) :
         name(name)
         ,steps(steps)
@@ -35,7 +37,11 @@ Workout* Workout::createWorkout(QString name, float speed, float grade, int minu
     return workout;
 }
 
-Workout* Workout::createDynamicSpeedWorkout(QString name, int minutes, int lowSpeed , int highSpeed, int age, int weight){
+Workout* Workout::createDynamicSpeedWorkout(QString name, int minutes, float lowPercentage , float highPercentage, int age, int weight){
+
+    float range = MAX_SPEED - MIN_SPEED;
+    float lowSpeed = MIN_SPEED + lowPercentage*range;
+    float highSpeed = MIN_SPEED + highPercentage*range;
 
     Workout* workout = new Workout(name);
     QList<Step*> *steps = workout->steps;
@@ -75,7 +81,6 @@ Workout* Workout::createIntensityWorkout(QString name, int minutes, int starting
 
     long currentTime = 0;
     long totalTime = minutes * MILLIS_PER_MINUTE;
-    totalTime = 1000*20;
     long halfTime = totalTime/2;
     long waitTime = MILLIS_PER_SECOND;
     int levels = halfTime/waitTime;

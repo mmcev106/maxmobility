@@ -13,14 +13,14 @@ HeartRateScreen::HeartRateScreen(QWidget *parent) :
     ,weightSlider(this)
     ,ageSlider(this)
     ,timeSlider(this)
-    ,speedSlider1(this)
-    ,speedSlider2(this)
+    ,lowPercentageSlider(this, 1, 100)
+    ,highPercentageSlider(this, 1, 100)
 {
     ui->setupUi(this);
 
     timeSlider.move(SLIDER_X,SLIDER1_Y);
-    speedSlider1.move(SLIDER_X,SLIDER2_Y);
-    speedSlider2.move(SLIDER_X, SLIDER3_Y);
+    lowPercentageSlider.move(SLIDER_X,SLIDER2_Y);
+    highPercentageSlider.move(SLIDER_X, SLIDER3_Y);
 
     setConstantGrade();
 
@@ -38,7 +38,7 @@ bool HeartRateScreen::event(QEvent *event)
     if(event->type() == POINTER_EVENT_TYPE){
         PointerEvent* pointerEvent = (PointerEvent*)event;
 
-        if(pointerEvent->pointer == &speedSlider1 || pointerEvent->pointer == &speedSlider2){
+        if(pointerEvent->pointer == &lowPercentageSlider || pointerEvent->pointer == &highPercentageSlider){
             updateHistory();
         }
     }
@@ -50,7 +50,7 @@ void HeartRateScreen::setConstantGrade(){
 
     ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Heart-Rate-Control---(Fixed).png")));
 
-    speedSlider2.hide();
+    highPercentageSlider.hide();
 
     ageSlider.move(SLIDER_X, SLIDER3_Y);
     weightSlider.move(SLIDER_X, SLIDER4_Y);
@@ -61,7 +61,7 @@ void HeartRateScreen::setConstantGrade(){
 void HeartRateScreen::setDynamicGrade(){
     ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Heart-Rate-Control---(Dynamic).png")));
 
-    speedSlider2.show();
+    highPercentageSlider.show();
 
     ageSlider.move(SLIDER_X, SLIDER4_Y);
     weightSlider.move(SLIDER_X, SLIDER5_Y);
@@ -71,12 +71,17 @@ void HeartRateScreen::setDynamicGrade(){
 
 void HeartRateScreen::updateHistory()
 {
-    if(speedSlider2.isVisible()){
-        AbstractMultiSliderScreen::updateHistory(speedSlider1.value, speedSlider2.value);
+    int lowHistory = lowPercentageSlider.value/100 * historyWidget.historyHeight;
+
+    int highHistory;
+    if(highPercentageSlider.isVisible()){
+         highHistory = highPercentageSlider.value/100 * historyWidget.historyHeight;
     }
     else{
-        AbstractMultiSliderScreen::updateHistory(speedSlider1.value, speedSlider1.value);
+        highHistory = lowHistory;
     }
+
+     AbstractMultiSliderScreen::updateHistory(lowHistory, highHistory);
 }
 
 void HeartRateScreen::on_invisibleButton_3_pressed()
@@ -92,19 +97,19 @@ void HeartRateScreen::on_invisibleButton_4_pressed()
 void HeartRateScreen::on_invisibleButton_6_pressed()
 {
     int minutes = (int) timeSlider.value;
-    int lowSpeed = (int) speedSlider1.value;
+    float lowPercentage = lowPercentageSlider.value/100;
     int age = (int) ageSlider.value;
     int weight = (int) weightSlider.value;
 
-    int highSpeed;
-    if(speedSlider2.isVisible()){
-        highSpeed = (int) speedSlider2.value;
+    float highPercentage;
+    if(highPercentageSlider.isVisible()){
+        highPercentage = highPercentageSlider.value/100;
     }
     else{
-        highSpeed = lowSpeed;
+        highPercentage = lowPercentage;
     }
 
-    Workout* workout = Workout::createDynamicSpeedWorkout("Heart Rate", minutes, lowSpeed, highSpeed, age, weight);
+    Workout* workout = Workout::createDynamicSpeedWorkout("Heart Rate", minutes, lowPercentage, highPercentage, age, weight);
     Screens::show(new MainScreen(0, workout));
 
     close();
