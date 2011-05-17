@@ -98,6 +98,8 @@ RESOURCES += images.qrc
 OTHER_FILES += \
     style.css
 
+CONFIG += warn_off
+
 QT += phonon
 QT += opengl
 LIBS += -lqextserialport
