@@ -48,7 +48,7 @@ private:
     int gradeHistory[HISTORY_LENGTH];
     HistoryWidget speedHistoryWidget;
     HistoryWidget gradeHistoryWidget;
-    QGLWidget* glWidget;
+//    QGLWidget* glWidget;
 
     AudioSettingsWidget audioSettingsWidget;
 

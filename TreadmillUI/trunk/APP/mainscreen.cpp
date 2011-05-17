@@ -7,7 +7,7 @@
 #include <QBitmap>
 #include <QPainter>
 #include "preferences.h"
-#include <QDir>g
+#include <QDir>
 #include "upperboardevent.h"
 #include "changespeedstep.h"
 #include "changegradestep.h"
@@ -38,8 +38,8 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     ,startTime(QDateTime::currentMSecsSinceEpoch())
     ,trackWidget(new QLabel(this))
     ,runningDudeWidget(new QLabel(this))
-    ,glWidget(new QGLWidget(this))
-    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, NULL))
+//    ,glWidget(new QGLWidget(this))
+    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
     ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,audioSettingsWidget(this)
@@ -187,8 +187,6 @@ void MainScreen::writeHistoryEntry(){
 
 void MainScreen::closeEvent(QCloseEvent * event){
 
-    Preferences::application->removeEventFilter(this);
-
     Preferences::currentState.setOff();
 
     writeHistoryEntry();
@@ -220,19 +218,22 @@ MainScreen::~MainScreen()
 
 void MainScreen::playVideo(){
 
-    player->setParent(glWidget);
-    player->play(Phonon::MediaSource("/test.mov"));
+//    player->setParent(glWidget);
 
-    glWidget->move(134,102);
+    Phonon::MediaSource source("test.mov");
+
+    player->play(source);
+
+    player->move(134,102);
 
     player->setVisible(true);
 
     QSize size(756, 564);
-    glWidget->setFixedSize(size);
+//    glWidget->setFixedSize(size);
     player->setFixedSize(size);
     player->videoWidget()->setFixedSize(size);
     player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
-    player->setMask(QPixmap(":/images/images/main_screen_large_video_mask.png").mask());
+    player->videoWidget()->setMask(QPixmap(":/images/images/main_screen_large_video_mask.png").mask());
 }
 
 bool MainScreen::eventFilter(QObject * watched, QEvent *event)
@@ -249,6 +250,8 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
 
 
 void MainScreen::updateDisplay(){
+
+    qDebug() << "video time: " << player->currentTime();
 
     long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
 
