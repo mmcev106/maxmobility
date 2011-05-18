@@ -42,7 +42,7 @@ private:
     long nextWorkoutStepTime;
     Workout* workout;
     double distance;
-    Phonon::VideoPlayer *player;
+//    Phonon::VideoPlayer *player;
     static const int HISTORY_LENGTH = 30;
     int speedHistory[HISTORY_LENGTH];
     int gradeHistory[HISTORY_LENGTH];
@@ -51,6 +51,7 @@ private:
 //    QGLWidget* glWidget;
 
     AudioSettingsWidget audioSettingsWidget;
+    QPixmap videoMask;
 
     void writeHistoryEntry();
 
