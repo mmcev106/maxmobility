@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>750</width>
-    <height>557</height>
+    <height>559</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <pixmap resource="images.qrc">:/images/images/Audio Screen - (FM).png</pixmap>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_fm">
+  <widget class="InvisibleButton" name="invisibleButton_fm" native="true">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -42,11 +42,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <height>91</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_usb">
+  <widget class="InvisibleButton" name="invisibleButton_usb" native="true">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -55,11 +55,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <height>91</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_feedback">
+  <widget class="InvisibleButton" name="invisibleButton_feedback" native="true">
    <property name="geometry">
     <rect>
      <x>580</x>
@@ -68,11 +68,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <height>91</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_lineIn">
+  <widget class="InvisibleButton" name="invisibleButton_lineIn" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -81,11 +81,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <height>81</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_1">
+  <widget class="InvisibleButton" name="invisibleButton_preset_1" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -100,11 +100,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <pointsize>16</pointsize>
     </font>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_2">
+  <widget class="InvisibleButton" name="invisibleButton_preset_2" native="true">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -119,11 +119,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <pointsize>16</pointsize>
     </font>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_3">
+  <widget class="InvisibleButton" name="invisibleButton_preset_3" native="true">
    <property name="geometry">
     <rect>
      <x>250</x>
@@ -138,11 +138,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <pointsize>16</pointsize>
     </font>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_4">
+  <widget class="InvisibleButton" name="invisibleButton_preset_4" native="true">
    <property name="geometry">
     <rect>
      <x>380</x>
@@ -157,11 +157,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <pointsize>16</pointsize>
     </font>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_5">
+  <widget class="InvisibleButton" name="invisibleButton_preset_5" native="true">
    <property name="geometry">
     <rect>
      <x>510</x>
@@ -176,11 +176,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <pointsize>16</pointsize>
     </font>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_6">
+  <widget class="InvisibleButton" name="invisibleButton_preset_6" native="true">
    <property name="geometry">
     <rect>
      <x>640</x>
@@ -195,11 +195,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <pointsize>16</pointsize>
     </font>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_video">
+  <widget class="InvisibleButton" name="invisibleButton_video" native="true">
    <property name="geometry">
     <rect>
      <x>450</x>
@@ -208,11 +208,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <height>91</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_close">
+  <widget class="InvisibleButton" name="invisibleButton_close" native="true">
    <property name="geometry">
     <rect>
      <x>680</x>
@@ -221,11 +221,18 @@ QWidget{font-family: Tamworth Gothic}</string>
      <height>61</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>InvisibleButton</class>
+   <extends>QWidget</extends>
+   <header>invisiblebutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

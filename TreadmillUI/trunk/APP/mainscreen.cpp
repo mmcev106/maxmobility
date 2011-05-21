@@ -43,7 +43,7 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
-    ,audioSettingsWidget(&centerWidget)
+    ,audioSettingsWidget(NULL)
     ,videoMask(":/images/images/main_screen_large_video_mask.png")
     ,nextWorkoutStepIndex(0)
     ,nextWorkoutStepTime(0)
@@ -104,6 +104,10 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     centerWidget.move(centerPosition);
     centerWidget.setFixedSize(centerSize);
     centerWidget.setMask(videoMask.mask());
+
+    player->videoWidget()->setParent(&centerWidget);
+    audioSettingsWidget.setParent(&centerWidget);
+    audioSettingsWidget.move(3, 3);
     audioSettingsWidget.setVisible(false);
 
     trackWidget->setFixedSize(trackBitmap.size());
@@ -236,7 +240,6 @@ void MainScreen::playVideo(){
 
 //    glWidget->setFixedSize(size);
     player->setFixedSize(centerSize);
-    player->videoWidget()->setParent(&centerWidget);
     player->videoWidget()->setFixedSize(centerSize);
     player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
     player->videoWidget()->setMask(QPixmap(":/images/images/main_screen_large_video_mask.png").mask());
