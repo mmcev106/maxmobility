@@ -36,13 +36,14 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     ,milliSecondTimer(new QTimer(this))
     ,playTimer(new QTimer(this))
     ,startTime(QDateTime::currentMSecsSinceEpoch())
-    ,trackWidget(new QLabel(this))
     ,runningDudeWidget(new QLabel(this))
-//    ,glWidget(new QGLWidget(this))
-//    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+    ,centerSize(756, 564)
+    ,centerWidget(this)
+    ,trackWidget(new QLabel(&centerWidget))
     ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
-    ,audioSettingsWidget(this)
+    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+    ,audioSettingsWidget(&centerWidget)
     ,videoMask(":/images/images/main_screen_large_video_mask.png")
     ,nextWorkoutStepIndex(0)
     ,nextWorkoutStepTime(0)
@@ -81,6 +82,8 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     zero(gradeHistory, HISTORY_LENGTH);
     gradeHistoryWidget.move(36,528);
     speedHistoryWidget.move(664,528);
+    gradeHistoryWidget.hide();
+    speedHistoryWidget.hide();
 
 //    ui->videoThumb->setPixmap(QPixmap("test video_thumb.jpg"));
 //    QPixmap thumbMask(":/images/images/video_thumb_mask.png");
@@ -94,19 +97,24 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
 //        playTimer->setSingleShot(true);
 //        playTimer->start();
 
-    QPoint centerPosition(137, 105);
-
-    audioSettingsWidget.move(centerPosition);
-    audioSettingsWidget.setVisible(false);
+    QPoint centerPosition(133, 101);
 
     QPixmap trackBitmap(RUNNING_DUDE_IMAGE_PATH + "/Track_Background.png");
+
+    centerWidget.move(centerPosition);
+    centerWidget.setFixedSize(centerSize);
+    centerWidget.setMask(videoMask.mask());
+    audioSettingsWidget.setVisible(false);
+
     trackWidget->setFixedSize(trackBitmap.size());
-    trackWidget->setMask(videoMask.mask());
-    trackWidget->move(centerPosition);
+//    trackWidget->move(centerPosition);
     trackWidget->setPixmap(trackBitmap);
+//    trackWidget->setMask(videoMask.mask());
+    trackWidget->hide();
 
     runningDudeWidget->move(centerPosition);
-    runningDudeWidget->setFixedSize(trackBitmap.size());
+    runningDudeWidget->setFixedSize(centerSize);
+    runningDudeWidget->hide();
 
     Preferences::application->installEventFilter(this);
 
@@ -198,8 +206,8 @@ MainScreen::~MainScreen()
     delete ui;
 //    delete glWidget;
 
-//    player->stop();
-//    delete player;
+    player->stop();
+    delete player;
     delete secondTimer;
 }
 
@@ -219,22 +227,20 @@ MainScreen::~MainScreen()
 void MainScreen::playVideo(){
 
 //    player->setParent(glWidget);
-/*
+
     Phonon::MediaSource source("test.mov");
 
     player->play(source);
 
-    player->move(134,102);
-
     player->setVisible(true);
 
-    QSize size(756, 564);
 //    glWidget->setFixedSize(size);
-    player->setFixedSize(size);
-    player->videoWidget()->setFixedSize(size);
+    player->setFixedSize(centerSize);
+    player->videoWidget()->setParent(&centerWidget);
+    player->videoWidget()->setFixedSize(centerSize);
     player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
     player->videoWidget()->setMask(QPixmap(":/images/images/main_screen_large_video_mask.png").mask());
-    */
+
 }
 
 bool MainScreen::eventFilter(QObject * watched, QEvent *event)
