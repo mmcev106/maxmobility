@@ -106,8 +106,9 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     centerWidget.setMask(videoMask.mask());
 
     player->videoWidget()->setParent(&centerWidget);
-    audioSettingsWidget.setParent(&centerWidget);
-    audioSettingsWidget.move(3, 3);
+    audioSettingsWidget.setParent(this);
+    audioSettingsWidget.move(centerPosition);
+    audioSettingsWidget.setMask(videoMask.mask());
     audioSettingsWidget.setVisible(false);
 
     trackWidget->setFixedSize(trackBitmap.size());
@@ -243,7 +244,6 @@ void MainScreen::playVideo(){
     player->videoWidget()->setFixedSize(centerSize);
     player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
     player->videoWidget()->setMask(QPixmap(":/images/images/main_screen_large_video_mask.png").mask());
-
 }
 
 bool MainScreen::eventFilter(QObject * watched, QEvent *event)
