@@ -484,6 +484,38 @@ QLabel{color: #42b4ff; }</string>
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
    </property>
   </widget>
+  <widget class="InvisibleButton" name="trails_invisibleButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>330</y>
+     <width>101</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: none;</string>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="track_invisibleButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>101</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: none;</string>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>

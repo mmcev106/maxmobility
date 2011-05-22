@@ -31,12 +31,10 @@ protected:
 
 private:
     Ui::MainScreen *ui;
-    void playVideo();
     long startTime;
     QTimer *secondTimer;
     QTimer *milliSecondTimer;
     QTimer *playTimer;
-    QLabel* runningDudeWidget;
     int nextWorkoutStepIndex;
     long nextWorkoutStepTime;
     Workout* workout;
@@ -44,6 +42,7 @@ private:
     QSize centerSize;
     QWidget centerWidget;
     QLabel* trackWidget;
+    QLabel* runningDudeWidget;
     static const int HISTORY_LENGTH = 30;
     int speedHistory[HISTORY_LENGTH];
     int gradeHistory[HISTORY_LENGTH];
@@ -58,6 +57,8 @@ private:
     void writeHistoryEntry();
 
 private slots:
+    void on_track_invisibleButton_pressed();
+    void on_trails_invisibleButton_pressed();
     void on_audioButton_invisibleButton_pressed();
     void updateDisplay();
     void updateRunningDudeImage();

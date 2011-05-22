@@ -36,10 +36,10 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     ,milliSecondTimer(new QTimer(this))
     ,playTimer(new QTimer(this))
     ,startTime(QDateTime::currentMSecsSinceEpoch())
-    ,runningDudeWidget(new QLabel(this))
     ,centerSize(756, 564)
     ,centerWidget(this)
     ,trackWidget(new QLabel(&centerWidget))
+    ,runningDudeWidget(new QLabel(&centerWidget))
     ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
     ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
@@ -106,20 +106,22 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     centerWidget.setMask(videoMask.mask());
 
     player->videoWidget()->setParent(&centerWidget);
+    player->setFixedSize(centerSize);
+    player->videoWidget()->setFixedSize(centerSize);
+    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
+    player->videoWidget()->hide();
+
     audioSettingsWidget.setParent(this);
     audioSettingsWidget.move(centerPosition);
     audioSettingsWidget.setMask(videoMask.mask());
     audioSettingsWidget.setVisible(false);
 
     trackWidget->setFixedSize(trackBitmap.size());
-//    trackWidget->move(centerPosition);
     trackWidget->setPixmap(trackBitmap);
-//    trackWidget->setMask(videoMask.mask());
-    trackWidget->hide();
+    trackWidget->show();
 
-    runningDudeWidget->move(centerPosition);
     runningDudeWidget->setFixedSize(centerSize);
-    runningDudeWidget->hide();
+    runningDudeWidget->show();
 
     Preferences::application->installEventFilter(this);
 
@@ -127,8 +129,6 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
 
     //    update the fields before the windows is initially displayed
     updateDisplay();
-
-    playVideo();
 }
 
 void MainScreen::processNextWorkoutStep() {
@@ -229,22 +229,6 @@ MainScreen::~MainScreen()
 //    QWidget::keyPressEvent(event);
 //}
 
-void MainScreen::playVideo(){
-
-//    player->setParent(glWidget);
-
-    Phonon::MediaSource source("test.mov");
-
-    player->play(source);
-
-    player->setVisible(true);
-
-//    glWidget->setFixedSize(size);
-    player->setFixedSize(centerSize);
-    player->videoWidget()->setFixedSize(centerSize);
-    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
-    player->videoWidget()->setMask(QPixmap(":/images/images/main_screen_large_video_mask.png").mask());
-}
 
 bool MainScreen::eventFilter(QObject * watched, QEvent *event)
 {
@@ -371,4 +355,18 @@ void MainScreen::updateRunningDudeImage(){
 void MainScreen::on_audioButton_invisibleButton_pressed()
 {
     audioSettingsWidget.setVisible(!audioSettingsWidget.isVisible());
+}
+
+void MainScreen::on_track_invisibleButton_pressed()
+{
+    player->stop();
+    player->videoWidget()->hide();
+}
+
+void MainScreen::on_trails_invisibleButton_pressed()
+{
+    Phonon::MediaSource source("test.mov");
+    player->play(source);
+    player->setVisible(true);
+    player->videoWidget()->show();
 }
