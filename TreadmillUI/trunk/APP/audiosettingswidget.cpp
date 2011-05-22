@@ -25,7 +25,7 @@ AudioSettingsWidget::AudioSettingsWidget(QWidget *parent) :
 
     loadRadioSettings();
 
-    on_invisibleButton_lineIn_pressed();
+    on_invisibleButton_video_pressed();
 }
 
 AudioSettingsWidget::~AudioSettingsWidget()
