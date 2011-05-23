@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "abstractscreen.h"
-//#include <phonon/VideoPlayer>
+#include <phonon/VideoPlayer>
 
 namespace Ui {
     class StartupWindow;
@@ -19,7 +19,7 @@ public:
 
 private:
     Ui::StartupWindow *ui;
-//    Phonon::VideoPlayer *player;
+    Phonon::VideoPlayer *player;
 
     void showMainScreen(QString name, float speed, float grade, int minutes);
 

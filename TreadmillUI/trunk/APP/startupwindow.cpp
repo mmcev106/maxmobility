@@ -9,7 +9,7 @@
 #include "intervalscreen.h"
 #include "myworkoutsscreen.h"
 #include "screens.h"
-//#include <phonon/VideoWidget>
+#include <phonon/VideoWidget>
 #include <QBitmap>
 #include <QDir>
 #include <QCoreApplication>
@@ -33,18 +33,21 @@ static int STEEP_GRADE = MAX_GRADE;
 StartupWindow::StartupWindow(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::StartupWindow)
-//    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
 {
     ui->setupUi(this);
 
-//    player->setFixedSize(240,189);
-//    player->move(673,112);
-//    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
+    QSize playerSize(256,191);
 
-//    QPixmap pixmap(":/images/images/startup_screen_video_mask.png");
-//    player->setMask(pixmap.mask());
+    player->setFixedSize(playerSize);
+    player->move(664,111);
+    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
 
-/*    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("test video.avi");
+    QPixmap pixmap(":/images/images/video_thumb_mask.png");
+    pixmap = pixmap.scaled(playerSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    player->videoWidget()->setMask(pixmap.mask());
+
+    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("trails.avi");
 
     player->setVolume(0);
     player->play(*mediaSource);
@@ -52,18 +55,16 @@ StartupWindow::StartupWindow(QWidget *parent) :
     player->show();
 
     connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
-*/
+
     //Put the background behind the player
     ui->backgroundLabel->lower();
     ui->invisibleButton->setFocusPolicy(Qt::NoFocus);
-
-//    showMainScreen("Video");
 }
 
 void StartupWindow::restartVideo(){
 
-//    player->stop();
-//    player->play();
+    player->stop();
+    player->play();
 }
 
 StartupWindow::~StartupWindow()

@@ -65,6 +65,7 @@ private slots:
     void updateDisplay();
     void updateRunningDudeImage();
     void processNextWorkoutStep();
+    void restartVideo();
 
 };
 

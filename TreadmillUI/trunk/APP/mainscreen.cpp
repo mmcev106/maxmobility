@@ -110,6 +110,7 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     player->videoWidget()->setFixedSize(centerSize);
     player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
     player->videoWidget()->hide();
+    connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
 
     audioSettingsWidget.setParent(this);
     audioSettingsWidget.move(centerPosition);
@@ -240,6 +241,12 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
     }
 
     return QWidget::eventFilter(watched, event);
+}
+
+void MainScreen::restartVideo(){
+
+    player->stop();
+    player->play();
 }
 
 
