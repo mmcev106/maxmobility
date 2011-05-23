@@ -56,11 +56,6 @@ void initializeSerialPortConnection(){
     QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
 
     QString portName = ports.at(0).portName;
-
-    if(!portName.startsWith("/dev/")){
-        portName = portName.prepend("/dev/");
-    }
-
     qDebug() << "Serial Port: " + portName;
 
     QextSerialPort* port = new QextSerialPort(portName, QextSerialPort::EventDriven);
