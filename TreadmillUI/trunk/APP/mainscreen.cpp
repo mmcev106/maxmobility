@@ -80,8 +80,9 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
 //     add the history widgets
     zero(speedHistory, HISTORY_LENGTH);
     zero(gradeHistory, HISTORY_LENGTH);
-    gradeHistoryWidget.move(36,528);
-    speedHistoryWidget.move(664,528);
+    int historyY = 450;
+    gradeHistoryWidget.move(25, historyY);
+    speedHistoryWidget.move(950, historyY);
     gradeHistoryWidget.hide();
     speedHistoryWidget.hide();
 
@@ -302,8 +303,10 @@ void MainScreen::updateDisplay(){
         gradeHistory[i] = gradeHistory[i+1];
     }
 
-    speedHistory[HISTORY_LENGTH-1] = elapsedTime%HISTORY_HEIGHT;
-    gradeHistory[HISTORY_LENGTH-1] = elapsedTime%HISTORY_HEIGHT;
+    speedHistory[HISTORY_LENGTH-1] = speed/.5;
+    gradeHistory[HISTORY_LENGTH-1] = grade/.5;
+
+    qDebug() << "history: " << speedHistory[HISTORY_LENGTH-1] << ", " << gradeHistory[HISTORY_LENGTH-1];
 
     speedHistoryWidget.update();
     gradeHistoryWidget.update();
