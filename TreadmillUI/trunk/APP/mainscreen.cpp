@@ -85,18 +85,6 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     gradeHistoryWidget.hide();
     speedHistoryWidget.hide();
 
-//    ui->videoThumb->setPixmap(QPixmap("test video_thumb.jpg"));
-//    QPixmap thumbMask(":/images/images/video_thumb_mask.png");
-//    ui->videoThumb->setMask(thumbMask.mask());
-
-        /* We must use a timer to start playback to allow this method to finish before setting the scale.
-           The scale is not set properly otherwise. */
-
-//        connect(playTimer, SIGNAL(timeout()), this, SLOT( on_videoThumbButton_invisibleButton_pressed()));
-//        playTimer->setInterval(0);
-//        playTimer->setSingleShot(true);
-//        playTimer->start();
-
     QPoint centerPosition(133, 101);
 
     QPixmap trackBitmap(RUNNING_DUDE_IMAGE_PATH + "/Track_Background.png");
@@ -210,7 +198,6 @@ MainScreen::~MainScreen()
 {
     delete workout;
     delete ui;
-//    delete glWidget;
 
     player->stop();
     delete player;
@@ -354,7 +341,6 @@ void MainScreen::updateRunningDudeImage(){
        int imageNumber = imageNumberDouble;
 
        QString imagePath = RUNNING_DUDE_IMAGE_PATH + "/" + type + "/" + type + QString("%1").arg(imageNumber) + ".png";
-//       qDebug() << "image path: " + imagePath;
        QPixmap runningDudePixmap(imagePath);
        runningDudeWidget->setPixmap(runningDudePixmap);
 }
