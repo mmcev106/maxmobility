@@ -361,11 +361,30 @@ void MainScreen::on_track_invisibleButton_pressed()
 {
     player->stop();
     player->videoWidget()->hide();
+    player->setVisible(false);
+
+    trackWidget->show();
+    runningDudeWidget->show();
 }
 
 void MainScreen::on_trails_invisibleButton_pressed()
 {
-    Phonon::MediaSource source("test.mov");
+    playVideo("trails.avi");
+}
+
+void MainScreen::on_tranquil_invisibleButton_pressed()
+{
+    playVideo("tranquil.avi");
+}
+
+void MainScreen::playVideo(QString filename)
+{
+    qDebug() << "playing: " << filename;
+
+    trackWidget->hide();
+    runningDudeWidget->hide();
+
+    Phonon::MediaSource source(filename);
     player->play(source);
     player->setVisible(true);
     player->videoWidget()->show();

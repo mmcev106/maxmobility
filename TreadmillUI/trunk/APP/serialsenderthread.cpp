@@ -18,7 +18,7 @@ void SerialSenderThread::run(){
 
     while(true){
 
-        qDebug() << "Sending: " << Utils::toString( messageData, BEAGLE_BOARD_MESSAGE_LENGTH );
+//        qDebug() << "Sending: " << Utils::toString( messageData, BEAGLE_BOARD_MESSAGE_LENGTH );
         port->write((char*)messageData);
         port->flush();
 

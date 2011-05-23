@@ -516,6 +516,22 @@ QLabel{color: #42b4ff; }</string>
     <string/>
    </property>
   </widget>
+  <widget class="InvisibleButton" name="tranquil_invisibleButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>101</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: none;</string>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>
