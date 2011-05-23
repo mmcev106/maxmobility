@@ -379,8 +379,6 @@ void MainScreen::on_tranquil_invisibleButton_pressed()
 
 void MainScreen::playVideo(QString filename)
 {
-    qDebug() << "playing: " << filename;
-
     trackWidget->hide();
     runningDudeWidget->hide();
 
