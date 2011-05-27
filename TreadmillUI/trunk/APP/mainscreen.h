@@ -66,6 +66,8 @@ private slots:
     void updateRunningDudeImage();
     void processNextWorkoutStep();
     void restartVideo();
+    void updateHistoryWidgets(int speed, int grade);
+    void bumpHistoryWidgets();
 
 };
 

@@ -8,9 +8,11 @@ const QEvent::Type UPPER_BOARD_EVENT_TYPE = (QEvent::Type)2001;
 class UpperBoardEvent : public QEvent
 {
 public:
-    explicit UpperBoardEvent(unsigned char heartRate, unsigned char cadence);
+    // Wes added speed and grade from cadence
+    explicit UpperBoardEvent(unsigned char heartRate, unsigned char speed, unsigned char grade);
     char heartRate;
-    char cadence;
+    char speed;
+    char grade;
 
 signals:
 

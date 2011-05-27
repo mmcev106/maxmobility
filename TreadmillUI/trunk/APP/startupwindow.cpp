@@ -22,7 +22,7 @@
 
 using namespace std;
 
-static int QUICK_WORKOUT_LENGTH = 1; //minutes
+static int QUICK_WORKOUT_LENGTH = 5; //minutes
 static int WALKING_SPEED = 3;
 static int FAST_SPEED = 6;
 static int JOGGING_SPEED = 9;

@@ -14,7 +14,7 @@
 #include "waitstep.h"
 #include "utils.h"
 
-static int HISTORY_HEIGHT =31;
+static int HISTORY_HEIGHT =15;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
 
 void zero(int array[], int length){
@@ -77,14 +77,20 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     milliSecondTimer->setInterval(10);
     milliSecondTimer->start();
 
-//     add the history widgets
-    zero(speedHistory, HISTORY_LENGTH);
-    zero(gradeHistory, HISTORY_LENGTH);
-    int historyY = 450;
-    gradeHistoryWidget.move(25, historyY);
-    speedHistoryWidget.move(950, historyY);
-    gradeHistoryWidget.hide();
-    speedHistoryWidget.hide();
+    //     add the history widgets
+        zero(speedHistory, HISTORY_LENGTH);
+        zero(gradeHistory, HISTORY_LENGTH);
+        int historyY = 580;
+        //int historyHeight=30;
+        //int historyWidth=81;
+        gradeHistoryWidget.move(25,historyY);
+        speedHistoryWidget.move(930,historyY);
+       // gradeHistoryWidget.resize ( historyWidth,historyHeight);
+        //speedHistoryWidget.resize ( historyWidth,historyHeight);
+
+
+        //gradeHistoryWidget.hide();        ** REMOVE HIDE HISTORY WIDGETS **
+        //speedHistoryWidget.hide();
 
     QPoint centerPosition(133, 101);
 
@@ -298,18 +304,32 @@ void MainScreen::updateDisplay(){
     ui->ampmLabel->setText(time.right(2) );
     ui->dateLabel->setText(currentTime.toString(QString("dddd, M/d/yy")));
 
+    if (seconds==0 || seconds==30)
+        bumpHistoryWidgets();
+
+    updateHistoryWidgets(speed, grade);
+
+}
+
+void MainScreen::bumpHistoryWidgets(){
     for(int i=0;i<HISTORY_LENGTH-1;i++){
         speedHistory[i] = speedHistory[i+1];
         gradeHistory[i] = gradeHistory[i+1];
     }
+}
 
-    speedHistory[HISTORY_LENGTH-1] = speed/.5;
-    gradeHistory[HISTORY_LENGTH-1] = grade/.5;
+void MainScreen::updateHistoryWidgets(int speed, int grade){
 
-    qDebug() << "history: " << speedHistory[HISTORY_LENGTH-1] << ", " << gradeHistory[HISTORY_LENGTH-1];
+    // only update history widgets every 30 secs
+        speedHistory[HISTORY_LENGTH-1] = speed*1.25;
+        gradeHistory[HISTORY_LENGTH-1] = grade*2;
+        if (gradeHistory[HISTORY_LENGTH-1] == 0)
+            gradeHistory[HISTORY_LENGTH-1] = 1;
 
-    speedHistoryWidget.update();
-    gradeHistoryWidget.update();
+        qDebug() << "history: " << speed << ", " << grade;
+
+        speedHistoryWidget.update();
+        gradeHistoryWidget.update();
 }
 
 void MainScreen::updateRunningDudeImage(){
