@@ -38,7 +38,7 @@ Workout* Workout::createWorkout(QString name, float speed, float grade, int minu
 }
 
 Workout* Workout::createHeartRateWorkout(QString name, int minutes, float lowPercentage , float highPercentage, int age, int weight){
-    float range = MAX_SPEED - MIN_SPEED;
+    float range = Utils::getMAX_SPEED() - MIN_SPEED;
     float lowSpeed = MIN_SPEED + lowPercentage*range;
     float highSpeed = MIN_SPEED + highPercentage*range;
 
@@ -91,7 +91,7 @@ Workout* Workout::createIntensityWorkout(QString name, int minutes, int starting
 
     int startingGrade = 0;
     float maxGradeChange = (MAX_GRADE - startingGrade)*intensityPercent;
-    float maxSpeedChange = (MAX_SPEED - startingSpeed)*intensityPercent;
+    float maxSpeedChange = (Utils::getMAX_SPEED() - startingSpeed)*intensityPercent;
 
     qDebug() << "maxGradeChange: " << maxGradeChange;
 

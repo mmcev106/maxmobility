@@ -33,7 +33,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <pixmap resource="images.qrc">:/images/images/Name Workout (updated).png</pixmap>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_6">
+  <widget class="InvisibleButton" name="invisibleButton_6" native="true">
    <property name="geometry">
     <rect>
      <x>780</x>
@@ -42,11 +42,11 @@ QWidget{font-family: Tamworth Gothic}</string>
      <height>71</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_7">
+  <widget class="InvisibleButton" name="invisibleButton_7" native="true">
    <property name="geometry">
     <rect>
      <x>920</x>
@@ -55,14 +55,18 @@ QWidget{font-family: Tamworth Gothic}</string>
      <height>61</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <zorder>backgroundLabel</zorder>
-  <zorder>invisibleButton_7</zorder>
-  <zorder>invisibleButton_6</zorder>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>InvisibleButton</class>
+   <extends>QWidget</extends>
+   <header>invisiblebutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

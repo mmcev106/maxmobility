@@ -13,38 +13,75 @@ QApplication* Preferences::application = NULL;
 
 QDir Preferences::dataDirectory = QDir::current();
 
-unsigned char Preferences::messageData[BEAGLE_BOARD_MESSAGE_LENGTH];
-
 State Preferences::currentState;
 
-float Preferences::getCurrentSpeed(){
-    float speed = messageData[1];
-    speed /= 10;
+float Preferences::speed,Preferences::grade;
+float Preferences::spd_diff,Preferences::grd_diff;
+void (*Preferences::_spd_func)(void);
+void (*Preferences::_grd_func)(void);
 
+void Preferences::setMeasurementSystem(bool Standard)
+{
+    if (Standard == STANDARD)
+        measurementSystem = STANDARD;
+    else
+        measurementSystem = METRIC;
+}
+
+bool Preferences::getMeasurementSystem(void)
+{
+    return measurementSystem;
+}
+
+float Preferences::getCurrentSpeed(){
     return  speed;
 }
 
-void Preferences::setCurrentSpeed(float speed)
+void Preferences::setCurrentSpeed(float spd)
 {
-    if(speed > MAX_GRADE){
-        speed = MAX_GRADE;
-    }
-
-    messageData[1] = (unsigned char) (speed * 10) ;
+    if(spd > Utils::getMAX_SPEED())
+        spd_diff = Utils::getMAX_SPEED();
+    else
+        spd_diff = spd;
 }
 
 float Preferences::getCurrentGrade(){
-    float speed = messageData[2];
-    speed /= 10;
-
-    return  speed;
+    return  grade;
 }
 
-void Preferences::setCurrentGrade(float grade){
+void Preferences::setCurrentGrade(float grd){
+    if(grd > MAX_GRADE)
+        grd_diff = MAX_GRADE;
+    else
+        grd_diff = grd;
+}
 
-    if(grade > MAX_GRADE){
+void Preferences::updateCurrentSpeed(float spd)
+{
+    if (spd!=speed)
+        _spd_func();
+    if(spd > Utils::getMAX_SPEED())
+        speed = Utils::getMAX_SPEED();
+    else
+        speed = spd;
+}
+
+void Preferences::setSpeedChangeFunction(void (*func)())
+{
+    _spd_func = func;
+}
+
+void Preferences::setGradeChangeFunction(void (*func)())
+{
+    _grd_func = func;
+}
+
+void Preferences::updateCurrentGrade(float grd){
+
+    if (grd!=grade)
+        _grd_func();
+    if(grd > MAX_GRADE)
         grade = MAX_GRADE;
-    }
-
-    messageData[2] = (unsigned char) (grade * 10);
+    else
+        grade = grd;
 }

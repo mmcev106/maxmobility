@@ -17,9 +17,9 @@ static const long MILLIS_PER_HOUR = MILLIS_PER_MINUTE * 60;
 class Utils
 {
 public:
-    int getMAX_SPEED();
+    static int getMAX_SPEED();
     Utils();
-    void setMAX_SPEED(bool Standard); // This will be called from the Preferences Class when unit system changes
+    static void setMAX_SPEED(bool Standard); // This will be called from the Preferences Class when unit system changes
     static QString toString(unsigned char*, int len);
 private:
     static int MAX_SPEED;

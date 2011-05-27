@@ -5,6 +5,8 @@
 #include <QDebug>
 #include "workout.h"
 
+int Utils::MAX_SPEED = MAX_SPEED_MPH;
+
 Utils::Utils()
 {
 }

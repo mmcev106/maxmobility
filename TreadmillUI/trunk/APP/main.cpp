@@ -18,17 +18,17 @@
 using namespace std;
 
 void loadPreferences(){
-    bool tempMeasurementSystem
+    bool tempMeasurementSystem;
     QFile file(Preferences::FILENAME);
     if(file.exists()){
         file.open(QFile::ReadOnly);
 
         QDataStream stream(&file);
         //read the file
-        stream >> tempMeasurementSystem
+        stream >> tempMeasurementSystem;
 
         file.close();
-        setMeasurementSystem(tempMeasurementSystem);
+        Preferences::setMeasurementSystem(tempMeasurementSystem);
     }
 }
 
@@ -44,16 +44,16 @@ void savePreferences(){
 
 void initializeSerialPortConnection(){
 
-    unsigned char* messageData =  Preferences::messageData;
-    messageData[0] = 0xFF;
-    messageData[1] = 1;
-    messageData[2] = 1;
-    messageData[3] = 0;
-    messageData[4] = 0;
-    messageData[5] = 0;
-    messageData[6] = '\n';
+//    unsigned char* messageData =  Preferences::messageData;
+//    messageData[0] = 0xFF;
+//    messageData[1] = 1;
+//    messageData[2] = 1;
+//    messageData[3] = 0;
+//    messageData[4] = 0;
+//    messageData[5] = 0;
+//    messageData[6] = '\n';
 
-    Preferences::currentState.state = &messageData[3];
+//    Preferences::currentState.state = &messageData[3];
 
     QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
 
@@ -66,7 +66,9 @@ void initializeSerialPortConnection(){
     port->setParity(PAR_NONE);
     port->setDataBits(DATA_8);
     port->setStopBits(STOP_2);
-    bool open = port->open(QextSerialPort::ReadWrite);
+//    bool open = port->open(QextSerialPort::ReadWrite);
+
+    bool open = false;
 
     if(open){
 
