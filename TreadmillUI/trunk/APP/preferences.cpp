@@ -23,9 +23,15 @@ void (*Preferences::_grd_func)(void);
 void Preferences::setMeasurementSystem(bool Standard)
 {
     if (Standard == STANDARD)
+    {
         measurementSystem = STANDARD;
+        Utils::setMAX_SPEED(STANDARD);
+    }
     else
+    {
         measurementSystem = METRIC;
+        Utils::setMAX_SPEED(METRIC);
+    }
 }
 
 bool Preferences::getMeasurementSystem(void)

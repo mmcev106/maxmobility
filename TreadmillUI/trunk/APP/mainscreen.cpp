@@ -126,7 +126,7 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
 
     Preferences::application->installEventFilter(this);
 
-    Preferences::currentState.setOn();
+//    Preferences::currentState.setOn();        // commented this out because it was causing a fault in the program (William)
 
     //    update the fields before the windows is initially displayed
     updateDisplay();
@@ -201,7 +201,7 @@ void MainScreen::writeHistoryEntry(){
 
 void MainScreen::closeEvent(QCloseEvent * event){
 
-    Preferences::currentState.setOff();
+//    Preferences::currentState.setOff();           // Commented this out because of error in state (William)
 
     writeHistoryEntry();
 }

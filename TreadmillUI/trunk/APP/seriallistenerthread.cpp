@@ -51,7 +51,7 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
-    char keyPress = data[1];
+    unsigned char _state = data[1];
     char heartRate = data[2];
     char speed = data[3];
     unsigned char grade = data[4];  // Wes updated these to speed and grade from cadence and rawData
@@ -64,7 +64,7 @@ void SerialListenerThread::handleMessage(unsigned char* data){
     }
 
     State state;
-    state.state = &grade; // Wes updated this from &rawData
+    state.state = &_state;
 
     UpperBoardEvent event(heartRate, speed, grade); // wes updated this to speed and grade from cadence
     QApplication::sendEvent(Preferences::application,  &event);
