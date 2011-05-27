@@ -324,13 +324,9 @@ void MainScreen::bumpHistoryWidgets(){
 }
 
 void MainScreen::updateHistoryWidgets(int speed, int grade){
-    //1.609
-    // only update history widgets every 30 secs
 
-        speedHistory[HISTORY_LENGTH-1] = (speed*Utils::getMAX_SPEED())/16;
-        gradeHistory[HISTORY_LENGTH-1] = grade*2;
-//        if (gradeHistory[HISTORY_LENGTH-1] == 0)
-//            gradeHistory[HISTORY_LENGTH-1] = 1;
+        speedHistory[HISTORY_LENGTH-1] = (speed*(Utils::getMAX_SPEED()))/15;
+        gradeHistory[HISTORY_LENGTH-1] = (grade*MAX_GRADE)/15;
 
         qDebug() << "history: " << speed << ", " << grade;
 
