@@ -57,11 +57,13 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
         ui->distanceMetricLabel->setText("mi");
         ui->paceMetricLabel->setText("(mins/mi)");
         ui->speedMetricLabel->setText("mph");
+        MAX_SPEED=MAX_SPEED_MPH;
     }
     else {
         ui->distanceMetricLabel->setText("km");
         ui->paceMetricLabel->setText("(mins/km)");
         ui->speedMetricLabel->setText("km/h");
+        MAX_SPEED=MAX_SPEED_KPH;
     }
 
     //Put the background behind the player
@@ -319,9 +321,10 @@ void MainScreen::bumpHistoryWidgets(){
 }
 
 void MainScreen::updateHistoryWidgets(int speed, int grade){
-
+    //1.609
     // only update history widgets every 30 secs
-        speedHistory[HISTORY_LENGTH-1] = speed*1.25;
+
+        speedHistory[HISTORY_LENGTH-1] = (speed*MAX_SPEED)/16;
         gradeHistory[HISTORY_LENGTH-1] = grade*2;
 //        if (gradeHistory[HISTORY_LENGTH-1] == 0)
 //            gradeHistory[HISTORY_LENGTH-1] = 1;

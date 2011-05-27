@@ -18,15 +18,17 @@
 using namespace std;
 
 void loadPreferences(){
+    bool tempMeasurementSystem
     QFile file(Preferences::FILENAME);
     if(file.exists()){
         file.open(QFile::ReadOnly);
 
         QDataStream stream(&file);
-
-        stream >> Preferences::measurementSystem;
+        //read the file
+        stream >> tempMeasurementSystem
 
         file.close();
+        setMeasurementSystem(tempMeasurementSystem);
     }
 }
 

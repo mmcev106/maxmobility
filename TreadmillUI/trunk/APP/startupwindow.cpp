@@ -22,13 +22,14 @@
 
 using namespace std;
 
-static int QUICK_WORKOUT_LENGTH = 5; //minutes
-static int WALKING_SPEED = 3;
-static int FAST_SPEED = 6;
-static int JOGGING_SPEED = 9;
-static int RUNNING_SPEED = MAX_SPEED;
+static int QUICK_WORKOUT_LENGTH = 30; //minutes
+static int WALKING_SPEED;
+static int FAST_SPEED;  // these are set in the constructor
+static int JOGGING_SPEED;
+static int RUNNING_SPEED;
 static int HILL_GRADE = 5;
 static int STEEP_GRADE = MAX_GRADE;
+
 
 StartupWindow::StartupWindow(QWidget *parent) :
     AbstractScreen(parent)
@@ -59,6 +60,18 @@ StartupWindow::StartupWindow(QWidget *parent) :
     //Put the background behind the player
     ui->backgroundLabel->lower();
     ui->invisibleButton->setFocusPolicy(Qt::NoFocus);
+
+    int maxSpeed;
+    // Load default values from preferences
+    if (Preferences::measurementSystem == STANDARD)
+        maxSpeed=MAX_SPEED_MPH;
+    else
+        maxSpeed=MAX_SPEED_KPH;
+
+    WALKING_SPEED=maxSpeed/4;
+    FAST_SPEED=maxSpeed/2;
+    JOGGING_SPEED=maxSpeed*.75;
+    RUNNING_SPEED=maxSpeed;
 }
 
 void StartupWindow::restartVideo(){

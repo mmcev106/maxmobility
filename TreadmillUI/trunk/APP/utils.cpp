@@ -9,6 +9,17 @@ Utils::Utils()
 {
 }
 
+int Utils::getMAX_SPEED(){
+    return MAX_SPEED;
+}
+
+void Utils::setMAX_SPEED(bool Standard){
+    if (Standard==true)
+        MAX_SPEED=MAX_SPEED_MPH;
+    else
+        MAX_SPEED=MAX_SPEED_KPH;
+}
+
 QString Utils::toString(unsigned char *array, int len){
     QString string;
 

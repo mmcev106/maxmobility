@@ -49,6 +49,7 @@ private:
     Phonon::VideoPlayer *player;
     HistoryWidget speedHistoryWidget;
     HistoryWidget gradeHistoryWidget;
+    static int MAX_SPEED;
 //    QGLWidget* glWidget;
 
     AudioSettingsWidget audioSettingsWidget;
