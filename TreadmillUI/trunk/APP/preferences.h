@@ -35,6 +35,7 @@ public:
     static bool gender;
     static bool measurementSystem;
 
+    static QThread* listener,*sender;
 
     static QextSerialPort* serialPort;
     static QApplication* application;

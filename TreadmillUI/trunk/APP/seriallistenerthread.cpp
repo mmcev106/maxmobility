@@ -7,7 +7,7 @@
 #include "QApplication"
 #include "utils.h";
 
-static const int READ_WAIT_LIMIT = 1000 * 60 * 5;
+static const int READ_WAIT_LIMIT = 0;//1000 * 60 * 5
 static const int MESSAGE_LENGTH = 8;
 
 SerialListenerThread::SerialListenerThread()
@@ -15,17 +15,12 @@ SerialListenerThread::SerialListenerThread()
 }
 
 void SerialListenerThread::run(){
+
     QextSerialPort* port =  Preferences::serialPort;
 
-//    int x = 0;
-    while(port->waitForReadyRead( READ_WAIT_LIMIT)){
+    while(port->isOpen()){     //port->waitForReadyRead( READ_WAIT_LIMIT )
         QByteArray data = port->read(MESSAGE_LENGTH);
-        /*unsigned char rawData[8];
-        rawData[0] = 0xFF;
-        rawData[2] = x;
-        rawData[3] = x;
-        rawData[7] = '\n';
-        QByteArray data((char*)rawData, 8);*/
+        qDebug() << Utils::toString( (unsigned char* )data.data(), data.length());
 
         if(data.length() < 100){
             qDebug() << "Received Data: " << Utils::toString ( (unsigned char* )data.data(), data.length());
@@ -39,8 +34,7 @@ void SerialListenerThread::run(){
             handleMessage((unsigned  char*)data.data());
         }
 
-        QThread::sleep(2);
-//        x++;
+        QThread::msleep(100);
     }
 }
 
@@ -51,6 +45,7 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
+    qDebug() << "Message :" + data[0] + data[1];
     unsigned char _state = data[1];
     char heartRate = data[2];
     char speed = data[3];
@@ -63,8 +58,11 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
-    State state;
-    state.state = &_state;
+    Preferences::updateCurrentGrade((float)grade/(float)10);
+    Preferences::updateCurrentSpeed((float)speed/(float)10);
+
+//    State state;
+//    state.state = &_state;
 
     UpperBoardEvent event(heartRate, speed, grade); // wes updated this to speed and grade from cadence
     QApplication::sendEvent(Preferences::application,  &event);

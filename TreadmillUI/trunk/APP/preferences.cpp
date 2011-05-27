@@ -13,6 +13,8 @@ QApplication* Preferences::application = NULL;
 
 QDir Preferences::dataDirectory = QDir::current();
 
+QThread* Preferences::sender,*Preferences::listener;
+
 State Preferences::currentState;
 
 float Preferences::speed,Preferences::grade;
@@ -65,7 +67,7 @@ void Preferences::setCurrentGrade(float grd){
 void Preferences::updateCurrentSpeed(float spd)
 {
     if (spd!=speed)
-        _spd_func();
+//        _spd_func();
     if(spd > Utils::getMAX_SPEED())
         speed = Utils::getMAX_SPEED();
     else
@@ -85,7 +87,7 @@ void Preferences::setGradeChangeFunction(void (*func)())
 void Preferences::updateCurrentGrade(float grd){
 
     if (grd!=grade)
-        _grd_func();
+//        _grd_func();
     if(grd > MAX_GRADE)
         grade = MAX_GRADE;
     else

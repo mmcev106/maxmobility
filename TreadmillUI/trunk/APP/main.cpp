@@ -58,25 +58,31 @@ void initializeSerialPortConnection(){
     QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
 
     QString portName = ports.at(0).portName;
+    QStringList list;
     qDebug() << "Serial Port: " + portName;
-    portName.split('\');
+    list = portName.split(QRegExp("\\W+"));
+    QString name = list.last();
+    qDebug() << "Actual Port: " + name;
 
-    QextSerialPort* port = new QextSerialPort(portName, QextSerialPort::EventDriven);
+    QextSerialPort* port = new QextSerialPort(name, QextSerialPort::EventDriven);
     port->setBaudRate(BAUD9600);
     port->setFlowControl(FLOW_OFF);
     port->setParity(PAR_NONE);
     port->setDataBits(DATA_8);
     port->setStopBits(STOP_1);
+    qDebug() << "Opening Port.";
     bool open = port->open(QextSerialPort::ReadWrite);
 
 //    bool open = false;
 
     if(open){
-
         Preferences::serialPort = port;
+        qDebug() << "Port Opened!" + Preferences::serialPort->readLine();
 
-        (new SerialListenerThread())->start();
-        (new SerialSenderThread())->start();
+        Preferences::listener = new SerialListenerThread();
+        Preferences::listener->start();
+        Preferences::sender = new SerialSenderThread();
+        Preferences::sender->start();
     }else{
         qDebug() << "An error occurred while opening the serial port!";
     }
