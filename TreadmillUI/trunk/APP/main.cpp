@@ -59,16 +59,17 @@ void initializeSerialPortConnection(){
 
     QString portName = ports.at(0).portName;
     qDebug() << "Serial Port: " + portName;
+    portName.split('\');
 
     QextSerialPort* port = new QextSerialPort(portName, QextSerialPort::EventDriven);
-    port->setBaudRate(BAUD56000);
+    port->setBaudRate(BAUD9600);
     port->setFlowControl(FLOW_OFF);
     port->setParity(PAR_NONE);
     port->setDataBits(DATA_8);
-    port->setStopBits(STOP_2);
-//    bool open = port->open(QextSerialPort::ReadWrite);
+    port->setStopBits(STOP_1);
+    bool open = port->open(QextSerialPort::ReadWrite);
 
-    bool open = false;
+//    bool open = false;
 
     if(open){
 
