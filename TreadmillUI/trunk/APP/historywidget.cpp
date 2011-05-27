@@ -40,7 +40,12 @@ void HistoryWidget::paintEvent(QPaintEvent *){
         if(squares > historyHeight){
             squares = historyHeight;
         }
-
+        if (squares==0)
+        {
+            QPixmap pixmap;
+            pixmap = brickPixmap;
+            qpainter.drawPixmap(x,y,pixmap);
+        }
         while(squares > 0){
 
             QPixmap pixmap;
