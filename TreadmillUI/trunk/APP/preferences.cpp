@@ -1,4 +1,5 @@
 #include "preferences.h"
+//#include "mainscreen.h"
 #include "utils.h"
 #include <QDebug>
 
@@ -17,8 +18,8 @@ QThread* Preferences::sender,*Preferences::listener;
 
 State Preferences::currentState;
 
-float Preferences::speed,Preferences::grade;
-float Preferences::spd_diff,Preferences::grd_diff;
+int Preferences::speed,Preferences::grade;
+int Preferences::spd_diff,Preferences::grd_diff;
 void (*Preferences::_spd_func)(void);
 void (*Preferences::_grd_func)(void);
 
@@ -41,11 +42,11 @@ bool Preferences::getMeasurementSystem(void)
     return measurementSystem;
 }
 
-float Preferences::getCurrentSpeed(){
+int Preferences::getCurrentSpeed(){
     return  speed;
 }
 
-void Preferences::setCurrentSpeed(float spd)
+void Preferences::setCurrentSpeed(int spd)
 {
     if(spd > Utils::getMAX_SPEED())
         spd_diff = Utils::getMAX_SPEED();
@@ -53,20 +54,21 @@ void Preferences::setCurrentSpeed(float spd)
         spd_diff = spd;
 }
 
-float Preferences::getCurrentGrade(){
+int Preferences::getCurrentGrade(){
     return  grade;
 }
 
-void Preferences::setCurrentGrade(float grd){
+void Preferences::setCurrentGrade(int grd){
     if(grd > MAX_GRADE)
         grd_diff = MAX_GRADE;
     else
         grd_diff = grd;
 }
 
-void Preferences::updateCurrentSpeed(float spd)
+void Preferences::updateCurrentSpeed(int spd)
 {
     if (spd!=speed)
+//        MainScreen::updateDisplay();
 //        _spd_func();
     if(spd > Utils::getMAX_SPEED())
         speed = Utils::getMAX_SPEED();
@@ -84,9 +86,10 @@ void Preferences::setGradeChangeFunction(void (*func)())
     _grd_func = func;
 }
 
-void Preferences::updateCurrentGrade(float grd){
+void Preferences::updateCurrentGrade(int grd){
 
     if (grd!=grade)
+//        MainScreen::updateDisplay();
 //        _grd_func();
     if(grd > MAX_GRADE)
         grade = MAX_GRADE;

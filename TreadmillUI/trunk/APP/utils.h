@@ -5,10 +5,10 @@
 #include "step.h"
 #include "workout.h"
 
-static const int MAX_SPEED_MPH = 12;
-static const int MAX_SPEED_KPH = 20;
+static const int MAX_SPEED_MPH = 120;
+static const int MAX_SPEED_KPH = 200;
 
-static const int MAX_GRADE = 12;
+static const int MAX_GRADE = 120;
 
 static const long MILLIS_PER_SECOND = 1000;
 static const long MILLIS_PER_MINUTE = MILLIS_PER_SECOND * 60;

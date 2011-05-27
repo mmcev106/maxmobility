@@ -25,8 +25,8 @@ static const QString HISTORY = "history";
 class Preferences
 {
 private:
-    static float speed,grade;
-    static float spd_diff,grd_diff;
+    static int speed,grade;
+    static int spd_diff,grd_diff;
     static void (*_spd_func)();
     static void (*_grd_func)();
 public:
@@ -49,13 +49,13 @@ public:
     static void setSpeedChangeFunction( void (*func)() );       /*!< Used to set the function that runs on a speed change. */
     static void setGradeChangeFunction( void (*func)() );       /*!< Used to set the function that runs on a grade change. */
 
-    static float getCurrentSpeed();                 /*!< Used to check the current speed value. */
-    static void setCurrentSpeed(float spd);         /*!< Used to send a new speed value to lower board. */
-    static float getCurrentGrade();                 /*!< Used to check the current grade value. */
-    static void setCurrentGrade(float grd);         /*!< Used to send a new grade value to lower board. */
+    static int getCurrentSpeed();                 /*!< Used to check the current speed value. */
+    static void setCurrentSpeed(int spd);         /*!< Used to send a new speed value to lower board. */
+    static int getCurrentGrade();                 /*!< Used to check the current grade value. */
+    static void setCurrentGrade(int grd);         /*!< Used to send a new grade value to lower board. */
 
-    static void updateCurrentSpeed(float spd);      /*!< Used by serial listener thread to update the current speed. */
-    static void updateCurrentGrade(float grd);      /*!< Used by serial listener thread to update the current grade. */
+    static void updateCurrentSpeed(int spd);      /*!< Used by serial listener thread to update the current speed. */
+    static void updateCurrentGrade(int grd);      /*!< Used by serial listener thread to update the current grade. */
 
 };
 

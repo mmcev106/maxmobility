@@ -58,8 +58,8 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
-    Preferences::updateCurrentGrade((float)grade/(float)10);
-    Preferences::updateCurrentSpeed((float)speed/(float)10);
+    Preferences::updateCurrentGrade(grade);
+    Preferences::updateCurrentSpeed(speed);
 
 //    State state;
 //    state.state = &_state;

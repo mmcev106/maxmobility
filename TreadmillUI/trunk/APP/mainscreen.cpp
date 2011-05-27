@@ -16,6 +16,7 @@
 
 static int HISTORY_HEIGHT =15;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
+static bool _update = false;
 
 void zero(int array[], int length){
 
@@ -26,7 +27,7 @@ void zero(int array[], int length){
 
 //static int *history;
 
-static const int UPDATE_DISPLAY_DELAY = 1000;
+static const int UPDATE_DISPLAY_DELAY = 100;
 static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER_HOUR;
 
 MainScreen::MainScreen(QWidget *parent, Workout* workout) :
@@ -78,9 +79,6 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     milliSecondTimer->setSingleShot(false);
     milliSecondTimer->setInterval(10);
     milliSecondTimer->start();
-
-    Preferences::setSpeedChangeFunction((reinterpret_cast<void (*)()>(&MainScreen::updateDisplay)));
-    Preferences::setGradeChangeFunction((reinterpret_cast<void (*)()>(&MainScreen::updateDisplay)));
 
     //     add the history widgets
         zero(speedHistory, HISTORY_LENGTH);
@@ -282,20 +280,16 @@ void MainScreen::updateDisplay(){
 //    ui->cadenceLabel->setText(secondsString);
     ui->paceLabel->setText(secondsString);
 
-    float grade = Preferences::getCurrentGrade();
-    int gradeInt = (int) grade;
-    int gradeDecimal = (grade - gradeInt) * 10;
-    ui->gradeIntegerLabel->setText(QString("%1").arg(gradeInt));
-    ui->gradeDecimalLabel->setText(QString("%1").arg(gradeDecimal));
+    int grade = Preferences::getCurrentGrade();
+    ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
+    ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
-    double speed = Preferences::getCurrentSpeed();
-    int speedInt = (int) speed;
-    int speedDecimal = (speed - speedInt) * 10;
-    ui->speedIntegerLabel->setText(QString("%1").arg(speedInt));
-    ui->speedDecimalLabel->setText(QString("%1").arg(speedDecimal));
+    int speed = Preferences::getCurrentSpeed();
+    ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
+    ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
 
-    distance += speed*HOURS_PER_UPDATE;
+    distance += ((double)speed)*HOURS_PER_UPDATE/10;
     int distanceInt = (int) distance;
     int distanceDecimal = (distance - distanceInt) * 10;
 
@@ -309,8 +303,14 @@ void MainScreen::updateDisplay(){
     ui->ampmLabel->setText(time.right(2) );
     ui->dateLabel->setText(currentTime.toString(QString("dddd, M/d/yy")));
 
-    if (seconds==0 || seconds==30)
+    if ((seconds==0 || seconds==30) && _update)
+    {
         bumpHistoryWidgets();
+        _update = false;
+    }
+    else
+        if (seconds%30)
+            _update = true;
 
     updateHistoryWidgets(speed, grade);
 
@@ -325,8 +325,10 @@ void MainScreen::bumpHistoryWidgets(){
 
 void MainScreen::updateHistoryWidgets(int speed, int grade){
 
-        speedHistory[HISTORY_LENGTH-1] = (speed*(Utils::getMAX_SPEED()))/15;
-        gradeHistory[HISTORY_LENGTH-1] = (grade*MAX_GRADE)/15;
+        speedHistory[HISTORY_LENGTH-1] = (speed*16)/(Utils::getMAX_SPEED()*10);
+        gradeHistory[HISTORY_LENGTH-1] = (grade*16)/(MAX_GRADE*10);
+//        if (gradeHistory[HISTORY_LENGTH-1] == 0)
+//            gradeHistory[HISTORY_LENGTH-1] = 1;
 
         qDebug() << "history: " << speed << ", " << grade;
 
