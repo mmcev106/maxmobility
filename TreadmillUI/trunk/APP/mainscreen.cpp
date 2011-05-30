@@ -275,19 +275,18 @@ void MainScreen::updateDisplay(){
 
     QString secondsString = QString("%1").arg(elapsedTime);
 
-//    ui->heartRateLabel->setText(secondsString);
-    ui->caloriesLabel->setText(secondsString);
-//    ui->cadenceLabel->setText(secondsString);
-    ui->paceLabel->setText(secondsString);
-
     int grade = Preferences::getCurrentGrade();
+    //int grade=120; // use to force grade display
     ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
     int speed = Preferences::getCurrentSpeed();
+    //int speed=120; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
+    ui->caloriesLabel->setText(secondsString);
+    ui->paceLabel->setText(QString("%1").arg(60/(speed/10)));
 
     distance += ((double)speed)*HOURS_PER_UPDATE/10;
     int distanceInt = (int) distance;
@@ -325,10 +324,8 @@ void MainScreen::bumpHistoryWidgets(){
 
 void MainScreen::updateHistoryWidgets(int speed, int grade){
 
-        speedHistory[HISTORY_LENGTH-1] = (speed*16)/(Utils::getMAX_SPEED()*10);
-        gradeHistory[HISTORY_LENGTH-1] = (grade*16)/(MAX_GRADE*10);
-//        if (gradeHistory[HISTORY_LENGTH-1] == 0)
-//            gradeHistory[HISTORY_LENGTH-1] = 1;
+        speedHistory[HISTORY_LENGTH-1] = (speed*16)/(Utils::getMAX_SPEED());
+        gradeHistory[HISTORY_LENGTH-1] = (grade*16)/(MAX_GRADE);
 
         qDebug() << "history: " << speed << ", " << grade;
 
