@@ -44,7 +44,8 @@ HEADERS += startupwindow.h \
     step.h \
     historyscreen.h \
     workout.h \
-    historyitem.h
+    historyitem.h \
+    videoscreen.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -55,7 +56,8 @@ FORMS += startupwindow.ui \
     keyboardwidget.ui \
     myworkoutsscreen.ui \
     newworkoutscreen.ui \
-    historyscreen.ui
+    historyscreen.ui \
+    videoscreen.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -92,11 +94,14 @@ SOURCES += main.cpp startupwindow.cpp \
     step.cpp \
     historyscreen.cpp \
     workout.cpp \
-    historyitem.cpp
+    historyitem.cpp \
+    videoscreen.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \
-    style.css
+    style.css \
+    images/Outdoor Paths - Wooded Path.png \
+    images/Outdoor Paths - Wooded Path.png
 
 CONFIG += warn_off
 

@@ -2,6 +2,6 @@
 #include "utils.h"
 
 GradeSliderWidget::GradeSliderWidget(QWidget *parent) :
-        SliderWidget(parent, 1, MAX_GRADE)
+        SliderWidget(parent, 1, (MAX_GRADE/10))
 {
 }
