@@ -275,18 +275,34 @@ void MainScreen::updateDisplay(){
 
     QString secondsString = QString("%1").arg(elapsedTime);
 
-    int grade = Preferences::getCurrentGrade();
-    //int grade=120; // use to force grade display
+   // *****************************************************SET SPEED HERE!!!!************************************************************
+    //int grade = Preferences::getCurrentGrade();
+    int grade=70; // use to force grade display
     ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
-    int speed = Preferences::getCurrentSpeed();
-    //int speed=120; // use to force speed display
+    //int speed = Preferences::getCurrentSpeed();
+    int speed=70; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
+    QString paceString = QString("%1").arg(600/speed);
+    paceString.append(":");
+
+    int intPaceSeconds = (60/(speed*.001));
+    intPaceSeconds=intPaceSeconds%100;
+    intPaceSeconds=intPaceSeconds*.6;
+    QString paceSecondsString;
+
+    if (intPaceSeconds < 10)
+        paceSecondsString = "0";
+
+    paceSecondsString.append(QString("%1").arg(intPaceSeconds));
+    paceString.append(paceSecondsString);
+
+    ui->paceLabel->setText(QString("%1").arg(paceString));
+
     ui->caloriesLabel->setText(secondsString);
-    ui->paceLabel->setText(QString("%1").arg(60/(speed/10)));
 
     distance += ((double)speed)*HOURS_PER_UPDATE/10;
     int distanceInt = (int) distance;
