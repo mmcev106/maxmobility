@@ -44,8 +44,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     player->move(664,111);
     player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
 
-    QPixmap pixmap(":/images/images/video_thumb_mask.png");
-    pixmap = pixmap.scaled(playerSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    QPixmap pixmap(":/images/images/startup_sceen_video_mask.png");
     player->videoWidget()->setMask(pixmap.mask());
 
     Phonon::MediaSource *mediaSource = new Phonon::MediaSource("trails.avi");
