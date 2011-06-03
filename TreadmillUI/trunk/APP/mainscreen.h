@@ -54,6 +54,7 @@ private:
 
     AudioSettingsWidget audioSettingsWidget;
     QPixmap videoMask;
+    int speed;
 
     void writeHistoryEntry();
     void playVideo(QString filename);

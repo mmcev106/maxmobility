@@ -18,6 +18,8 @@ static int HISTORY_HEIGHT =15;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
 static bool _update = false;
 
+static float TRACK_LENGTH = .1; // in miles
+
 void zero(int array[], int length){
 
     for(int i=0;i<length;i++){
@@ -50,6 +52,7 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     ,nextWorkoutStepTime(0)
     ,workout(workout)
     ,distance(0)
+    ,speed(0)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
@@ -282,7 +285,7 @@ void MainScreen::updateDisplay(){
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
     //int speed = Preferences::getCurrentSpeed();
-    int speed=70; // use to force speed display
+    speed=70; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
@@ -351,38 +354,31 @@ void MainScreen::updateHistoryWidgets(int speed, int grade){
 
 void MainScreen::updateRunningDudeImage(){
 
-        long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
+    float percentageAroundTrack = distance / TRACK_LENGTH;
+    percentageAroundTrack -= (int) percentageAroundTrack;
 
-       long distanceTraveled = elapsedTimeMillis;
-//       long speed = distanceTraveled/10;
-       int trackLength = 30000;
-       double dudePosition = distanceTraveled%trackLength;
-       double percentageAroundTrack = dudePosition/trackLength;
+    QString type;
+    int imageCount;
 
-       QString type;
-       int imageCount;
+    if(speed < Preferences::FAST_SPEED){
+        type= "Walk";
+        imageCount = 149;
+    }
+    else if (speed < Preferences::JOGGING_SPEED){
+       type = "Jog";
+       imageCount = 99;
+    }
+    else {
+       type = "Run";
+       imageCount = 49;
+    }
 
-//       if(speed < 6){
-            type= "Walk";
-            imageCount = 149;
-//       }
-//       else if (speed < 9){
-//           type = "Jog";
-//           imageCount = 99;
-//       }
-//       else {
-//           type = "Run";
-//           imageCount = 49;
-//       }
+    double imageNumberDouble = percentageAroundTrack*imageCount + 1;
+    int imageNumber = imageNumberDouble;
 
-//       qDebug() << "% around track: " << percentageAroundTrack;
-       double imageNumberDouble = percentageAroundTrack*imageCount + 1;
-//       qDebug() << "image # double: " << imageNumberDouble;
-       int imageNumber = imageNumberDouble;
-
-       QString imagePath = RUNNING_DUDE_IMAGE_PATH + "/" + type + "/" + type + QString("%1").arg(imageNumber) + ".png";
-       QPixmap runningDudePixmap(imagePath);
-       runningDudeWidget->setPixmap(runningDudePixmap);
+    QString imagePath = RUNNING_DUDE_IMAGE_PATH + "/" + type + "/" + type + QString("%1").arg(imageNumber) + ".png";
+    QPixmap runningDudePixmap(imagePath);
+    runningDudeWidget->setPixmap(runningDudePixmap);
 }
 
 void MainScreen::on_audioButton_invisibleButton_pressed()

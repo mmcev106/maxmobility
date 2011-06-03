@@ -35,6 +35,11 @@ public:
     static bool gender;
     static bool measurementSystem;
 
+    static int WALKING_SPEED;
+    static int FAST_SPEED;
+    static int JOGGING_SPEED;
+    static int RUNNING_SPEED;
+
     static QThread* listener,*sender;
 
     static QextSerialPort* serialPort;

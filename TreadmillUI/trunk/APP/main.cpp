@@ -14,6 +14,7 @@
 #include "seriallistenerthread.h"
 #include "serialsenderthread.h"
 #include "state.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -30,6 +31,17 @@ void loadPreferences(){
         file.close();
         Preferences::setMeasurementSystem(tempMeasurementSystem);
     }
+
+    int maxSpeed;
+    if (Preferences::measurementSystem == STANDARD)
+        maxSpeed=MAX_SPEED_MPH;
+    else
+        maxSpeed=MAX_SPEED_KPH;
+
+    Preferences::WALKING_SPEED=maxSpeed/4;
+    Preferences::FAST_SPEED=maxSpeed/2;
+    Preferences::JOGGING_SPEED=maxSpeed*.75;
+    Preferences::RUNNING_SPEED=maxSpeed;
 }
 
 void savePreferences(){

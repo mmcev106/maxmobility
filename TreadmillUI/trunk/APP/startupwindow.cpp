@@ -23,10 +23,6 @@
 using namespace std;
 
 static int QUICK_WORKOUT_LENGTH = 30; //minutes
-static int WALKING_SPEED;
-static int FAST_SPEED;  // these are set in the constructor
-static int JOGGING_SPEED;
-static int RUNNING_SPEED;
 static int HILL_GRADE = 5;
 static int STEEP_GRADE = MAX_GRADE;
 
@@ -62,18 +58,6 @@ StartupWindow::StartupWindow(QWidget *parent) :
     //Put the background behind the player
     ui->backgroundLabel->lower();
     ui->invisibleButton->setFocusPolicy(Qt::NoFocus);
-
-    int maxSpeed;
-    // Load default values from preferences
-    if (Preferences::measurementSystem == STANDARD)
-        maxSpeed=MAX_SPEED_MPH;
-    else
-        maxSpeed=MAX_SPEED_KPH;
-
-    WALKING_SPEED=maxSpeed/4;
-    FAST_SPEED=maxSpeed/2;
-    JOGGING_SPEED=maxSpeed*.75;
-    RUNNING_SPEED=maxSpeed;
 }
 
 void StartupWindow::restartVideo(){
@@ -103,37 +87,37 @@ void StartupWindow::showMainScreen(QString name, float speed, float grade, int m
 void StartupWindow::on_invisibleButton_pressed()
 {
     //walk
-    showMainScreen("Walk", WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_2_pressed()
 {
     //fast
-    showMainScreen("Fast Walk", FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_3_pressed()
 {
     //jog
-    showMainScreen("Jog", JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Jog", Preferences::JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_4_pressed()
 {
     //run
-    showMainScreen("Run", RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_5_pressed()
 {
     //hill
-    showMainScreen("Hill Walk", WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_6_pressed()
 {
     //steep
-    showMainScreen("Steep Walk", WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
+    showMainScreen("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
 }
 
 void StartupWindow::on_invisibleButton_8_pressed()

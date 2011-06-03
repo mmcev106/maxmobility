@@ -9,6 +9,11 @@ const QString Preferences::FILENAME = "Preferences.txt";
 bool Preferences::gender = MALE;
 bool Preferences::measurementSystem = STANDARD;
 
+int Preferences::WALKING_SPEED;
+int Preferences::FAST_SPEED;
+int Preferences::JOGGING_SPEED;
+int Preferences::RUNNING_SPEED;
+
 QextSerialPort* Preferences::serialPort = NULL;
 QApplication* Preferences::application = NULL;
 
