@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "abstractscreen.h"
 #include <phonon/VideoPlayer>
+#include <QTimer>
 
 namespace Ui {
     class StartupWindow;
@@ -22,7 +23,7 @@ private:
     Phonon::VideoPlayer *player;
 
     void showMainScreen(QString name, float speed, float grade, int minutes);
-
+    QTimer videoRestartTimer;
 
 private slots:
     void on_invisibleButton_16_pressed();

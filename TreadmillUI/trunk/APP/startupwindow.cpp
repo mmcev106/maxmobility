@@ -18,7 +18,7 @@
 #include "historyscreen.h"
 
 #include "testwidget.h"
-#include "utils.h"
+#include "utils.h"`
 
 using namespace std;
 
@@ -35,6 +35,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::StartupWindow)
     ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+    ,videoRestartTimer(this)
 {
     ui->setupUi(this);
 
@@ -54,7 +55,9 @@ StartupWindow::StartupWindow(QWidget *parent) :
     player->setVisible(true);
     player->show();
 
-    connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
+    connect(&videoRestartTimer, SIGNAL(timeout()), this, SLOT( restartVideo()));
+    videoRestartTimer.setInterval(250);
+    videoRestartTimer.start();
 
     //Put the background behind the player
     ui->backgroundLabel->lower();
@@ -75,16 +78,22 @@ StartupWindow::StartupWindow(QWidget *parent) :
 
 void StartupWindow::restartVideo(){
 
-    player->stop();
-    player->play();
+    /**
+      * This used to be done by connecting the finished() signal on the player,
+      * but that did not work consistently.  Now this method is called on a timer.
+      */
+    if(player->currentTime() == player->totalTime()){
+        player->seek(0);
+        player->play();
+    }
 }
 
 StartupWindow::~StartupWindow()
 {
     delete ui;
 
-//    player->stop();
-//    delete player;
+    player->stop();
+    delete player;
 }
 
 void StartupWindow::showMainScreen(QString name, float speed, float grade, int minutes){
