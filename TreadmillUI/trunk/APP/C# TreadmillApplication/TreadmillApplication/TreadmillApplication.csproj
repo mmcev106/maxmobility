@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EAD8F00D-918B-4AC1-BBA4-DFF7E72F368A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <DefaultClrNameSpace>TreadmillApplication</DefaultClrNameSpace>
+    <RootNamespace>TreadmillApplication</RootNamespace>
+    <AssemblyName>TreadmillApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ApplicationIcon>Application.ico</ApplicationIcon>
+    <Utf8Output>true</Utf8Output>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="ActiveScreen.xaml.cs">
+      <DependentUpon>ActiveScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TabItem1.xaml.cs">
+      <DependentUpon>TabItem1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TabItem2.xaml.cs">
+      <DependentUpon>TabItem2.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+    <None Include="Application.ico">
+      <Visible>false</Visible>
+    </None>
+    <None Include="Images\Outdoor Paths - City Walk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Outdoor Paths - Deer Trail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Outdoor Paths - Lake Trail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\Outdoor Paths - Wooded Path.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\outdoor-paths-new.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Images\trailScreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Audio Screen - %28Feedback%29.png" />
+    <Resource Include="Images\Audio Screen - %28FM%29.png" />
+    <Resource Include="Images\Audio Screen - %28Line In%29.png" />
+    <Resource Include="Images\Audio Screen - %28USB%29.png" />
+    <Resource Include="Images\Audio Screen - %28Video%29.png" />
+    <Resource Include="Images\big_brick.png" />
+    <Resource Include="Images\big_brick_highlighted.png" />
+    <Resource Include="Images\calibration.png" />
+    <Resource Include="Images\Calories Title %28ascending%29.png" />
+    <Resource Include="Images\Calories Title %28default%29.png" />
+    <Resource Include="Images\Calories Title %28descending%29.png" />
+    <Resource Include="Images\Date Title %28ascending%29.png" />
+    <Resource Include="Images\Date Title %28default%29.png" />
+    <Resource Include="Images\Date Title %28descending%29.png" />
+    <Resource Include="Images\Distance Title %28ascending%29.png" />
+    <Resource Include="Images\Distance Title %28default%29.png" />
+    <Resource Include="Images\Distance Title %28descending%29.png" />
+    <Resource Include="Images\Down Arrow.png" />
+    <Resource Include="Images\Fat Burn.png" />
+    <Resource Include="Images\Fat-Burn---06---%28Standard%29-%28with-Reflection%29.png" />
+    <Resource Include="Images\Fitness-Test---06---%28Air-Force---Standard%29.png" />
+    <Resource Include="Images\Fitness-Test---06---%28Army---Standard%29.png" />
+    <Resource Include="Images\Fitness-Test---06---%28Fire-Fighter---Standard%29.png" />
+    <Resource Include="Images\Fitness-Test---06---%28Fitness---Standard%29.png" />
+    <Resource Include="Images\Fitness-Test---06---%28Marines---Standard%29.png" />
+    <Resource Include="Images\Fitness-Test---06---%28Navy---Standard%29.png" />
+    <Resource Include="Images\Heart-Rate-Control---%28Dynamic%29.png" />
+    <Resource Include="Images\Heart-Rate-Control---%28Fixed%29.png" />
+    <Resource Include="Images\History.png" />
+    <Resource Include="Images\Interval---%28Hills%29.png" />
+    <Resource Include="Images\Interval---%28Sprints%29.png" />
+    <Resource Include="Images\Keyboard Background.png" />
+    <Resource Include="Images\main_screen_background.png" />
+    <Resource Include="Images\main_screen_large_video_mask.png" />
+    <Resource Include="Images\My Workouts - %27x%27.png" />
+    <Resource Include="Images\My Workouts Title Bar.png" />
+    <Resource Include="Images\My Workouts.png" />
+    <Resource Include="Images\Name Workout %28updated%29.png" />
+    <Resource Include="Images\Quick Start Screen.png" />
+    <Resource Include="Images\RadioButton_Selected.png" />
+    <Resource Include="Images\Settings-05.png" />
+    <Resource Include="Images\slider_both_arrows.png" />
+    <Resource Include="Images\slider_left_arrow.png" />
+    <Resource Include="Images\slider_right_arrow.png" />
+    <Resource Include="Images\startup_screen_background.png" />
+    <Resource Include="Images\Time Title %28ascending%29.png" />
+    <Resource Include="Images\Time Title %28default%29.png" />
+    <Resource Include="Images\Time Title %28descending%29.png" />
+    <Resource Include="Images\Up-Arrow.png" />
+    <Resource Include="Images\video_thumb_mask.png" />
+    <Resource Include="Images\Workout Title %28ascending%29.png" />
+    <Resource Include="Images\Workout Title %28default%29.png" />
+    <Resource Include="Images\Workout Title %28descending%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ActiveScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionary1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TabItem1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TabItem2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Videos\Wildlife.wmv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	     Other similar extension points exist, see Microsoft.Common.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>
