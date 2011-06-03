@@ -264,9 +264,6 @@
 								<Image x:Name="Left" Height="55" Canvas.Left="-47.337" Source="Images/slider_left_arrow.png" Stretch="Fill" Canvas.Top="-3.501" Width="131"/>
 							</Canvas>
 							<ControlTemplate.Triggers>
-								<EventTrigger RoutedEvent="ManipulationDevice.ManipulationBoundaryFeedback">
-									<BeginStoryboard Storyboard="{StaticResource OnManipulationBoundaryFeedback1}"/>
-								</EventTrigger>
 								<Trigger Property="IsMouseOver" Value="true"/>
 								<Trigger Property="Foreground" Value="Blue"/>
 								<Trigger Property="IsDragging" Value="true"/>
