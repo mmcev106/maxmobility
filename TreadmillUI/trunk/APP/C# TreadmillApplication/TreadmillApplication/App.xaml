@@ -255,13 +255,13 @@
 							<ControlTemplate.Resources>
 								<Storyboard x:Key="OnManipulationBoundaryFeedback1"/>
 							</ControlTemplate.Resources>
-							<Canvas SnapsToDevicePixels="true" Margin="-58.667,-21.666,-10.667,0">
+							<Canvas SnapsToDevicePixels="true" Margin="-58.667,-21.666,-10.667,0" RenderTransformOrigin="0.5,0.5">
 								<Canvas.RenderTransform>
 									<TranslateTransform X="5.5" Y="11"/>
 								</Canvas.RenderTransform>
-								<Path x:Name="Background" Data="{StaticResource SliderThumbOuterBorderGeometry}" Stretch="Fill" Width="131" Canvas.Left="-45.166" Canvas.Top="-3.501" Height="55"/>
-								<Image x:Name="Right" Height="55" Canvas.Left="-6.833" Source="Images/slider_right_arrow.png" Stretch="Fill" Canvas.Top="-3.501" Width="131"/>
-								<Image x:Name="Left" Height="55" Canvas.Left="-47.337" Source="Images/slider_left_arrow.png" Stretch="Fill" Canvas.Top="-3.501" Width="131"/>
+								<Path x:Name="Background" Data="{StaticResource SliderThumbOuterBorderGeometry}" Stretch="Fill" Width="131" Canvas.Top="-3.501" Height="55"/>
+								<Image x:Name="Right" Height="55" Canvas.Left="44.167" Source="Images/slider_right_arrow.png" Stretch="Fill" Width="131" Canvas.Top="0.499"/>
+								<Image x:Name="Left" Height="55" Source="Images/slider_left_arrow.png" Stretch="Fill" Canvas.Top="0.249" Width="131" Canvas.Left="4.5"/>
 							</Canvas>
 							<ControlTemplate.Triggers>
 								<Trigger Property="IsMouseOver" Value="true"/>
@@ -462,7 +462,7 @@
 								<Grid>
 									<Grid.RowDefinitions>
 										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+										<RowDefinition Height="Auto" MinHeight="22"/>
 										<RowDefinition Height="Auto"/>
 									</Grid.RowDefinitions>
 									<TickBar x:Name="TopTick" Fill="{TemplateBinding Foreground}" Height="4" Placement="Top" Grid.Row="0" Visibility="Collapsed"/>
@@ -474,13 +474,13 @@
 									</Border>
 									<Track x:Name="PART_Track" Grid.Row="1">
 										<Track.DecreaseRepeatButton>
-											<RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+											<RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" Width="40" Margin="-48,-5,0,0" Height="40"/>
 										</Track.DecreaseRepeatButton>
 										<Track.IncreaseRepeatButton>
-											<RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}"/>
+											<RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderRepeatButtonStyle}" Width="40" HorizontalAlignment="Left" Height="35"/>
 										</Track.IncreaseRepeatButton>
 										<Track.Thumb>
-											<Thumb x:Name="Thumb" Style="{StaticResource HorizontalSliderThumbStyle}"/>
+											<Thumb x:Name="Thumb" Style="{StaticResource HorizontalSliderThumbStyle}" Width="79"/>
 										</Track.Thumb>
 									</Track>
 								</Grid>

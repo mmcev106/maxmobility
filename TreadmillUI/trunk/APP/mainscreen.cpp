@@ -87,16 +87,8 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
         zero(speedHistory, HISTORY_LENGTH);
         zero(gradeHistory, HISTORY_LENGTH);
         int historyY = 580;
-        //int historyHeight=30;
-        //int historyWidth=81;
         gradeHistoryWidget.move(25,historyY);
         speedHistoryWidget.move(930,historyY);
-       // gradeHistoryWidget.resize ( historyWidth,historyHeight);
-        //speedHistoryWidget.resize ( historyWidth,historyHeight);
-
-
-        //gradeHistoryWidget.hide();        ** REMOVE HIDE HISTORY WIDGETS **
-        //speedHistoryWidget.hide();
 
     QPoint centerPosition(133, 101);
 
@@ -217,19 +209,6 @@ MainScreen::~MainScreen()
     delete secondTimer;
 }
 
-//void MainScreen::keyPressEvent(QKeyEvent* event){
-//    if (event->key() == Qt::UpArrow){
-//        Preferences::setCurrentSpeed(Preferences::getCurrentSpeed()+2);
-//        Preferences::setCurrentGrade(Preferences::getCurrentGrade()+1);
-//    }
-//    else if (event->key() == Qt::DownArrow){
-//        Preferences::setCurrentSpeed(Preferences::getCurrentSpeed()-2);
-//        Preferences::setCurrentGrade(Preferences::getCurrentGrade()-1);
-//    }
-
-//    QWidget::keyPressEvent(event);
-//}
-
 
 bool MainScreen::eventFilter(QObject * watched, QEvent *event)
 {
@@ -237,7 +216,6 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
         UpperBoardEvent* upperBoardEvent = (UpperBoardEvent*)event;
 
         ui->heartRateLabel->setText(QString("%1").arg((unsigned int)upperBoardEvent->heartRate));
-//        ui->cadenceLabel->setText(QString("%1").arg((unsigned int)upperBoardEvent->cadence));
     }
 
     return QWidget::eventFilter(watched, event);

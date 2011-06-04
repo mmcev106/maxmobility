@@ -41,6 +41,6 @@
 			</MediaElement>
 		</Grid>
 		<Button Content="Button" HorizontalAlignment="Left" Height="40.5" Margin="31.5,22.5,0,0" Style="{DynamicResource CustomButton}" VerticalAlignment="Top" Width="84.5"/>
-		<Slider Height="40.5" Margin="321,22.5,393,0" VerticalAlignment="Top" Style="{DynamicResource MySlider}"/>
+		<local:SliderWidget x:Name="aSlider" Height="40.5" Margin="321,22.5,393,0" VerticalAlignment="Top" />
 	</Grid>
 </TabItem>

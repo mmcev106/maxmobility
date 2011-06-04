@@ -108,3 +108,5 @@ C:\Users\Wes\Desktop\Treadmill\C# TreadmillApplication\TreadmillApplication\obj\
 C:\Users\Wes\Desktop\Treadmill\C# TreadmillApplication\TreadmillApplication\obj\Debug\TreadmillApplication.pdb
 C:\Users\Wes\Desktop\Treadmill\C# TreadmillApplication\TreadmillApplication\bin\Debug\TreadmillApplication.exe
 C:\Users\Wes\Desktop\Treadmill\C# TreadmillApplication\TreadmillApplication\bin\Debug\TreadmillApplication.pdb
+C:\Users\Wes\Desktop\Treadmill\C# TreadmillApplication\TreadmillApplication\obj\Debug\SliderWidget.baml
+C:\Users\Wes\Desktop\Treadmill\C# TreadmillApplication\TreadmillApplication\obj\Debug\SliderWidget.g.cs
