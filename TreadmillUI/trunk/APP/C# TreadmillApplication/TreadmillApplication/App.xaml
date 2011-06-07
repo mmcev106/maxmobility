@@ -481,8 +481,11 @@
 										</Track.IncreaseRepeatButton>
 										<Track.Thumb>
 											<Thumb x:Name="Thumb" Style="{StaticResource HorizontalSliderThumbStyle}" Width="79"/>
-										</Track.Thumb>
+											</Track.Thumb>
 									</Track>
+									<TextBlock HorizontalAlignment="Left" Grid.Row="1" Grid.RowSpan="2" TextWrapping="Wrap" Text="{Binding ElementName=thisSlider, Path=Value}" Width="47" Foreground="Black"/>
+										
+									
 								</Grid>
 							</Border>
 							<ControlTemplate.Triggers>

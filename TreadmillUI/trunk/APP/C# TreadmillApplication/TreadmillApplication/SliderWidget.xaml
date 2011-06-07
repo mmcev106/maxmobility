@@ -9,7 +9,14 @@
 	d:DesignWidth="310" d:DesignHeight="40.5">
 
 	<Grid x:Name="LayoutRoot">
-		<Slider Style="{DynamicResource MySlider}" Maximum="100" SmallChange="0"/>
-		<TextBlock HorizontalAlignment="Left" Height="36.667" Margin="6,0,0,-41.5" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="83.333" Foreground="#FFFBFBFB" Text="{Binding currentValue, ElementName=UserControl}"/>
+		  <Grid.RowDefinitions >
+            <RowDefinition Height="40px" />
+            <RowDefinition Height="40px" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+		
+		<Slider Style="{DynamicResource MySlider}" Name="thisSlider" SmallChange="0" Grid.Row="0" />
+        <TextBox Name="ValueBox" Text="{Binding ElementName=thisSlider, Path=Value}" Foreground="Black" Margin="3,0,0,-46" Background="{x:Null}" FontSize="21.333" HorizontalAlignment="Left" Width="54" IsEnabled="False" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Height="40" Grid.Row="2" VerticalAlignment="Bottom"/>
+        
 	</Grid>
 </UserControl>
