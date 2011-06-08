@@ -19,9 +19,6 @@ static const int BEAGLE_BOARD_MESSAGE_LENGTH = 7;
 
 static const QColor HIGHLIGHT_BLUE(66, 180, 255, 200);
 
-static const QString WORKOUTS = "workouts";
-static const QString HISTORY = "history";
-
 class Preferences
 {
 private:
@@ -29,6 +26,8 @@ private:
     static int spd_diff,grd_diff;
     static void (*_spd_func)();
     static void (*_grd_func)();
+
+    static QString getCurrentDataPath();
 public:
     static const QString FILENAME;
 
@@ -44,7 +43,6 @@ public:
 
     static QextSerialPort* serialPort;
     static QApplication* application;
-    static QDir dataDirectory;
 
     static State currentState;
 
@@ -62,6 +60,9 @@ public:
     static void updateCurrentSpeed(int spd);      /*!< Used by serial listener thread to update the current speed. */
     static void updateCurrentGrade(int grd);      /*!< Used by serial listener thread to update the current grade. */
 
+    static QString getCurrentWorkoutsPath();
+    static QString getCurrentHistoryPath();
+    static bool isUsbDrivePresent();
 };
 
 #endif // PREFERENCES_H

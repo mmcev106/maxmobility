@@ -3,6 +3,7 @@
 #include "mainscreen.h"
 #include "preferences.h"
 #include "screens.h"
+#include "usbwarningscreen.h"
 
 #include <QDir>
 
@@ -34,13 +35,11 @@ void NewWorkoutScreen::on_invisibleButton_7_pressed()
 
 void NewWorkoutScreen::on_invisibleButton_6_pressed()
 {
-    Preferences::dataDirectory.mkdir(WORKOUTS);
-
     QString workoutName = keyboardWidget.text();
 
     if( workoutName.length() > 0){
 
-        QString filename(WORKOUTS + "/" + workoutName);
+        QString filename(Preferences::getCurrentWorkoutsPath() + "/" + workoutName);
         QFile* workout = new QFile(filename);
 
         while(workout->exists()){

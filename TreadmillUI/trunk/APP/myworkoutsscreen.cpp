@@ -21,7 +21,7 @@ MyWorkoutsScreen::MyWorkoutsScreen(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QDir workoutsDir(WORKOUTS);
+    QDir workoutsDir(Preferences::getCurrentWorkoutsPath());
 
     QStringList children = workoutsDir.entryList(QDir::Files, QDir::Name);
 
@@ -97,7 +97,7 @@ void MyWorkoutsScreen::deleteWorkout(){
     InvisibleButton* button = (InvisibleButton*)sender();
     QString workoutName = button->accessibleName();
 
-    QFile file(WORKOUTS + "/" + workoutName);
+    QFile file(Preferences::getCurrentWorkoutsPath() + "/" + workoutName);
     file.remove();
 
     QWidget* listItem = button->parentWidget();

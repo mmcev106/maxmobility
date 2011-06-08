@@ -4,6 +4,7 @@
 #include <QDebug>
 
 
+static QString PUSHON = "PushOn";
 const QString Preferences::FILENAME = "Preferences.txt";
 
 bool Preferences::gender = MALE;
@@ -16,8 +17,6 @@ int Preferences::RUNNING_SPEED;
 
 QextSerialPort* Preferences::serialPort = NULL;
 QApplication* Preferences::application = NULL;
-
-QDir Preferences::dataDirectory = QDir::current();
 
 QThread* Preferences::sender,*Preferences::listener;
 
@@ -101,3 +100,42 @@ void Preferences::updateCurrentGrade(int grd){
     else
         grade = grd;
 }
+
+QString Preferences::getCurrentDataPath(){
+
+    QFileInfoList drives = QDir::drives();
+
+    /**
+      * Loop backwards through all drives except the first one
+      * (which is assumed to be the C:)
+      */
+    for(int i=drives.length()-1; i>=1; i--){
+        QFileInfo drive = drives.at(i);
+        if(drive.isWritable()){
+            QDir driveDir(drive.filePath());
+            driveDir.mkdir(PUSHON);
+            return drive.filePath() + PUSHON;
+        }
+    }
+
+    return NULL;
+}
+
+bool Preferences::isUsbDrivePresent(){
+    return getCurrentDataPath() != NULL;
+}
+
+QString Preferences::getCurrentWorkoutsPath(){
+
+    QString workouts = "workouts";
+
+    QDir dataDir(getCurrentDataPath());
+    dataDir.mkdir(workouts);
+
+    return getCurrentDataPath() + "/" + workouts;
+}
+
+QString Preferences::getCurrentHistoryPath(){
+    return getCurrentDataPath() + "/history";
+}
+

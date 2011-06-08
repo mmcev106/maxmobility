@@ -193,19 +193,6 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_14" native="true">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>660</y>
-     <width>81</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
   <widget class="InvisibleButton" name="invisibleButton_15" native="true">
    <property name="geometry">
     <rect>
@@ -230,6 +217,22 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
    </property>
    <property name="text" stdset="0">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="usbLabel">
+   <property name="geometry">
+    <rect>
+     <x>147</x>
+     <y>653</y>
+     <width>91</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/Glowing USB Emblem.png</pixmap>
    </property>
   </widget>
  </widget>

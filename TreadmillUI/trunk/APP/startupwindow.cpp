@@ -16,9 +16,9 @@
 #include "preferences.h"
 #include <QMessageBox>
 #include "historyscreen.h"
-
 #include "testwidget.h"
 #include "utils.h"`
+#include "usbwarningscreen.h"
 
 using namespace std;
 
@@ -31,7 +31,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::StartupWindow)
     ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
-    ,videoRestartTimer(this)
+    ,sharedTimer(this)
 {
     ui->setupUi(this);
 
@@ -51,16 +51,19 @@ StartupWindow::StartupWindow(QWidget *parent) :
     player->setVisible(true);
     player->show();
 
-    connect(&videoRestartTimer, SIGNAL(timeout()), this, SLOT( restartVideo()));
-    videoRestartTimer.setInterval(250);
-    videoRestartTimer.start();
+    connect(&sharedTimer, SIGNAL(timeout()), this, SLOT( sharedTimerTimeout()));
+    sharedTimer.setInterval(250);
+    sharedTimer.start();
+
+    //hide the usbLabel by default
+     ui->usbLabel->hide();
 
     //Put the background behind the player
     ui->backgroundLabel->lower();
     ui->invisibleButton->setFocusPolicy(Qt::NoFocus);
 }
 
-void StartupWindow::restartVideo(){
+void StartupWindow::sharedTimerTimeout(){
 
     /**
       * This used to be done by connecting the finished() signal on the player,
@@ -69,6 +72,13 @@ void StartupWindow::restartVideo(){
     if(player->currentTime() == player->totalTime()){
         player->seek(0);
         player->play();
+    }
+
+    if(Preferences::isUsbDrivePresent()){
+        ui->usbLabel->show();
+    }
+    else{
+        ui->usbLabel->hide();
     }
 }
 
@@ -82,6 +92,15 @@ StartupWindow::~StartupWindow()
 
 void StartupWindow::showMainScreen(QString name, float speed, float grade, int minutes){
     Screens::show( new MainScreen(this, Workout::createWorkout(name, speed, grade, minutes)));
+}
+
+void showUsbWarningScreen(){
+    Screens::show(new UsbWarningScreen(":/images/images/Warning.png"));
+}
+
+
+void showUsbQuestionMarkScreen(){
+    Screens::show(new UsbWarningScreen(":/images/images/(Question-Mark).png"));
 }
 
 void StartupWindow::on_invisibleButton_pressed()
@@ -143,17 +162,27 @@ void StartupWindow::on_invisibleButton_14_pressed()
 
 void StartupWindow::on_invisibleButton_11_pressed()
 {
-    Screens::show(new MyWorkoutsScreen());
+    if(Preferences::isUsbDrivePresent()){
+        Screens::show(new MyWorkoutsScreen());
+    }
+    else{
+        showUsbWarningScreen();
+    }
 }
 
 void StartupWindow::on_invisibleButton_12_pressed()
 {
-    Screens::show(new HistoryScreen());
+    if(Preferences::isUsbDrivePresent()){
+        Screens::show(new HistoryScreen());
+    }
+    else{
+        showUsbWarningScreen();
+    }
 }
 
 void StartupWindow::on_invisibleButton_13_pressed()
 {
-    //showMainScreen("Help");
+    showUsbQuestionMarkScreen();
 }
 
 void StartupWindow::on_invisibleButton_15_pressed()

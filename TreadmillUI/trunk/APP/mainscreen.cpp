@@ -161,35 +161,38 @@ void MainScreen::processNextWorkoutStep() {
 }
 
 void MainScreen::writeHistoryEntry(){
-    QFile historyFile(HISTORY);
-    historyFile.open(QFile::Append);
 
-    QTextStream stream(&historyFile);
+    if(Preferences::isUsbDrivePresent()){
+        QFile historyFile(Preferences::getCurrentHistoryPath());
+        historyFile.open(QFile::Append);
 
-    QDate today = QDate::currentDate();
+        QTextStream stream(&historyFile);
 
-    stream << QString("%1").arg(today.month());
-    stream << '-' << QString("%1").arg(today.day());
-    stream << '-' << QString("%1").arg(today.year());
-    stream << "\t";
+        QDate today = QDate::currentDate();
 
-    stream << workout->name;
-    stream << "\t";
+        stream << QString("%1").arg(today.month());
+        stream << '-' << QString("%1").arg(today.day());
+        stream << '-' << QString("%1").arg(today.year());
+        stream << "\t";
 
-    long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
-    long seconds = elapsedTimeMillis/1000;
+        stream << workout->name;
+        stream << "\t";
 
-    stream << seconds;
-    stream << "\t";
+        long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
+        long seconds = elapsedTimeMillis/1000;
 
-    stream << seconds; //TODO
-    stream << "\t";
+        stream << seconds;
+        stream << "\t";
 
-    stream << distance;
-    stream << "\n";
+        stream << seconds; //TODO
+        stream << "\t";
 
-    stream.flush();
-    historyFile.close();
+        stream << distance;
+        stream << "\n";
+
+        stream.flush();
+        historyFile.close();
+    }
 }
 
 void MainScreen::closeEvent(QCloseEvent * event){

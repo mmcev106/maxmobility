@@ -259,7 +259,7 @@ QList<HistoryItem*>* HistoryScreen::loadHistory(){
     int totalCalories = 0;
     float totalDistance = 0;
 
-    QFile historyFile(HISTORY);
+    QFile historyFile(Preferences::getCurrentHistoryPath());
     historyFile.open(QFile::ReadOnly);
 
     QTextStream stream( &historyFile );

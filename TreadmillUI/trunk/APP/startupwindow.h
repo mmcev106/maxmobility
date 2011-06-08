@@ -23,7 +23,7 @@ private:
     Phonon::VideoPlayer *player;
 
     void showMainScreen(QString name, float speed, float grade, int minutes);
-    QTimer videoRestartTimer;
+    QTimer sharedTimer;
 
 private slots:
     void on_invisibleButton_16_pressed();
@@ -41,7 +41,7 @@ private slots:
     void on_invisibleButton_3_pressed();
     void on_invisibleButton_2_pressed();
     void on_invisibleButton_pressed();
-    void restartVideo();
+    void sharedTimerTimeout();
 };
 
 #endif // STARTUPWINDOW_H
