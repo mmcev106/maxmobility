@@ -45,7 +45,8 @@ HEADERS += startupwindow.h \
     historyscreen.h \
     workout.h \
     historyitem.h \
-    videoscreen.h
+    videoscreen.h \
+    usbwarningscreen.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -57,7 +58,8 @@ FORMS += startupwindow.ui \
     myworkoutsscreen.ui \
     newworkoutscreen.ui \
     historyscreen.ui \
-    videoscreen.ui
+    videoscreen.ui \
+    usbwarningscreen.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -95,7 +97,8 @@ SOURCES += main.cpp startupwindow.cpp \
     historyscreen.cpp \
     workout.cpp \
     historyitem.cpp \
-    videoscreen.cpp
+    videoscreen.cpp \
+    usbwarningscreen.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \
