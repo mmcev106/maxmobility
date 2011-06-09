@@ -114,7 +114,7 @@ QString Preferences::getCurrentDataPath(){
 
     for(int i=drives.length()-1; i>=1; i--){
         QFileInfo drive = drives.at(i);
-        if(drive.isWritable()  && drive.absolutePath()!="C:/"){
+        if(drive.isWritable()  && drive.absolutePath()!="C:/"){ // It was still using the C drive, so I told it not to. :) -Wes
 
             QDir driveDir(drive.filePath());
             //qDebug() << drive.absolutePath();
