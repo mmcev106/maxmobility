@@ -1,0 +1,19 @@
+﻿<Page
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:pi="http://schemas.microsoft.com/prototyping/2010/interactivity"
+	x:Class="TreadmillApplication.Startup"
+	x:Name="Page"
+	WindowTitle="Page"
+	FlowDirection="LeftToRight"
+	Width="1024" Height="768"
+	WindowWidth="1024" WindowHeight="768">
+	<Page.Background>
+		<ImageBrush ImageSource="pack://siteoforigin:,,,/trailScreen.png"/>
+	</Page.Background>
+
+	<Grid x:Name="LayoutRoot">
+		<Button Content="Button" HorizontalAlignment="Left" Height="159" Margin="209,119,0,0" VerticalAlignment="Top" Width="206" Click="Button_Click" />
+	</Grid>
+</Page>

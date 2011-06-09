@@ -1,0 +1,46 @@
+﻿<TabItem
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:local="clr-namespace:TreadmillApplication"
+	mc:Ignorable="d"
+	x:Class="TreadmillApplication.ActiveScreen"
+	d:DesignWidth="1024" d:DesignHeight="768">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.Background>
+			<ImageBrush ImageSource="Images\main_screen_background.png"/>
+		</Grid.Background>
+		<Grid x:Name="gVisualizations" HorizontalAlignment="Left" Margin="8,94.667,0,212.001" Width="108">
+			<Button x:Name="bTrack" Content="Button" Height="113.333" VerticalAlignment="Top" Opacity="0">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Click">
+						<local:ActivateTabAction TabName="StartScreen" />
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+			</Button>
+			<Button x:Name="bTV" Content="Button" Height="113.333" Margin="0,117.333,0,0" VerticalAlignment="Top" Opacity="0" Click="bTV_Click">
+			</Button>
+			<Button x:Name="bTrails" Content="Button" Margin="0,0,0,117.333" Opacity="0" Height="113.333" VerticalAlignment="Bottom" Click="bTrails_Click">
+			</Button>
+			<Button x:Name="bTranquil" Content="Button" Height="113.333" VerticalAlignment="Bottom" Opacity="0">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Click">
+						<local:ActivateTabAction TabName="SetupScreen" />
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+			</Button>
+		</Grid>
+		<Grid x:Name="gDisplay" Margin="126.166,94.667,126.25,95.5">
+			<MediaElement Name="Video" Source="Videos\Wildlife.wmv" LoadedBehavior="Manual" Stretch="Fill" >
+				<MediaElement.OpacityMask>
+					<ImageBrush ImageSource="Images/main_screen_large_video_mask.png"/>
+				</MediaElement.OpacityMask>
+			</MediaElement>
+		</Grid>
+		<Button Content="Button" HorizontalAlignment="Left" Height="40.5" Margin="31.5,22.5,0,0" Style="{DynamicResource CustomButton}" VerticalAlignment="Top" Width="84.5"/>
+		<local:SliderWidget x:Name="aSlider" Height="40.5" Margin="321,22.5,393,0" VerticalAlignment="Top" />
+	</Grid>
+</TabItem>
