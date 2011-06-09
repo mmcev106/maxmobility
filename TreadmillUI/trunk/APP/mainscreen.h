@@ -49,8 +49,6 @@ private:
     Phonon::VideoPlayer *player;
     HistoryWidget speedHistoryWidget;
     HistoryWidget gradeHistoryWidget;
-//    static int Utils::getMAX_SPEED();
-//    QGLWidget* glWidget;
 
     AudioSettingsWidget audioSettingsWidget;
     QPixmap videoMask;

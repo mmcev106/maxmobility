@@ -14,7 +14,7 @@ FatBurnScreen::FatBurnScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent),
     ui(new Ui::FatBurnScreen)
     ,timeSlider(this)
-    ,intensitySlider(this, 1, 5)
+    ,intensitySlider(this)
     ,speedSlider(this)
     ,weightSlider(this)
 {

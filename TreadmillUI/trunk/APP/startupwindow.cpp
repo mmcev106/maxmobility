@@ -19,6 +19,7 @@
 #include "testwidget.h"
 #include "utils.h"`
 #include "usbwarningscreen.h"
+#include "outdoorpathsscreen.h"
 
 using namespace std;
 
@@ -187,7 +188,7 @@ void StartupWindow::on_invisibleButton_13_pressed()
 
 void StartupWindow::on_invisibleButton_15_pressed()
 {
-    //showMainScreen("Video");
+    Screens::show(new OutdoorPathsScreen());
 }
 
 void StartupWindow::on_invisibleButton_16_pressed()

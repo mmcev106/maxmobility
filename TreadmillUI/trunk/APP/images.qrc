@@ -48,6 +48,8 @@
         <file>images/Warning.png</file>
         <file>images/Glowing USB Emblem.png</file>
         <file>images/(Question-Mark).png</file>
+        <file>images/Outdoor Paths Background.png</file>
+        <file>images/Outdoor Paths Selection Border.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>
