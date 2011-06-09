@@ -262,6 +262,7 @@
 								<Path x:Name="Background" Data="{StaticResource SliderThumbOuterBorderGeometry}" Stretch="Fill" Width="131" Canvas.Top="-3.501" Height="55"/>
 								<Image x:Name="Right" Height="55" Canvas.Left="44.167" Source="Images/slider_right_arrow.png" Stretch="Fill" Width="131" Canvas.Top="0.499"/>
 								<Image x:Name="Left" Height="55" Source="Images/slider_left_arrow.png" Stretch="Fill" Canvas.Top="0.249" Width="131" Canvas.Left="4.5"/>
+								<TextBlock Width="66" Height="35.666" Canvas.Left="58.667" Canvas.Top="8" FontSize="29.333" TextAlignment="Center" Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Slider}}, Path=Value}"/>
 							</Canvas>
 							<ControlTemplate.Triggers>
 								<Trigger Property="IsMouseOver" Value="true"/>
@@ -467,7 +468,7 @@
 									</Grid.RowDefinitions>
 									<TickBar x:Name="TopTick" Fill="{TemplateBinding Foreground}" Height="4" Placement="Top" Grid.Row="0" Visibility="Collapsed"/>
 									<TickBar x:Name="BottomTick" Fill="{TemplateBinding Foreground}" Height="4" Placement="Bottom" Grid.Row="2" Visibility="Collapsed"/>
-									<Border x:Name="TrackBackground" BorderBrush="{StaticResource HorizontalSliderTrackNormalBorder}" BorderThickness="1" Background="{StaticResource HorizontalSliderTrackNormalBackground}" CornerRadius="1" Height="4.0" Margin="5,0" Grid.Row="1" VerticalAlignment="center">
+									<Border x:Name="TrackBackground" BorderBrush="{StaticResource HorizontalSliderTrackNormalBorder}" BorderThickness="1" Background="{StaticResource HorizontalSliderTrackNormalBackground}" CornerRadius="1" Height="4.0" Margin="5,0" Grid.Row="1" VerticalAlignment="center" Opacity="0">
 										<Canvas Margin="-6,-1">
 											<Rectangle x:Name="PART_SelectionRange" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Height="4.0" Stroke="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" StrokeThickness="1.0" Visibility="Hidden"/>
 										</Canvas>
@@ -483,7 +484,6 @@
 											<Thumb x:Name="Thumb" Style="{StaticResource HorizontalSliderThumbStyle}" Width="79"/>
 											</Track.Thumb>
 									</Track>
-									<TextBlock HorizontalAlignment="Left" Grid.Row="1" Grid.RowSpan="2" TextWrapping="Wrap" Text="{Binding ElementName=thisSlider, Path=Value}" Width="47" Foreground="Black"/>
 										
 									
 								</Grid>

@@ -40,5 +40,6 @@
 				</TransformGroup>
 			</RadioButton.RenderTransform>
 		</RadioButton>
+		<Slider Height="43" Margin="163,0,164,269" VerticalAlignment="Bottom" Style="{DynamicResource MySlider}"/>
 	</Grid>
 </TabItem>
