@@ -31,7 +31,7 @@ private slots:
     void on_invisibleButton_13_pressed();
     void on_invisibleButton_12_pressed();
     void on_invisibleButton_11_pressed();
-    void on_invisibleButton_14_pressed();
+    //void on_invisibleButton_14_pressed();
     void on_invisibleButton_9_pressed();
     void on_invisibleButton_10_pressed();
     void on_invisibleButton_8_pressed();

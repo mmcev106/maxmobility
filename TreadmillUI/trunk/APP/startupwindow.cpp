@@ -156,10 +156,10 @@ void StartupWindow::on_invisibleButton_9_pressed()
     Screens::show( new FitnessTestScreen(0));
 }
 
-void StartupWindow::on_invisibleButton_14_pressed()
-{
-    //showMainScreen("USB");
-}
+//void StartupWindow::on_invisibleButton_14_pressed()
+//{
+//    //showMainScreen("USB");
+//}
 
 void StartupWindow::on_invisibleButton_11_pressed()
 {

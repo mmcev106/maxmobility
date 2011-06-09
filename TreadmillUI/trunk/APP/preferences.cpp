@@ -1,7 +1,9 @@
 #include "preferences.h"
 //#include "mainscreen.h"
 #include "utils.h"
-#include <QDebug>
+#include <QtDebug>
+#include <QString>
+#include "qdebug.h"
 
 
 static QString PUSHON = "PushOn";
@@ -102,20 +104,26 @@ void Preferences::updateCurrentGrade(int grd){
 }
 
 QString Preferences::getCurrentDataPath(){
-
+    //qDebug() << "get current data path was called";
     QFileInfoList drives = QDir::drives();
 
     /**
       * Loop backwards through all drives except the first one
       * (which is assumed to be the C:)
       */
+
     for(int i=drives.length()-1; i>=1; i--){
         QFileInfo drive = drives.at(i);
-        if(drive.isWritable()){
+        if(drive.isWritable()  && drive.absolutePath()!="C:/"){
+
             QDir driveDir(drive.filePath());
+            //qDebug() << drive.absolutePath();
             driveDir.mkdir(PUSHON);
             return drive.filePath() + PUSHON;
         }
+        else
+        {}
+            //qDebug() << "tried drive, " << drive.absolutePath() <<  " and failed.";
     }
 
     return NULL;
