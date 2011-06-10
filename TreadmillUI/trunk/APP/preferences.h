@@ -18,11 +18,13 @@ static const bool METRIC = false;
 static const int BEAGLE_BOARD_MESSAGE_LENGTH = 7;
 
 static const QColor HIGHLIGHT_BLUE(66, 180, 255, 200);
+const static int AVERAGE_HEART_RATE_LENGTH=50;
 
 class Preferences
 {
 private:
-    static int speed,grade,heartrate;
+    static int speed,grade,heartRate;
+    static int averageHeartRate;
     static int spd_diff,grd_diff;
     static void (*_spd_func)();
     static void (*_grd_func)();
@@ -33,6 +35,7 @@ public:
 
     static bool gender;
     static bool measurementSystem;
+
 
     static int WALKING_SPEED;
     static int FAST_SPEED;
@@ -59,6 +62,9 @@ public:
 
     static int getHeartRate();                 /*!< Used to check the current grade value. */
     static void setHeartRate(int hrtrt);         /*!< Used to send a new grade value to lower board. */
+
+    static int getAverageHeartRate();                           /*!< Used to store last read in Heart Rate. */
+    static int calculateAverageHeartRate(int thisHeartRate);    /*!< Used to calculate calories burned. */
 
 
     static void updateCurrentSpeed(int spd);      /*!< Used by serial listener thread to update the current speed. */

@@ -218,7 +218,7 @@ bool MainScreen::eventFilter(QObject * watched, QEvent *event)
     if(event->type() == UPPER_BOARD_EVENT_TYPE){
         UpperBoardEvent* upperBoardEvent = (UpperBoardEvent*)event;
 
-        ui->heartRateLabel->setText(QString("%1").arg((unsigned int)upperBoardEvent->heartRate));
+        ui->heartRateLabel->setText(QString("%1").arg(Preferences::getHeartRate()));
     }
 
     return QWidget::eventFilter(watched, event);
@@ -269,6 +269,8 @@ void MainScreen::updateDisplay(){
     speed=70; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
+
+    Preferences::setHeartRate(150);
 // *****************************************************SET SPEED HERE!!!!************************************************************
     QString paceString = QString("%1").arg(600/speed);
     paceString.append(":");
@@ -291,24 +293,20 @@ void MainScreen::updateDisplay(){
 //    HR = Average Heart Rate for workout
 //    W = Weight in KG  // 165lbs = 74.84KG
 //    T = Time of workout in minutes
-    static int totalHeartRate=0;
-    static int totalHeartRateMeasurements=0;
-    int heartRateAverage;
-    if (Preferences::getHeartRate())
-    {
-        //find average Heart Rate
-        totalHeartRate+=Preferences::getHeartRate();
-        totalHeartRateMeasurements+=1;
-        heartRateAverage=totalHeartRate/totalHeartRateMeasurements;
-        //apply formula
 
-        QString caloriesString;
-        //caloriesString.append();
-        ui->caloriesLabel->setText(secondsString);
+    // ****************************************************************force a heartRate of 150 for now************************************
+    //qDebug()<< "Checking for HR: " << Preferences::getHeartRate();
+    if (Preferences::getHeartRate()>0)
+    {
+        //apply formula
+        int calories = ((1+.0276*(Preferences::getAverageHeartRate()-100))*((3.5+0.0887*(34.84))*((double)elapsedTime/60)))/2;
+        qDebug()<< "calories: "<< calories;
+        ui->caloriesLabel->setText( QString("%1").arg(calories));
+       // ui->caloriesLabel->setText( "A");
     }
 
     else
-        ui->caloriesLabel->setText("");
+        ui->caloriesLabel->setText("B");
 
 
     distance += ((double)speed)*HOURS_PER_UPDATE/10;

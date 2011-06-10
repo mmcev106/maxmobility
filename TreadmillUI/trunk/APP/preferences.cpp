@@ -24,7 +24,7 @@ QThread* Preferences::sender,*Preferences::listener;
 
 State Preferences::currentState;
 
-int Preferences::speed,Preferences::grade,Preferences::heartrate;
+int Preferences::speed=0,Preferences::grade=0,Preferences::heartRate=0,Preferences::averageHeartRate=0;
 int Preferences::spd_diff,Preferences::grd_diff;
 void (*Preferences::_spd_func)(void);
 void (*Preferences::_grd_func)(void);
@@ -62,14 +62,38 @@ void Preferences::setCurrentSpeed(int spd)
 
 int Preferences::getHeartRate(){
 
-    //return  heartrate;
-    //Simulate a 150 BMP heartrate
-    return 150;
+    int thisHeartRate=heartRate;
+    if (thisHeartRate<50)
+        thisHeartRate=0;
+
+     return  thisHeartRate;
+}
+
+int Preferences::getAverageHeartRate(){
+    return averageHeartRate;
+}
+
+int Preferences::calculateAverageHeartRate(int thisHeartRate){
+    static int heartRates[AVERAGE_HEART_RATE_LENGTH];
+    static int i=0;
+    static int sum=0;
+    heartRates[i]=thisHeartRate;
+    i++;
+
+    if (i==AVERAGE_HEART_RATE_LENGTH)
+    {
+        for (int x=0;x<AVERAGE_HEART_RATE_LENGTH;x++)
+           sum+=heartRates[x];
+        averageHeartRate=sum/AVERAGE_HEART_RATE_LENGTH;
+        sum=0;
+        i=0;
+    }
 }
 
 void Preferences::setHeartRate(int hrtrt)
 {
-    heartrate=hrtrt;
+    heartRate=hrtrt;
+    calculateAverageHeartRate(heartRate);
 }
 
 int Preferences::getCurrentGrade(){
