@@ -60,6 +60,7 @@ void SerialListenerThread::handleMessage(unsigned char* data){
 
     Preferences::updateCurrentGrade(grade);
     Preferences::updateCurrentSpeed(speed);
+    Preferences::setHeartRate(heartRate);
 
 //    State state;
 //    state.state = &_state;

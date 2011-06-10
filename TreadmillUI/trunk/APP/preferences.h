@@ -22,7 +22,7 @@ static const QColor HIGHLIGHT_BLUE(66, 180, 255, 200);
 class Preferences
 {
 private:
-    static int speed,grade;
+    static int speed,grade,heartrate;
     static int spd_diff,grd_diff;
     static void (*_spd_func)();
     static void (*_grd_func)();
@@ -56,6 +56,10 @@ public:
     static void setCurrentSpeed(int spd);         /*!< Used to send a new speed value to lower board. */
     static int getCurrentGrade();                 /*!< Used to check the current grade value. */
     static void setCurrentGrade(int grd);         /*!< Used to send a new grade value to lower board. */
+
+    static int getHeartRate();                 /*!< Used to check the current grade value. */
+    static void setHeartRate(int hrtrt);         /*!< Used to send a new grade value to lower board. */
+
 
     static void updateCurrentSpeed(int spd);      /*!< Used by serial listener thread to update the current speed. */
     static void updateCurrentGrade(int grd);      /*!< Used by serial listener thread to update the current grade. */

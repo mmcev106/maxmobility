@@ -24,7 +24,7 @@ QThread* Preferences::sender,*Preferences::listener;
 
 State Preferences::currentState;
 
-int Preferences::speed,Preferences::grade;
+int Preferences::speed,Preferences::grade,Preferences::heartrate;
 int Preferences::spd_diff,Preferences::grd_diff;
 void (*Preferences::_spd_func)(void);
 void (*Preferences::_grd_func)(void);
@@ -58,6 +58,18 @@ void Preferences::setCurrentSpeed(int spd)
         spd_diff = Utils::getMAX_SPEED();
     else
         spd_diff = spd;
+}
+
+int Preferences::getHeartRate(){
+
+    //return  heartrate;
+    //Simulate a 150 BMP heartrate
+    return 150;
+}
+
+void Preferences::setHeartRate(int hrtrt)
+{
+    heartrate=hrtrt;
 }
 
 int Preferences::getCurrentGrade(){

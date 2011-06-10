@@ -14,7 +14,7 @@
 #include "waitstep.h"
 #include "utils.h"
 
-static int HISTORY_HEIGHT =15;
+static int HISTORY_HEIGHT =13;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
 static bool _update = false;
 
@@ -43,8 +43,8 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     ,centerWidget(this)
     ,trackWidget(new QLabel(&centerWidget))
     ,runningDudeWidget(new QLabel(&centerWidget))
-    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
-    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
+    ,speedHistoryWidget(this, speedHistory, HISTORY_LENGTH, HISTORY_HEIGHT, CIRCLE_BRICK_URL, HIGHLIGHTED_CIRCLE_BRICK_URL)
+    ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, CIRCLE_BRICK_URL, HIGHLIGHTED_CIRCLE_BRICK_URL)
     ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
     ,audioSettingsWidget(NULL)
     ,videoMask(":/images/images/main_screen_large_video_mask.png")
@@ -86,8 +86,8 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     //     add the history widgets
         zero(speedHistory, HISTORY_LENGTH);
         zero(gradeHistory, HISTORY_LENGTH);
-        int historyY = 580;
-        gradeHistoryWidget.move(25,historyY);
+        int historyY = 577;
+        gradeHistoryWidget.move(27,historyY);
         speedHistoryWidget.move(930,historyY);
 
     QPoint centerPosition(133, 101);
@@ -269,11 +269,11 @@ void MainScreen::updateDisplay(){
     speed=70; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
-
+// *****************************************************SET SPEED HERE!!!!************************************************************
     QString paceString = QString("%1").arg(600/speed);
     paceString.append(":");
 
-    int intPaceSeconds = (60/(speed*.001));
+    int intPaceSeconds = ((60*1000)/speed);
     intPaceSeconds=intPaceSeconds%100;
     intPaceSeconds=intPaceSeconds*.6;
     QString paceSecondsString;
@@ -286,7 +286,30 @@ void MainScreen::updateDisplay(){
 
     ui->paceLabel->setText(QString("%1").arg(paceString));
 
-    ui->caloriesLabel->setText(secondsString);
+    //Set this formula for the number of calories burned
+//    =(1+0.0276*(HR-100))*(3.5+0.0887*(W-40))*T
+//    HR = Average Heart Rate for workout
+//    W = Weight in KG  // 165lbs = 74.84KG
+//    T = Time of workout in minutes
+    static int totalHeartRate=0;
+    static int totalHeartRateMeasurements=0;
+    int heartRateAverage;
+    if (Preferences::getHeartRate())
+    {
+        //find average Heart Rate
+        totalHeartRate+=Preferences::getHeartRate();
+        totalHeartRateMeasurements+=1;
+        heartRateAverage=totalHeartRate/totalHeartRateMeasurements;
+        //apply formula
+
+        QString caloriesString;
+        //caloriesString.append();
+        ui->caloriesLabel->setText(secondsString);
+    }
+
+    else
+        ui->caloriesLabel->setText("");
+
 
     distance += ((double)speed)*HOURS_PER_UPDATE/10;
     int distanceInt = (int) distance;

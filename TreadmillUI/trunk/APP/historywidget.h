@@ -5,6 +5,8 @@
 
 static const QString BIG_BRICK_URL = ":/images/images/big_brick.png";
 static const QString HIGHLIGHTED_BIG_BRICK_URL = ":/images/images/big_brick_highlighted.png";
+static const QString CIRCLE_BRICK_URL = ":/images/images/circle_brick.png";
+static const QString HIGHLIGHTED_CIRCLE_BRICK_URL = ":/images/images/circle_brick_highlighted.png";
 
 class HistoryWidget : public QWidget
 {

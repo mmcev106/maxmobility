@@ -43,7 +43,7 @@ private:
     QWidget centerWidget;
     QLabel* trackWidget;
     QLabel* runningDudeWidget;
-    static const int HISTORY_LENGTH = 5;
+    static const int HISTORY_LENGTH = 7;
     int speedHistory[HISTORY_LENGTH];
     int gradeHistory[HISTORY_LENGTH];
     Phonon::VideoPlayer *player;

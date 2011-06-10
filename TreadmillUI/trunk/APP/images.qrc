@@ -50,6 +50,8 @@
         <file>images/(Question-Mark).png</file>
         <file>images/Outdoor Paths Background.png</file>
         <file>images/Outdoor Paths Selection Border.png</file>
+        <file>images/circle_brick.png</file>
+        <file>images/circle_brick_highlighted.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>
