@@ -1,12 +1,22 @@
 #include "outdoorpathsscreen.h"
 #include "ui_outdoorpathsscreen.h"
+#include "pointerevent.h"
+#include "screens.h"
+#include "mainscreen.h"
+#include "workout.h"
+#include "utils.h"
+
+static const int HISTORY_WIDTH = 12;
+static const int HISTORY_HEIGHT = 10;
 
 OutdoorPathsScreen::OutdoorPathsScreen(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::OutdoorPathsScreen)
+    QWidget(parent)
+    ,ui(new Ui::OutdoorPathsScreen)
     ,timeSliderWidget(this)
     ,intensitySliderWidget(this)
     ,weightSliderWidget(this)
+    ,history(new int[HISTORY_WIDTH])
+    ,historyWidget(this, history, HISTORY_WIDTH, HISTORY_HEIGHT, BIG_BRICK_URL, HIGHLIGHTED_BIG_BRICK_URL)
 {
     ui->setupUi(this);
 
@@ -19,6 +29,9 @@ OutdoorPathsScreen::OutdoorPathsScreen(QWidget *parent) :
     y += dy;
     weightSliderWidget.move(x, y);
 
+    updateHistoryFromIntensity();
+    historyWidget.move(747, 448);
+
     ui->backgroundLabel->lower();
 
     on_woodedButton_pressed();
@@ -27,6 +40,7 @@ OutdoorPathsScreen::OutdoorPathsScreen(QWidget *parent) :
 OutdoorPathsScreen::~OutdoorPathsScreen()
 {
     delete ui;
+    delete history;
 }
 
 void OutdoorPathsScreen::on_woodedButton_pressed(){
@@ -58,4 +72,42 @@ void OutdoorPathsScreen::hideAllBorders(){
 
 void OutdoorPathsScreen::on_closeButton_pressed(){
     close();
+}
+
+void OutdoorPathsScreen::on_startButton_pressed(){
+
+    float percentage = intensitySliderWidget.value/intensitySliderWidget.max;
+
+    float speed = percentage * Utils::getMAX_SPEED();
+    float grade = percentage * MAX_GRADE;
+
+    Workout* workout = Workout::createWorkout("Outdoor Path", speed, grade, timeSliderWidget.value);
+
+    MainScreen* mainScreen = new MainScreen(NULL, workout);
+    Screens::show(mainScreen);
+    close();
+}
+
+bool OutdoorPathsScreen::event(QEvent *event)
+{
+    if(event->type() == POINTER_EVENT_TYPE){
+        PointerEvent* pointerEvent = (PointerEvent*)event;
+
+        if(pointerEvent->pointer == &intensitySliderWidget){
+            updateHistoryFromIntensity();
+        }
+    }
+
+    return QWidget::event(event);
+}
+
+void OutdoorPathsScreen::updateHistoryFromIntensity(){
+    for(int i=0;i<HISTORY_WIDTH;i++){
+        /**
+         * Subtract one so that intensity 1 is only one row high.
+         */
+        history[i] = intensitySliderWidget.value * 2 - 1;
+    }
+
+    historyWidget.repaint();
 }

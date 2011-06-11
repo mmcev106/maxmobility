@@ -158,6 +158,19 @@
     <string/>
    </property>
   </widget>
+  <widget class="InvisibleButton" name="startButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>640</y>
+     <width>191</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>

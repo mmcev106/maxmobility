@@ -348,7 +348,7 @@ void MainScreen::updateHistoryWidgets(int speed, int grade){
         speedHistory[HISTORY_LENGTH-1] = (speed*16)/(Utils::getMAX_SPEED());
         gradeHistory[HISTORY_LENGTH-1] = (grade*16)/(MAX_GRADE);
 
-        qDebug() << "history: " << speed << ", " << grade;
+//        qDebug() << "history: " << speed << ", " << grade;
 
         speedHistoryWidget.update();
         gradeHistoryWidget.update();

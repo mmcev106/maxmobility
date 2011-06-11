@@ -5,6 +5,7 @@
 #include "timesliderwidget.h"
 #include "intensitysliderwidget.h"
 #include "weightsliderwidget.h"
+#include "historywidget.h"
 
 namespace Ui {
     class OutdoorPathsScreen;
@@ -25,7 +26,14 @@ private:
     IntensitySliderWidget intensitySliderWidget;
     WeightSliderWidget weightSliderWidget;
 
+    int* history;
+    HistoryWidget historyWidget;
+
     void hideAllBorders();
+    void updateHistoryFromIntensity();
+
+protected:
+    bool event(QEvent *event);
 
 private slots:
     void on_woodedButton_pressed();
@@ -33,6 +41,7 @@ private slots:
     void on_lakeButton_pressed();
     void on_cityButton_pressed();
     void on_closeButton_pressed();
+    void on_startButton_pressed();
 };
 
 #endif // OUTDOORPATHSSCREEN_H

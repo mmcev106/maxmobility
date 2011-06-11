@@ -12,6 +12,8 @@ public:
     explicit SliderWidget(QWidget *parent = 0, double min=0, double max=0);
     double value;
     double step;
+    double min;
+    double max;
 
     void setValue(double);
     double getPercentage();
@@ -27,9 +29,6 @@ protected:
     virtual int fontSize();
 
 private:
-    double min;
-    double max;
-
     int minXValue;
     int maxXValue;
     int xRange;
