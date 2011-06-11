@@ -20,6 +20,8 @@
 #include "utils.h"`
 #include "usbwarningscreen.h"
 #include "outdoorpathsscreen.h"
+#include "pointerevent.h"
+
 
 using namespace std;
 
@@ -31,7 +33,7 @@ static int STEEP_GRADE = MAX_GRADE;
 StartupWindow::StartupWindow(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::StartupWindow)
-    ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
+    ,player(new VideoPlayer(this))
     ,sharedTimer(this)
 {
     ui->setupUi(this);
@@ -186,7 +188,7 @@ void StartupWindow::on_invisibleButton_13_pressed()
     showUsbQuestionMarkScreen();
 }
 
-void StartupWindow::on_invisibleButton_15_pressed()
+void StartupWindow::on_outdoorPathsButton_pressed()
 {
     Screens::show(new OutdoorPathsScreen());
 }
@@ -194,4 +196,17 @@ void StartupWindow::on_invisibleButton_15_pressed()
 void StartupWindow::on_invisibleButton_16_pressed()
 {
     Screens::show( new HeartRateScreen(0));
+}
+
+bool StartupWindow::event(QEvent *event)
+{
+    if(event->type() == POINTER_EVENT_TYPE){
+        PointerEvent* pointerEvent = (PointerEvent*)event;
+
+        if(pointerEvent->pointer == player){
+            on_outdoorPathsButton_pressed();
+        }
+    }
+
+    return AbstractScreen::event(event);
 }

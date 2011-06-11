@@ -48,7 +48,8 @@ HEADERS += startupwindow.h \
     videoscreen.h \
     usbwarningscreen.h \
     outdoorpathsscreen.h \
-    intensitysliderwidget.h
+    intensitysliderwidget.h \
+    videoplayer.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -103,7 +104,8 @@ SOURCES += main.cpp startupwindow.cpp \
     videoscreen.cpp \
     usbwarningscreen.cpp \
     outdoorpathsscreen.cpp \
-    intensitysliderwidget.cpp
+    intensitysliderwidget.cpp \
+    videoplayer.cpp
 RESOURCES += images.qrc
 
 OTHER_FILES += \

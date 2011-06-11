@@ -10,7 +10,7 @@ static const int HISTORY_WIDTH = 12;
 static const int HISTORY_HEIGHT = 10;
 
 OutdoorPathsScreen::OutdoorPathsScreen(QWidget *parent) :
-    QWidget(parent)
+    AbstractScreen(parent)
     ,ui(new Ui::OutdoorPathsScreen)
     ,timeSliderWidget(this)
     ,intensitySliderWidget(this)

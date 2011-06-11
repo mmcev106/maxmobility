@@ -6,12 +6,13 @@
 #include "intensitysliderwidget.h"
 #include "weightsliderwidget.h"
 #include "historywidget.h"
+#include "abstractscreen.h"
 
 namespace Ui {
     class OutdoorPathsScreen;
 }
 
-class OutdoorPathsScreen : public QWidget
+class OutdoorPathsScreen : public AbstractScreen
 {
     Q_OBJECT
 

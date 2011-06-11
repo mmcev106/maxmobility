@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "abstractscreen.h"
-#include <phonon/VideoPlayer>
+#include "videoplayer.h"
 #include <QTimer>
 
 namespace Ui {
@@ -18,16 +18,19 @@ public:
     explicit StartupWindow(QWidget *parent = 0);
     ~StartupWindow();
 
+protected:
+    bool event(QEvent *event);
+
 private:
     Ui::StartupWindow *ui;
-    Phonon::VideoPlayer *player;
+    VideoPlayer *player;
 
     void showMainScreen(QString name, float speed, float grade, int minutes);
     QTimer sharedTimer;
 
 private slots:
     void on_invisibleButton_16_pressed();
-    void on_invisibleButton_15_pressed();
+    void on_outdoorPathsButton_pressed();
     void on_invisibleButton_13_pressed();
     void on_invisibleButton_12_pressed();
     void on_invisibleButton_11_pressed();

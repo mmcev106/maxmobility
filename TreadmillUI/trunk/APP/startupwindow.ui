@@ -193,13 +193,13 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_15" native="true">
+  <widget class="InvisibleButton" name="outdoorPathsButton" native="true">
    <property name="geometry">
     <rect>
      <x>640</x>
-     <y>90</y>
+     <y>305</y>
      <width>301</width>
-     <height>261</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="text" stdset="0">
