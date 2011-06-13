@@ -5,7 +5,6 @@
 
 #include "sliderwidget.h"
 #include "weightsliderwidget.h"
-#include "agesliderwidget.h"
 #include "timesliderwidget.h"
 #include "speedsliderwidget.h"
 #include "historywidget.h"
@@ -28,7 +27,7 @@ protected:
 private:
     Ui::HeartRateScreen *ui;
     WeightSliderWidget weightSlider;
-    AgeSliderWidget ageSlider;
+    SpeedSliderWidget initialSpeedSlider;
     TimeSliderWidget timeSlider;
     SliderWidget lowPercentageSlider;
     SliderWidget highPercentageSlider;

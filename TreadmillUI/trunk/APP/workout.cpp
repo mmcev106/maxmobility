@@ -37,12 +37,12 @@ Workout* Workout::createWorkout(QString name, float speed, float grade, int minu
     return workout;
 }
 
-Workout* Workout::createHeartRateWorkout(QString name, int minutes, float lowPercentage , float highPercentage, int age, int weight){
+Workout* Workout::createHeartRateWorkout(QString name, int minutes, float lowPercentage , float highPercentage, int initialSpeed, int weight){
     float range = Utils::getMAX_SPEED() - MIN_SPEED;
     float lowSpeed = MIN_SPEED + lowPercentage*range;
     float highSpeed = MIN_SPEED + highPercentage*range;
 
-    return createDynamicSpeedWorkout(name, minutes, lowSpeed, highSpeed, age, weight);
+    return createDynamicSpeedWorkout(name, minutes, lowSpeed, highSpeed, 0, weight);
 }
 
 Workout* Workout::createDynamicSpeedWorkout(QString name, int minutes, int lowSpeed , int highSpeed, int initialGrade, int weight){
