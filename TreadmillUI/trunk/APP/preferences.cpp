@@ -74,17 +74,16 @@ int Preferences::getAverageHeartRate(){
 }
 
 int Preferences::calculateAverageHeartRate(int thisHeartRate){
-    static int heartRates[AVERAGE_HEART_RATE_LENGTH];
+    static int heartRates=0;
     static int i=0;
     static int sum=0;
-    heartRates[i]=thisHeartRate;
+    heartRates+=thisHeartRate;
     i++;
 
     if (i==AVERAGE_HEART_RATE_LENGTH)
     {
-        for (int x=0;x<AVERAGE_HEART_RATE_LENGTH;x++)
-           sum+=heartRates[x];
-        averageHeartRate=sum/AVERAGE_HEART_RATE_LENGTH;
+        averageHeartRate=heartRates/AVERAGE_HEART_RATE_LENGTH;
+        heartRates=0;
         sum=0;
         i=0;
     }
@@ -140,7 +139,6 @@ void Preferences::updateCurrentGrade(int grd){
 }
 
 QString Preferences::getCurrentDataPath(){
-    //qDebug() << "get current data path was called";
     QFileInfoList drives = QDir::drives();
 
     /**
@@ -150,16 +148,12 @@ QString Preferences::getCurrentDataPath(){
 
     for(int i=drives.length()-1; i>=1; i--){
         QFileInfo drive = drives.at(i);
-        if(drive.isWritable()  && drive.absolutePath()!="C:/"){ // It was still using the C drive, so I told it not to. :) -Wes
+        if(drive.isWritable()  && drive.absolutePath()!="C:/" && drive.absolutePath()!="Z:/" ){ // It was still using the C drive, so I told it not to. :) -Wes
 
             QDir driveDir(drive.filePath());
-            //qDebug() << drive.absolutePath();
             driveDir.mkdir(PUSHON);
             return drive.filePath() + PUSHON;
         }
-        else
-        {}
-            //qDebug() << "tried drive, " << drive.absolutePath() <<  " and failed.";
     }
 
     return NULL;

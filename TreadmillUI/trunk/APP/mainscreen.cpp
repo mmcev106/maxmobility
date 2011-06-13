@@ -13,6 +13,7 @@
 #include "changegradestep.h"
 #include "waitstep.h"
 #include "utils.h"
+#include "time.h"
 
 static int HISTORY_HEIGHT =13;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
@@ -31,6 +32,7 @@ void zero(int array[], int length){
 
 static const int UPDATE_DISPLAY_DELAY = 100;
 static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER_HOUR;
+//QTime LAST_UPDATE=currentTime();
 
 MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     AbstractScreen(parent)
@@ -261,16 +263,16 @@ void MainScreen::updateDisplay(){
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
     //int grade = Preferences::getCurrentGrade();
-    int grade=70; // use to force grade display
+    int grade=120; // use to force grade display
     ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
     //int speed = Preferences::getCurrentSpeed();
-    speed=70; // use to force speed display
+    speed=120; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
-    Preferences::setHeartRate(150);
+    Preferences::setHeartRate(180);  // use to force a heartrate
 // *****************************************************SET SPEED HERE!!!!************************************************************
     QString paceString = QString("%1").arg(600/speed);
     paceString.append(":");
@@ -294,28 +296,38 @@ void MainScreen::updateDisplay(){
 //    W = Weight in KG  // 165lbs = 74.84KG
 //    T = Time of workout in minutes
 
-    // ****************************************************************force a heartRate of 150 for now************************************
-    //qDebug()<< "Checking for HR: " << Preferences::getHeartRate();
     if (Preferences::getHeartRate()>0)
     {
-        //apply formula
         int calories = ((1+.0276*(Preferences::getAverageHeartRate()-100))*((3.5+0.0887*(34.84))*((double)elapsedTime/60)))/2;
-        qDebug()<< "calories: "<< calories;
+        //qDebug()<< "calories: "<< calories;
         ui->caloriesLabel->setText( QString("%1").arg(calories));
-       // ui->caloriesLabel->setText( "A");
     }
 
     else
-        ui->caloriesLabel->setText("B");
+        ui->caloriesLabel->setText("--");
 
 
-    distance += ((double)speed)*HOURS_PER_UPDATE/10;
+    //Update distance
+    static long lastUpdate=0;
+    if (lastUpdate==0)
+        lastUpdate=QDateTime::currentMSecsSinceEpoch();
+    long thisUpdate=QDateTime::currentMSecsSinceEpoch();
+
+    //distance += ((double)speed)*HOURS_PER_UPDATE/10; // this wasn't quite right.
+    distance += ((((double)speed/10)/3600000)*(thisUpdate-lastUpdate));
+    lastUpdate=thisUpdate;
     int distanceInt = (int) distance;
-    int distanceDecimal = (distance - distanceInt) * 10;
+    int distanceDecimal = (distance - distanceInt) * 100;
 
+    QString distanceDecString;
+    if (distanceDecimal<10)
+        distanceDecString="0";
+
+    distanceDecString.append(QString("%1").arg(distanceDecimal));
     ui->distanceIntegerLabel->setText(QString("%1").arg(distanceInt));
-    ui->distanceDecimalLabel->setText(QString("%1").arg(distanceDecimal));
+    ui->distanceDecimalLabel->setText(distanceDecString);
 
+    //Update Time
     QDateTime currentTime = QDateTime::currentDateTime();
     QString time = currentTime.toString("h:mma");
     int splitLocation = time.length() - 2;
@@ -323,6 +335,7 @@ void MainScreen::updateDisplay(){
     ui->ampmLabel->setText(time.right(2) );
     ui->dateLabel->setText(currentTime.toString(QString("dddd, M/d/yy")));
 
+    //update History Widgets
     if ((seconds==0 || seconds==30) && _update)
     {
         bumpHistoryWidgets();
