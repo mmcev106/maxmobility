@@ -55,6 +55,7 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     ,workout(workout)
     ,distance(0)
     ,speed(0)
+    ,weight(workout->_weight)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
@@ -64,12 +65,18 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
         ui->paceMetricLabel->setText("(mins/mi)");
         ui->speedMetricLabel->setText("mph");
         Utils::setMAX_SPEED(MAX_SPEED_MPH);
+        if (!weight)
+            weight=72.5;
+        else
+            weight=weight*.45359237;
     }
     else {
         ui->distanceMetricLabel->setText("km");
         ui->paceMetricLabel->setText("(mins/km)");
         ui->speedMetricLabel->setText("km/h");
         Utils::setMAX_SPEED(MAX_SPEED_KPH);
+        if (!weight)
+            weight=72.5;
     }
 
     //Put the background behind the player
@@ -124,6 +131,7 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
 //    Preferences::currentState.setOn();        // commented this out because it was causing a fault in the program (William)
 
     //    update the fields before the windows is initially displayed
+
     updateDisplay();
 }
 
@@ -236,13 +244,11 @@ void MainScreen::restartVideo(){
 void MainScreen::updateDisplay(){
 
     long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
-
     long elapsedTime = elapsedTimeMillis/1000;
 
     if(elapsedTimeMillis >= nextWorkoutStepTime){
         processNextWorkoutStep();
     }
-
 
     int minutes = elapsedTime/60;
     ui->elapsedTimeMinutesLabel->setText( QString("%1").arg(minutes) );
@@ -263,12 +269,12 @@ void MainScreen::updateDisplay(){
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
     //int grade = Preferences::getCurrentGrade();
-    int grade=120; // use to force grade display
+    int grade=20; // use to force grade display
     ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
     //int speed = Preferences::getCurrentSpeed();
-    speed=120; // use to force speed display
+    speed=70; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
@@ -290,22 +296,7 @@ void MainScreen::updateDisplay(){
 
     ui->paceLabel->setText(QString("%1").arg(paceString));
 
-    //Set this formula for the number of calories burned
-//    =(1+0.0276*(HR-100))*(3.5+0.0887*(W-40))*T
-//    HR = Average Heart Rate for workout
-//    W = Weight in KG  // 165lbs = 74.84KG
-//    T = Time of workout in minutes
-
-    if (Preferences::getHeartRate()>0)
-    {
-        int calories = ((1+.0276*(Preferences::getAverageHeartRate()-100))*((3.5+0.0887*(34.84))*((double)elapsedTime/60)))/2;
-        //qDebug()<< "calories: "<< calories;
-        ui->caloriesLabel->setText( QString("%1").arg(calories));
-    }
-
-    else
-        ui->caloriesLabel->setText("--");
-
+    calculateCalories(speed, grade, elapsedTime);
 
     //Update distance
     static long lastUpdate=0;
@@ -347,6 +338,22 @@ void MainScreen::updateDisplay(){
 
     updateHistoryWidgets(speed, grade);
 
+}
+
+void MainScreen::calculateCalories(int speed, int grade, long elapsedTime){
+//    qDebug() << "calculating Calories based on weight: " << weight << " speed: " << speed << " and grade: "<< grade ;
+
+      double calSpeed=(double)speed*2.68224;
+      double calGrade=(double)grade/1000;
+      double calTime=(double)elapsedTime/60;
+      double calO2;
+      if (calSpeed<99.24288)
+          calO2=0.1*calSpeed+1.8*calSpeed*calGrade+3.5;
+      else
+          calO2=0.2*calSpeed+0.9*calSpeed*calGrade+3.5;
+      int calories=calO2*weight*3.5*(calTime/1000);
+
+       ui->caloriesLabel->setText(QString("%1").arg(calories));
 }
 
 void MainScreen::bumpHistoryWidgets(){

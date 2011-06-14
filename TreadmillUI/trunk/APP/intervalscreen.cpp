@@ -108,6 +108,7 @@ void IntervalScreen::on_invisibleButton_hills_3_pressed()
     int weight = weightSlider.value;
 
     Workout* workout;
+    qDebug()<< "weight selected was: " << weight;
     if(lowSpeedSlider.isVisible()){
 
         int lowSpeed = lowSpeedSlider.value;

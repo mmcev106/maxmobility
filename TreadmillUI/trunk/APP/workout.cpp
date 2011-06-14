@@ -8,8 +8,9 @@
 
 static int MIN_SPEED = 1;
 
-Workout::Workout(QString name, QList<Step*>* steps = new QList<Step*>()) :
+Workout::Workout(QString name, int weight=0, QList<Step*>* steps = new QList<Step*>()) :
         name(name)
+        ,_weight(weight)
         ,steps(steps)
 {
 }
@@ -27,7 +28,7 @@ Workout::~Workout()
 
 Workout* Workout::createWorkout(QString name, float speed, float grade, int minutes){
 
-    Workout* workout = new Workout(name);
+    Workout* workout = new Workout(name,0);
     QList<Step*> *steps = workout->steps;
 
     steps->append(new ChangeSpeedStep(speed));
@@ -47,8 +48,10 @@ Workout* Workout::createHeartRateWorkout(QString name, int minutes, float lowPer
 
 Workout* Workout::createDynamicSpeedWorkout(QString name, int minutes, int lowSpeed , int highSpeed, int initialGrade, int weight){
 
-    Workout* workout = new Workout(name);
+    Workout* workout = new Workout(name, weight);//, NULL, weight
     QList<Step*> *steps = workout->steps;
+
+    qDebug() << "weight passed in was: " << weight;
 
     long sprintLength = MILLIS_PER_SECOND * 5;
     long endTime = MILLIS_PER_MINUTE * minutes;
@@ -80,7 +83,7 @@ Workout* Workout::createIntensityWorkout(QString name, int minutes, int starting
 
     qDebug() << "intensityPercent: " << intensityPercent;
 
-    Workout* workout = new Workout(name);
+    Workout* workout = new Workout(name, weight);//, NULL, weight
     QList<Step*> *steps = workout->steps;
 
     long currentTime = 0;
@@ -133,7 +136,7 @@ Workout* Workout::createIntensityWorkout(QString name, int minutes, int starting
 
 Workout* Workout::createDynamicGradeWorkout(QString name, int minutes, int lowGrade , int highGrade, int initialSpeed, int weight){
 
-    Workout* workout = new Workout(name);
+    Workout* workout = new Workout(name, weight);//, NULL, weight
     QList<Step*> *steps = workout->steps;
 
     long sprintLength = MILLIS_PER_SECOND * 5;

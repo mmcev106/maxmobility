@@ -8,11 +8,12 @@
 class Workout
 {
 public:
-    Workout(QString name, QList<Step*>* steps);
+    Workout(QString name, int weight, QList<Step*>* steps);
     ~Workout();
 
     QList<Step*>* steps;
     QString name;
+    int _weight;
 
     static Workout* createWorkout(QString name, float speed, float grade, int minutes);
     static Workout* createDynamicGradeWorkout(QString name, int minutes, int lowGrade , int highGrade, int age, int weight);

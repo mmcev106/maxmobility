@@ -53,6 +53,7 @@ private:
     AudioSettingsWidget audioSettingsWidget;
     QPixmap videoMask;
     int speed;
+    int weight;
 
     void writeHistoryEntry();
     void playVideo(QString filename);
@@ -68,6 +69,7 @@ private slots:
     void restartVideo();
     void updateHistoryWidgets(int speed, int grade);
     void bumpHistoryWidgets();
+    void calculateCalories(int speed, int grade, long elapsedTime);
 
 };
 
