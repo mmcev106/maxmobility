@@ -418,6 +418,11 @@ void MainScreen::on_track_invisibleButton_pressed()
     runningDudeWidget->show();
 }
 
+void MainScreen::on_web_invisibleButton_pressed()
+{
+    // add code here for web browser
+}
+
 void MainScreen::on_trails_invisibleButton_pressed()
 {
     playVideo("trails.avi");

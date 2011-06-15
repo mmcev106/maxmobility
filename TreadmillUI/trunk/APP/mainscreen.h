@@ -60,6 +60,7 @@ private:
 
 private slots:
     void on_track_invisibleButton_pressed();
+    void on_web_invisibleButton_pressed();
     void on_trails_invisibleButton_pressed();
     void on_tranquil_invisibleButton_pressed();
     void on_audioButton_invisibleButton_pressed();
