@@ -49,7 +49,8 @@ HEADERS += startupwindow.h \
     usbwarningscreen.h \
     outdoorpathsscreen.h \
     intensitysliderwidget.h \
-    videoplayer.h
+    videoplayer.h \
+    WebWidget.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -105,7 +106,8 @@ SOURCES += main.cpp startupwindow.cpp \
     usbwarningscreen.cpp \
     outdoorpathsscreen.cpp \
     intensitysliderwidget.cpp \
-    videoplayer.cpp
+    videoplayer.cpp \
+    WebWidget.cpp
 RESOURCES += images.qrc \
     jquery.qrc
 

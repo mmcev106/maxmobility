@@ -136,25 +136,12 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
 
     //    update the fields before the windows is initially displayed
 
-    QFile file;
-    file.setFileName(":/jquery.min.js");
-    file.open(QIODevice::ReadOnly);
-    jQuery = file.readAll();
-    file.close();
-//! [1]
-
-    QNetworkProxyFactory::setUseSystemConfiguration(true);
-
-//! [2]
-    webview = new QWebView(this);
-    QUrl url = QUrl("http://www.google.com");
-    webview->load(url);
-    webview->setGeometry(75,50,800,500);
-    webview->setGeometry(100,100,500,500);
+    webview = new WebWidget(QUrl("http://www.google.com"));
     webview->hide();
 
     updateDisplay();
 }
+
 
 void MainScreen::processNextWorkoutStep() {
 
@@ -241,6 +228,7 @@ MainScreen::~MainScreen()
     player->stop();
     delete player;
     delete secondTimer;
+    delete webview;
 }
 
 
@@ -431,11 +419,10 @@ void MainScreen::on_audioButton_invisibleButton_pressed()
 
 void MainScreen::on_track_invisibleButton_pressed()
 {
+    webview->hide();
     player->stop();
     player->videoWidget()->hide();
     player->setVisible(false);
-
-    webview->hide();
 
     trackWidget->show();
     runningDudeWidget->show();
@@ -448,10 +435,7 @@ void MainScreen::on_web_invisibleButton_pressed()
     player->videoWidget()->hide();
     player->setVisible(false);
 
-    QUrl url = QUrl("http://www.google.com");
-    webview->load(url);
-    webview->show();
-    webview->setFocus();
+    webview->setVisible(true);
 }
 
 void MainScreen::on_trails_invisibleButton_pressed()
@@ -466,10 +450,9 @@ void MainScreen::on_tranquil_invisibleButton_pressed()
 
 void MainScreen::playVideo(QString filename)
 {
+    webview->hide();
     trackWidget->hide();
     runningDudeWidget->hide();
-
-    webview->hide();
 
     Phonon::MediaSource source(filename);
     player->play(source);
