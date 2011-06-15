@@ -203,7 +203,7 @@ void MainScreen::writeHistoryEntry(){
         stream << seconds;
         stream << "\t";
 
-        stream << seconds; //TODO
+        stream << calories;
         stream << "\t";
 
         stream << distance;
@@ -279,12 +279,12 @@ void MainScreen::updateDisplay(){
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
     //int grade = Preferences::getCurrentGrade();
-    int grade=20; // use to force grade display
+    int grade=120; // use to force grade display
     ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
     //int speed = Preferences::getCurrentSpeed();
-    speed=70; // use to force speed display
+    speed=120; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
@@ -361,7 +361,7 @@ void MainScreen::calculateCalories(int speed, int grade, long elapsedTime){
           calO2=0.1*calSpeed+1.8*calSpeed*calGrade+3.5;
       else
           calO2=0.2*calSpeed+0.9*calSpeed*calGrade+3.5;
-      int calories=calO2*weight*3.5*(calTime/1000);
+      calories=calO2*weight*3.5*(calTime/1000);
 
        ui->caloriesLabel->setText(QString("%1").arg(calories));
 }

@@ -13,7 +13,7 @@ public:
     QString name;
     short seconds;
     short calories;
-    float distance;
+    double distance;
 };
 
 #endif // HISTORYITEM_H

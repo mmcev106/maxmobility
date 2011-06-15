@@ -60,6 +60,7 @@ private:
     QPixmap videoMask;
     int speed;
     int weight;
+    int calories;
 
     void writeHistoryEntry();
     void playVideo(QString filename);

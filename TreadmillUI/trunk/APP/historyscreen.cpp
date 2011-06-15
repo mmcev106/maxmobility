@@ -90,8 +90,8 @@ void HistoryScreen::displayHistory(bool (*sortFunction)(HistoryItem*, HistoryIte
 
     QLayoutItem * widget;
     while( (widget = layout->takeAt(0)) != NULL){
-        delete widget;
         widget->widget()->setParent(NULL);
+        delete widget;
     }
 
     qSort(history->begin(), history->end(), sortFunction);
@@ -257,7 +257,7 @@ QList<HistoryItem*>* HistoryScreen::loadHistory(){
 
     int totalSeconds = 0;
     int totalCalories = 0;
-    float totalDistance = 0;
+    double totalDistance = 0;
 
     QFile historyFile(Preferences::getCurrentHistoryPath());
     historyFile.open(QFile::ReadOnly);
@@ -280,7 +280,7 @@ QList<HistoryItem*>* HistoryScreen::loadHistory(){
         item->name = args.at(1);
         item->seconds = QLocale(QLocale::C).toInt(args.at(2));
         item->calories = QLocale(QLocale::C).toInt(args.at(3));
-        item->distance = QLocale(QLocale::C).toFloat(args.at(4));
+        item->distance = QLocale(QLocale::C).toDouble(args.at(4));
 
         history->append(item);
 
