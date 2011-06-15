@@ -11,7 +11,7 @@
 #include "step.h"
 #include "workout.h"
 #include <QtOpenGL/QGLWidget>
-
+#include <QWebView>
 #include "WebWidget.h"
 
 namespace Ui {
@@ -33,6 +33,8 @@ protected:
 
 private:
     WebWidget* webview;
+
+//    QWebView *webview;
 
     Ui::MainScreen *ui;
     long startTime;

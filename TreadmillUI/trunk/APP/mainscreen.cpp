@@ -137,6 +137,7 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     //    update the fields before the windows is initially displayed
 
     webview = new WebWidget(QUrl("http://www.google.com"));
+    webview->setParent(parent);
     webview->hide();
 
     updateDisplay();
@@ -426,12 +427,16 @@ void MainScreen::updateRunningDudeImage(){
 
 void MainScreen::on_audioButton_invisibleButton_pressed()
 {
+    webview->hide();
+    webview->SetUrl(HOME_URL);
     audioSettingsWidget.setVisible(!audioSettingsWidget.isVisible());
 }
 
 void MainScreen::on_track_invisibleButton_pressed()
 {
     webview->hide();
+    webview->SetUrl(HOME_URL);
+
     player->stop();
     player->videoWidget()->hide();
     player->setVisible(false);
@@ -463,6 +468,8 @@ void MainScreen::on_tranquil_invisibleButton_pressed()
 void MainScreen::playVideo(QString filename)
 {
     webview->hide();
+    webview->SetUrl(HOME_URL);
+
     trackWidget->hide();
     runningDudeWidget->hide();
 

@@ -1,15 +1,11 @@
 #ifndef WEBWIDGET_H
 #define WEBWIDGET_H
 
-
 #include <QtGui>
-#include <QWidget>
+#include <QWebView>
 #include "abstractscreen.h"
 
-class QWebView;
-QT_BEGIN_NAMESPACE
-class QLineEdit;
-QT_END_NAMESPACE
+const QUrl HOME_URL = QUrl("http://www.google.com");
 
 namespace Ui {
     class WebWidget;
@@ -21,13 +17,13 @@ class WebWidget : public QMainWindow
 
 public:
     WebWidget(const QUrl& url);
+    void SetUrl(const QUrl& url);
 
 private:
     QString jQuery;
     QWebView *view;
     QLineEdit *locationEdit;
     QAction *rotateAction;
-    int progress;
 
     QPixmap webMask;
 
@@ -35,8 +31,6 @@ protected slots:
 
     void adjustLocation();
     void changeLocation();
-    void adjustTitle();
-    void setProgress(int p);
     void finishLoading(bool);
 };
 

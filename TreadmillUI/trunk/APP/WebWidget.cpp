@@ -2,26 +2,23 @@
 #include <QtGui>
 #include <QtWebKit>
 #include "WebWidget.h"
+#include "abstractscreen.h"
 
 //! [1]
 
 WebWidget::WebWidget(const QUrl& url) :
         webMask(":/images/images/main_screen_large_video_mask.png")
 {
-    progress = 0;
-
     QFile file;
     file.setFileName(":/jquery.min.js");
     file.open(QIODevice::ReadOnly);
     jQuery = file.readAll();
     file.close();
-//! [1]
-
     QNetworkProxyFactory::setUseSystemConfiguration(true);
 
-//! [2]
     view = new QWebView(this);
     view->load(url);
+    view->settings()->setAttribute(QWebSettings::PluginsEnabled,true);
     connect(view, SIGNAL(loadFinished(bool)), SLOT(adjustLocation()));
     connect(view, SIGNAL(titleChanged(QString)), SLOT(adjustTitle()));
     connect(view, SIGNAL(loadProgress(int)), SLOT(setProgress(int)));
@@ -38,14 +35,12 @@ WebWidget::WebWidget(const QUrl& url) :
     toolBar->addAction(view->pageAction(QWebPage::Stop));
     toolBar->addWidget(locationEdit);
     toolBar->setMovable(false);
-//! [2]
-
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
-    this->setGeometry(130,95,725,570);
-    this->setMask(webMask.mask());
 
     setCentralWidget(view);
-    setUnifiedTitleAndToolBarOnMac(true);
+    this->setGeometry(130,100,756,564);
+    this->setAutoFillBackground(true);
+    this->setMask(webMask.mask());
+//    setUnifiedTitleAndToolBarOnMac(true);
 }
 //! [3]
 
@@ -63,28 +58,15 @@ void WebWidget::changeLocation()
 }
 //! [4]
 
-//! [5]
-void WebWidget::adjustTitle()
-{
-    if (progress <= 0 || progress >= 100)
-        setWindowTitle(view->title());
-    else
-        setWindowTitle(QString("%1 (%2%)").arg(view->title()).arg(progress));
-}
-
-void WebWidget::setProgress(int p)
-{
-    progress = p;
-    adjustTitle();
-}
-//! [5]
-
 //! [6]
 void WebWidget::finishLoading(bool)
 {
-    progress = 100;
-    adjustTitle();
     view->page()->mainFrame()->evaluateJavaScript(jQuery);
 }
 //! [6]
+
+void WebWidget::SetUrl(const QUrl &url)
+{
+    view->load(url);
+}
 
