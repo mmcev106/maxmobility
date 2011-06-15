@@ -12,6 +12,15 @@
 #include "workout.h"
 #include <QtOpenGL/QGLWidget>
 
+
+#include <QtGui>
+
+class QWebView;
+QT_BEGIN_NAMESPACE
+class QLineEdit;
+QT_END_NAMESPACE
+
+
 namespace Ui {
     class MainScreen;
 }
@@ -30,6 +39,10 @@ protected:
 //    void keyPressEvent(QKeyEvent* event);
 
 private:
+
+    QString jQuery;
+    QWebView *webview;
+
     Ui::MainScreen *ui;
     long startTime;
     QTimer *secondTimer;

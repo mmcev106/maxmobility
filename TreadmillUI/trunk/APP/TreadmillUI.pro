@@ -106,7 +106,8 @@ SOURCES += main.cpp startupwindow.cpp \
     outdoorpathsscreen.cpp \
     intensitysliderwidget.cpp \
     videoplayer.cpp
-RESOURCES += images.qrc
+RESOURCES += images.qrc \
+    jquery.qrc
 
 OTHER_FILES += \
     style.css \
@@ -117,5 +118,6 @@ CONFIG += warn_off
 
 QT += phonon
 QT += opengl
+QT += webkit network
 LIBS += -lqextserialport
 #DEFINES += QT_NO_DEBUG_OUTPUT NDEBUG

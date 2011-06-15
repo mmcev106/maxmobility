@@ -1,3 +1,7 @@
+
+#include <QtGui>
+#include <QtWebKit/QtWebKit>
+
 #include "mainscreen.h"
 #include "ui_mainscreen.h"
 #include <QStringBuilder>
@@ -131,6 +135,23 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
 //    Preferences::currentState.setOn();        // commented this out because it was causing a fault in the program (William)
 
     //    update the fields before the windows is initially displayed
+
+    QFile file;
+    file.setFileName(":/jquery.min.js");
+    file.open(QIODevice::ReadOnly);
+    jQuery = file.readAll();
+    file.close();
+//! [1]
+
+    QNetworkProxyFactory::setUseSystemConfiguration(true);
+
+//! [2]
+    webview = new QWebView(this);
+    QUrl url = QUrl("http://www.google.com");
+    webview->load(url);
+    webview->setGeometry(75,50,800,500);
+    webview->setGeometry(100,100,500,500);
+    webview->hide();
 
     updateDisplay();
 }
@@ -414,6 +435,8 @@ void MainScreen::on_track_invisibleButton_pressed()
     player->videoWidget()->hide();
     player->setVisible(false);
 
+    webview->hide();
+
     trackWidget->show();
     runningDudeWidget->show();
 }
@@ -421,6 +444,14 @@ void MainScreen::on_track_invisibleButton_pressed()
 void MainScreen::on_web_invisibleButton_pressed()
 {
     // add code here for web browser
+    player->stop();
+    player->videoWidget()->hide();
+    player->setVisible(false);
+
+    QUrl url = QUrl("http://www.google.com");
+    webview->load(url);
+    webview->show();
+    webview->setFocus();
 }
 
 void MainScreen::on_trails_invisibleButton_pressed()
@@ -437,6 +468,8 @@ void MainScreen::playVideo(QString filename)
 {
     trackWidget->hide();
     runningDudeWidget->hide();
+
+    webview->hide();
 
     Phonon::MediaSource source(filename);
     player->play(source);
