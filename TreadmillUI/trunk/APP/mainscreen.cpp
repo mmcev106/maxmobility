@@ -23,7 +23,7 @@ static int HISTORY_HEIGHT =13;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
 static bool _update = false;
 
-static float TRACK_LENGTH = .1; // in miles
+static float TRACK_LENGTH = .25; // in miles
 
 void zero(int array[], int length){
 
@@ -374,8 +374,20 @@ void MainScreen::bumpHistoryWidgets(){
 
 void MainScreen::updateHistoryWidgets(int speed, int grade){
 
-        speedHistory[HISTORY_LENGTH-1] = (speed*16)/(Utils::getMAX_SPEED());
-        gradeHistory[HISTORY_LENGTH-1] = (grade*16)/(MAX_GRADE);
+    if(Preferences::measurementSystem == STANDARD)
+    {
+        speedHistory[HISTORY_LENGTH-1] = speed/10;
+        gradeHistory[HISTORY_LENGTH-1] = grade/10;
+    }
+    else
+    {
+        speedHistory[HISTORY_LENGTH-1] = speed/20;
+        gradeHistory[HISTORY_LENGTH-1] = grade/20;
+    }
+
+        // I think this way was better than it is now.. maybe I'll change it back someday
+//        speedHistory[HISTORY_LENGTH-1] = (speed*16)/(Utils::getMAX_SPEED());
+//        gradeHistory[HISTORY_LENGTH-1] = (grade*16)/(MAX_GRADE);
 
 //        qDebug() << "history: " << speed << ", " << grade;
 
