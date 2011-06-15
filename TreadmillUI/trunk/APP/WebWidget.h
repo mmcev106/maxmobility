@@ -29,6 +29,8 @@ private:
     QAction *rotateAction;
     int progress;
 
+    QPixmap webMask;
+
 protected slots:
 
     void adjustLocation();

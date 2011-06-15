@@ -5,7 +5,8 @@
 
 //! [1]
 
-WebWidget::WebWidget(const QUrl& url)
+WebWidget::WebWidget(const QUrl& url) :
+        webMask(":/images/images/main_screen_large_video_mask.png")
 {
     progress = 0;
 
@@ -41,6 +42,7 @@ WebWidget::WebWidget(const QUrl& url)
 
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::MSWindowsFixedSizeDialogHint | Qt::WindowStaysOnTopHint);
     this->setGeometry(130,95,725,570);
+    this->setMask(webMask.mask());
 
     setCentralWidget(view);
     setUnifiedTitleAndToolBarOnMac(true);
