@@ -133,7 +133,7 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
 
 
     webview = new WebWidget(HOME_URL);
-    webview->setParent(&centerWidget);
+    webview->setParent(parent);
     webview->hide();
 
 //    webWidget.setMask(videoMask.mask());

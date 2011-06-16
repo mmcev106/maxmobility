@@ -3,6 +3,7 @@
 #include <QtWebKit>
 #include "WebWidget.h"
 #include "abstractscreen.h"
+#include "qdebug.h"
 
 //! [1]
 
@@ -20,8 +21,6 @@ WebWidget::WebWidget(const QUrl& url) :
     view->load(url);
     view->settings()->setAttribute(QWebSettings::PluginsEnabled,true);
     connect(view, SIGNAL(loadFinished(bool)), SLOT(adjustLocation()));
-    connect(view, SIGNAL(titleChanged(QString)), SLOT(adjustTitle()));
-    connect(view, SIGNAL(loadProgress(int)), SLOT(setProgress(int)));
     connect(view, SIGNAL(loadFinished(bool)), SLOT(finishLoading(bool)));
 
     locationEdit = new QLineEdit(this);
@@ -37,10 +36,10 @@ WebWidget::WebWidget(const QUrl& url) :
     toolBar->setMovable(false);
 
     setCentralWidget(view);
-//    this->setGeometry(130,100,756,564);
+    this->setGeometry(140,110,740,545);
     this->setAutoFillBackground(true);
 //    this->setMask(webMask.mask());
-    this->clearMask();
+//    this->clearMask();
 }
 //! [3]
 
