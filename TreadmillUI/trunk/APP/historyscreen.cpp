@@ -123,7 +123,11 @@ void HistoryScreen::displayHistory(bool (*sortFunction)(HistoryItem*, HistoryIte
 
         short seconds = item->seconds%60;
         short minutes = item->seconds/60;
-        QString timeString = QString("%1:%2").arg(minutes).arg(seconds);
+        QString secondsString;
+        if (seconds<10)
+            secondsString="0";
+        secondsString.append(QString("%1").arg(seconds));
+        QString timeString = QString("%1:%2").arg(minutes).arg(secondsString);
 
         QLabel* timeLabel = new QLabel(listItem);
         timeLabel->setText(timeString);
@@ -142,8 +146,13 @@ void HistoryScreen::displayHistory(bool (*sortFunction)(HistoryItem*, HistoryIte
         listItemLayout->addWidget(caloriesLabel);
 
         int distanceInteger = (int) item->distance;
-        int distanceDecimal = item->distance - distanceInteger;
-        QString distanceString = QString("%1.%2").arg(distanceInteger).arg(distanceDecimal);
+        int distanceDecimal = (item->distance*100) - (distanceInteger*100);
+        qDebug() << "distance should be: " << distanceInteger << "." << distanceDecimal << " from: "<< item->distance;
+        QString distanceDecimalString;
+        if (distanceDecimal < 10)
+            distanceDecimalString = "0";
+        distanceDecimalString.append(QString("%1").arg(distanceDecimal));
+        QString distanceString = QString("%1.%2").arg(distanceInteger).arg(distanceDecimalString);
 
         QLabel* distanceLabel = new QLabel(listItem);
         distanceLabel->setText(distanceString);
@@ -293,19 +302,28 @@ QList<HistoryItem*>* HistoryScreen::loadHistory(){
 
     int averageSeconds = 0;
     int averageCalories = 0;
-    float averageDistance = 0;
+    double averageDistance = 0;
+    QString averageSecondsString;
+    QString averageDistanceDecimalString;
 
     if(history->length() > 0){
         averageSeconds = totalSeconds/history->length();
         averageCalories = totalCalories/history->length();
         averageDistance = totalDistance/history->length();
-        averageDistance = ((float)(int)(averageDistance*10))/10;
+        int averageDistanceDecimal = (averageDistance-(int)averageDistance)*100;
+        qDebug()<< "Average Distance: " << averageDistance << " length: " << history->length()<<" decimal: "<<averageDistanceDecimal;
+        if ((averageSeconds%60) <10)
+            averageSecondsString="0";
+        averageSecondsString.append(QString("%1").arg(averageSeconds%60));
+        if (averageDistanceDecimal < 10)
+            averageDistanceDecimalString = "0";
+        averageDistanceDecimalString.append(QString("%1").arg(averageDistanceDecimal));
     }
 
     ui->workoutsLabel->setText(QString("%1").arg(history->length()));
-    ui->averageTimeLabel->setText(QString("%1:%2").arg(averageSeconds/60).arg(averageSeconds%60));
+    ui->averageTimeLabel->setText(QString("%1:%2").arg(averageSeconds/60).arg(averageSecondsString));
     ui->averageCaloriesLabel->setText(QString("%1").arg(averageCalories));
-    ui->averageDistanceLabel->setText(QString("%1").arg(averageDistance));
+    ui->averageDistanceLabel->setText(QString("%1.%2").arg((int)averageDistance).arg(averageDistanceDecimalString));
 
     return history;
 }
