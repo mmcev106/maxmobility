@@ -50,7 +50,7 @@ HEADERS += startupwindow.h \
     outdoorpathsscreen.h \
     intensitysliderwidget.h \
     videoplayer.h \
-    webwidget2.h
+    WebWidget.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -107,7 +107,7 @@ SOURCES += main.cpp startupwindow.cpp \
     outdoorpathsscreen.cpp \
     intensitysliderwidget.cpp \
     videoplayer.cpp \
-    webwidget2.cpp
+    WebWidget.cpp
 RESOURCES += images.qrc \
     jquery.qrc
 

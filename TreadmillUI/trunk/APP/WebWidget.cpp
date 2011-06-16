@@ -37,9 +37,10 @@ WebWidget::WebWidget(const QUrl& url) :
     toolBar->setMovable(false);
 
     setCentralWidget(view);
-    this->setGeometry(130,100,756,564);
+//    this->setGeometry(130,100,756,564);
     this->setAutoFillBackground(true);
-    this->setMask(webMask.mask());
+//    this->setMask(webMask.mask());
+    this->clearMask();
 }
 //! [3]
 
@@ -51,7 +52,14 @@ void WebWidget::adjustLocation()
 
 void WebWidget::changeLocation()
 {
-    QUrl url = QUrl(locationEdit->text());
+    QString txt = locationEdit->text();
+    QUrl url;
+    if (txt.contains(QString("http://www.")))
+        url = QUrl(txt);
+    else if (txt.contains(QString("www.")))
+        url = QUrl("http://"+txt);
+    else
+        url = QUrl("http://www."+txt);
     view->load(url);
     view->setFocus();
 }

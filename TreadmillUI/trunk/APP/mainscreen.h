@@ -10,9 +10,9 @@
 #include <QCloseEvent>
 #include "step.h"
 #include "workout.h"
-#include "webwidget2.h"
+//#include "webwidget2.h"
 #include <QWebView>
-//#include "WebWidget.h"
+#include "WebWidget.h"
 
 namespace Ui {
     class MainScreen;
@@ -33,8 +33,6 @@ protected:
 
 private:
     WebWidget* webview;
-
-//    QWebView *webview;
 
     Ui::MainScreen *ui;
     long startTime;
@@ -57,7 +55,6 @@ private:
     HistoryWidget gradeHistoryWidget;
     AudioSettingsWidget audioSettingsWidget;
     QPixmap videoMask;
-    WebWidget webWidget;
     int speed;
     int weight;
     int calories;
