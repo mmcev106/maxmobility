@@ -5,6 +5,7 @@
 #include <QTextStream>
 #include <QtDebug>
 #include <QDir>
+#include <QCoreApplication>
 
 #include "qextserialport.h"
 #include "qextserialenumerator.h"
@@ -105,6 +106,7 @@ void initializeSerialPortConnection(){
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setApplicationName("PushOn");
     Preferences::application=&a;
 
     QString workingDir = QCoreApplication::applicationDirPath();

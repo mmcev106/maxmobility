@@ -19,7 +19,7 @@
 #include "utils.h"
 #include "time.h"
 
-static int HISTORY_HEIGHT =13;
+static int HISTORY_HEIGHT = 13;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
 static bool _update = false;
 
@@ -58,11 +58,13 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     ,nextWorkoutStepTime(0)
     ,workout(workout)
     ,distance(0)
+    ,webWidget(&centerWidget)
     ,speed(0)
     ,weight(workout->_weight)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
+    setAttribute(Qt::WA_InputMethodEnabled);
 
     if(Preferences::measurementSystem == STANDARD){
         ui->distanceMetricLabel->setText("mi");
@@ -130,15 +132,19 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     runningDudeWidget->setFixedSize(centerSize);
     runningDudeWidget->show();
 
+    webWidget.setMask(videoMask.mask());
+    webWidget.load(QUrl("http://google.com"));
+    centerWidget.raise();
+
     Preferences::application->installEventFilter(this);
 
 //    Preferences::currentState.setOn();        // commented this out because it was causing a fault in the program (William)
 
     //    update the fields before the windows is initially displayed
 
-    webview = new WebWidget(QUrl("http://www.google.com"));
-    webview->setParent(parent);
-    webview->hide();
+//    webview = new WebWidget(QUrl("http://www.google.com"));
+//    webview->setParent(parent);
+//    webview->hide();
 
     updateDisplay();
 }
@@ -427,15 +433,15 @@ void MainScreen::updateRunningDudeImage(){
 
 void MainScreen::on_audioButton_invisibleButton_pressed()
 {
-    webview->hide();
-    webview->SetUrl(HOME_URL);
-    audioSettingsWidget.setVisible(!audioSettingsWidget.isVisible());
+//    webview->hide();
+//    webview->SetUrl(HOME_URL);
+//    audioSettingsWidget.setVisible(!audioSettingsWidget.isVisible());
 }
 
 void MainScreen::on_track_invisibleButton_pressed()
 {
-    webview->hide();
-    webview->SetUrl(HOME_URL);
+    /*webview->hide();
+    webview->SetUrl(HOME_URL);*/
 
     player->stop();
     player->videoWidget()->hide();
@@ -467,8 +473,8 @@ void MainScreen::on_tranquil_invisibleButton_pressed()
 
 void MainScreen::playVideo(QString filename)
 {
-    webview->hide();
-    webview->SetUrl(HOME_URL);
+    /*webview->hide();
+    webview->SetUrl(HOME_URL);*/
 
     trackWidget->hide();
     runningDudeWidget->hide();

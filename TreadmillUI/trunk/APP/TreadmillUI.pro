@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 
@@ -50,7 +50,7 @@ HEADERS += startupwindow.h \
     outdoorpathsscreen.h \
     intensitysliderwidget.h \
     videoplayer.h \
-    WebWidget.h
+    webwidget2.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -107,7 +107,7 @@ SOURCES += main.cpp startupwindow.cpp \
     outdoorpathsscreen.cpp \
     intensitysliderwidget.cpp \
     videoplayer.cpp \
-    WebWidget.cpp
+    webwidget2.cpp
 RESOURCES += images.qrc \
     jquery.qrc
 
