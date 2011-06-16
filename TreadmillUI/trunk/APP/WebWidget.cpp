@@ -40,7 +40,6 @@ WebWidget::WebWidget(const QUrl& url) :
     this->setGeometry(130,100,756,564);
     this->setAutoFillBackground(true);
     this->setMask(webMask.mask());
-//    setUnifiedTitleAndToolBarOnMac(true);
 }
 //! [3]
 
