@@ -61,6 +61,10 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
+    if (Preferences::getCurrentState() != _state)
+    {
+    }
+
     Preferences::updateCurrentState(_state);
 
     if ( _state&ON_OFF_MASK || ( !(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK) ) )

@@ -25,37 +25,37 @@ void SerialSenderThread::run(){
         messageData[1] = _state;
         if ( _state&CALIBRATING_MASK && !_state&ERROR_MASK )			// treadmill is in CALIBRATION state
         {
-                Preferences::sendState.state &=(~(STATE_CHANGE_MASK));
+            Preferences::sendState.state &=(~(STATE_CHANGE_MASK));
 
-                messageData[2] 	= 0;        // was command
-                messageData[3] 	= 0;
-                messageData[4] 	= 0;
+            messageData[2] 	= 0;        // was command
+            messageData[3] 	= 0;
+            messageData[4] 	= 0;
         }
         else
         {
-                if ( _state&SETUP_MASK )		// treadmill is in SETUP state
+            if ( _state&SETUP_MASK )		// treadmill is in SETUP state
+            {
+                Preferences::sendState.state &=(~(STATE_CHANGE_MASK));
+
+                messageData[2] 	= Preferences::command;  // need to set to reflect units from radio button
+                messageData[3] 	= 0;
+                messageData[4] 	= 0;
+            }
+            else
+            {
+                if ( _state&ON_OFF_MASK || (!(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK)) )		// treadmill is either in ON or OFF state
                 {
-                        Preferences::sendState.state &=(~(STATE_CHANGE_MASK));
+                    Preferences::sendState.state &=(~(STATE_CHANGE_MASK));
 
-                        messageData[2] 	= Preferences::command;  // need to set to reflect units from radio button
-                        messageData[3] 	= 0;
-                        messageData[4] 	= 0;
+                    messageData[2] 	= Preferences::heartRate;
+
+                    messageData[3] 	= Preferences::spd_diff;
+                    Preferences::spd_diff=0;
+
+                    messageData[4] 	= Preferences::grd_diff;
+                    Preferences::grd_diff=0;
                 }
-                else
-                {
-                        if ( _state&ON_OFF_MASK || (!(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK)) )		// treadmill is either in ON or OFF state
-                        {
-                                Preferences::sendState.state &=(~(STATE_CHANGE_MASK));
-
-                                messageData[2] 	= Preferences::heartRate;
-
-                                messageData[3] 	= Preferences::spd_diff;
-                                Preferences::spd_diff=0;
-
-                                messageData[4] 	= Preferences::grd_diff;
-                                Preferences::grd_diff=0;
-                        }
-                }
+            }
         }
         crc 	= Utils::CRC(messageData,5);
         messageData[5] = (crc>>8)&0xFF;

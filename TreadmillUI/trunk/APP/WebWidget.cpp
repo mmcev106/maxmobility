@@ -19,7 +19,7 @@ WebWidget::WebWidget(const QUrl& url) :
     view = new QWebView(this);
     view->load(url);
     view->settings()->setAttribute(QWebSettings::PluginsEnabled,true);
-    view->setPage(new UserAgentWebPage(this));
+//    view->setPage(new UserAgentWebPage(this));
 
     connect(view, SIGNAL(loadFinished(bool)), SLOT(adjustLocation()));
     connect(view, SIGNAL(loadFinished(bool)), SLOT(finishLoading(bool)));
