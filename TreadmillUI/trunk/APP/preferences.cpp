@@ -22,10 +22,12 @@ QApplication* Preferences::application = NULL;
 
 QThread* Preferences::sender,*Preferences::listener;
 
-State Preferences::currentState;
+State Preferences::currentState, Preferences::sendState;
 
 int Preferences::speed=0,Preferences::grade=0,Preferences::heartRate=0,Preferences::averageHeartRate=0;
 int Preferences::spd_diff,Preferences::grd_diff;
+int Preferences::on_time,Preferences::belt_time;
+char Preferences::command=0;
 void (*Preferences::_spd_func)(void);
 void (*Preferences::_grd_func)(void);
 
@@ -58,6 +60,21 @@ void Preferences::setCurrentSpeed(int spd)
         spd_diff = Utils::getMAX_SPEED();
     else
         spd_diff = spd;
+}
+
+unsigned char Preferences::getCurrentState()
+{
+    return currentState.state;
+}
+
+void Preferences::setCurrentState(unsigned char _state)
+{
+    sendState.state = _state;
+}
+
+void Preferences::updateCurrentState(unsigned char _state)
+{
+    currentState.state = _state;
 }
 
 int Preferences::getHeartRate(){

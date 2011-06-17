@@ -1,22 +1,22 @@
 #include "state.h"
 
+unsigned char State::state=0x00;
 
-
-State::State() : state(NULL)
+State::State()
 {
 }
 
 bool State::isSet(unsigned char mask){
-    return (*state & mask) > 0;
+    return (state & mask) > 0;
 }
 
 void State::set(unsigned char mask){
-    *state |= mask;
+    state |= mask;
 }
 
 void State::unSet(unsigned char mask){
     if(isSet(mask)){
-        *state -= mask;
+        state -= mask;
     }
 }
 
@@ -29,7 +29,7 @@ void State::setOff(){
 }
 
 void State::setError(unsigned char errorTypeMask){
-    *state = ERROR_MASK | errorTypeMask;
+    state = ERROR_MASK | errorTypeMask;
 }
 
 

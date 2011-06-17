@@ -6,6 +6,7 @@
 #include "workout.h"
 
 int Utils::MAX_SPEED = MAX_SPEED_MPH;
+int Utils::DEF_SPEED = DEF_SPEED_MPH;
 
 Utils::Utils()
 {
@@ -21,6 +22,18 @@ void Utils::setMAX_SPEED(bool Standard){
     else
         MAX_SPEED=MAX_SPEED_KPH;
 }
+
+int Utils::getDEF_SPEED(){
+    return DEF_SPEED;
+}
+
+void Utils::setDEF_SPEED(bool Standard){
+    if (Standard==true)
+        DEF_SPEED=DEF_SPEED_MPH;
+    else
+        DEF_SPEED=DEF_SPEED_KPH;
+}
+
 
 QString Utils::toString(unsigned char *array, int len){
     QString string;
@@ -39,7 +52,7 @@ QString Utils::toString(unsigned char *array, int len){
    return string;
 }
 
-int Utils::CRC(char* msg, int len)
+int Utils::CRC(unsigned char* msg, int len)
 {
     int crc = 65535;
     int i,j;

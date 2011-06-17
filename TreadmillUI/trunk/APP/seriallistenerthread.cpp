@@ -8,7 +8,6 @@
 #include "utils.h";
 
 static const int READ_WAIT_LIMIT = 0;//1000 * 60 * 5
-static const int MESSAGE_LENGTH = 8;
 
 SerialListenerThread::SerialListenerThread()
 {
@@ -20,9 +19,8 @@ void SerialListenerThread::run(){
 
     while(port->isOpen()){     //port->waitForReadyRead( READ_WAIT_LIMIT )
         QByteArray data = port->read(MESSAGE_LENGTH);
-        qDebug() << Utils::toString( (unsigned char* )data.data(), data.length());
 
-        if(data.length() < 100){
+        if(data.length() < 100 && data.length() > 0){
             qDebug() << "Received Data: " << Utils::toString ( (unsigned char* )data.data(), data.length());
         }
 
@@ -45,8 +43,7 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
-    qDebug() << "Message :" + data[0] + data[1];
-    unsigned char _state = data[1];
+    unsigned char _state = (~STATE_CHANGE_MASK)&data[1];
     char heartRate = data[2];
     char speed = data[3];
     unsigned char grade = data[4];  // Wes updated these to speed and grade from cadence and rawData
@@ -64,12 +61,35 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
-    Preferences::updateCurrentGrade(grade);
-    Preferences::updateCurrentSpeed(speed);
-    Preferences::setHeartRate(heartRate);
+    Preferences::updateCurrentState(_state);
 
-//    State state;
-//    state.state = &_state;
+    if ( _state&ON_OFF_MASK || ( !(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK) ) )
+    {
+        Preferences::updateCurrentGrade(grade);
+        Preferences::updateCurrentSpeed(speed);
+        Preferences::setHeartRate(heartRate);
+    }
+    if ( _state&CALIBRATING_MASK )
+    {
+        Preferences::updateCurrentGrade(data[4]);
+    }
+    if ( _state&SETUP_MASK )
+    {
+        if ( _state&UNITS_MASK)
+        {
+            Utils::setMAX_SPEED(STANDARD_UNITS);
+            Utils::setDEF_SPEED(STANDARD_UNITS);
+        }
+        else
+        {
+            Utils::setMAX_SPEED(METRIC_UNITS);
+            Utils::setDEF_SPEED(METRIC_UNITS);
+        }
+        if ( data[2]&0x01 )
+            Preferences::on_time = (data[3]<<8) | (data[4]);
+        else
+            Preferences::belt_time = (data[3]<<8) | (data[4]);
+    }
 
     UpperBoardEvent event(heartRate, speed, grade); // wes updated this to speed and grade from cadence
     QApplication::sendEvent(Preferences::application,  &event);
