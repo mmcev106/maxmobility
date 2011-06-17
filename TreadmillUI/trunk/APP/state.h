@@ -29,6 +29,7 @@ public:
     void setError(unsigned char);
 
     static unsigned char state;
+    static unsigned char sendstate;
 
 private:
     void set(unsigned char mask);

@@ -1,6 +1,7 @@
 #include "state.h"
 
 unsigned char State::state=0x00;
+unsigned char State::sendstate=0x00;
 
 State::State()
 {

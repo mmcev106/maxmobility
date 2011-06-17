@@ -35,16 +35,21 @@ void loadPreferences(){
         Preferences::setMeasurementSystem(tempMeasurementSystem);
     }
 
-    int maxSpeed;
     if (Preferences::measurementSystem == STANDARD)
-        maxSpeed=MAX_SPEED_MPH;
+    {
+        Preferences::WALKING_SPEED=20;
+        Preferences::FAST_SPEED=30;
+        Preferences::JOGGING_SPEED=60;
+        Preferences::RUNNING_SPEED=80;
+    }
     else
-        maxSpeed=MAX_SPEED_KPH;
+    {
+        Preferences::WALKING_SPEED=30;
+        Preferences::FAST_SPEED=60;
+        Preferences::JOGGING_SPEED=100;
+        Preferences::RUNNING_SPEED=140;
+    }
 
-    Preferences::WALKING_SPEED=maxSpeed/4;
-    Preferences::FAST_SPEED=maxSpeed/2;
-    Preferences::JOGGING_SPEED=maxSpeed*.75;
-    Preferences::RUNNING_SPEED=maxSpeed;
 }
 
 void savePreferences(){
@@ -58,17 +63,6 @@ void savePreferences(){
 }
 
 void initializeSerialPortConnection(){
-
-//    unsigned char* messageData =  Preferences::messageData;
-//    messageData[0] = 0xFF;
-//    messageData[1] = 1;
-//    messageData[2] = 1;
-//    messageData[3] = 0;
-//    messageData[4] = 0;
-//    messageData[5] = 0;
-//    messageData[6] = '\n';
-
-//    Preferences::currentState.state = &messageData[3];
 
     QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
 
@@ -87,8 +81,6 @@ void initializeSerialPortConnection(){
     port->setStopBits(STOP_1);
     qDebug() << "Opening Port.";
     bool open = port->open(QextSerialPort::ReadWrite);
-
-//    bool open = false;
 
     if(open){
         Preferences::serialPort = port;

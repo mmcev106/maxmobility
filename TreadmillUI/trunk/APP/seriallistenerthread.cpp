@@ -86,8 +86,11 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         Preferences::setHeartRate(heartRate);
         if (_state&ON_OFF_MASK)
         {
-            MainScreen::getMainScreen()->setVisible(true);
-            MainScreen::getMainScreen()->startWorkout(Workout::createWorkout("", speed, grade, QUICK_WORKOUT_LENGTH));
+            if (!MainScreen::getMainScreen()->isVisible())
+            {
+                MainScreen::getMainScreen()->setVisible(true);
+                MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+            }
         }
     }
     if ( _state&CALIBRATING_MASK )

@@ -9,6 +9,7 @@
 #include <QWaitCondition>
 #include "screens.h"
 #include "utils.h"
+#include "preferences.h"
 
 FatBurnScreen::FatBurnScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent),
@@ -53,9 +54,10 @@ void FatBurnScreen::on_invisibleButton_6_pressed()
     int minutes = timeSlider.value;
     int weight = weightSlider.value;
 
-    Workout* workout = Workout::createIntensityWorkout("Fat Burn", minutes, speedSlider.value, intensitySlider.getPercentage(), weight);
+    Preferences::currentWorkout = Workout::createIntensityWorkout("Fat Burn", minutes, speedSlider.value*10, intensitySlider.getPercentage()*10, weight);
 
-    MainScreen::getMainScreen()->startWorkout( workout);
+//    MainScreen::getMainScreen()->startWorkout( workout);
+    Preferences::setCurrentState(ON_OFF_MASK);
 
     close();
 }

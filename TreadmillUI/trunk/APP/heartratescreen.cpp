@@ -6,6 +6,7 @@
 #include "screens.h"
 #include "step.h"
 #include "utils.h"
+#include "preferences.h"
 
 HeartRateScreen::HeartRateScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent)
@@ -98,7 +99,7 @@ void HeartRateScreen::on_invisibleButton_6_pressed()
 {
     int minutes = (int) timeSlider.value;
     float lowPercentage = lowPercentageSlider.value/100;
-    int initialSpeed = (int) initialSpeedSlider.value;
+    int initialSpeed = (int) initialSpeedSlider.value*10;
     int weight = (int) weightSlider.value;
 
     float highPercentage;
@@ -109,7 +110,9 @@ void HeartRateScreen::on_invisibleButton_6_pressed()
         highPercentage = lowPercentage;
     }
 
-    MainScreen::getMainScreen()->startWorkout( Workout::createHeartRateWorkout("Heart Rate", minutes, lowPercentage, highPercentage, initialSpeed, weight) );
+    Preferences::currentWorkout = Workout::createHeartRateWorkout("Heart Rate", minutes, lowPercentage, highPercentage, initialSpeed, weight);
+
+    Preferences::setCurrentState(ON_OFF_MASK);
 
     close();
 }

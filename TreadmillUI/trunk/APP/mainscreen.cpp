@@ -187,11 +187,11 @@ void MainScreen::processNextWorkoutStep() {
 
             if(step->getType() == SPEED_CHANGE_TYPE){
                 ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
-//                Preferences::setCurrentSpeed(changeSpeedStep->speed);
+                Preferences::setCurrentSpeed(changeSpeedStep->speed);
             }
             else if(step->getType() == GRADE_CHANGE_TYPE){
                 ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
-//                Preferences::setCurrentGrade(changeGradeStep->grade);
+                Preferences::setCurrentGrade(changeGradeStep->grade);
             }
             else if(step->getType() == WAIT_TYPE){
                 WaitStep* waitStep = (WaitStep*) step;

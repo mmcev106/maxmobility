@@ -10,6 +10,9 @@ static QString PUSHON = "PushOn";
 const QString Preferences::FILENAME = "Preferences.txt";
 
 bool Preferences::gender = MALE;
+
+Workout* Preferences::currentWorkout;
+
 bool Preferences::measurementSystem = STANDARD;
 
 int Preferences::WALKING_SPEED;
@@ -22,7 +25,8 @@ QApplication* Preferences::application = NULL;
 
 QThread* Preferences::sender,*Preferences::listener;
 
-State Preferences::currentState, Preferences::sendState;
+State Preferences::currentState;
+State Preferences::sendState;
 
 int Preferences::speed=0,Preferences::grade=0,Preferences::heartRate=0,Preferences::averageHeartRate=0;
 int Preferences::spd_diff,Preferences::grd_diff;
@@ -71,7 +75,12 @@ unsigned char Preferences::getCurrentState()
 
 void Preferences::setCurrentState(unsigned char _state)
 {
-    sendState.state = _state;
+    bool units = getMeasurementSystem();
+    char st = (units) ? (UNITS_MASK|_state):_state;
+    st |= STATE_CHANGE_MASK;
+    sendState.sendstate = 81; //st;
+    qDebug() << "Change state "<<Utils::toString(&sendState.sendstate,1) ;
+    qDebug() << "current state "<<Utils::toString(&currentState.state,1) ;
 }
 
 void Preferences::updateCurrentState(unsigned char _state)

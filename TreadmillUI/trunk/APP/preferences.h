@@ -9,6 +9,7 @@
 #include "qextserialport.h"
 #include "state.h"
 #include "mainscreen.h"
+#include "workout.h"
 
 static const bool MALE = true;
 static const bool FEMALE = false;
@@ -53,6 +54,8 @@ public:
     static State currentState;
 
     static State sendState;
+
+    static Workout* currentWorkout;
 
     static void setMeasurementSystem(bool Standard);    /*!< Used to set the Units system (mph/kph). */
     static bool getMeasurementSystem(void);             /*!< Used to read the state of the Units system. */

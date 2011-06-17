@@ -21,11 +21,16 @@ void SerialSenderThread::run(){
     int crc;
 
     while(true){
-        unsigned char _state = Preferences::sendState.state;
+        unsigned char _state = Preferences::sendState.sendstate;
+        qDebug() << "get state  change"<< Utils::toString(&Preferences::sendState.sendstate, 1) ;
         messageData[1] = _state;
-        if ( _state&CALIBRATING_MASK && !_state&ERROR_MASK )			// treadmill is in CALIBRATION state
+        qDebug() << "get state  change"<< Utils::toString(messageData, 2) ;
+
+        if ( (_state&CALIBRATING_MASK) && (!(_state&ERROR_MASK)) )			// treadmill is in CALIBRATION state
+      //  if ( _state&CALIBRATING_MASK && !_state&ERROR_MASK )
         {
-            Preferences::sendState.state &=(~(STATE_CHANGE_MASK));
+            Preferences::sendState.sendstate &=(~(STATE_CHANGE_MASK));
+             qDebug() << "clear in cal state " ;
 
             messageData[2] 	= 0;        // was command
             messageData[3] 	= 0;
@@ -35,7 +40,8 @@ void SerialSenderThread::run(){
         {
             if ( _state&SETUP_MASK )		// treadmill is in SETUP state
             {
-                Preferences::sendState.state &=(~(STATE_CHANGE_MASK));
+                Preferences::sendState.sendstate &=(~(STATE_CHANGE_MASK));
+                 qDebug() << "Clear in setup " ;
 
                 messageData[2] 	= Preferences::command;  // need to set to reflect units from radio button
                 messageData[3] 	= 0;
@@ -45,7 +51,8 @@ void SerialSenderThread::run(){
             {
                 if ( _state&ON_OFF_MASK || (!(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK)) )		// treadmill is either in ON or OFF state
                 {
-                    Preferences::sendState.state &=(~(STATE_CHANGE_MASK));
+                    Preferences::sendState.sendstate &=(~(STATE_CHANGE_MASK));
+                     qDebug() << "Clear in on off " ;
 
                     messageData[2] 	= Preferences::heartRate;
 
