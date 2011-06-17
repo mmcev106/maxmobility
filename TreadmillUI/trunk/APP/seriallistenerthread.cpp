@@ -63,6 +63,7 @@ void SerialListenerThread::handleMessage(unsigned char* data){
 
     if (Preferences::getCurrentState() != _state)
     {
+        // do state-based screen switching here!
     }
 
     Preferences::updateCurrentState(_state);
