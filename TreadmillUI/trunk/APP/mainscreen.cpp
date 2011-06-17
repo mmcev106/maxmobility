@@ -60,6 +60,8 @@ MainScreen::MainScreen(QWidget *parent) :
     ,workout(NULL)
     ,distance(0)
     ,speed(0)
+    ,grade(0)
+    ,heartRate(0)
     ,weight(0)
 {
     ui->setupUi(this);
@@ -298,20 +300,18 @@ void MainScreen::updateDisplay(){
     QString secondsString = QString("%1").arg(elapsedTime);
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
-    int grade = Preferences::getCurrentGrade();
-//    int grade=120; // use to force grade display
+    grade = Preferences::getCurrentGrade();
     ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
     speed = Preferences::getCurrentSpeed();
-//    speed=120; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
-//    Preferences::setHeartRate(180);  // use to force a heartrate
+    heartRate = Preferences::getAverageHeartRate();
 // *****************************************************SET SPEED HERE!!!!************************************************************
 
-    ui->heartRateLabel->setText(QString("%1").arg(Preferences::getHeartRate()));
+    ui->heartRateLabel->setText(QString("%1").arg(heartRate));
 
     QString paceString;
     if (speed)
@@ -463,11 +463,7 @@ void MainScreen::on_audioButton_invisibleButton_pressed()
 
 void MainScreen::on_track_invisibleButton_pressed()
 {
-    webview->hide();
-
-    player->stop();
-    player->videoWidget()->hide();
-    player->setVisible(false);
+    hideWidgets();
 
     trackWidget->show();
     runningDudeWidget->show();
@@ -475,10 +471,7 @@ void MainScreen::on_track_invisibleButton_pressed()
 
 void MainScreen::on_web_invisibleButton_pressed()
 {
-    // add code here for web browser
-    player->stop();
-    player->videoWidget()->hide();
-    player->setVisible(false);
+    hideWidgets();
 
     webview->setVisible(true);
 }
@@ -495,13 +488,20 @@ void MainScreen::on_tranquil_invisibleButton_pressed()
 
 void MainScreen::playVideo(QString filename)
 {
-    webview->hide();
-
-    trackWidget->hide();
-    runningDudeWidget->hide();
+    hideWidgets();
 
     Phonon::MediaSource source(filename);
     player->play(source);
     player->setVisible(true);
     player->videoWidget()->show();
+}
+
+void MainScreen::hideWidgets(void)
+{
+    webview->setVisible(false);
+    trackWidget->hide();
+    player->stop();
+    player->videoWidget()->hide();
+    player->setVisible(false);
+    runningDudeWidget->hide();
 }

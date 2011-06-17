@@ -58,21 +58,21 @@ int Utils::CRC(unsigned char* msg, int len)
     int i,j;
     for (i=0;i<len;i++)
     {
-            crc ^= msg[i];
-            for (j=0;j<8;j++)
+        crc ^= msg[i];
+        for (j=0;j<8;j++)
+        {
+            if ( !(crc & 0x01) )
             {
-                    if ( !(crc & 0x01) )
-                    {
-                            crc = crc>>1;
-                            crc &= 0x7FFF;
-                    }
-                    else
-                    {
-                            crc = crc>>1;
-                            crc &= 0x7FFF;
-                            crc ^= 0xA001;
-                    }
+                crc = crc>>1;
+                crc &= 0x7FFF;
             }
+            else
+            {
+                crc = crc>>1;
+                crc &= 0x7FFF;
+                crc ^= 0xA001;
+            }
+        }
     }
     return crc;
 }

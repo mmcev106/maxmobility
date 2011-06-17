@@ -337,6 +337,7 @@ void HistoryScreen::on_invisibleButton_6_pressed()
 void HistoryScreen::setUpArrowVisibility(bool visible){
     ui->upArrowLabel->setVisible(visible);
     ui->invisibleButton_upArrowButton->setVisible(visible);
+    ui->invisibleButton_upArrowButton->raise();
 }
 
 void HistoryScreen::setDownArrowVisibility(bool visible){

@@ -19,7 +19,7 @@ static const bool METRIC = false;
 static const int MESSAGE_LENGTH = 8;
 
 static const QColor HIGHLIGHT_BLUE(66, 180, 255, 200);
-const static int AVERAGE_HEART_RATE_LENGTH=50;
+const static int AVERAGE_HEART_RATE_LENGTH=10;
 
 class Preferences
 {

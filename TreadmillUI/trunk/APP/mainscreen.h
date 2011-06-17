@@ -25,6 +25,8 @@ public:
     static void createMainScreen(QWidget* parent);
     static MainScreen* getMainScreen();
     void startWorkout(Workout* workout);
+    void hideWidgets(void);
+
     ~MainScreen();
 
 protected:
@@ -55,7 +57,8 @@ private:
     HistoryWidget gradeHistoryWidget;
     AudioSettingsWidget audioSettingsWidget;
     QPixmap videoMask;
-    int speed;
+    int speed,grade;
+    int heartRate;
     int weight;
     int calories;
 

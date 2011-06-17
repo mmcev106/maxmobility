@@ -439,6 +439,28 @@ font-size: 25px;</string>
     <string/>
    </property>
   </widget>
+  <zorder>backgroundLabel</zorder>
+  <zorder>scrollArea</zorder>
+  <zorder>invisibleButton_upArrowButton</zorder>
+  <zorder>downArrowLabel</zorder>
+  <zorder>invisibleButton_downArrowButton</zorder>
+  <zorder>invisibleButton_6</zorder>
+  <zorder>workoutsLabel</zorder>
+  <zorder>label_2</zorder>
+  <zorder>averageTimeLabel</zorder>
+  <zorder>averageCaloriesLabel</zorder>
+  <zorder>averageDistanceLabel</zorder>
+  <zorder>dateHeader</zorder>
+  <zorder>workoutHeader</zorder>
+  <zorder>timeHeader</zorder>
+  <zorder>caloriesHeader</zorder>
+  <zorder>distanceHeader</zorder>
+  <zorder>invisibleButton_date</zorder>
+  <zorder>invisibleButton_workout</zorder>
+  <zorder>invisibleButton_time</zorder>
+  <zorder>invisibleButton_calories</zorder>
+  <zorder>invisibleButton_distance</zorder>
+  <zorder>upArrowLabel</zorder>
  </widget>
  <customwidgets>
   <customwidget>

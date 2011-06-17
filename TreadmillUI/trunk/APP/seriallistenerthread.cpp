@@ -48,18 +48,20 @@ void SerialListenerThread::handleMessage(unsigned char* data){
     unsigned char _state = (~STATE_CHANGE_MASK)&data[1];
     char heartRate = data[2];
     char speed = data[3];
-    unsigned char grade = data[4];  // Wes updated these to speed and grade from cadence and rawData
-    char crcMsb = data[5];
-    char crcLsb = data[6];
+    char grade = data[4];  // Wes updated these to speed and grade from cadence and rawData
+    int crcMsb = data[5];
+    int crcLsb = data[6];
 
     if(data[7] != '\n'){
         qDebug() << "Ignoring message because the last byte was not a new line!";
         return;
     }
-    int _crc = (crcMsb<<8)|crcLsb;
+    int _crc = crcMsb*256 + crcLsb;
     if (_crc != Utils::CRC(data,5))
     {
         qDebug() << "Ignoring message because the CRC's didn't match!";
+        qDebug() << "MSG CRC = " << _crc;
+        qDebug() << "My CRC = " << Utils::CRC(data,5);
         return;
     }
 
@@ -108,8 +110,8 @@ void SerialListenerThread::handleMessage(unsigned char* data){
             Preferences::belt_time = (data[3]<<8) | (data[4]);
     }
 
-    UpperBoardEvent event(heartRate, speed, grade); // wes updated this to speed and grade from cadence
-    QApplication::sendEvent(Preferences::application,  &event);
+//    UpperBoardEvent event(heartRate, speed, grade); // wes updated this to speed and grade from cadence
+//    QApplication::sendEvent(Preferences::application,  &event);
 
     // Update History widgets
 
