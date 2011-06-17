@@ -24,7 +24,6 @@
 
 using namespace std;
 
-static int QUICK_WORKOUT_LENGTH = 30; //minutes
 static int HILL_GRADE = 5;
 static int STEEP_GRADE = MAX_GRADE;
 
@@ -119,37 +118,73 @@ void showUsbQuestionMarkScreen(){
 void StartupWindow::on_invisibleButton_pressed()
 {
     //walk
-    showMainScreen("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+//    showMainScreen("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    Preferences::setCurrentGrade(0);
+    Preferences::setCurrentSpeed(Preferences::WALKING_SPEED);
+    bool units = Preferences::getMeasurementSystem();
+    char _state = (units) ? (UNITS_MASK|ON_OFF_MASK):ON_OFF_MASK;
+    _state |= STATE_CHANGE_MASK;
+    Preferences::setCurrentState(_state);
 }
 
 void StartupWindow::on_invisibleButton_2_pressed()
 {
     //fast
-    showMainScreen("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
+//    showMainScreen("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    Preferences::setCurrentGrade(0);
+    Preferences::setCurrentSpeed(Preferences::FAST_SPEED);
+    bool units = Preferences::getMeasurementSystem();
+    char _state = (units) ? (UNITS_MASK|ON_OFF_MASK):ON_OFF_MASK;
+    _state |= STATE_CHANGE_MASK;
+    Preferences::setCurrentState(_state);
 }
 
 void StartupWindow::on_invisibleButton_3_pressed()
 {
     //jog
-    showMainScreen("Jog", Preferences::JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+//    showMainScreen("Jog", Preferences::JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    Preferences::setCurrentGrade(0);
+    Preferences::setCurrentSpeed(Preferences::JOGGING_SPEED);
+    bool units = Preferences::getMeasurementSystem();
+    char _state = (units) ? (UNITS_MASK|ON_OFF_MASK):ON_OFF_MASK;
+    _state |= STATE_CHANGE_MASK;
+    Preferences::setCurrentState(_state);
 }
 
 void StartupWindow::on_invisibleButton_4_pressed()
 {
     //run
-    showMainScreen("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+//    showMainScreen("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    Preferences::setCurrentGrade(0);
+    Preferences::setCurrentSpeed(Preferences::RUNNING_SPEED);
+    bool units = Preferences::getMeasurementSystem();
+    char _state = (units) ? (UNITS_MASK|ON_OFF_MASK):ON_OFF_MASK;
+    _state |= STATE_CHANGE_MASK;
+    Preferences::setCurrentState(_state);
 }
 
 void StartupWindow::on_invisibleButton_5_pressed()
 {
     //hill
-    showMainScreen("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
+//    showMainScreen("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
+    Preferences::setCurrentGrade(HILL_GRADE);
+    Preferences::setCurrentSpeed(Preferences::WALKING_SPEED);
+    bool units = Preferences::getMeasurementSystem();
+    char _state = (units) ? (UNITS_MASK|ON_OFF_MASK):ON_OFF_MASK;
+    _state |= STATE_CHANGE_MASK;
+    Preferences::setCurrentState(_state);
 }
 
 void StartupWindow::on_invisibleButton_6_pressed()
 {
     //steep
-    showMainScreen("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
+//    showMainScreen("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
+    Preferences::setCurrentGrade(STEEP_GRADE);
+    Preferences::setCurrentSpeed(Preferences::WALKING_SPEED);
+    bool units = Preferences::getMeasurementSystem();
+    char _state = (units) ? (UNITS_MASK|ON_OFF_MASK):ON_OFF_MASK;
+    _state |= STATE_CHANGE_MASK;
+    Preferences::setCurrentState(_state);
 }
 
 void StartupWindow::on_invisibleButton_8_pressed()

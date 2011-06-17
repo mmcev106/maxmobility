@@ -37,11 +37,13 @@ void Preferences::setMeasurementSystem(bool Standard)
     {
         measurementSystem = STANDARD;
         Utils::setMAX_SPEED(STANDARD);
+        Utils::setDEF_SPEED(STANDARD);
     }
     else
     {
         measurementSystem = METRIC;
         Utils::setMAX_SPEED(METRIC);
+        Utils::setDEF_SPEED(METRIC);
     }
 }
 
@@ -59,7 +61,7 @@ void Preferences::setCurrentSpeed(int spd)
     if(spd > Utils::getMAX_SPEED())
         spd_diff = Utils::getMAX_SPEED();
     else
-        spd_diff = spd;
+        spd_diff = spd | (1<<7);
 }
 
 unsigned char Preferences::getCurrentState()
@@ -120,7 +122,7 @@ void Preferences::setCurrentGrade(int grd){
     if(grd > MAX_GRADE)
         grd_diff = MAX_GRADE;
     else
-        grd_diff = grd;
+        grd_diff = grd | (1<<7);
 }
 
 void Preferences::updateCurrentSpeed(int spd)

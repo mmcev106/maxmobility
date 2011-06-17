@@ -8,6 +8,7 @@
 #include "utils.h"
 #include "calibrationscreen.h"
 #include "settingsscreen.h"
+#include "startupwindow.h"
 
 static const int READ_WAIT_LIMIT = 0;//1000 * 60 * 5
 
@@ -80,11 +81,14 @@ void SerialListenerThread::handleMessage(unsigned char* data){
 
     if ( _state&ON_OFF_MASK || ( !(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK) ) )
     {
-        if (_state&ON_OFF_MASK)
-            MainScreen::getMainScreen()->setVisible(true);
         Preferences::updateCurrentGrade(grade);
         Preferences::updateCurrentSpeed(speed);
         Preferences::setHeartRate(heartRate);
+        if (_state&ON_OFF_MASK)
+        {
+            MainScreen::getMainScreen()->setVisible(true);
+            MainScreen::getMainScreen()->startWorkout(Workout::createWorkout("", speed, grade, QUICK_WORKOUT_LENGTH));
+        }
     }
     if ( _state&CALIBRATING_MASK )
     {
@@ -96,13 +100,11 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         SettingsScreen::getSettingsScreen()->setVisible(true);
         if ( _state&UNITS_MASK)
         {
-            Utils::setMAX_SPEED(STANDARD_UNITS);
-            Utils::setDEF_SPEED(STANDARD_UNITS);
+            Preferences::setMeasurementSystem(STANDARD);
         }
         else
         {
-            Utils::setMAX_SPEED(METRIC_UNITS);
-            Utils::setDEF_SPEED(METRIC_UNITS);
+            Preferences::setMeasurementSystem(METRIC);
         }
         if ( data[2]&0x01 )
             Preferences::on_time = (data[3]<<8) | (data[4]);

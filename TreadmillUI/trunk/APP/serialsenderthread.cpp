@@ -62,7 +62,7 @@ void SerialSenderThread::run(){
         messageData[6] = crc&0xFF;
 
         qDebug() << "Sending: " << Utils::toString( messageData, MESSAGE_LENGTH );
-        port->write((char*)messageData);
+        port->write((char*)messageData,8);
         port->flush();
 
         msleep(MESSAGE_DELAY);
