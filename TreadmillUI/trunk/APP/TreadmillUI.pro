@@ -46,7 +46,9 @@ HEADERS += startupwindow.h \
     intensitysliderwidget.h \
     videoplayer.h \
     WebWidget.h \
-    useragentwebpage.h
+    useragentwebpage.h \
+    settingsscreen.h \
+    calibrationscreen.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -60,7 +62,9 @@ FORMS += startupwindow.ui \
     historyscreen.ui \
     videoscreen.ui \
     usbwarningscreen.ui \
-    outdoorpathsscreen.ui
+    outdoorpathsscreen.ui \
+    settingsscreen.ui \
+    calibrationscreen.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -103,7 +107,9 @@ SOURCES += main.cpp startupwindow.cpp \
     intensitysliderwidget.cpp \
     videoplayer.cpp \
     WebWidget.cpp \
-    useragentwebpage.cpp
+    useragentwebpage.cpp \
+    settingsscreen.cpp \
+    calibrationscreen.cpp
 RESOURCES += images.qrc \
     jquery.qrc
 

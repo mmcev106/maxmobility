@@ -26,6 +26,7 @@ long lastScreenShown = std::numeric_limits<long>::min();
 //            qDebug() << now <<  " - Showing screen";
             lastScreenShown = now;
             screen->showFullScreen();
+            screen->setFocus();
         }
         else{
             qDebug() << now <<  " - Ignoring show screen call";

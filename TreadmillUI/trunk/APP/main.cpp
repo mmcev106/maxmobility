@@ -16,6 +16,8 @@
 #include "serialsenderthread.h"
 #include "state.h"
 #include "utils.h"
+#include "settingsscreen.h"
+#include "calibrationscreen.h"
 
 using namespace std;
 
@@ -119,8 +121,10 @@ int main(int argc, char *argv[])
 
     StartupWindow* startupWindow = new StartupWindow();
     MainScreen::createMainScreen(startupWindow);
-    startupWindow->showFullScreen();
+    SettingsScreen::createSettingsScreen(startupWindow);
+    CalibrationScreen::createCalibrationScreen(startupWindow);
 
+    Screens::show(startupWindow);
     a.exec();
 
     savePreferences();
