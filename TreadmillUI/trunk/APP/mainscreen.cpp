@@ -115,8 +115,6 @@ MainScreen::MainScreen(QWidget *parent) :
 
     centerWidget.raise();
 
-    Preferences::application->installEventFilter(this);
-
 //    Preferences::currentState.setOn();        // commented this out because it was causing a fault in the program (William)
 
     //    update the fields before the windows is initially displayed
@@ -266,18 +264,6 @@ MainScreen::~MainScreen()
     delete webview;
 }
 
-
-bool MainScreen::eventFilter(QObject * watched, QEvent *event)
-{
-    if(event->type() == UPPER_BOARD_EVENT_TYPE){
-        UpperBoardEvent* upperBoardEvent = (UpperBoardEvent*)event;
-
-        ui->heartRateLabel->setText(QString("%1").arg(Preferences::getHeartRate()));
-    }
-
-    return QWidget::eventFilter(watched, event);
-}
-
 void MainScreen::restartVideo(){
 
     player->stop();
@@ -324,6 +310,9 @@ void MainScreen::updateDisplay(){
 
 //    Preferences::setHeartRate(180);  // use to force a heartrate
 // *****************************************************SET SPEED HERE!!!!************************************************************
+
+    ui->heartRateLabel->setText(QString("%1").arg(Preferences::getHeartRate()));
+
     QString paceString;
     if (speed)
         paceString = QString("%1").arg(600/speed);

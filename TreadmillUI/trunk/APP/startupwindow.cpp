@@ -19,6 +19,7 @@
 #include "usbwarningscreen.h"
 #include "outdoorpathsscreen.h"
 #include "pointerevent.h"
+#include "upperboardevent.h"
 
 
 using namespace std;
@@ -62,6 +63,17 @@ StartupWindow::StartupWindow(QWidget *parent) :
     //Put the background behind the player
     ui->backgroundLabel->lower();
     ui->invisibleButton->setFocusPolicy(Qt::NoFocus);
+
+    Preferences::application->installEventFilter(this);
+}
+
+bool StartupWindow::eventFilter(QObject * watched, QEvent *event)
+{
+    if(event->type() == UPPER_BOARD_EVENT_TYPE){
+        UpperBoardEvent* upperBoardEvent = (UpperBoardEvent*)event;
+    }
+
+    return QWidget::eventFilter(watched, event);
 }
 
 void StartupWindow::sharedTimerTimeout(){

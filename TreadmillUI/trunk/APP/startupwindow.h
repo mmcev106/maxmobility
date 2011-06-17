@@ -19,6 +19,7 @@ public:
     ~StartupWindow();
 
 protected:
+    bool eventFilter(QObject * watched, QEvent *event);
     bool event(QEvent *event);
 
 private:
