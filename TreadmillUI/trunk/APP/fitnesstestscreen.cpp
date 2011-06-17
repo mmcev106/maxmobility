@@ -4,6 +4,7 @@
 #include "mainscreen.h"
 #include "preferences.h"
 #include "screens.h"
+#include <QMessageBox>
 
 static int SLIDER_X = 13;
 
@@ -42,9 +43,7 @@ void FitnessTestScreen::on_invisibleButton_5_pressed()
 
 void FitnessTestScreen::on_invisibleButton_6_pressed()
 {
-    Screens::show(new MainScreen(0, NULL));
-
-    close();
+    QMessageBox::information(this, "", "This feature is not yet implemented!");
 }
 
 void FitnessTestScreen::showTwoSliders(){

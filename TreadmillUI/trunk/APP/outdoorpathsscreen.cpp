@@ -82,9 +82,8 @@ void OutdoorPathsScreen::on_startButton_pressed(){
     float grade = percentage * MAX_GRADE;
 
     Workout* workout = Workout::createWorkout("Outdoor Path", speed, grade, timeSliderWidget.value);
+    MainScreen::getMainScreen()->startWorkout(workout);
 
-    MainScreen* mainScreen = new MainScreen(NULL, workout);
-    Screens::show(mainScreen);
     close();
 }
 

@@ -8,6 +8,7 @@
 
 #include "qextserialport.h"
 #include "state.h"
+#include "mainscreen.h"
 
 static const bool MALE = true;
 static const bool FEMALE = false;

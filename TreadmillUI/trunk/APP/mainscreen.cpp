@@ -18,6 +18,7 @@
 #include "waitstep.h"
 #include "utils.h"
 #include "time.h"
+#include "screens.h"
 
 static int HISTORY_HEIGHT = 13;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
@@ -38,13 +39,13 @@ static const int UPDATE_DISPLAY_DELAY = 100;
 static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER_HOUR;
 //QTime LAST_UPDATE=currentTime();
 
-MainScreen::MainScreen(QWidget *parent, Workout* workout) :
+MainScreen::MainScreen(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer(this))
     ,milliSecondTimer(new QTimer(this))
     ,playTimer(new QTimer(this))
-    ,startTime(QDateTime::currentMSecsSinceEpoch())
+    ,startTime(0)
     ,centerSize(756, 564)
     ,centerWidget(this)
     ,trackWidget(new QLabel(&centerWidget))
@@ -56,33 +57,13 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     ,videoMask(":/images/images/main_screen_large_video_mask.png")
     ,nextWorkoutStepIndex(0)
     ,nextWorkoutStepTime(0)
-    ,workout(workout)
+    ,workout(NULL)
     ,distance(0)
     ,speed(0)
-    ,weight(workout->_weight)
+    ,weight(0)
 {
     ui->setupUi(this);
-    setAttribute( Qt::WA_DeleteOnClose );
-    setAttribute(Qt::WA_InputMethodEnabled);
-
-    if(Preferences::measurementSystem == STANDARD){
-        ui->distanceMetricLabel->setText("mi");
-        ui->paceMetricLabel->setText("(mins/mi)");
-        ui->speedMetricLabel->setText("mph");
-        Utils::setMAX_SPEED(MAX_SPEED_MPH);
-        if (!weight)
-            weight=72.5;
-        else
-            weight=weight*.45359237;
-    }
-    else {
-        ui->distanceMetricLabel->setText("km");
-        ui->paceMetricLabel->setText("(mins/km)");
-        ui->speedMetricLabel->setText("km/h");
-        Utils::setMAX_SPEED(MAX_SPEED_KPH);
-        if (!weight)
-            weight=72.5;
-    }
+    setAttribute( Qt::WA_DeleteOnClose, false );
 
     //Put the background behind the player
     ui->backgroundLabel->lower();
@@ -90,19 +71,15 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     connect(secondTimer, SIGNAL(timeout()), this, SLOT( updateDisplay()));
     secondTimer->setSingleShot(false);
     secondTimer->setInterval(UPDATE_DISPLAY_DELAY);
-    secondTimer->start();
 
     connect(milliSecondTimer, SIGNAL(timeout()), this, SLOT( updateRunningDudeImage()));
     milliSecondTimer->setSingleShot(false);
     milliSecondTimer->setInterval(10);
-    milliSecondTimer->start();
 
     //     add the history widgets
-        zero(speedHistory, HISTORY_LENGTH);
-        zero(gradeHistory, HISTORY_LENGTH);
-        int historyY = 577;
-        gradeHistoryWidget.move(27,historyY);
-        speedHistoryWidget.move(930,historyY);
+    int historyY = 577;
+    gradeHistoryWidget.move(27,historyY);
+    speedHistoryWidget.move(930,historyY);
 
     QPoint centerPosition(133, 101);
 
@@ -136,8 +113,6 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     webview->setParent(parent);
     webview->hide();
 
-//    webWidget.setMask(videoMask.mask());
-//    webWidget.load(QUrl("http://google.com"));
     centerWidget.raise();
 
     Preferences::application->installEventFilter(this);
@@ -149,6 +124,56 @@ MainScreen::MainScreen(QWidget *parent, Workout* workout) :
     updateDisplay();
 }
 
+MainScreen* MainScreen::mainScreen = NULL;
+
+void MainScreen::createMainScreen(QWidget* parent){
+    mainScreen = new MainScreen(parent);
+    mainScreen->hide();
+}
+
+MainScreen* MainScreen::getMainScreen(){
+    return mainScreen;
+}
+
+void MainScreen::startWorkout(Workout* workout){
+
+    this->workout = workout;
+    weight = workout->_weight;
+
+    startTime = QDateTime::currentMSecsSinceEpoch();
+    distance = 0;
+    nextWorkoutStepIndex = 0;
+    nextWorkoutStepTime = 0;
+
+    if(Preferences::measurementSystem == STANDARD){
+        ui->distanceMetricLabel->setText("mi");
+        ui->paceMetricLabel->setText("(mins/mi)");
+        ui->speedMetricLabel->setText("mph");
+        Utils::setMAX_SPEED(MAX_SPEED_MPH);
+        if (!weight)
+            weight=72.5;
+        else
+            weight=weight*.45359237;
+    }
+    else {
+        ui->distanceMetricLabel->setText("km");
+        ui->paceMetricLabel->setText("(mins/km)");
+        ui->speedMetricLabel->setText("km/h");
+        Utils::setMAX_SPEED(MAX_SPEED_KPH);
+        if (!weight)
+            weight=72.5;
+    }
+
+    zero(speedHistory, HISTORY_LENGTH);
+    zero(gradeHistory, HISTORY_LENGTH);
+
+    secondTimer->start();
+    milliSecondTimer->start();
+
+    updateDisplay();
+
+    Screens::show(this);
+}
 
 void MainScreen::processNextWorkoutStep() {
 
@@ -225,6 +250,9 @@ void MainScreen::closeEvent(QCloseEvent * event){
 //    Preferences::currentState.setOff();           // Commented this out because of error in state (William)
 
     writeHistoryEntry();
+
+    secondTimer->stop();
+    milliSecondTimer->stop();
 }
 
 MainScreen::~MainScreen()

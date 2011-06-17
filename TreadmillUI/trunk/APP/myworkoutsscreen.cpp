@@ -12,6 +12,7 @@
 #include <QHBoxLayout>
 #include <QBitmap>
 #include <QScrollBar>
+#include <QMessageBox>
 
 MyWorkoutsScreen::MyWorkoutsScreen(QWidget *parent) :
     AbstractScreen(parent),
@@ -89,8 +90,7 @@ MyWorkoutsScreen::~MyWorkoutsScreen()
 }
 
 void MyWorkoutsScreen::workoutSelected(){
-    Screens::show(new MainScreen(0, NULL));
-    close();
+    QMessageBox::information(this, "", "This feature is not yet supported");
 }
 
 void MyWorkoutsScreen::deleteWorkout(){

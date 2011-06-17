@@ -1,6 +1,5 @@
 #include "startupwindow.h"
 #include "ui_startupwindow.h"
-#include "testwidget.h"
 
 #include "heartratescreen.h"
 #include "mainscreen.h"
@@ -16,7 +15,6 @@
 #include "preferences.h"
 #include <QMessageBox>
 #include "historyscreen.h"
-#include "testwidget.h"
 #include "utils.h"`
 #include "usbwarningscreen.h"
 #include "outdoorpathsscreen.h"
@@ -94,7 +92,7 @@ StartupWindow::~StartupWindow()
 }
 
 void StartupWindow::showMainScreen(QString name, float speed, float grade, int minutes){
-    Screens::show( new MainScreen(this, Workout::createWorkout(name, speed, grade, minutes)));
+    MainScreen::getMainScreen()->startWorkout(Workout::createWorkout(name, speed, grade, minutes));
 }
 
 void showUsbWarningScreen(){

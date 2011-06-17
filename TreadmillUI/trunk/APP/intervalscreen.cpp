@@ -124,7 +124,7 @@ void IntervalScreen::on_invisibleButton_hills_3_pressed()
         workout = Workout::createDynamicGradeWorkout("Grade Interval", minutes, lowGrade, highGrade, initialSpeedSlider.value, weight);
     }
 
+    MainScreen::getMainScreen()->startWorkout(workout);
 
-    Screens::show(new MainScreen(0, workout));
     close();
 }

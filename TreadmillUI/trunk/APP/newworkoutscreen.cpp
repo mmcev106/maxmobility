@@ -52,8 +52,7 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
         workout->close();
         delete workout;
 
-        Screens::show(new MainScreen(0, new Workout(workoutName, NULL, 0)));
-        close();
+        QMessageBox::information(this, "", "This feature is not yet supported.");
     }
 }
 

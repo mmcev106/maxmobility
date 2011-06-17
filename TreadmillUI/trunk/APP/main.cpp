@@ -117,7 +117,9 @@ int main(int argc, char *argv[])
 
     initializeSerialPortConnection();
 
-    ( new StartupWindow())->showFullScreen();
+    StartupWindow* startupWindow = new StartupWindow();
+    MainScreen::createMainScreen(startupWindow);
+    startupWindow->showFullScreen();
 
     a.exec();
 

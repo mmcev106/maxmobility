@@ -10,7 +10,6 @@
 #include <QCloseEvent>
 #include "step.h"
 #include "workout.h"
-//#include "webwidget2.h"
 #include <QWebView>
 #include "WebWidget.h"
 
@@ -23,7 +22,9 @@ class MainScreen : public AbstractScreen
     Q_OBJECT
 
 public:
-    explicit MainScreen(QWidget *parent, Workout* workout);
+    static void createMainScreen(QWidget* parent);
+    static MainScreen* getMainScreen();
+    void startWorkout(Workout* workout);
     ~MainScreen();
 
 protected:
@@ -59,6 +60,9 @@ private:
     int weight;
     int calories;
 
+    static MainScreen* mainScreen;
+
+    explicit MainScreen(QWidget *parent);
     void writeHistoryEntry();
     void playVideo(QString filename);
 
