@@ -5,7 +5,9 @@
 #include "qextserialport.h"
 #include "upperboardevent.h"
 #include "QApplication"
-#include "utils.h";
+#include "utils.h"
+#include "calibrationscreen.h"
+#include "settingsscreen.h"
 
 static const int READ_WAIT_LIMIT = 0;//1000 * 60 * 5
 
@@ -64,22 +66,32 @@ void SerialListenerThread::handleMessage(unsigned char* data){
     if (Preferences::getCurrentState() != _state)
     {
         // do state-based screen switching here!
+        if (Preferences::getCurrentState()&CALIBRATING_MASK)
+            CalibrationScreen::getCalibrationScreen()->setVisible(false);
+        else if (Preferences::getCurrentState()&SETUP_MASK)
+            SettingsScreen::getSettingsScreen()->setVisible(false);
+        else if (Preferences::getCurrentState()&ON_OFF_MASK)
+            MainScreen::getMainScreen()->setVisible(false);
     }
 
     Preferences::updateCurrentState(_state);
 
     if ( _state&ON_OFF_MASK || ( !(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK) ) )
     {
+        if (_state&ON_OFF_MASK)
+            MainScreen::getMainScreen()->setVisible(true);
         Preferences::updateCurrentGrade(grade);
         Preferences::updateCurrentSpeed(speed);
         Preferences::setHeartRate(heartRate);
     }
     if ( _state&CALIBRATING_MASK )
     {
+        CalibrationScreen::getCalibrationScreen()->setVisible(true);
         Preferences::updateCurrentGrade(data[4]);
     }
     if ( _state&SETUP_MASK )
     {
+        SettingsScreen::getSettingsScreen()->setVisible(true);
         if ( _state&UNITS_MASK)
         {
             Utils::setMAX_SPEED(STANDARD_UNITS);
