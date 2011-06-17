@@ -84,9 +84,9 @@ void initializeSerialPortConnection(){
     port->setDataBits(DATA_8);
     port->setStopBits(STOP_1);
     qDebug() << "Opening Port.";
-//    bool open = port->open(QextSerialPort::ReadWrite);
+    bool open = port->open(QextSerialPort::ReadWrite);
 
-    bool open = false;
+//    bool open = false;
 
     if(open){
         Preferences::serialPort = port;

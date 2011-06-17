@@ -284,22 +284,29 @@ void MainScreen::updateDisplay(){
     QString secondsString = QString("%1").arg(elapsedTime);
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
-    //int grade = Preferences::getCurrentGrade();
-    int grade=120; // use to force grade display
+    int grade = Preferences::getCurrentGrade();
+//    int grade=120; // use to force grade display
     ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
-    //int speed = Preferences::getCurrentSpeed();
-    speed=120; // use to force speed display
+    speed = Preferences::getCurrentSpeed();
+//    speed=120; // use to force speed display
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
-    Preferences::setHeartRate(180);  // use to force a heartrate
+//    Preferences::setHeartRate(180);  // use to force a heartrate
 // *****************************************************SET SPEED HERE!!!!************************************************************
-    QString paceString = QString("%1").arg(600/speed);
+    QString paceString;
+    if (speed)
+        paceString = QString("%1").arg(600/speed);
+    else
+        paceString = QString("--");
     paceString.append(":");
-
-    int intPaceSeconds = ((60*1000)/speed);
+    int intPaceSeconds;
+    if (speed)
+        intPaceSeconds = ((60*1000)/speed);
+    else
+        intPaceSeconds = 0;
     intPaceSeconds=intPaceSeconds%100;
     intPaceSeconds=intPaceSeconds*.6;
     QString paceSecondsString;

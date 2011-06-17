@@ -57,6 +57,12 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         qDebug() << "Ignoring message because the last byte was not a new line!";
         return;
     }
+    int _crc = (crcMsb<<8)|crcLsb;
+    if (_crc != Utils::CRC(data,5))
+    {
+        qDebug() << "Ignoring message because the CRC's didn't match!";
+        return;
+    }
 
     Preferences::updateCurrentGrade(grade);
     Preferences::updateCurrentSpeed(speed);

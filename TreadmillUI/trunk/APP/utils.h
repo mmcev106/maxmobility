@@ -21,6 +21,7 @@ public:
     Utils();
     static void setMAX_SPEED(bool Standard); // This will be called from the Preferences Class when unit system changes
     static QString toString(unsigned char*, int len);
+    static int CRC(char* msg, int len);
 private:
     static int MAX_SPEED;
 };

@@ -4,8 +4,7 @@
 #include "WebWidget.h"
 #include "abstractscreen.h"
 #include "qdebug.h"
-
-//! [1]
+#include "useragentwebpage.h"
 
 WebWidget::WebWidget(const QUrl& url) :
         webMask(":/images/images/main_screen_large_video_mask.png")
@@ -20,6 +19,8 @@ WebWidget::WebWidget(const QUrl& url) :
     view = new QWebView(this);
     view->load(url);
     view->settings()->setAttribute(QWebSettings::PluginsEnabled,true);
+    view->setPage(new UserAgentWebPage(this));
+
     connect(view, SIGNAL(loadFinished(bool)), SLOT(adjustLocation()));
     connect(view, SIGNAL(loadFinished(bool)), SLOT(finishLoading(bool)));
 
