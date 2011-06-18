@@ -4,6 +4,8 @@
 #include "preferences.h"
 #include "screens.h"
 #include "usbwarningscreen.h"
+#include "changespeedstep.h"
+#include "changegradestep.h"
 
 #include <QDir>
 
@@ -38,21 +40,14 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
     QString workoutName = keyboardWidget.text();
 
     if( workoutName.length() > 0){
+        QMessageBox::critical(this, "", "Using a weight of 0.  We need to add a way of detecting the user's weight.");
 
-        QString filename(Preferences::getCurrentWorkoutsPath() + "/" + workoutName);
-        QFile* workout = new QFile(filename);
+        Workout* workout = new Workout(workoutName, 0);
+        workout->steps->append(new ChangeSpeedStep(speedSlider.value));
+        workout->steps->append(new ChangeGradeStep(gradeSlider.value));
 
-        while(workout->exists()){
-            delete workout;
-            filename = filename.append(" (2)");
-            workout = new QFile(filename);
-        }
-
-        workout->open(QFile::ReadWrite);
-        workout->close();
-        delete workout;
-
-        QMessageBox::information(this, "", "This feature is not yet supported.");
+        MainScreen::getMainScreen()->recordWorkout(workout);
+        close();
     }
 }
 

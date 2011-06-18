@@ -25,6 +25,8 @@ public:
     static void createMainScreen(QWidget* parent);
     static MainScreen* getMainScreen();
     void startWorkout(Workout* workout);
+    void recordWorkout(Workout* workout);
+    void endWorkout();
     void hideWidgets(void);
 
     ~MainScreen();
@@ -61,12 +63,14 @@ private:
     int heartRate;
     int weight;
     int calories;
+    bool recordingWorkout;
 
     static MainScreen* mainScreen;
 
     explicit MainScreen(QWidget *parent);
     void writeHistoryEntry();
     void playVideo(QString filename);
+    void startWorkout(Workout* workout, bool recordWorkout);
 
 private slots:
     void on_track_invisibleButton_pressed();

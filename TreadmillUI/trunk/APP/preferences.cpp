@@ -1,10 +1,9 @@
 #include "preferences.h"
 //#include "mainscreen.h"
 #include "utils.h"
-#include <QtDebug>
+#include <QDebug>
 #include <QString>
-#include "qdebug.h"
-
+#include <QHostInfo>
 
 static QString PUSHON = "PushOn";
 const QString Preferences::FILENAME = "Preferences.txt";
@@ -184,7 +183,20 @@ QString Preferences::getCurrentDataPath(){
         }
     }
 
+    //used for testing
+    if( isTestingMode() ){
+        return "/PushOn";
+    }
+
     return NULL;
+}
+
+bool Preferences::isTestingMode(){
+    if( QHostInfo::localHostName().compare("Mark-McEvers-MacBook.local") == 0){
+        return true;
+    }
+
+    return false;
 }
 
 bool Preferences::isUsbDrivePresent(){

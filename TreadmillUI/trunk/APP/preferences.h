@@ -85,6 +85,7 @@ public:
     static QString getCurrentWorkoutsPath();
     static QString getCurrentHistoryPath();
     static bool isUsbDrivePresent();
+    static bool isTestingMode();
 };
 
 #endif // PREFERENCES_H

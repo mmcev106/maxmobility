@@ -8,6 +8,7 @@
 class Workout
 {
 public:
+    Workout(QString name, int weight);
     Workout(QString name, int weight, QList<Step*>* steps);
     ~Workout();
 

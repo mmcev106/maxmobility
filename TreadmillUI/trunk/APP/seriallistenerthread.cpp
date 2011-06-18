@@ -74,7 +74,7 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         else if (Preferences::getCurrentState()&SETUP_MASK)
             SettingsScreen::getSettingsScreen()->setVisible(false);
         else if (Preferences::getCurrentState()&ON_OFF_MASK)
-            MainScreen::getMainScreen()->setVisible(false);
+            MainScreen::getMainScreen()->endWorkout();
     }
 
     Preferences::updateCurrentState(_state);

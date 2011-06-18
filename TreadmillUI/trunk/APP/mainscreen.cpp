@@ -63,6 +63,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,grade(0)
     ,heartRate(0)
     ,weight(0)
+    ,recordingWorkout(FALSE)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose, false );
@@ -136,8 +137,18 @@ MainScreen* MainScreen::getMainScreen(){
 }
 
 void MainScreen::startWorkout(Workout* workout){
+    startWorkout(workout, FALSE);
+}
+
+void MainScreen::recordWorkout(Workout* workout){
+    startWorkout(workout, TRUE);
+}
+
+void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
 
     this->workout = workout;
+    this->recordingWorkout = recordWorkout;
+
     weight = workout->_weight;
 
     startTime = QDateTime::currentMSecsSinceEpoch();
@@ -177,7 +188,7 @@ void MainScreen::startWorkout(Workout* workout){
 
 void MainScreen::processNextWorkoutStep() {
 
-    if(workout != NULL && workout->steps != NULL){
+    if(workout != NULL){
 
         QList<Step*>* steps = workout->steps;
 
@@ -205,51 +216,78 @@ void MainScreen::processNextWorkoutStep() {
             }
         }
 
-        // We've completed the workout
-        close();
+        if(!recordingWorkout){
+            // We've completed the workout steps, and we're not recording, so end the workout.
+            Preferences::setCurrentState(ON_OFF_MASK);
+        }
     }
 }
 
 void MainScreen::writeHistoryEntry(){
 
-    if(Preferences::isUsbDrivePresent()){
-        QFile historyFile(Preferences::getCurrentHistoryPath());
-        historyFile.open(QFile::Append);
+    QFile historyFile(Preferences::getCurrentHistoryPath());
+    historyFile.open(QFile::Append);
 
-        QTextStream stream(&historyFile);
+    QTextStream stream(&historyFile);
 
-        QDate today = QDate::currentDate();
+    QDate today = QDate::currentDate();
 
-        stream << QString("%1").arg(today.month());
-        stream << '-' << QString("%1").arg(today.day());
-        stream << '-' << QString("%1").arg(today.year());
-        stream << "\t";
+    stream << QString("%1").arg(today.month());
+    stream << '-' << QString("%1").arg(today.day());
+    stream << '-' << QString("%1").arg(today.year());
+    stream << "\t";
 
-        stream << workout->name;
-        stream << "\t";
+    stream << workout->name;
+    stream << "\t";
 
-        long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
-        long seconds = elapsedTimeMillis/1000;
+    long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
+    long seconds = elapsedTimeMillis/1000;
 
-        stream << seconds;
-        stream << "\t";
+    stream << seconds;
+    stream << "\t";
 
-        stream << calories;
-        stream << "\t";
+    stream << calories;
+    stream << "\t";
 
-        stream << distance;
-        stream << "\n";
+    stream << distance;
+    stream << "\n";
 
-        stream.flush();
-        historyFile.close();
+    stream.flush();
+    historyFile.close();
+}
+
+void saveWorkout(Workout* workout){
+
+    QString filename(Preferences::getCurrentWorkoutsPath() + "/" + workout->name);
+    QFile* workoutFile = new QFile(filename);
+
+    while(workoutFile->exists()){
+        delete workoutFile;
+        filename = filename.append(" (2)");
+        workoutFile = new QFile(filename);
     }
+
+    workoutFile->open(QFile::ReadWrite);
+    workoutFile->close();
 }
 
 void MainScreen::closeEvent(QCloseEvent * event){
+    //used for testing when the escape button is pressed
+    endWorkout();
+}
+
+void MainScreen::endWorkout(){
 
 //    Preferences::currentState.setOff();           // Commented this out because of error in state (William)
+    hide();
 
-    writeHistoryEntry();
+    if(Preferences::isUsbDrivePresent()){
+        writeHistoryEntry();
+
+        if(recordingWorkout){
+            saveWorkout(workout);
+        }
+    }
 
     secondTimer->stop();
     milliSecondTimer->stop();

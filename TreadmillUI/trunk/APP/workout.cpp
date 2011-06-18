@@ -8,7 +8,14 @@
 
 static int MIN_SPEED = 1;
 
-Workout::Workout(QString name, int weight=0, QList<Step*>* steps = new QList<Step*>()) :
+Workout::Workout(QString name, int weight) :
+        name(name)
+        ,_weight(weight)
+        ,steps(new QList<Step*>())
+{
+}
+
+Workout::Workout(QString name, int weight, QList<Step*>* steps) :
         name(name)
         ,_weight(weight)
         ,steps(steps)
