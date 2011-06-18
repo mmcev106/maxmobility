@@ -11,10 +11,13 @@
 
 static int MIN_SPEED = 1;
 
+using namespace std;
+
 Workout::Workout(QString name, int weight) :
         name(name)
         ,_weight(weight)
         ,steps(new QList<Step*>())
+        ,distance(numeric_limits<float>::max())
 {
 }
 
@@ -22,6 +25,7 @@ Workout::Workout(QString name, int weight, QList<Step*>* steps) :
         name(name)
         ,_weight(weight)
         ,steps(steps)
+        ,distance(numeric_limits<float>::max())
 {
 }
 
@@ -167,6 +171,82 @@ Workout* Workout::createDynamicGradeWorkout(QString name, int minutes, int lowGr
 
         steps->append(new WaitStep(sprintLength));
     }
+
+    return workout;
+}
+
+Workout* Workout::createFitnessWorkout(int age, int weight, bool gender){
+//    Workout* workout = new Workout("Fitness", weight);
+//    QList<Step*> *steps = workout->steps;
+
+    return NULL;
+}
+
+Workout* Workout::createFireFighterWorkout( int age, int weight, bool gender){
+    Workout* workout = new Workout("Fire Fighter", weight);
+    QList<Step*> *steps = workout->steps;
+
+    //warm up
+    steps->append(new ChangeSpeedStep(3.0));
+    steps->append(new ChangeGradeStep(0));
+    steps->append(new WaitStep(3 * MILLIS_PER_MINUTE));
+
+    //workout stages
+    steps->append(new ChangeSpeedStep(4.5));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeGradeStep(2.0));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeSpeedStep(5.0));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeGradeStep(4.0));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeSpeedStep(5.5));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeGradeStep(6.0));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeSpeedStep(6.0));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeGradeStep(8.0));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeSpeedStep(6.5));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeGradeStep(10.0));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeSpeedStep(7.0));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+
+    //cool down
+    steps->append(new ChangeSpeedStep(3.0));
+    steps->append(new ChangeGradeStep(0.0));
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+
+    return workout;
+}
+
+Workout* Workout::createAirForceWorkout(float initialSpeed, int age, int weight, bool gender){
+    Workout* workout = createWorkout("Air Force", initialSpeed, 1.0, 90);
+    workout->distance = 1.5;
+
+    return workout;
+}
+
+Workout* Workout::createMarinesWorkout(float initialSpeed, int age, int weight, bool gender){
+    Workout* workout = createWorkout("Marines", initialSpeed, 1.0, 90);
+    workout->distance = 3.0;
+
+    return workout;
+}
+
+Workout* Workout::createNavyWorkout(float initialSpeed, int age, int weight, bool gender){
+    Workout* workout = createWorkout("Navy", initialSpeed, 1.0, 90);
+    workout->distance = 1.5;
+
+    return workout;
+}
+
+Workout* Workout::createArmyWorkout(float initialSpeed, int age, int weight, bool gender){
+    Workout* workout = createWorkout("Army", initialSpeed, 1.0, 90);
+    workout->distance = 2.0;
 
     return workout;
 }

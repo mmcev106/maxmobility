@@ -1,10 +1,12 @@
 #include "fitnesstestscreen.h"
 #include "ui_fitnesstestscreen.h"
 
+#include <QMessageBox>
+#include <QDebug>
+
 #include "mainscreen.h"
 #include "preferences.h"
 #include "screens.h"
-#include <QMessageBox>
 
 static int SLIDER_X = 13;
 
@@ -14,6 +16,13 @@ FitnessTestScreen::FitnessTestScreen(QWidget *parent) :
     ,weightSlider(this)
     ,ageSlider(this)
     ,initialSpeedSlider(this)
+    ,fitnessPixmap(":/images/images/Fitness-Test---06---(Fitness---Standard).png")
+    ,fireFighterPixmap(":/images/images/Fitness-Test---06---(Fire-Fighter---Standard).png")
+    ,airForcePixmap(":/images/images/Fitness-Test---06---(Air-Force---Standard).png")
+    ,marinesPixmap(":/images/images/Fitness-Test---06---(Marines---Standard).png")
+    ,navyPixmap(":/images/images/Fitness-Test---06---(Navy---Standard).png")
+    ,armyPixmap(":/images/images/Fitness-Test---06---(Army---Standard).png")
+    ,backgroundPixmap(NULL)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose );
@@ -29,6 +38,8 @@ FitnessTestScreen::FitnessTestScreen(QWidget *parent) :
     else{
         on_invisibleButton_femaleRadio_pressed();
     }
+
+    initialSpeedSlider.setValue(6.0);
 }
 
 FitnessTestScreen::~FitnessTestScreen()
@@ -41,12 +52,40 @@ void FitnessTestScreen::on_invisibleButton_5_pressed()
     close();
 }
 
-void FitnessTestScreen::on_invisibleButton_6_pressed()
+void FitnessTestScreen::on_startButton_pressed()
 {
-    QMessageBox::information(this, "", "This feature is not yet implemented!");
+    Workout* workout = NULL;
+
+    if(backgroundPixmap == &fitnessPixmap){
+        workout = Workout::createFitnessWorkout(ageSlider.value, weightSlider.value, Preferences::gender);
+    }
+    else if(backgroundPixmap == &fireFighterPixmap){
+        workout = Workout::createFireFighterWorkout( ageSlider.value, weightSlider.value, Preferences::gender);
+    }
+    else if(backgroundPixmap == &airForcePixmap){
+        workout = Workout::createAirForceWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
+    }
+    else if(backgroundPixmap == &marinesPixmap){
+        workout = Workout::createMarinesWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
+    }
+    else if(backgroundPixmap == &navyPixmap){
+        workout = Workout::createNavyWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
+    }
+    else if(backgroundPixmap == &armyPixmap){
+        workout = Workout::createArmyWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
+    }
+    else{
+        qDebug() << "An unknown fitness background was selected";
+        return;
+    }
+
+    MainScreen::getMainScreen()->startWorkout(workout);
+    close();
 }
 
 void FitnessTestScreen::showTwoSliders(){
+
+    ui->backgroundLabel->setPixmap(*backgroundPixmap);
 
     initialSpeedSlider.hide();
 
@@ -56,6 +95,8 @@ void FitnessTestScreen::showTwoSliders(){
 
 void FitnessTestScreen::showThreeSliders(){
 
+    ui->backgroundLabel->setPixmap(*backgroundPixmap);
+
     initialSpeedSlider.show();
 
     ageSlider.move(SLIDER_X,556);
@@ -64,38 +105,38 @@ void FitnessTestScreen::showThreeSliders(){
 
 void FitnessTestScreen::on_invisibleButton_8_pressed()
 {
-    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Fire-Fighter---Standard).png")));
-    showThreeSliders();
+    backgroundPixmap = &fireFighterPixmap;
+    showTwoSliders();
 }
 
 void FitnessTestScreen::on_invisibleButton_4_pressed()
 {
-    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Air-Force---Standard).png")));
+    backgroundPixmap = &airForcePixmap;
     showThreeSliders();
 }
 
 void FitnessTestScreen::on_invisibleButton_7_pressed()
 {
-    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Marines---Standard).png")));
+    backgroundPixmap = &marinesPixmap;
     showThreeSliders();
 }
 
 void FitnessTestScreen::on_invisibleButton_2_pressed()
 {
-    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Navy---Standard).png")));
+    backgroundPixmap = &navyPixmap;
     showThreeSliders();
 }
 
 void FitnessTestScreen::on_invisibleButton_3_pressed()
 {
-    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Army---Standard).png")));
+    backgroundPixmap = &armyPixmap;
     showThreeSliders();
 }
 
 void FitnessTestScreen::on_invisibleButton_fitness_pressed()
 {
 
-    ui->backgroundLabel->setPixmap(QPixmap(QString(":/images/images/Fitness-Test---06---(Fitness---Standard).png")));
+    backgroundPixmap = &fitnessPixmap;
     showTwoSliders();
 }
 

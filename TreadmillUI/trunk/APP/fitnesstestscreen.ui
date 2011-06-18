@@ -32,7 +32,7 @@
     <pixmap resource="images.qrc">:/images/images/Fitness-Test---06---(Fitness---Standard).png</pixmap>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_5">
+  <widget class="InvisibleButton" name="invisibleButton_5" native="true">
    <property name="geometry">
     <rect>
      <x>920</x>
@@ -41,11 +41,11 @@
      <height>61</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_6">
+  <widget class="InvisibleButton" name="startButton" native="true">
    <property name="geometry">
     <rect>
      <x>730</x>
@@ -54,11 +54,11 @@
      <height>91</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_fitness">
+  <widget class="InvisibleButton" name="invisibleButton_fitness" native="true">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -67,11 +67,11 @@
      <height>101</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_2">
+  <widget class="InvisibleButton" name="invisibleButton_2" native="true">
    <property name="geometry">
     <rect>
      <x>250</x>
@@ -80,11 +80,11 @@
      <height>101</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_3">
+  <widget class="InvisibleButton" name="invisibleButton_3" native="true">
    <property name="geometry">
     <rect>
      <x>460</x>
@@ -93,11 +93,11 @@
      <height>101</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_4">
+  <widget class="InvisibleButton" name="invisibleButton_4" native="true">
    <property name="geometry">
     <rect>
      <x>430</x>
@@ -106,11 +106,11 @@
      <height>101</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_7">
+  <widget class="InvisibleButton" name="invisibleButton_7" native="true">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -119,11 +119,11 @@
      <height>101</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_8">
+  <widget class="InvisibleButton" name="invisibleButton_8" native="true">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -132,7 +132,7 @@
      <height>101</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
@@ -168,7 +168,7 @@
     <pixmap resource="images.qrc">:/images/images/RadioButton_Selected.png</pixmap>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_femaleRadio">
+  <widget class="InvisibleButton" name="invisibleButton_femaleRadio" native="true">
    <property name="geometry">
     <rect>
      <x>830</x>
@@ -177,11 +177,11 @@
      <height>91</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_maleRadio">
+  <widget class="InvisibleButton" name="invisibleButton_maleRadio" native="true">
    <property name="geometry">
     <rect>
      <x>700</x>
@@ -190,11 +190,31 @@
      <height>91</height>
     </rect>
    </property>
-   <property name="text">
+   <property name="text" stdset="0">
     <string/>
    </property>
   </widget>
+  <zorder>backgroundLabel</zorder>
+  <zorder>invisibleButton_5</zorder>
+  <zorder>startButton</zorder>
+  <zorder>invisibleButton_fitness</zorder>
+  <zorder>invisibleButton_2</zorder>
+  <zorder>invisibleButton_3</zorder>
+  <zorder>invisibleButton_4</zorder>
+  <zorder>invisibleButton_7</zorder>
+  <zorder>invisibleButton_8</zorder>
+  <zorder>maleSelectedLabel</zorder>
+  <zorder>femaleSelectedLabel</zorder>
+  <zorder>invisibleButton_maleRadio</zorder>
+  <zorder>invisibleButton_femaleRadio</zorder>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>InvisibleButton</class>
+   <extends>QWidget</extends>
+   <header>invisiblebutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="images.qrc"/>
  </resources>

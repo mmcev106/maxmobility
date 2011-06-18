@@ -203,17 +203,17 @@ void MainScreen::processNextWorkoutStep() {
             if(step->getType() == SPEED_CHANGE_TYPE){
                 ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
                 Preferences::setCurrentSpeed(changeSpeedStep->speed);
-//                qDebug() << "Workout speed change: " << changeSpeedStep->speed;
+                qDebug() << "Workout speed change: " << changeSpeedStep->speed;
             }
             else if(step->getType() == GRADE_CHANGE_TYPE){
                 ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
                 Preferences::setCurrentGrade(changeGradeStep->grade);
-//                qDebug() << "Workout grade change: " << changeGradeStep->grade;
+                qDebug() << "Workout grade change: " << changeGradeStep->grade;
             }
             else if(step->getType() == WAIT_TYPE){
                 WaitStep* waitStep = (WaitStep*) step;
                 nextWorkoutStepTime += waitStep->time;
-//                qDebug() << "Workout wait: " << waitStep->time;
+                qDebug() << "Workout wait: " << waitStep->time;
 
                 /**
                   * Return.  This method will get called again during updateDisplay()
@@ -420,6 +420,11 @@ void MainScreen::updateDisplay(){
 
     //distance += ((double)speed)*HOURS_PER_UPDATE/10; // this wasn't quite right.
     distance += ((((double)speed/10)/3600000)*(thisUpdate-lastUpdate));
+
+    if(workout != NULL && distance >= workout->distance){
+        endWorkout();
+    }
+
     lastUpdate=thisUpdate;
     int distanceInt = (int) distance;
     int distanceDecimal = (distance - distanceInt) * 100;
