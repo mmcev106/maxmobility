@@ -56,7 +56,7 @@ void FitnessTestScreen::on_startButton_pressed()
 {
     Workout* workout = NULL;
 
-    if(backgroundPixmap == &fitnessPixmap){
+    if(FALSE && backgroundPixmap == &fitnessPixmap){
         workout = Workout::createFitnessWorkout(ageSlider.value, weightSlider.value, Preferences::gender);
     }
     else if(backgroundPixmap == &fireFighterPixmap){

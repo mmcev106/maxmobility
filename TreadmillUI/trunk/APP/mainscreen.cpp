@@ -19,6 +19,7 @@
 #include "utils.h"
 #include "time.h"
 #include "screens.h"
+#include "resultsscreen.h"
 
 static int HISTORY_HEIGHT = 13;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
@@ -422,6 +423,9 @@ void MainScreen::updateDisplay(){
     distance += ((((double)speed/10)/3600000)*(thisUpdate-lastUpdate));
 
     if(workout != NULL && distance >= workout->distance){
+        qDebug() << "wham " << minutes << ", " << seconds;
+        QString message = QString("You completed the " + workout->name + " fitness test in %1 minutes and %2 seconds.").arg(minutes).arg(seconds);
+        Screens::show(new ResultsScreen(NULL, message));
         endWorkout();
     }
 
