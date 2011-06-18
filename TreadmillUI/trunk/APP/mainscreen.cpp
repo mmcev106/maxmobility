@@ -64,6 +64,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,heartRate(0)
     ,weight(0)
     ,recordingWorkout(FALSE)
+    ,lastStepRecordedTime(0)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose, false );
@@ -141,6 +142,9 @@ void MainScreen::startWorkout(Workout* workout){
 }
 
 void MainScreen::recordWorkout(Workout* workout){
+
+    lastStepRecordedTime = QDateTime::currentMSecsSinceEpoch();
+
     startWorkout(workout, TRUE);
 }
 
@@ -199,14 +203,17 @@ void MainScreen::processNextWorkoutStep() {
             if(step->getType() == SPEED_CHANGE_TYPE){
                 ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
                 Preferences::setCurrentSpeed(changeSpeedStep->speed);
+//                qDebug() << "Workout speed change: " << changeSpeedStep->speed;
             }
             else if(step->getType() == GRADE_CHANGE_TYPE){
                 ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
                 Preferences::setCurrentGrade(changeGradeStep->grade);
+//                qDebug() << "Workout grade change: " << changeGradeStep->grade;
             }
             else if(step->getType() == WAIT_TYPE){
                 WaitStep* waitStep = (WaitStep*) step;
                 nextWorkoutStepTime += waitStep->time;
+//                qDebug() << "Workout wait: " << waitStep->time;
 
                 /**
                   * Return.  This method will get called again during updateDisplay()
@@ -219,6 +226,10 @@ void MainScreen::processNextWorkoutStep() {
         if(!recordingWorkout){
             // We've completed the workout steps, and we're not recording, so end the workout.
             Preferences::setCurrentState(ON_OFF_MASK);
+
+            if(Preferences::isTestingMode()){
+                endWorkout();
+            }
         }
     }
 }
@@ -256,19 +267,43 @@ void MainScreen::writeHistoryEntry(){
     historyFile.close();
 }
 
-void saveWorkout(Workout* workout){
+void MainScreen::recordWaitStep(){
+    long currentTime = QDateTime::currentMSecsSinceEpoch();
+    long waitTime = currentTime - lastStepRecordedTime;
 
-    QString filename(Preferences::getCurrentWorkoutsPath() + "/" + workout->name);
-    QFile* workoutFile = new QFile(filename);
+    workout->steps->append(new WaitStep(waitTime));
 
-    while(workoutFile->exists()){
-        delete workoutFile;
-        filename = filename.append(" (2)");
-        workoutFile = new QFile(filename);
+    lastStepRecordedTime = currentTime;
+}
+
+void MainScreen::keyPressEvent(QKeyEvent* event){
+
+    bool eventConsumed = FALSE;
+
+    if(recordingWorkout){
+        if(event->key() == Qt::Key_G){
+            eventConsumed = TRUE;
+            recordGradeChange(1.1);
+        }
+        else if(event->key() == Qt::Key_S){
+            eventConsumed = TRUE;
+            recordSpeedChange(2.2);
+        }
     }
 
-    workoutFile->open(QFile::ReadWrite);
-    workoutFile->close();
+    if(!eventConsumed){
+        AbstractScreen::keyPressEvent(event);
+    }
+}
+
+void MainScreen::recordSpeedChange(float speed){
+    recordWaitStep();
+    workout->steps->append(new ChangeSpeedStep(speed));
+}
+
+void MainScreen::recordGradeChange(float grade){
+    recordWaitStep();
+    workout->steps->append(new ChangeGradeStep(grade));
 }
 
 void MainScreen::closeEvent(QCloseEvent * event){
@@ -285,7 +320,8 @@ void MainScreen::endWorkout(){
         writeHistoryEntry();
 
         if(recordingWorkout){
-            saveWorkout(workout);
+            recordWaitStep();
+            workout->save();
         }
     }
 

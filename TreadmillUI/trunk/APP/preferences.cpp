@@ -78,8 +78,8 @@ void Preferences::setCurrentState(unsigned char _state)
     char st = (units) ? (UNITS_MASK|_state):_state;
     st |= STATE_CHANGE_MASK;
     sendState.sendstate = 81; //st;
-    qDebug() << "Change state "<<Utils::toString(&sendState.sendstate,1) ;
-    qDebug() << "current state "<<Utils::toString(&currentState.state,1) ;
+//    qDebug() << "Change state "<<Utils::toString(&sendState.sendstate,1) ;
+//    qDebug() << "current state "<<Utils::toString(&currentState.state,1) ;
 }
 
 void Preferences::updateCurrentState(unsigned char _state)

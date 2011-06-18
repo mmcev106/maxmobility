@@ -21,6 +21,9 @@ public:
     static Workout* createIntensityWorkout(QString name, int minutes, int initialSpeed, double intensityPercent, int weight);
     static Workout* createDynamicSpeedWorkout(QString name, int minutes, int lowSpeed , int highSpeed, int initialSpeed, int weight);
     static Workout* createHeartRateWorkout(QString name, int minutes, float lowPercentage , float highPercentage, int age, int weight);
+
+    void save();
+    static Workout* load(QString workoutName);
 };
 
 #endif // WORKOUT_H

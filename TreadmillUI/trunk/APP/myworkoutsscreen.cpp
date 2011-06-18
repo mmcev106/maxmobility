@@ -66,6 +66,7 @@ MyWorkoutsScreen::MyWorkoutsScreen(QWidget *parent) :
         background->setFixedSize(workoutListItemBackground.size());
 
         InvisibleButton* button = new InvisibleButton(workoutButton);
+        button->setAccessibleName(workout);
         button->highlightOnPress = false;
         button->setText(workout);
         button->setStyleSheet("font-size: 20px");
@@ -90,7 +91,14 @@ MyWorkoutsScreen::~MyWorkoutsScreen()
 }
 
 void MyWorkoutsScreen::workoutSelected(){
-    QMessageBox::information(this, "", "This feature is not yet supported");
+    InvisibleButton* button = (InvisibleButton*)sender();
+    QString workoutName = button->accessibleName();
+
+    QMessageBox::critical(this, "", "Using a weight of 0.  We need to add a way of detecting the user's weight.");
+
+    Workout* workout = Workout::load(workoutName);
+    MainScreen::getMainScreen()->startWorkout(workout);
+    close();
 }
 
 void MyWorkoutsScreen::deleteWorkout(){

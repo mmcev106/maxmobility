@@ -1,10 +1,13 @@
 #include "workout.h"
 
+#include <QDebug>
+#include <QFile>
+
 #include "changegradestep.h"
 #include "changespeedstep.h"
 #include "waitstep.h"
 #include "utils.h"
-#include <QDebug>
+#include "preferences.h"
 
 static int MIN_SPEED = 1;
 
@@ -164,6 +167,75 @@ Workout* Workout::createDynamicGradeWorkout(QString name, int minutes, int lowGr
 
         steps->append(new WaitStep(sprintLength));
     }
+
+    return workout;
+}
+
+void Workout::save(){
+
+    QString filename(Preferences::getCurrentWorkoutsPath() + "/" + name);
+    QFile* workoutFile = new QFile(filename);
+
+    while(workoutFile->exists()){
+        delete workoutFile;
+        filename = filename.append(" (2)");
+        workoutFile = new QFile(filename);
+    }
+
+    workoutFile->open(QFile::ReadWrite);
+    QTextStream stream(workoutFile);
+
+    for(int i=0; i<steps->size(); i++){
+        Step* step = steps->at(i);
+
+        if(step->getType() == SPEED_CHANGE_TYPE){
+            ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
+            stream << "speed\t" << changeSpeedStep->speed << "\n";
+        }
+        else if(step->getType() == GRADE_CHANGE_TYPE){
+            ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
+            stream << "grade\t" << changeGradeStep->grade << "\n";
+        }
+        else if(step->getType() == WAIT_TYPE){
+            WaitStep* waitStep = (WaitStep*) step;
+            stream << "wait\t" << waitStep->time << "\n";
+        }
+    }
+
+    stream.flush();
+    workoutFile->close();
+}
+
+Workout* Workout::load(QString workoutName){
+    QFile file(Preferences::getCurrentWorkoutsPath() + "/" + workoutName);
+    file.open(QFile::ReadOnly);
+    QTextStream stream( &file );
+
+    Workout* workout = new Workout(workoutName, 0);
+    QList<Step*>* steps = workout->steps;
+    QString line;
+
+    while(( line = stream.readLine() ) != NULL){
+
+        QStringList args = line.split('\t');
+
+        QString stepType = args.at(0);
+
+        if(stepType.compare("wait") == 0){
+            long waitTime = QLocale(QLocale::C).toLongLong(args.at(1));
+            steps->append(new WaitStep(waitTime));
+        }
+        else if(stepType.compare("grade") == 0){
+            float grade = QLocale(QLocale::C).toFloat(args.at(1));
+            steps->append(new ChangeGradeStep(grade));
+        }
+        else if(stepType.compare("speed") == 0){
+            float speed = QLocale(QLocale::C).toFloat(args.at(1));
+            steps->append(new ChangeSpeedStep(speed));
+        }
+    }
+
+    file.close();
 
     return workout;
 }

@@ -28,12 +28,14 @@ public:
     void recordWorkout(Workout* workout);
     void endWorkout();
     void hideWidgets(void);
+    void recordSpeedChange(float speed);
+    void recordGradeChange(float grade);
 
     ~MainScreen();
 
 protected:
     void closeEvent(QCloseEvent * event);
-//    void keyPressEvent(QKeyEvent* event);
+    void keyPressEvent(QKeyEvent* event);
 
 private:
     WebWidget* webview;
@@ -64,6 +66,7 @@ private:
     int weight;
     int calories;
     bool recordingWorkout;
+    long lastStepRecordedTime;
 
     static MainScreen* mainScreen;
 
@@ -71,6 +74,7 @@ private:
     void writeHistoryEntry();
     void playVideo(QString filename);
     void startWorkout(Workout* workout, bool recordWorkout);
+    void recordWaitStep();
 
 private slots:
     void on_track_invisibleButton_pressed();
