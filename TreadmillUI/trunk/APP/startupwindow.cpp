@@ -117,7 +117,6 @@ void showUsbQuestionMarkScreen(){
 
 void StartupWindow::on_invisibleButton_pressed()
 {
-    //walk
 //    showMainScreen("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
     Preferences::currentWorkout = Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
     Preferences::setCurrentState(ON_OFF_MASK);
@@ -125,7 +124,6 @@ void StartupWindow::on_invisibleButton_pressed()
 
 void StartupWindow::on_invisibleButton_2_pressed()
 {
-    //fast
 //    showMainScreen("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
     Preferences::currentWorkout = Workout::createWorkout("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
     Preferences::setCurrentState(ON_OFF_MASK);
@@ -133,7 +131,6 @@ void StartupWindow::on_invisibleButton_2_pressed()
 
 void StartupWindow::on_invisibleButton_3_pressed()
 {
-    //jog
 //    showMainScreen("Jog", Preferences::JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
     Preferences::currentWorkout = Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
     Preferences::setCurrentState(ON_OFF_MASK);
@@ -141,7 +138,6 @@ void StartupWindow::on_invisibleButton_3_pressed()
 
 void StartupWindow::on_invisibleButton_4_pressed()
 {
-    //run
 //    showMainScreen("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
     Preferences::currentWorkout = Workout::createWorkout("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
     Preferences::setCurrentState(ON_OFF_MASK);
@@ -149,7 +145,6 @@ void StartupWindow::on_invisibleButton_4_pressed()
 
 void StartupWindow::on_invisibleButton_5_pressed()
 {
-    //hill
 //    showMainScreen("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
     Preferences::currentWorkout = Workout::createWorkout("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
     Preferences::setCurrentState(ON_OFF_MASK);
@@ -157,7 +152,6 @@ void StartupWindow::on_invisibleButton_5_pressed()
 
 void StartupWindow::on_invisibleButton_6_pressed()
 {
-    //steep
 //    showMainScreen("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
     Preferences::currentWorkout = Workout::createWorkout("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
     Preferences::setCurrentState(ON_OFF_MASK);
