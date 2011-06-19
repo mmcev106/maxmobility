@@ -100,8 +100,7 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
         {
             if (!MainScreen::getMainScreen()->isVisible())
             {
-                MainScreen::getMainScreen()->setVisible(true);
-                MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+                Screens::show( MainScreen::getMainScreen() );
             }
         }
     }
