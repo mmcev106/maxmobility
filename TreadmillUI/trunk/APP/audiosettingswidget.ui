@@ -26,6 +26,9 @@ QWidget{font-family: Tamworth Gothic}</string>
      <height>557</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -225,6 +228,36 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="blackBackgroundLabel">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>756</width>
+     <height>564</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: black;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>blackBackgroundLabel</zorder>
+  <zorder>backgroundLabel</zorder>
+  <zorder>invisibleButton_fm</zorder>
+  <zorder>invisibleButton_usb</zorder>
+  <zorder>invisibleButton_feedback</zorder>
+  <zorder>invisibleButton_lineIn</zorder>
+  <zorder>invisibleButton_preset_1</zorder>
+  <zorder>invisibleButton_preset_2</zorder>
+  <zorder>invisibleButton_preset_3</zorder>
+  <zorder>invisibleButton_preset_4</zorder>
+  <zorder>invisibleButton_preset_5</zorder>
+  <zorder>invisibleButton_preset_6</zorder>
+  <zorder>invisibleButton_video</zorder>
+  <zorder>invisibleButton_close</zorder>
  </widget>
  <customwidgets>
   <customwidget>

@@ -123,6 +123,7 @@ MainScreen::MainScreen(QWidget *parent) :
     webview->hide();
 
     centerWidget.raise();
+    audioSettingsWidget.raise();
 
 //    Preferences::currentState.setOn();        // commented this out because it was causing a fault in the program (William)
 

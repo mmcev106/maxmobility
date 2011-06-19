@@ -15,6 +15,7 @@ AudioSettingsWidget::AudioSettingsWidget(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->backgroundLabel->lower();
+    ui->blackBackgroundLabel->lower();
 
     fmSlider.move(-18, 286);
     fmSlider.step = .2;
