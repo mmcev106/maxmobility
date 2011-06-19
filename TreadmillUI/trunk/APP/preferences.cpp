@@ -14,10 +14,10 @@ Workout* Preferences::currentWorkout;
 
 bool Preferences::measurementSystem = STANDARD;
 
-int Preferences::WALKING_SPEED;
-int Preferences::FAST_SPEED;
-int Preferences::JOGGING_SPEED;
-int Preferences::RUNNING_SPEED;
+float Preferences::WALKING_SPEED;
+float Preferences::FAST_SPEED;
+float Preferences::JOGGING_SPEED;
+float Preferences::RUNNING_SPEED;
 
 QextSerialPort* Preferences::serialPort = NULL;
 QApplication* Preferences::application = NULL;
@@ -27,7 +27,7 @@ QThread* Preferences::sender,*Preferences::listener;
 State Preferences::currentState;
 State Preferences::sendState;
 
-int Preferences::speed=0,Preferences::grade=0,Preferences::heartRate=0,Preferences::averageHeartRate=0;
+float Preferences::speed=0,Preferences::grade=0,Preferences::heartRate=0,Preferences::averageHeartRate=0;
 int Preferences::spd_diff,Preferences::grd_diff;
 int Preferences::on_time,Preferences::belt_time;
 char Preferences::command=0;
@@ -39,11 +39,13 @@ void Preferences::setMeasurementSystem(bool Standard)
     if (Standard == STANDARD)
     {
         measurementSystem = STANDARD;
+        command = 1;
         Utils::setMAX_SPEED(STANDARD);
         Utils::setDEF_SPEED(STANDARD);
     }
     else
     {
+        command = 0;
         measurementSystem = METRIC;
         Utils::setMAX_SPEED(METRIC);
         Utils::setDEF_SPEED(METRIC);
@@ -59,12 +61,12 @@ int Preferences::getCurrentSpeed(){
     return  speed;
 }
 
-void Preferences::setCurrentSpeed(int spd)
+void Preferences::setCurrentSpeed(float spd)
 {
     if(spd > Utils::getMAX_SPEED())
         spd_diff = Utils::getMAX_SPEED();
     else
-        spd_diff = spd | (1<<7);
+        spd_diff = (int)(spd*10) | (1<<7);
 }
 
 unsigned char Preferences::getCurrentState()
@@ -77,7 +79,7 @@ void Preferences::setCurrentState(unsigned char _state)
     bool units = getMeasurementSystem();
     char st = (units) ? (UNITS_MASK|_state):_state;
     st |= STATE_CHANGE_MASK;
-    sendState.sendstate = 81; //st;
+    sendState.sendstate = st; //st;
 //    qDebug() << "Change state "<<Utils::toString(&sendState.sendstate,1) ;
 //    qDebug() << "current state "<<Utils::toString(&currentState.state,1) ;
 }
@@ -126,14 +128,14 @@ int Preferences::getCurrentGrade(){
     return  grade;
 }
 
-void Preferences::setCurrentGrade(int grd){
+void Preferences::setCurrentGrade(float grd){
     if(grd > MAX_GRADE)
         grd_diff = MAX_GRADE;
     else
-        grd_diff = grd | (1<<7);
+        grd_diff = (int)(grd*10) | (1<<7);
 }
 
-void Preferences::updateCurrentSpeed(int spd)
+void Preferences::updateCurrentSpeed(float spd)
 {
     if (spd!=speed)
 //        MainScreen::updateDisplay();
@@ -154,7 +156,7 @@ void Preferences::setGradeChangeFunction(void (*func)())
     _grd_func = func;
 }
 
-void Preferences::updateCurrentGrade(int grd){
+void Preferences::updateCurrentGrade(float grd){
 
     if (grd!=grade)
 //        MainScreen::updateDisplay();

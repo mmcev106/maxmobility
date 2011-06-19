@@ -9,10 +9,11 @@ class UpperBoardEvent : public QEvent
 {
 public:
     // Wes added speed and grade from cadence
-    explicit UpperBoardEvent(unsigned char heartRate, unsigned char speed, unsigned char grade);
+    explicit UpperBoardEvent(unsigned char *_msg);
     char heartRate;
     char speed;
     char grade;
+    unsigned char MessageData[8];
 
 signals:
 

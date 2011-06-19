@@ -5,14 +5,14 @@
 #include <QDebug>
 #include "workout.h"
 
-int Utils::MAX_SPEED = MAX_SPEED_MPH;
-int Utils::DEF_SPEED = DEF_SPEED_MPH;
+float Utils::MAX_SPEED = MAX_SPEED_MPH;
+float Utils::DEF_SPEED = DEF_SPEED_MPH;
 
 Utils::Utils()
 {
 }
 
-int Utils::getMAX_SPEED(){
+float Utils::getMAX_SPEED(){
     return MAX_SPEED;
 }
 
@@ -23,7 +23,7 @@ void Utils::setMAX_SPEED(bool Standard){
         MAX_SPEED=MAX_SPEED_KPH;
 }
 
-int Utils::getDEF_SPEED(){
+float Utils::getDEF_SPEED(){
     return DEF_SPEED;
 }
 

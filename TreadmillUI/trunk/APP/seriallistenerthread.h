@@ -6,9 +6,14 @@
 
 class SerialListenerThread : public QThread
 {
+    Q_OBJECT
+
 public:
     SerialListenerThread();
     void run();
+
+signals:
+    void triggerSerialEvent(unsigned char* _data);
 
 private:
     void handleMessage(unsigned char* data);

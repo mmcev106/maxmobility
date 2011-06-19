@@ -34,17 +34,17 @@ public:
 
     static bool gender;
     static bool measurementSystem;
-    static int speed,grade,heartRate;
-    static int averageHeartRate;
+    static float speed,grade,heartRate;
+    static float averageHeartRate;
     static int spd_diff,grd_diff;
     static int on_time,belt_time;
 
     static char command;
 
-    static int WALKING_SPEED;
-    static int FAST_SPEED;
-    static int JOGGING_SPEED;
-    static int RUNNING_SPEED;
+    static float WALKING_SPEED;
+    static float FAST_SPEED;
+    static float JOGGING_SPEED;
+    static float RUNNING_SPEED;
 
     static QThread* listener,*sender;
 
@@ -64,9 +64,9 @@ public:
     static void setGradeChangeFunction( void (*func)() );       /*!< Used to set the function that runs on a grade change. */
 
     static int getCurrentSpeed();                 /*!< Used to check the current speed value. */
-    static void setCurrentSpeed(int spd);         /*!< Used to send a new speed value to lower board. */
+    static void setCurrentSpeed(float spd);         /*!< Used to send a new speed value to lower board. */
     static int getCurrentGrade();                 /*!< Used to check the current grade value. */
-    static void setCurrentGrade(int grd);         /*!< Used to send a new grade value to lower board. */
+    static void setCurrentGrade(float grd);         /*!< Used to send a new grade value to lower board. */
 
     static unsigned char getCurrentState();                /*!< Used to check the current state value. */
     static void setCurrentState(unsigned char _state);     /*!< Used to send a new state to the lower board. */
@@ -78,8 +78,8 @@ public:
     static int calculateAverageHeartRate(int thisHeartRate);    /*!< Used to calculate calories burned. */
 
 
-    static void updateCurrentSpeed(int spd);      /*!< Used by serial listener thread to update the current speed. */
-    static void updateCurrentGrade(int grd);      /*!< Used by serial listener thread to update the current grade. */
+    static void updateCurrentSpeed(float spd);      /*!< Used by serial listener thread to update the current speed. */
+    static void updateCurrentGrade(float grd);      /*!< Used by serial listener thread to update the current grade. */
     static void updateCurrentState(unsigned char _state);  /*!< Used by serial listener thread to update the current state. */
 
     static QString getCurrentWorkoutsPath();

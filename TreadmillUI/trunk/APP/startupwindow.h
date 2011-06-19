@@ -21,8 +21,11 @@ public:
     explicit StartupWindow(QWidget *parent = 0);
     ~StartupWindow();
 
+public slots:
+    void onSerialEvent(unsigned char* _data);
+
 protected:
-    bool eventFilter(QObject * watched, QEvent *event);
+//    bool eventFilter(QObject * watched, QEvent *event);
     bool event(QEvent *event);
 
 private:
@@ -49,6 +52,7 @@ private slots:
     void on_invisibleButton_2_pressed();
     void on_invisibleButton_pressed();
     void sharedTimerTimeout();
+
 };
 
 #endif // STARTUPWINDOW_H

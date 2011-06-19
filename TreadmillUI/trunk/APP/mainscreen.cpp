@@ -119,7 +119,7 @@ MainScreen::MainScreen(QWidget *parent) :
     runningDudeWidget->show();
 
     webview = new WebWidget(HOME_URL);
-    webview->setParent(parent);
+    webview->setParent(this);
     webview->hide();
 
     centerWidget.raise();
@@ -380,11 +380,11 @@ void MainScreen::updateDisplay(){
     QString secondsString = QString("%1").arg(elapsedTime);
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
-    grade = Preferences::getCurrentGrade();
+    grade = Preferences::getCurrentGrade()*10.0;
     ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
-    speed = Preferences::getCurrentSpeed();
+    speed = Preferences::getCurrentSpeed()*10.0;
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 
@@ -493,7 +493,7 @@ void MainScreen::bumpHistoryWidgets(){
 
 void MainScreen::updateHistoryWidgets(int speed, int grade){
 
-    if(Preferences::measurementSystem == STANDARD)
+    if(Preferences::getMeasurementSystem())
     {
         speedHistory[HISTORY_LENGTH-1] = speed/10;
         gradeHistory[HISTORY_LENGTH-1] = grade/10;

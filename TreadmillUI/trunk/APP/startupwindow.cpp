@@ -20,6 +20,9 @@
 #include "outdoorpathsscreen.h"
 #include "pointerevent.h"
 #include "upperboardevent.h"
+#include "calibrationscreen.h"
+#include "settingsscreen.h"
+#include "state.h"
 
 
 using namespace std;
@@ -66,13 +69,66 @@ StartupWindow::StartupWindow(QWidget *parent) :
     Preferences::application->installEventFilter(this);
 }
 
-bool StartupWindow::eventFilter(QObject * watched, QEvent *event)
+void StartupWindow::onSerialEvent(unsigned char* _data)
 {
-    if(event->type() == UPPER_BOARD_EVENT_TYPE){
-        UpperBoardEvent* upperBoardEvent = (UpperBoardEvent*)event;
+
+    unsigned char _state = (_data[1]) & (~STATE_CHANGE_MASK);
+
+    char heartRate = _data[2];
+    char speed = _data[3];
+    char grade = _data[4];
+
+    if (Preferences::getCurrentState() != _state)
+    {
+        // do state-based screen switching here!
+        if (Preferences::getCurrentState()&CALIBRATING_MASK)
+            CalibrationScreen::getCalibrationScreen()->setVisible(false);
+        else if (Preferences::getCurrentState()&SETUP_MASK)
+            SettingsScreen::getSettingsScreen()->setVisible(false);
+        else if (Preferences::getCurrentState()&ON_OFF_MASK)
+            MainScreen::getMainScreen()->endWorkout();
     }
 
-    return QWidget::eventFilter(watched, event);
+    Preferences::updateCurrentState(_state);
+
+    if ( _state&ON_OFF_MASK || ( !(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK) ) )
+    {
+        Preferences::updateCurrentGrade(((float)grade)/10.0);
+        Preferences::updateCurrentSpeed(((float)speed)/10.0);
+        Preferences::setHeartRate(heartRate);
+        if (_state&ON_OFF_MASK)
+        {
+            if (!MainScreen::getMainScreen()->isVisible())
+            {
+                MainScreen::getMainScreen()->setVisible(true);
+                MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+            }
+        }
+    }
+    if ( _state&CALIBRATING_MASK )
+    {
+        if (!CalibrationScreen::getCalibrationScreen()->isVisible())
+            CalibrationScreen::getCalibrationScreen()->setVisible(true);
+        Preferences::updateCurrentGrade(((float)grade)/10.0);
+    }
+    if ( _state&SETUP_MASK )
+    {
+        if (!SettingsScreen::getSettingsScreen()->isVisible())
+            SettingsScreen::getSettingsScreen()->setVisible(true);
+        if ( _state&UNITS_MASK)
+        {
+            Preferences::setMeasurementSystem(STANDARD);
+        }
+        else
+        {
+            Preferences::setMeasurementSystem(METRIC);
+        }
+        if ( _data[2]&0x01 )
+            Preferences::on_time = (_data[3]<<8) | (_data[4]);
+        else
+            Preferences::belt_time = (_data[3]<<8) | (_data[4]);
+    }
+
 }
 
 void StartupWindow::sharedTimerTimeout(){

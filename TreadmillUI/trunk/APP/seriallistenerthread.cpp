@@ -46,10 +46,6 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
-    unsigned char _state = (~STATE_CHANGE_MASK)&data[1];
-    char heartRate = data[2];
-    char speed = data[3];
-    char grade = data[4];  // Wes updated these to speed and grade from cadence and rawData
     int crcMsb = data[5];
     int crcLsb = data[6];
 
@@ -66,58 +62,8 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
-    if (Preferences::getCurrentState() != _state)
-    {
-        // do state-based screen switching here!
-        if (Preferences::getCurrentState()&CALIBRATING_MASK)
-            CalibrationScreen::getCalibrationScreen()->setVisible(false);
-        else if (Preferences::getCurrentState()&SETUP_MASK)
-            SettingsScreen::getSettingsScreen()->setVisible(false);
-        else if (Preferences::getCurrentState()&ON_OFF_MASK)
-            MainScreen::getMainScreen()->endWorkout();
-    }
 
-    Preferences::updateCurrentState(_state);
-
-    if ( _state&ON_OFF_MASK || ( !(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK) ) )
-    {
-        Preferences::updateCurrentGrade(grade);
-        Preferences::updateCurrentSpeed(speed);
-        Preferences::setHeartRate(heartRate);
-        if (_state&ON_OFF_MASK)
-        {
-            if (!MainScreen::getMainScreen()->isVisible())
-            {
-                MainScreen::getMainScreen()->setVisible(true);
-                MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
-            }
-        }
-    }
-    if ( _state&CALIBRATING_MASK )
-    {
-        CalibrationScreen::getCalibrationScreen()->setVisible(true);
-        Preferences::updateCurrentGrade(data[4]);
-    }
-    if ( _state&SETUP_MASK )
-    {
-        SettingsScreen::getSettingsScreen()->setVisible(true);
-        if ( _state&UNITS_MASK)
-        {
-            Preferences::setMeasurementSystem(STANDARD);
-        }
-        else
-        {
-            Preferences::setMeasurementSystem(METRIC);
-        }
-        if ( data[2]&0x01 )
-            Preferences::on_time = (data[3]<<8) | (data[4]);
-        else
-            Preferences::belt_time = (data[3]<<8) | (data[4]);
-    }
-
-//    UpperBoardEvent event(heartRate, speed, grade); // wes updated this to speed and grade from cadence
-//    QApplication::sendEvent(Preferences::application,  &event);
-
-    // Update History widgets
-
+    emit triggerSerialEvent(data);
+//    UpperBoardEvent event(data);
+//    QApplication::sendEvent(Preferences::application, &event);
 }

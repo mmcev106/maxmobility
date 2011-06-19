@@ -35,19 +35,20 @@ void loadPreferences(){
         Preferences::setMeasurementSystem(tempMeasurementSystem);
     }
 
+    Preferences::setMeasurementSystem(STANDARD);
     if (Preferences::measurementSystem == STANDARD)
     {
-        Preferences::WALKING_SPEED=20;
-        Preferences::FAST_SPEED=30;
-        Preferences::JOGGING_SPEED=60;
-        Preferences::RUNNING_SPEED=80;
+        Preferences::WALKING_SPEED=2.0;
+        Preferences::FAST_SPEED=3.0;
+        Preferences::JOGGING_SPEED=6.0;
+        Preferences::RUNNING_SPEED=8.0;
     }
     else
     {
-        Preferences::WALKING_SPEED=30;
-        Preferences::FAST_SPEED=60;
-        Preferences::JOGGING_SPEED=100;
-        Preferences::RUNNING_SPEED=140;
+        Preferences::WALKING_SPEED=3.0;
+        Preferences::FAST_SPEED=6.0;
+        Preferences::JOGGING_SPEED=10.0;
+        Preferences::RUNNING_SPEED=14.0;
     }
 
 }
@@ -62,7 +63,7 @@ void savePreferences(){
     file.close();
 }
 
-void initializeSerialPortConnection(){
+void initializeSerialPortConnection(StartupWindow* _window){
 
     QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
 
@@ -90,6 +91,7 @@ void initializeSerialPortConnection(){
         Preferences::listener->start();
         Preferences::sender = new SerialSenderThread();
         Preferences::sender->start();
+        QObject::connect(Preferences::listener,SIGNAL(triggerSerialEvent(unsigned char*)),_window,SLOT(onSerialEvent(unsigned char*)));
     }else{
         qDebug() << "An error occurred while opening the serial port!";
     }
@@ -109,12 +111,12 @@ int main(int argc, char *argv[])
 
     loadPreferences();
 
-    initializeSerialPortConnection();
-
     StartupWindow* startupWindow = new StartupWindow();
     MainScreen::createMainScreen(startupWindow);
     SettingsScreen::createSettingsScreen(startupWindow);
     CalibrationScreen::createCalibrationScreen(startupWindow);
+
+    initializeSerialPortConnection(startupWindow);
 
     Screens::show(startupWindow);
     a.exec();
