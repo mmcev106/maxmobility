@@ -193,7 +193,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
 
     updateDisplay();
 
-    Screens::show(this);
+    Preferences::setCurrentState(ON_OFF_MASK);
 }
 
 void MainScreen::processNextWorkoutStep() {

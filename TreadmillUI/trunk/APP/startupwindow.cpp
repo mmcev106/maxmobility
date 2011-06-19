@@ -174,43 +174,43 @@ void showUsbQuestionMarkScreen(){
 void StartupWindow::on_invisibleButton_pressed()
 {
 //    showMainScreen("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    Preferences::currentWorkout = Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    Preferences::setCurrentState(ON_OFF_MASK);
+    Workout* workout =  Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    MainScreen::getMainScreen()->startWorkout(workout);
 }
 
 void StartupWindow::on_invisibleButton_2_pressed()
 {
 //    showMainScreen("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    Preferences::currentWorkout = Workout::createWorkout("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    Preferences::setCurrentState(ON_OFF_MASK);
+    Workout* workout = Workout::createWorkout("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    MainScreen::getMainScreen()->startWorkout(workout);
 }
 
 void StartupWindow::on_invisibleButton_3_pressed()
 {
 //    showMainScreen("Jog", Preferences::JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    Preferences::currentWorkout = Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
-    Preferences::setCurrentState(ON_OFF_MASK);
+    Workout* workout = Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
+    MainScreen::getMainScreen()->startWorkout(workout);
 }
 
 void StartupWindow::on_invisibleButton_4_pressed()
 {
 //    showMainScreen("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    Preferences::currentWorkout = Workout::createWorkout("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    Preferences::setCurrentState(ON_OFF_MASK);
+    Workout* workout = Workout::createWorkout("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+    MainScreen::getMainScreen()->startWorkout(workout);
 }
 
 void StartupWindow::on_invisibleButton_5_pressed()
 {
 //    showMainScreen("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
-    Preferences::currentWorkout = Workout::createWorkout("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
-    Preferences::setCurrentState(ON_OFF_MASK);
+    Workout* workout = Workout::createWorkout("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
+    MainScreen::getMainScreen()->startWorkout(workout);
 }
 
 void StartupWindow::on_invisibleButton_6_pressed()
 {
 //    showMainScreen("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
-    Preferences::currentWorkout = Workout::createWorkout("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
-    Preferences::setCurrentState(ON_OFF_MASK);
+    Workout* workout = Workout::createWorkout("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
+    MainScreen::getMainScreen()->startWorkout(workout);
 }
 
 void StartupWindow::on_invisibleButton_8_pressed()

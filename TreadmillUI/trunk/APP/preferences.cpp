@@ -10,8 +10,6 @@ const QString Preferences::FILENAME = "Preferences.txt";
 
 bool Preferences::gender = MALE;
 
-Workout* Preferences::currentWorkout;
-
 bool Preferences::measurementSystem = STANDARD;
 
 float Preferences::WALKING_SPEED;

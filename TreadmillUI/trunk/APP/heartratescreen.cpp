@@ -110,9 +110,8 @@ void HeartRateScreen::on_invisibleButton_6_pressed()
         highPercentage = lowPercentage;
     }
 
-    Preferences::currentWorkout = Workout::createHeartRateWorkout("Heart Rate", minutes, lowPercentage, highPercentage, initialSpeed, weight);
-
-    Preferences::setCurrentState(ON_OFF_MASK);
+    Workout* workout = Workout::createHeartRateWorkout("Heart Rate", minutes, lowPercentage, highPercentage, initialSpeed, weight);
+    MainScreen::getMainScreen()->startWorkout( workout);
 
     close();
 }
