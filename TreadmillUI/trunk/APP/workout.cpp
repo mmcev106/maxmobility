@@ -1,5 +1,6 @@
 #include "workout.h"
 
+#include <limits>
 #include <QDebug>
 #include <QFile>
 
