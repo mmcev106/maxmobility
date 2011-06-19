@@ -107,12 +107,16 @@ MainScreen::MainScreen(QWidget *parent) :
     audioSettingsWidget.setVisible(false);
 
     trackWidget->setFixedSize(trackBitmap.size());
+    /**
+      * Since the track images are slightly smaller than the center widget,
+      * move the trackWidget a bit so all four corners are (somewhat) rounded.
+      */
+    trackWidget->move(3,3);
     trackWidget->setPixmap(trackBitmap);
     trackWidget->show();
 
     runningDudeWidget->setFixedSize(centerSize);
     runningDudeWidget->show();
-
 
     webview = new WebWidget(HOME_URL);
     webview->setParent(parent);
