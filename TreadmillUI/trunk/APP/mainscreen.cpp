@@ -166,11 +166,10 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     nextWorkoutStepIndex = 0;
     nextWorkoutStepTime = 0;
 
-    if(Preferences::measurementSystem == STANDARD){
+    if(Preferences::getMeasurementSystem()){
         ui->distanceMetricLabel->setText("mi");
         ui->paceMetricLabel->setText("(mins/mi)");
         ui->speedMetricLabel->setText("mph");
-        Utils::setMAX_SPEED(MAX_SPEED_MPH);
         if (!weight)
             weight=72.5;
         else
@@ -180,7 +179,6 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
         ui->distanceMetricLabel->setText("km");
         ui->paceMetricLabel->setText("(mins/km)");
         ui->speedMetricLabel->setText("km/h");
-        Utils::setMAX_SPEED(MAX_SPEED_KPH);
         if (!weight)
             weight=72.5;
     }
@@ -319,8 +317,8 @@ void MainScreen::closeEvent(QCloseEvent * event){
 
 void MainScreen::endWorkout(){
 
-    Preferences::setCurrentState(0);        // turn the treadmill off
-//    hide();
+//    Preferences::setCurrentState(0);        // turn the treadmill off
+    hide();
 
     if(Preferences::isUsbDrivePresent()){
         writeHistoryEntry();
