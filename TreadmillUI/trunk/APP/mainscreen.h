@@ -48,7 +48,7 @@ private:
     int nextWorkoutStepIndex;
     long nextWorkoutStepTime;
     Workout* workout;
-    double distance;
+    float distance;
     QSize centerSize;
     QWidget centerWidget;
     QLabel* trackWidget;

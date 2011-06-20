@@ -435,16 +435,15 @@ void MainScreen::updateDisplay(){
     }
 
     lastUpdate=thisUpdate;
-    int distanceInt = (int) distance;
-    int distanceDecimal = (distance - distanceInt) * 100;
+//    int distanceInt =  (int) distance;
+//    int distanceDecimal = (distance - distanceInt) * 100;
 
-    QString distanceDecString;
-    if (distanceDecimal<10)
-        distanceDecString="0";
+//    QString distanceDecString;
+//    if (distanceDecimal<10)
+//        distanceDecString="0";
 
-    distanceDecString.append(QString("%1").arg(distanceDecimal));
-    ui->distanceIntegerLabel->setText(QString("%1").arg(distanceInt));
-    ui->distanceDecimalLabel->setText(distanceDecString);
+//    distanceDecString.append(QString("%1").arg(distanceDecimal));
+    ui->distanceIntegerLabel->setText(QString::number(distance, 'f', 2));
 
     //Update Time
     QDateTime currentTime = QDateTime::currentDateTime();
