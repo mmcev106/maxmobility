@@ -2,6 +2,7 @@
 #define CALIBRATIONSCREEN_H
 
 #include <QWidget>
+#include <Qtimer>
 
 namespace Ui {
     class CalibrationScreen;
@@ -21,6 +22,12 @@ private:
 
     explicit CalibrationScreen(QWidget *parent = 0);
     Ui::CalibrationScreen *ui;
+
+    static int grade;
+    QTimer *secondTimer;
+
+private slots:
+    void updateDisplay();
 };
 
 #endif // CALIBRATIONSCREEN_H

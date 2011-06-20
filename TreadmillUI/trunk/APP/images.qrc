@@ -54,6 +54,7 @@
         <file>images/circle_brick_highlighted.png</file>
         <file>images/Settings-07.png</file>
         <file>images/blank background.png</file>
+        <file>images/Calibration.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>

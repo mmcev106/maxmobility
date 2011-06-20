@@ -114,7 +114,7 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                     Screens::show( MainScreen::getMainScreen() );
                     if (Preferences::currentWorkout==NULL)
                     {
-                        Preferences::currentWorkout = Workout::createWorkout("QStart", Utils::getDEF_SPEED(), 0, QUICK_WORKOUT_LENGTH);
+                        Preferences::currentWorkout = Workout::createWorkout("QStart", 0, 0, QUICK_WORKOUT_LENGTH);
                         MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
                     }
                 }
@@ -139,9 +139,9 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                 Preferences::setMeasurementSystem(METRIC);
             }
             if ( _data[2]&0x01 )
-                Preferences::on_time = (_data[3]<<8) | (_data[4]);
+                Preferences::on_time = (((int)_data[3])*256) + (_data[4]);
             else
-                Preferences::belt_time = (_data[3]<<8) | (_data[4]);
+                Preferences::belt_time = (((int)(_data[3]))*256) + (_data[4]);
         }
     }
 }

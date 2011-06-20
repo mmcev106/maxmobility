@@ -2,6 +2,7 @@
 #define SETTINGSSCREEN_H
 
 #include <QWidget>
+#include <QTimer>
 
 namespace Ui {
     class SettingsScreen;
@@ -21,6 +22,13 @@ private:
 
     explicit SettingsScreen(QWidget *parent = 0);
     Ui::SettingsScreen *ui;
+
+    static int belt_time,on_time;
+    QTimer *secondTimer;
+
+private slots:
+    void on_connect_invisibleButton_pressed();
+    void updateDisplay();
 };
 
 #endif // SETTINGSSCREEN_H
