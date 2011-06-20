@@ -64,7 +64,7 @@ private:
     int speed,grade;
     int heartRate;
     int weight;
-    int calories;
+    float calories;
     bool recordingWorkout;
     long lastStepRecordedTime;
 
@@ -88,7 +88,7 @@ private slots:
     void restartVideo();
     void updateHistoryWidgets(int speed, int grade);
     void bumpHistoryWidgets();
-    void calculateCalories(int speed, int grade, long elapsedTime);
+    void calculateCalories(int speed, int grade, long timeDifference);
 
 };
 

@@ -165,6 +165,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     distance = 0;
     nextWorkoutStepIndex = 0;
     nextWorkoutStepTime = 0;
+    calories=0;
 
     if(Preferences::getMeasurementSystem()){
         ui->distanceMetricLabel->setText("mi");
@@ -404,8 +405,6 @@ void MainScreen::updateDisplay(){
 
     ui->paceLabel->setText(QString("%1").arg(paceString));
 
-    calculateCalories(speed, grade, elapsedTime);
-
     //Update distance
     static long lastUpdate=0;
     if (lastUpdate==0)
@@ -413,7 +412,8 @@ void MainScreen::updateDisplay(){
     long thisUpdate=QDateTime::currentMSecsSinceEpoch();
 
     //distance += ((double)speed)*HOURS_PER_UPDATE/10; // this wasn't quite right.
-    distance += ((((double)speed/10)/3600000)*(thisUpdate-lastUpdate));
+    long timeDifference=thisUpdate-lastUpdate;
+    distance += ((((double)speed/10)/3600000)*(timeDifference));
 
     if(workout != NULL && distance >= workout->distance){
         qDebug() << "wham " << minutes << ", " << seconds;
@@ -435,6 +435,9 @@ void MainScreen::updateDisplay(){
     ui->ampmLabel->setText(time.right(2) );
     ui->dateLabel->setText(currentTime.toString(QString("dddd, M/d/yy")));
 
+    //update Calorie Counter
+    calculateCalories(speed, grade, timeDifference);
+
     //update History Widgets
     if ((seconds==0 || seconds==30) && _update)
     {
@@ -449,20 +452,24 @@ void MainScreen::updateDisplay(){
 
 }
 
-void MainScreen::calculateCalories(int speed, int grade, long elapsedTime){
+void MainScreen::calculateCalories(int speed, int grade, long timeDifference){
 //    qDebug() << "calculating Calories based on weight: " << weight << " speed: " << speed << " and grade: "<< grade ;
 
-      double calSpeed=(double)speed*2.68224;
-      double calGrade=(double)grade/1000;
-      double calTime=(double)elapsedTime/60;
-      double calO2;
+      float calSpeed=(double)speed*2.68224;
+      float calGrade=(double)grade/1000;
+      float calTime=(float)timeDifference/60000;
+     // qDebug()<< "Time in mins: " << calTime;
+      float calO2;
       if (calSpeed<99.24288)
-          calO2=0.1*calSpeed+1.8*calSpeed*calGrade+3.5;
+          calO2=0.1f*calSpeed+1.8f*calSpeed*calGrade+3.5f;
       else
-          calO2=0.2*calSpeed+0.9*calSpeed*calGrade+3.5;
-      calories=calO2*weight*3.5*(calTime/1000);
+          calO2=0.2f*calSpeed+0.9f*calSpeed*calGrade+3.5f;
 
-       ui->caloriesLabel->setText(QString("%1").arg(calories));
+
+      calories+=calO2*weight*3.5f*(calTime/(float)1000.0);// calTime/1000
+    qDebug()<< "calTime: " <<calTime/(float)1000.0 ;
+
+       ui->caloriesLabel->setText(QString("%1").arg((int)calories));
 }
 
 void MainScreen::bumpHistoryWidgets(){
