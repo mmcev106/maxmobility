@@ -25,9 +25,6 @@ const static int AVERAGE_HEART_RATE_LENGTH=10;
 class Preferences
 {
 private:
-    static void (*_spd_func)();
-    static void (*_grd_func)();
-
     static QString getCurrentDataPath();
 public:
     static const QString FILENAME;
@@ -57,9 +54,6 @@ public:
 
     static void setMeasurementSystem(bool Standard);    /*!< Used to set the Units system (mph/kph). */
     static bool getMeasurementSystem(void);             /*!< Used to read the state of the Units system. */
-
-    static void setSpeedChangeFunction( void (*func)() );       /*!< Used to set the function that runs on a speed change. */
-    static void setGradeChangeFunction( void (*func)() );       /*!< Used to set the function that runs on a grade change. */
 
     static float getCurrentSpeed();                 /*!< Used to check the current speed value. */
     static void setCurrentSpeed(float spd);         /*!< Used to send a new speed value to lower board. */

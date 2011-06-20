@@ -29,21 +29,17 @@ float Preferences::speed=0,Preferences::grade=0,Preferences::heartRate=0,Prefere
 int Preferences::spd_diff,Preferences::grd_diff;
 int Preferences::on_time,Preferences::belt_time;
 char Preferences::command=0;
-void (*Preferences::_spd_func)(void);
-void (*Preferences::_grd_func)(void);
 
 void Preferences::setMeasurementSystem(bool Standard)
 {
     if (Standard == STANDARD)
     {
         measurementSystem = STANDARD;
-        command = 1;
         Utils::setMAX_SPEED(STANDARD);
         Utils::setDEF_SPEED(STANDARD);
     }
     else
     {
-        command = 0;
         measurementSystem = METRIC;
         Utils::setMAX_SPEED(METRIC);
         Utils::setDEF_SPEED(METRIC);
@@ -61,9 +57,9 @@ float Preferences::getCurrentSpeed(){
 
 void Preferences::setCurrentSpeed(float spd)
 {
-    if(spd > Utils::getMAX_SPEED())
-        spd_diff = Utils::getMAX_SPEED();
-    else
+//    if(spd > Utils::getMAX_SPEED())
+//        spd_diff = Utils::getMAX_SPEED();
+//    else
         spd_diff = (int)(spd*10) | (1<<7);
 }
 
@@ -77,9 +73,7 @@ void Preferences::setCurrentState(unsigned char _state)
     bool units = getMeasurementSystem();
     char st = (units) ? (UNITS_MASK|_state):_state;
     st |= STATE_CHANGE_MASK;
-    sendState.sendstate = st; //st;
-//    qDebug() << "Change state "<<Utils::toString(&sendState.sendstate,1) ;
-//    qDebug() << "current state "<<Utils::toString(&currentState.state,1) ;
+    sendState.sendstate = st;
 }
 
 void Preferences::updateCurrentState(unsigned char _state)
@@ -127,39 +121,22 @@ float Preferences::getCurrentGrade(){
 }
 
 void Preferences::setCurrentGrade(float grd){
-    if(grd > MAX_GRADE)
-        grd_diff = MAX_GRADE;
-    else
+//    if(grd > MAX_GRADE)
+//        grd_diff = MAX_GRADE;
+//    else
         grd_diff = (int)(grd*10) | (1<<7);
 }
 
 void Preferences::updateCurrentSpeed(float spd)
 {
-    if (spd!=speed)
-//        MainScreen::updateDisplay();
-//        _spd_func();
     if(spd > Utils::getMAX_SPEED())
         speed = Utils::getMAX_SPEED();
     else
         speed = spd;
-    qDebug() << "Speed = " << speed;
 }
 
-void Preferences::setSpeedChangeFunction(void (*func)())
+void Preferences::updateCurrentGrade(float grd)
 {
-    _spd_func = func;
-}
-
-void Preferences::setGradeChangeFunction(void (*func)())
-{
-    _grd_func = func;
-}
-
-void Preferences::updateCurrentGrade(float grd){
-
-    if (grd!=grade)
-//        MainScreen::updateDisplay();
-//        _grd_func();
     if(grd > MAX_GRADE)
         grade = MAX_GRADE;
     else

@@ -72,62 +72,72 @@ StartupWindow::StartupWindow(QWidget *parent) :
 void StartupWindow::onSerialEvent(unsigned char* _data)
 {
 
-    unsigned char _state = (_data[1]) & (~STATE_CHANGE_MASK);
+    unsigned char _state = _data[1] & (~STATE_CHANGE_MASK);
 
-    char heartRate = _data[2];
-    char speed = _data[3];
-    char grade = _data[4];
+    unsigned char heartRate = _data[2];
+    unsigned char speed = _data[3];
+    unsigned char grade = _data[4];
 
-    if (Preferences::getCurrentState() != _state)
+    if (_state & ERROR_MASK)
     {
-        // do state-based screen switching here!
-        if (Preferences::getCurrentState()&CALIBRATING_MASK)
-            CalibrationScreen::getCalibrationScreen()->setVisible(false);
-        else if (Preferences::getCurrentState()&SETUP_MASK)
-            SettingsScreen::getSettingsScreen()->setVisible(false);
-        else if (Preferences::getCurrentState()&ON_OFF_MASK)
-            MainScreen::getMainScreen()->endWorkout();
     }
-
-    Preferences::updateCurrentState(_state);
-
-    if ( _state&ON_OFF_MASK || ( !(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK) ) )
+    else
     {
-        Preferences::updateCurrentGrade(((float)grade)/10.0);
-        Preferences::updateCurrentSpeed(((float)speed)/10.0);
-        Preferences::setHeartRate(heartRate);
-        if (_state&ON_OFF_MASK)
+        if (_state&UNITS_MASK)
+            Preferences::setMeasurementSystem(STANDARD);
+        else
+            Preferences::setMeasurementSystem(METRIC);
+
+        if (Preferences::getCurrentState() != _state)
         {
-            if (!MainScreen::getMainScreen()->isVisible())
+            // do state-based screen switching here!
+            if (Preferences::getCurrentState()&CALIBRATING_MASK)
+                CalibrationScreen::getCalibrationScreen()->setVisible(false);
+            else if (Preferences::getCurrentState()&SETUP_MASK)
+                SettingsScreen::getSettingsScreen()->setVisible(false);
+            else if (Preferences::getCurrentState()&ON_OFF_MASK)
+                MainScreen::getMainScreen()->endWorkout();
+        }
+
+        Preferences::updateCurrentState(_state);
+
+        if ( _state&ON_OFF_MASK || ( !(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK) ) )
+        {
+            Preferences::updateCurrentGrade(((float)grade)/10.0);
+            Preferences::updateCurrentSpeed(((float)speed)/10.0);
+            Preferences::setHeartRate(heartRate);
+            if (_state&ON_OFF_MASK)
             {
-                Screens::show( MainScreen::getMainScreen() );
+                if (!MainScreen::getMainScreen()->isVisible())
+                {
+                    Screens::show( MainScreen::getMainScreen() );
+                }
             }
         }
-    }
-    if ( _state&CALIBRATING_MASK )
-    {
-        if (!CalibrationScreen::getCalibrationScreen()->isVisible())
-            CalibrationScreen::getCalibrationScreen()->setVisible(true);
-        Preferences::updateCurrentGrade(((float)grade)/10.0);
-    }
-    if ( _state&SETUP_MASK )
-    {
-        if (!SettingsScreen::getSettingsScreen()->isVisible())
-            SettingsScreen::getSettingsScreen()->setVisible(true);
-        if ( _state&UNITS_MASK)
+        if ( _state&CALIBRATING_MASK )
         {
-            Preferences::setMeasurementSystem(STANDARD);
+            if (!CalibrationScreen::getCalibrationScreen()->isVisible())
+                CalibrationScreen::getCalibrationScreen()->setVisible(true);
+            Preferences::updateCurrentGrade(((float)grade)/10.0);
         }
-        else
+        if ( _state&SETUP_MASK )
         {
-            Preferences::setMeasurementSystem(METRIC);
+            if (!SettingsScreen::getSettingsScreen()->isVisible())
+                SettingsScreen::getSettingsScreen()->setVisible(true);
+            if ( _state&UNITS_MASK)
+            {
+                Preferences::setMeasurementSystem(STANDARD);
+            }
+            else
+            {
+                Preferences::setMeasurementSystem(METRIC);
+            }
+            if ( _data[2]&0x01 )
+                Preferences::on_time = (_data[3]<<8) | (_data[4]);
+            else
+                Preferences::belt_time = (_data[3]<<8) | (_data[4]);
         }
-        if ( _data[2]&0x01 )
-            Preferences::on_time = (_data[3]<<8) | (_data[4]);
-        else
-            Preferences::belt_time = (_data[3]<<8) | (_data[4]);
     }
-
 }
 
 void StartupWindow::sharedTimerTimeout(){

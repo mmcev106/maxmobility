@@ -363,30 +363,19 @@ void MainScreen::updateDisplay(){
     }
 
     int minutes = elapsedTime/60;
-    ui->elapsedTimeMinutesLabel->setText( QString("%1").arg(minutes) );
+    ui->elapsedTimeMinutesLabel->setText( QString("%1").arg(minutes,2,'g',-1,QLatin1Char('0')) );
 
     int seconds = elapsedTime%60;
-
-    QString elapsedTimeSecondsString;
-
-    if(seconds < 10){
-       elapsedTimeSecondsString = "0";
-    }
-
-    elapsedTimeSecondsString.append(QString("%1").arg(seconds));
-
-    ui->elapsedTimeSecondsLabel->setText(elapsedTimeSecondsString);
-
-    QString secondsString = QString("%1").arg(elapsedTime);
+    ui->elapsedTimeSecondsLabel->setText(QString(":%1").arg(seconds,2,'g',-1,QLatin1Char('0')));
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
-    grade = (int)(Preferences::getCurrentGrade()*10.0);
-    ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
-    ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
+    grade = (Preferences::getCurrentGrade()*10.0);
+    ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10,1,'g',-1,QLatin1Char('0')));
+    ui->gradeDecimalLabel->setText(QString(".%1").arg(grade%10,1,'g',-1,QLatin1Char('0')));
 
-    speed = (int)(Preferences::getCurrentSpeed()*10.0);
-    ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
-    ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
+    speed = (Preferences::getCurrentSpeed()*10.0);
+    ui->speedIntegerLabel->setText(QString("%1").arg(speed/10,1,'g',-1,QLatin1Char('0')));
+    ui->speedDecimalLabel->setText(QString(".%1").arg(speed%10,1,'g',-1,QLatin1Char('0')));
 
     heartRate = Preferences::getAverageHeartRate();
 // *****************************************************SET SPEED HERE!!!!************************************************************
@@ -435,15 +424,9 @@ void MainScreen::updateDisplay(){
     }
 
     lastUpdate=thisUpdate;
-//    int distanceInt =  (int) distance;
-//    int distanceDecimal = (distance - distanceInt) * 100;
 
-//    QString distanceDecString;
-//    if (distanceDecimal<10)
-//        distanceDecString="0";
-
-//    distanceDecString.append(QString("%1").arg(distanceDecimal));
-    ui->distanceIntegerLabel->setText(QString::number(distance, 'f', 2));
+    ui->distanceIntegerLabel->setText(QString("%1").arg(((int)distance)%100));
+    ui->distanceDecimalLabel->setText(QString(".%1").arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')));
 
     //Update Time
     QDateTime currentTime = QDateTime::currentDateTime();
@@ -495,13 +478,12 @@ void MainScreen::updateHistoryWidgets(int speed, int grade){
     if(Preferences::getMeasurementSystem())
     {
         speedHistory[HISTORY_LENGTH-1] = speed/10;
-        gradeHistory[HISTORY_LENGTH-1] = grade/10;
     }
     else
     {
         speedHistory[HISTORY_LENGTH-1] = speed/20;
-        gradeHistory[HISTORY_LENGTH-1] = grade/20;
     }
+    gradeHistory[HISTORY_LENGTH-1] = grade/10;
 
         // I think this way was better than it is now.. maybe I'll change it back someday
 //        speedHistory[HISTORY_LENGTH-1] = (speed*16)/(Utils::getMAX_SPEED());

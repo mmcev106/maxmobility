@@ -11,7 +11,7 @@ static const float MAX_SPEED_KPH = 20.0;
 static const float DEF_SPEED_MPH = 1.5;
 static const float DEF_SPEED_KPH = 2.5;
 
-static const float MAX_GRADE = 120;
+static const float MAX_GRADE = 12.0;
 
 static const bool STANDARD_UNITS = true;
 static const bool METRIC_UNITS = false;
