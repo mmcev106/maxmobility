@@ -61,19 +61,19 @@ public:
     static void setSpeedChangeFunction( void (*func)() );       /*!< Used to set the function that runs on a speed change. */
     static void setGradeChangeFunction( void (*func)() );       /*!< Used to set the function that runs on a grade change. */
 
-    static int getCurrentSpeed();                 /*!< Used to check the current speed value. */
+    static float getCurrentSpeed();                 /*!< Used to check the current speed value. */
     static void setCurrentSpeed(float spd);         /*!< Used to send a new speed value to lower board. */
-    static int getCurrentGrade();                 /*!< Used to check the current grade value. */
+    static float getCurrentGrade();                 /*!< Used to check the current grade value. */
     static void setCurrentGrade(float grd);         /*!< Used to send a new grade value to lower board. */
 
     static unsigned char getCurrentState();                /*!< Used to check the current state value. */
     static void setCurrentState(unsigned char _state);     /*!< Used to send a new state to the lower board. */
 
-    static int getHeartRate();                 /*!< Used to check the current grade value. */
-    static void setHeartRate(int hrtrt);         /*!< Used to send a new grade value to lower board. */
+    static float getHeartRate();                 /*!< Used to check the current grade value. */
+    static void setHeartRate(float hrtrt);         /*!< Used to send a new grade value to lower board. */
 
-    static int getAverageHeartRate();                           /*!< Used to store last read in Heart Rate. */
-    static int calculateAverageHeartRate(int thisHeartRate);    /*!< Used to calculate calories burned. */
+    static float getAverageHeartRate();                           /*!< Used to store last read in Heart Rate. */
+    static float calculateAverageHeartRate(float thisHeartRate);    /*!< Used to calculate calories burned. */
 
 
     static void updateCurrentSpeed(float spd);      /*!< Used by serial listener thread to update the current speed. */

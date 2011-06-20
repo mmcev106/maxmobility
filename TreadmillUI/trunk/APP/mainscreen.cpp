@@ -380,11 +380,11 @@ void MainScreen::updateDisplay(){
     QString secondsString = QString("%1").arg(elapsedTime);
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
-    grade = Preferences::getCurrentGrade()*10.0;
+    grade = (int)(Preferences::getCurrentGrade()*10.0);
     ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10));
     ui->gradeDecimalLabel->setText(QString("%1").arg(grade%10));
 
-    speed = Preferences::getCurrentSpeed()*10.0;
+    speed = (int)(Preferences::getCurrentSpeed()*10.0);
     ui->speedIntegerLabel->setText(QString("%1").arg(speed/10));
     ui->speedDecimalLabel->setText(QString("%1").arg(speed%10));
 

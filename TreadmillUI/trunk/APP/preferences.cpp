@@ -55,7 +55,7 @@ bool Preferences::getMeasurementSystem(void)
     return measurementSystem;
 }
 
-int Preferences::getCurrentSpeed(){
+float Preferences::getCurrentSpeed(){
     return  speed;
 }
 
@@ -87,7 +87,7 @@ void Preferences::updateCurrentState(unsigned char _state)
     currentState.state = _state;
 }
 
-int Preferences::getHeartRate(){
+float Preferences::getHeartRate(){
 
     int thisHeartRate=heartRate;
     if (thisHeartRate<50)
@@ -96,14 +96,14 @@ int Preferences::getHeartRate(){
      return  thisHeartRate;
 }
 
-int Preferences::getAverageHeartRate(){
+float Preferences::getAverageHeartRate(){
     return averageHeartRate;
 }
 
-int Preferences::calculateAverageHeartRate(int thisHeartRate){
-    static int heartRates=0;
+float Preferences::calculateAverageHeartRate(float thisHeartRate){
+    static float heartRates=0;
     static int i=0;
-    static int sum=0;
+    static float sum=0;
     heartRates+=thisHeartRate;
     i++;
 
@@ -116,13 +116,13 @@ int Preferences::calculateAverageHeartRate(int thisHeartRate){
     }
 }
 
-void Preferences::setHeartRate(int hrtrt)
+void Preferences::setHeartRate(float hrtrt)
 {
     heartRate=hrtrt;
     calculateAverageHeartRate(heartRate);
 }
 
-int Preferences::getCurrentGrade(){
+float Preferences::getCurrentGrade(){
     return  grade;
 }
 
@@ -142,6 +142,7 @@ void Preferences::updateCurrentSpeed(float spd)
         speed = Utils::getMAX_SPEED();
     else
         speed = spd;
+    qDebug() << "Speed = " << speed;
 }
 
 void Preferences::setSpeedChangeFunction(void (*func)())
