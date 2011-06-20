@@ -36,8 +36,6 @@ public:
     static int spd_diff,grd_diff;
     static int on_time,belt_time;
 
-    static char command;
-
     static float WALKING_SPEED;
     static float FAST_SPEED;
     static float JOGGING_SPEED;
@@ -51,6 +49,8 @@ public:
     static State currentState;
 
     static State sendState;
+
+    static Workout* currentWorkout;
 
     static void setMeasurementSystem(bool Standard);    /*!< Used to set the Units system (mph/kph). */
     static bool getMeasurementSystem(void);             /*!< Used to read the state of the Units system. */

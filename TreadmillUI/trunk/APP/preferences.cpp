@@ -25,10 +25,11 @@ QThread* Preferences::sender,*Preferences::listener;
 State Preferences::currentState;
 State Preferences::sendState;
 
+Workout* Preferences::currentWorkout=NULL;
+
 float Preferences::speed=0,Preferences::grade=0,Preferences::heartRate=0,Preferences::averageHeartRate=0;
 int Preferences::spd_diff,Preferences::grd_diff;
 int Preferences::on_time,Preferences::belt_time;
-char Preferences::command=0;
 
 void Preferences::setMeasurementSystem(bool Standard)
 {

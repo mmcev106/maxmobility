@@ -108,7 +108,7 @@ void IntervalScreen::on_invisibleButton_hills_3_pressed()
     int minutes = timeSlider.value;
     int weight = weightSlider.value;
 
-    Workout* workout;
+//    Workout* workout;
 
     qDebug()<< "weight selected was: " << weight;
     if(lowSpeedSlider.isVisible()){
@@ -116,17 +116,17 @@ void IntervalScreen::on_invisibleButton_hills_3_pressed()
         int lowSpeed = lowSpeedSlider.value*10;
         int highSpeed = highSpeedSlider.value*10;
 
-        workout = Workout::createDynamicSpeedWorkout("Speed Interval", minutes, lowSpeed, highSpeed, initialGradeSlider.value, weight);
+        Preferences::currentWorkout= Workout::createDynamicSpeedWorkout("Speed Interval", minutes, lowSpeed, highSpeed, initialGradeSlider.value, weight);
     }
     else{
 
         int lowGrade = lowGradeSlider.value;
         int highGrade = highGradeSlider.value;
 
-        workout = Workout::createDynamicGradeWorkout("Grade Interval", minutes, lowGrade, highGrade, initialSpeedSlider.value, weight);
+        Preferences::currentWorkout= Workout::createDynamicGradeWorkout("Grade Interval", minutes, lowGrade, highGrade, initialSpeedSlider.value, weight);
     }
 
-    MainScreen::getMainScreen()->startWorkout( workout);
+    MainScreen::getMainScreen()->startWorkout( Preferences::currentWorkout);
 
     close();
 }

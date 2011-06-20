@@ -319,8 +319,8 @@ void MainScreen::closeEvent(QCloseEvent * event){
 
 void MainScreen::endWorkout(){
 
-//    Preferences::currentState.setOff();           // Commented this out because of error in state (William)
-    hide();
+    Preferences::setCurrentState(0);        // turn the treadmill off
+//    hide();
 
     if(Preferences::isUsbDrivePresent()){
         writeHistoryEntry();
@@ -330,6 +330,7 @@ void MainScreen::endWorkout(){
             workout->save();
         }
     }
+    Preferences::currentWorkout=NULL;
 
     secondTimer->stop();
     milliSecondTimer->stop();

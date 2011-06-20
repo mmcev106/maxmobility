@@ -54,8 +54,8 @@ void FatBurnScreen::on_invisibleButton_6_pressed()
     int minutes = timeSlider.value;
     int weight = weightSlider.value;
 
-    Workout* workout = Workout::createIntensityWorkout("Fat Burn", minutes, speedSlider.value*10, intensitySlider.getPercentage()*10, weight);
-    MainScreen::getMainScreen()->startWorkout( workout);
+    Preferences::currentWorkout= Workout::createIntensityWorkout("Fat Burn", minutes, speedSlider.value*10, intensitySlider.getPercentage()*10, weight);
+    MainScreen::getMainScreen()->startWorkout( Preferences::currentWorkout);
 
     close();
 }
