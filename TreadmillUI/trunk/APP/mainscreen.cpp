@@ -380,7 +380,7 @@ void MainScreen::updateDisplay(){
     double fracpart = modf(Preferences::getCurrentGrade(),&intpart);
     if (fracpart>0 && fracpart < 0.1)
         fracpart = 0.1;
-    grade = intpart + fracpart; // intpart*10 + fracpart*10;
+    grade = intpart + fracpart;
 
     ui->gradeIntegerLabel->setText(QString("%1").arg(intpart,1,'g',-1,QLatin1Char('0')));
     ui->gradeDecimalLabel->setText(QString(".%1").arg(fracpart*10));
@@ -388,7 +388,7 @@ void MainScreen::updateDisplay(){
     fracpart = modf(Preferences::getCurrentSpeed(),&intpart);
     if (fracpart>0 && fracpart < 0.1)
         fracpart = 0.1;
-    speed = intpart + fracpart; // speed = intpart*10 + fracpart*10;
+    speed = intpart + fracpart;
 
     ui->speedIntegerLabel->setText(QString("%1").arg(intpart,1,'g',-1,QLatin1Char('0')));
     ui->speedDecimalLabel->setText(QString(".%1").arg(fracpart*10));
@@ -401,7 +401,7 @@ void MainScreen::updateDisplay(){
     QString paceString;
     if (speed)
     {
-        paceString = QString("%1").arg(60/(int)speed); // 600/speed
+        paceString = QString("%1").arg(60/(int)speed);
         paceString.append(":");
         int intPaceSeconds = 60000/speed;
         intPaceSeconds= (((intPaceSeconds)%1000)*6)/100;
@@ -425,9 +425,8 @@ void MainScreen::updateDisplay(){
         lastUpdate=QDateTime::currentMSecsSinceEpoch();
     long thisUpdate=QDateTime::currentMSecsSinceEpoch();
 
-    //distance += ((double)speed)*HOURS_PER_UPDATE/10; // this wasn't quite right.
     long timeDifference=thisUpdate-lastUpdate;
-    distance += ((((double)speed)/3600000)*(timeDifference)); //(double)speed/10
+    distance += ((((double)speed)/3600000)*(timeDifference));
 
     if(workout != NULL && distance >= workout->distance){
         qDebug() << "wham " << minutes << ", " << seconds;
@@ -467,23 +466,18 @@ void MainScreen::updateDisplay(){
 }
 
 void MainScreen::calculateCalories(int speed, int grade, long timeDifference){
-//    qDebug() << "calculating Calories based on weight: " << weight << " speed: " << speed << " and grade: "<< grade ;
 
       float calSpeed=(double)speed*26.8224;
       float calGrade=(double)grade/100;
       float calTime=(float)timeDifference/60000;
-     // qDebug()<< "Time in mins: " << calTime;
       float calO2;
       if (calSpeed<99.24288)
           calO2=0.1f*calSpeed+1.8f*calSpeed*calGrade+3.5f;
       else
           calO2=0.2f*calSpeed+0.9f*calSpeed*calGrade+3.5f;
 
-
-      calories+=calO2*weight*3.5f*(calTime/(float)1000.0);// calTime/1000
-//    qDebug()<< "calTime: " <<calTime/(float)1000.0 ;
-
-       ui->caloriesLabel->setText(QString("%1").arg((int)calories));
+      calories+=calO2*weight*3.5f*(calTime/(float)1000.0);
+      ui->caloriesLabel->setText(QString("%1").arg((int)calories));
 }
 
 void MainScreen::bumpHistoryWidgets(){

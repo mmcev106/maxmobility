@@ -84,6 +84,8 @@ void OutdoorPathsScreen::on_startButton_pressed(){
     Workout* workout = Workout::createWorkout("Outdoor Path", speed, grade, timeSliderWidget.value);
     MainScreen::getMainScreen()->startWorkout(workout);
 
+    MainScreen::getMainScreen()-> playVideo("trails.avi"); // change to string of which video was selected later
+
     close();
 }
 

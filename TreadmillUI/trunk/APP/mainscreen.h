@@ -33,6 +33,7 @@ public:
 
     ~MainScreen();
 
+    void playVideo(QString filename);
 protected:
     void closeEvent(QCloseEvent * event);
     void keyPressEvent(QKeyEvent* event);
@@ -72,7 +73,7 @@ private:
 
     explicit MainScreen(QWidget *parent);
     void writeHistoryEntry();
-    void playVideo(QString filename);
+
     void startWorkout(Workout* workout, bool recordWorkout);
     void recordWaitStep();
 
