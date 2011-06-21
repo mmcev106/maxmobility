@@ -10,14 +10,14 @@ class ScoreWidget : public QWidget
 {
     Q_OBJECT
 
-public:
-    explicit ScoreWidget(QWidget *parent = 0, QString title = "", QString results = "");
-    ~ScoreWidget();
+    public:
+        explicit ScoreWidget(QWidget *parent = 0, QString title = "", QString results = "");
+        ~ScoreWidget();
 
-private:
-     Ui::ScoreWidget *ui;
+    private:
+         Ui::ScoreWidget *ui;
 
-private slots:
+    private slots:
 
 };
 

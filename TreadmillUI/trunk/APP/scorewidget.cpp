@@ -12,7 +12,7 @@ ScoreWidget::ScoreWidget(QWidget *parent, QString title, QString results) :
     ui->messageLabel->setText(results);
 }
 
-ScoreWidget::~AudioSettingsWidget()
+ScoreWidget::~ScoreWidget()
 {
     ui->titleLabel->setText("");
     ui->messageLabel->setText("");

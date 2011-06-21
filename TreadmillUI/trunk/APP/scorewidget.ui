@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AudioSettingsWidget</class>
- <widget class="QWidget" name="AudioSettingsWidget">
+ <class>ScoreWidget</class>
+ <widget class="QWidget" name="ScoreWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -65,7 +65,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="messageLabel_2">
+  <widget class="QLabel" name="messageLabel">
    <property name="geometry">
     <rect>
      <x>0</x>
