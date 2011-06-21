@@ -26,14 +26,14 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Settings-07.png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/Setup.png</pixmap>
    </property>
   </widget>
   <widget class="InvisibleButton" name="connect_invisibleButton" native="true">
    <property name="geometry">
     <rect>
      <x>517</x>
-     <y>457</y>
+     <y>480</y>
      <width>242</width>
      <height>83</height>
     </rect>
@@ -170,7 +170,7 @@
   <widget class="QLabel" name="beltTimeLabel">
    <property name="geometry">
     <rect>
-     <x>350</x>
+     <x>390</x>
      <y>223</y>
      <width>217</width>
      <height>71</height>
@@ -292,7 +292,7 @@
   <widget class="QLabel" name="unitsLabel">
    <property name="geometry">
     <rect>
-     <x>668</x>
+     <x>710</x>
      <y>225</y>
      <width>232</width>
      <height>71</height>

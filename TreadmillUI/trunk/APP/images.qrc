@@ -55,6 +55,9 @@
         <file>images/Settings-07.png</file>
         <file>images/blank background.png</file>
         <file>images/Calibration.png</file>
+        <file>images/Dialogue-Box.png</file>
+        <file>images/Record-New-Workout.png</file>
+        <file>images/Setup.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>
