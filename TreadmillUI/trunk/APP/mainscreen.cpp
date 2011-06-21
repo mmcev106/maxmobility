@@ -235,7 +235,7 @@ void MainScreen::processNextWorkoutStep() {
 
         if(!recordingWorkout){
             // We've completed the workout steps, and we're not recording, so end the workout.
-            Preferences::setCurrentState(ON_OFF_MASK);
+            Preferences::setCurrentState(0);
 
             if(Preferences::isTestingMode()){
                 endWorkout();
@@ -374,20 +374,24 @@ void MainScreen::updateDisplay(){
     ui->elapsedTimeSecondsLabel->setText(QString(":%1").arg(seconds,2,'g',-1,QLatin1Char('0')));
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
-    double val;
-    double fracpart = modf(Preferences::getCurrentGrade(),&val);
+    double intpart;
+    double fracpart = modf(Preferences::getCurrentGrade(),&intpart);
     if (fracpart>0 && fracpart < 0.1)
         fracpart = 0.1;
+    grade = intpart*10 + fracpart*10;
 
-    ui->gradeIntegerLabel->setText(QString("%1").arg(val,1,'g',-1,QLatin1Char('0')));
+    ui->gradeIntegerLabel->setText(QString("%1").arg(intpart,1,'g',-1,QLatin1Char('0')));
     ui->gradeDecimalLabel->setText(QString(".%1").arg(fracpart*10));
 
-    fracpart = modf(Preferences::getCurrentSpeed(),&val);
+    fracpart = modf(Preferences::getCurrentSpeed(),&intpart);
     if (fracpart>0 && fracpart < 0.1)
         fracpart = 0.1;
+    speed = intpart*10 + fracpart*10;
 
-    ui->speedIntegerLabel->setText(QString("%1").arg(val,1,'g',-1,QLatin1Char('0')));
+    ui->speedIntegerLabel->setText(QString("%1").arg(intpart,1,'g',-1,QLatin1Char('0')));
     ui->speedDecimalLabel->setText(QString(".%1").arg(fracpart*10));
+
+
 
     heartRate = Preferences::getAverageHeartRate();
 // *****************************************************SET SPEED HERE!!!!************************************************************
