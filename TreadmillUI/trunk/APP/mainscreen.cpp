@@ -114,7 +114,7 @@ MainScreen::MainScreen(QWidget *parent) :
     audioSettingsWidget.setVisible(false);
 
     scoreWidget.setParent(&centerWidget);
-    scoreWidget.setPVisible(false);
+    scoreWidget.setVisible(false);
 
     trackWidget->setFixedSize(trackBitmap.size());
     /**

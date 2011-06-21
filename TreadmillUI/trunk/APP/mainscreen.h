@@ -14,6 +14,7 @@
 #include "WebWidget.h"
 #include "tranquilselectionwidget.h"
 #include "trailselectionwidget.h"
+#include "scorewidget.h"
 
 #define TRACK_VISUALIZATION 0
 #define WEB_VISUALIZATION   1
@@ -69,6 +70,7 @@ private:
     HistoryWidget speedHistoryWidget;
     HistoryWidget gradeHistoryWidget;
     AudioSettingsWidget audioSettingsWidget;
+    ScoreWidget scoreWidget;
 
     TranquilSelectionWidget tranquilSelectionWidget;
     TrailSelectionWidget trailSelectionWidget;

@@ -15,6 +15,7 @@ public:
     ~ScoreWidget();
 
 private:
+     Ui::ScoreWidget *ui;
 
 private slots:
 

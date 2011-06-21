@@ -7,6 +7,7 @@ ScoreWidget::ScoreWidget(QWidget *parent, QString title, QString results) :
     ui(new Ui::ScoreWidget)
 
 {
+    ui->setupUi(this);
     ui->titleLabel->setText(title);
     ui->messageLabel->setText(results);
 }
