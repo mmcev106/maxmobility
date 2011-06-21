@@ -579,6 +579,36 @@ void MainScreen::playVideo(QString filename)
     player->videoWidget()->show();
 }
 
+void MainScreen::ShowWidget(int selection,QString video)
+{
+    hideWidgets();
+    switch (selection)
+    {
+    case 0:
+        trackWidget->show();
+        runningDudeWidget->show();
+        break;
+    case 1:
+        webview->setVisible(true);
+        break;
+    case 2:
+        playVideo("trails.avi");
+        break;
+    case 3:
+        playVideo("tranquil.avi");
+        break;
+    case 4:
+        playVideo(video);
+        break;
+    case 5:     //  use for displaying text for the firefighter/fitness tests
+        break;
+    default:
+        trackWidget->show();
+        runningDudeWidget->show();
+        break;
+    }
+}
+
 void MainScreen::hideWidgets(void)
 {
     webview->setVisible(false);

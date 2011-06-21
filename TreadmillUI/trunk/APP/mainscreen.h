@@ -34,6 +34,7 @@ public:
     ~MainScreen();
 
     void playVideo(QString filename);
+    void ShowWidget(int selection,QString video);
 protected:
     void closeEvent(QCloseEvent * event);
     void keyPressEvent(QKeyEvent* event);
