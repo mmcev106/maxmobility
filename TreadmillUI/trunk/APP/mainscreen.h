@@ -61,7 +61,7 @@ private:
     HistoryWidget gradeHistoryWidget;
     AudioSettingsWidget audioSettingsWidget;
     QPixmap videoMask;
-    int speed,grade;
+    float speed,grade;
     int heartRate;
     int weight;
     float calories;

@@ -379,7 +379,7 @@ void MainScreen::updateDisplay(){
     double fracpart = modf(Preferences::getCurrentGrade(),&intpart);
     if (fracpart>0 && fracpart < 0.1)
         fracpart = 0.1;
-    grade = intpart*10 + fracpart*10;
+    grade = intpart + fracpart; // intpart*10 + fracpart*10;
 
     ui->gradeIntegerLabel->setText(QString("%1").arg(intpart,1,'g',-1,QLatin1Char('0')));
     ui->gradeDecimalLabel->setText(QString(".%1").arg(fracpart*10));
@@ -387,7 +387,7 @@ void MainScreen::updateDisplay(){
     fracpart = modf(Preferences::getCurrentSpeed(),&intpart);
     if (fracpart>0 && fracpart < 0.1)
         fracpart = 0.1;
-    speed = intpart*10 + fracpart*10;
+    speed = intpart + fracpart; // speed = intpart*10 + fracpart*10;
 
     ui->speedIntegerLabel->setText(QString("%1").arg(intpart,1,'g',-1,QLatin1Char('0')));
     ui->speedDecimalLabel->setText(QString(".%1").arg(fracpart*10));
@@ -399,26 +399,24 @@ void MainScreen::updateDisplay(){
 
     QString paceString;
     if (speed)
-        paceString = QString("%1").arg(600/speed);
+    {
+        paceString = QString("%1").arg(60/(int)speed); // 600/speed
+        paceString.append(":");
+        int intPaceSeconds = 60000/speed;
+        intPaceSeconds= (((intPaceSeconds)%1000)*6)/100;
+        QString paceSecondsString;
+        if (intPaceSeconds < 10)
+            paceSecondsString = "0";
+
+        paceSecondsString.append(QString("%1").arg(intPaceSeconds));
+        paceString.append(paceSecondsString);
+    }
+
+
     else
         paceString = QString("--");
-    paceString.append(":");
-    int intPaceSeconds;
-    if (speed)
-        intPaceSeconds = ((60*1000)/speed);
-    else
-        intPaceSeconds = 0;
-    intPaceSeconds=intPaceSeconds%100;
-    intPaceSeconds=intPaceSeconds*.6;
-    QString paceSecondsString;
 
-    if (intPaceSeconds < 10)
-        paceSecondsString = "0";
-
-    paceSecondsString.append(QString("%1").arg(intPaceSeconds));
-    paceString.append(paceSecondsString);
-
-    ui->paceLabel->setText(QString("%1").arg(paceString));
+     ui->paceLabel->setText(QString("%1").arg(paceString));
 
     //Update distance
     static long lastUpdate=0;
@@ -428,7 +426,7 @@ void MainScreen::updateDisplay(){
 
     //distance += ((double)speed)*HOURS_PER_UPDATE/10; // this wasn't quite right.
     long timeDifference=thisUpdate-lastUpdate;
-    distance += ((((double)speed/10)/3600000)*(timeDifference));
+    distance += ((((double)speed)/3600000)*(timeDifference)); //(double)speed/10
 
     if(workout != NULL && distance >= workout->distance){
         qDebug() << "wham " << minutes << ", " << seconds;
@@ -470,8 +468,8 @@ void MainScreen::updateDisplay(){
 void MainScreen::calculateCalories(int speed, int grade, long timeDifference){
 //    qDebug() << "calculating Calories based on weight: " << weight << " speed: " << speed << " and grade: "<< grade ;
 
-      float calSpeed=(double)speed*2.68224;
-      float calGrade=(double)grade/1000;
+      float calSpeed=(double)speed*26.8224;
+      float calGrade=(double)grade/100;
       float calTime=(float)timeDifference/60000;
      // qDebug()<< "Time in mins: " << calTime;
       float calO2;
@@ -498,13 +496,13 @@ void MainScreen::updateHistoryWidgets(int speed, int grade){
 
     if(Preferences::getMeasurementSystem())
     {
-        speedHistory[HISTORY_LENGTH-1] = speed/10;
+        speedHistory[HISTORY_LENGTH-1] = speed;
     }
     else
     {
-        speedHistory[HISTORY_LENGTH-1] = speed/20;
+        speedHistory[HISTORY_LENGTH-1] = speed/2;
     }
-    gradeHistory[HISTORY_LENGTH-1] = grade/10;
+    gradeHistory[HISTORY_LENGTH-1] = grade;
 
         // I think this way was better than it is now.. maybe I'll change it back someday
 //        speedHistory[HISTORY_LENGTH-1] = (speed*16)/(Utils::getMAX_SPEED());
@@ -524,7 +522,7 @@ void MainScreen::updateRunningDudeImage(){
     QString type;
     int imageCount;
 
-    if(speed < Preferences::FAST_SPEED){
+    if(speed < Preferences::FAST_SPEED){ // What about RAMMING SPEED?!
         type= "Walk";
         imageCount = 149;
     }
