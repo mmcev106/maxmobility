@@ -20,6 +20,7 @@
 #include "time.h"
 #include "screens.h"
 #include "resultsscreen.h"
+#include "scorewidget.h"
 
 static int HISTORY_HEIGHT = 13;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
@@ -111,6 +112,9 @@ MainScreen::MainScreen(QWidget *parent) :
 
     audioSettingsWidget.setParent(&centerWidget);
     audioSettingsWidget.setVisible(false);
+
+    scoreWidget.setParent(&centerWidget);
+    scoreWidget.setPVisible(false);
 
     trackWidget->setFixedSize(trackBitmap.size());
     /**

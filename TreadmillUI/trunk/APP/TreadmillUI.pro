@@ -51,7 +51,8 @@ HEADERS += startupwindow.h \
     calibrationscreen.h \
     resultsscreen.h \
     tranquilselectionwidget.h \
-    trailselectionwidget.h
+    trailselectionwidget.h \
+    scorewidget.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -70,7 +71,8 @@ FORMS += startupwindow.ui \
     calibrationscreen.ui \
     resultsscreen.ui \
     tranquilselectionwidget.ui \
-    trailselectionwidget.ui
+    trailselectionwidget.ui \
+    scorewidget.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -118,7 +120,8 @@ SOURCES += main.cpp startupwindow.cpp \
     calibrationscreen.cpp \
     resultsscreen.cpp \
     tranquilselectionwidget.cpp \
-    trailselectionwidget.cpp
+    trailselectionwidget.cpp \
+    scorewidget.cpp
 RESOURCES += images.qrc \
     jquery.qrc
 
