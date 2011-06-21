@@ -15,12 +15,14 @@ NewWorkoutScreen::NewWorkoutScreen(QWidget *parent) :
     ,keyboardWidget(this)
     ,speedSlider(this)
     ,gradeSlider(this)
+    ,weightSlider(this)
 {
     ui->setupUi(this);
 
-    keyboardWidget.move(157,148);
-    speedSlider.move(122, 585);
-    gradeSlider.move(122, 677);
+    keyboardWidget.move(157,45);
+    speedSlider.move(122, 493);
+    gradeSlider.move(122, 585);
+    weightSlider.move(122, 677);
 
     ui->backgroundLabel->lower();
 }
@@ -40,9 +42,8 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
     QString workoutName = keyboardWidget.text();
 
     if( workoutName.length() > 0){
-        QMessageBox::critical(this, "", "Using a weight of 0.  We need to add a way of detecting the user's weight.");
 
-        Workout* workout = new Workout(workoutName, 0);
+        Workout* workout = new Workout(workoutName, weightSlider.value);
         workout->steps->append(new ChangeSpeedStep(speedSlider.value));
         workout->steps->append(new ChangeGradeStep(gradeSlider.value));
 

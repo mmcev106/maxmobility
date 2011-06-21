@@ -94,9 +94,8 @@ void MyWorkoutsScreen::workoutSelected(){
     InvisibleButton* button = (InvisibleButton*)sender();
     QString workoutName = button->accessibleName();
 
-    QMessageBox::critical(this, "", "Using a weight of 0.  We need to add a way of detecting the user's weight.");
-
     Workout* workout = Workout::load(workoutName);
+
     MainScreen::getMainScreen()->startWorkout(workout);
     close();
 }

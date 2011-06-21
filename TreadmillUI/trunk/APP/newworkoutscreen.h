@@ -6,6 +6,7 @@
 #include "keyboardwidget.h"
 #include "gradesliderwidget.h"
 #include "speedsliderwidget.h"
+#include "weightsliderwidget.h"
 
 namespace Ui {
     class NewWorkoutScreen;
@@ -24,6 +25,7 @@ private:
     KeyboardWidget keyboardWidget;
     SpeedSliderWidget speedSlider;
     GradeSliderWidget gradeSlider;
+    WeightSliderWidget weightSlider;
 
 private slots:
     void on_invisibleButton_7_clicked();

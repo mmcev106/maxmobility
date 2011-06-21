@@ -266,6 +266,8 @@ void Workout::save(){
     workoutFile->open(QFile::ReadWrite);
     QTextStream stream(workoutFile);
 
+    stream << "weight" << "\t" << _weight << "\n";
+
     for(int i=0; i<steps->size(); i++){
         Step* step = steps->at(i);
 
@@ -301,18 +303,23 @@ Workout* Workout::load(QString workoutName){
         QStringList args = line.split('\t');
 
         QString stepType = args.at(0);
+        QString stepValue = args.at(1);
 
         if(stepType.compare("wait") == 0){
-            long waitTime = QLocale(QLocale::C).toLongLong(args.at(1));
+            long waitTime = QLocale(QLocale::C).toLongLong(stepValue);
             steps->append(new WaitStep(waitTime));
         }
         else if(stepType.compare("grade") == 0){
-            float grade = QLocale(QLocale::C).toFloat(args.at(1));
+            float grade = QLocale(QLocale::C).toFloat(stepValue);
             steps->append(new ChangeGradeStep(grade));
         }
         else if(stepType.compare("speed") == 0){
-            float speed = QLocale(QLocale::C).toFloat(args.at(1));
+            float speed = QLocale(QLocale::C).toFloat(stepValue);
             steps->append(new ChangeSpeedStep(speed));
+        }
+        else if(stepType.compare("weight") == 0){
+            int weight = QLocale(QLocale::C).toInt(stepValue);
+            workout->_weight = weight;
         }
     }
 

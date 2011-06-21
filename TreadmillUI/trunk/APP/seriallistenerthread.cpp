@@ -1,10 +1,11 @@
 #include "seriallistenerthread.h"
 
-#include "qdebug.h"
+#include <QDebug>
+#include <QApplication>
+
 #include "preferences.h"
 #include "qextserialport.h"
 #include "upperboardevent.h"
-#include "QApplication"
 #include "utils.h"
 #include "calibrationscreen.h"
 #include "settingsscreen.h"

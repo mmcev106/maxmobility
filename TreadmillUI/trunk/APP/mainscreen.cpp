@@ -192,7 +192,12 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
 
     updateDisplay();
 
-    Preferences::setCurrentState(ON_OFF_MASK);
+    if(Preferences::isTestingMode()){
+        Screens::show(this);
+    }
+    else{
+        Preferences::setCurrentState(ON_OFF_MASK);
+    }
 }
 
 void MainScreen::processNextWorkoutStep() {
@@ -467,7 +472,7 @@ void MainScreen::calculateCalories(int speed, int grade, long timeDifference){
 
 
       calories+=calO2*weight*3.5f*(calTime/(float)1000.0);// calTime/1000
-    qDebug()<< "calTime: " <<calTime/(float)1000.0 ;
+//    qDebug()<< "calTime: " <<calTime/(float)1000.0 ;
 
        ui->caloriesLabel->setText(QString("%1").arg((int)calories));
 }
