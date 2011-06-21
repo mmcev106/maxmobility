@@ -205,7 +205,7 @@ void StartupWindow::on_invisibleButton_2_pressed()
 void StartupWindow::on_invisibleButton_3_pressed()
 {
 //    showMainScreen("Jog", Preferences::JOGGING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    Workout* workout = Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
+    Preferences::currentWorkout= Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
     MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
 }
 
