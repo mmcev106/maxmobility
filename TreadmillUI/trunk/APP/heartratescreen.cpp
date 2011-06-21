@@ -99,7 +99,7 @@ void HeartRateScreen::on_invisibleButton_6_pressed()
 {
     int minutes = (int) timeSlider.value;
     float lowPercentage = lowPercentageSlider.value/100;
-    int initialSpeed = (int) initialSpeedSlider.value*10;
+    int initialSpeed = (int) initialSpeedSlider.value;
     int weight = (int) weightSlider.value;
 
     float highPercentage;

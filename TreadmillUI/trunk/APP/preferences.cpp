@@ -58,10 +58,10 @@ float Preferences::getCurrentSpeed(){
 
 void Preferences::setCurrentSpeed(float spd)
 {
-//    if(spd > Utils::getMAX_SPEED())
-//        spd_diff = Utils::getMAX_SPEED();
-//    else
-        spd_diff = (int)(spd*10) | (1<<7);
+    if (spd>speed)
+        spd_diff = ((int)((spd-speed)*10)) | (1<<7);
+    else
+        spd_diff = (int)((speed-spd)*10);
 }
 
 unsigned char Preferences::getCurrentState()
@@ -122,10 +122,10 @@ float Preferences::getCurrentGrade(){
 }
 
 void Preferences::setCurrentGrade(float grd){
-//    if(grd > MAX_GRADE)
-//        grd_diff = MAX_GRADE;
-//    else
-        grd_diff = (int)(grd*10) | (1<<7);
+    if (grd>grade)
+        grd_diff = ((int)((grd-grade)*10)) | (1<<7);
+    else
+        grd_diff = (int)((grade-grd)*10);
 }
 
 void Preferences::updateCurrentSpeed(float spd)

@@ -335,6 +335,7 @@ void MainScreen::endWorkout(){
         }
     }
     Preferences::currentWorkout=NULL;
+    delete workout;
 
     secondTimer->stop();
     milliSecondTimer->stop();
@@ -390,8 +391,6 @@ void MainScreen::updateDisplay(){
 
     ui->speedIntegerLabel->setText(QString("%1").arg(intpart,1,'g',-1,QLatin1Char('0')));
     ui->speedDecimalLabel->setText(QString(".%1").arg(fracpart*10));
-
-
 
     heartRate = Preferences::getAverageHeartRate();
 // *****************************************************SET SPEED HERE!!!!************************************************************

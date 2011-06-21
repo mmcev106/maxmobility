@@ -193,32 +193,32 @@ Workout* Workout::createFireFighterWorkout( int age, int weight, bool gender){
     steps->append(new WaitStep(3 * MILLIS_PER_MINUTE));
 
     //workout stages
-    steps->append(new ChangeSpeedStep(4.5));
+    steps->append(new ChangeSpeedStep(4.5));        // +1.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeGradeStep(2.0));
+    steps->append(new ChangeGradeStep(2.0));        // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(5.0));
+    steps->append(new ChangeSpeedStep(5.0));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeGradeStep(4.0));
+    steps->append(new ChangeGradeStep(4.0));        // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(5.5));
+    steps->append(new ChangeSpeedStep(5.5));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeGradeStep(6.0));
+    steps->append(new ChangeGradeStep(6.0));        // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(6.0));
+    steps->append(new ChangeSpeedStep(6.0));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeGradeStep(8.0));
+    steps->append(new ChangeGradeStep(8.0));        // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(6.5));
+    steps->append(new ChangeSpeedStep(6.5));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeGradeStep(10.0));
+    steps->append(new ChangeGradeStep(10.0));       // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(7.0));
+    steps->append(new ChangeSpeedStep(7.0));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
 
     //cool down
-    steps->append(new ChangeSpeedStep(3.0));
-    steps->append(new ChangeGradeStep(0.0));
+    steps->append(new ChangeSpeedStep(3.0));        // -4.0
+    steps->append(new ChangeGradeStep(0.0));        // -10.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
 
     return workout;

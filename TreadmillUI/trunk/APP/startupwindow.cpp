@@ -114,7 +114,7 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                     Screens::show( MainScreen::getMainScreen() );
                     if (Preferences::currentWorkout==NULL)
                     {
-                        Preferences::currentWorkout = Workout::createWorkout("QStart", 0, 0, QUICK_WORKOUT_LENGTH);
+                        Preferences::currentWorkout = Workout::createWorkout("QStart", Utils::getDEF_SPEED(), 0, QUICK_WORKOUT_LENGTH);
                         MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
                     }
                 }

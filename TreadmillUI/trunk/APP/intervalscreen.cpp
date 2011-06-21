@@ -113,8 +113,8 @@ void IntervalScreen::on_invisibleButton_hills_3_pressed()
     qDebug()<< "weight selected was: " << weight;
     if(lowSpeedSlider.isVisible()){
 
-        int lowSpeed = lowSpeedSlider.value*10;
-        int highSpeed = highSpeedSlider.value*10;
+        int lowSpeed = lowSpeedSlider.value;
+        int highSpeed = highSpeedSlider.value;
 
         Preferences::currentWorkout= Workout::createDynamicSpeedWorkout("Speed Interval", minutes, lowSpeed, highSpeed, initialGradeSlider.value, weight);
     }
