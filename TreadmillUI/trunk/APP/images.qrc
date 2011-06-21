@@ -58,6 +58,11 @@
         <file>images/Dialogue-Box.png</file>
         <file>images/Record-New-Workout.png</file>
         <file>images/Setup.png</file>
+        <file>images/Audio-Screen-With-Marker.png</file>
+        <file>images/Check.png</file>
+        <file>images/Trails.png</file>
+        <file>images/Tranquil.png</file>
+        <file>images/X.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>

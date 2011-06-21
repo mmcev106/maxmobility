@@ -55,6 +55,8 @@ MainScreen::MainScreen(QWidget *parent) :
     ,gradeHistoryWidget(this, gradeHistory, HISTORY_LENGTH, HISTORY_HEIGHT, CIRCLE_BRICK_URL, HIGHLIGHTED_CIRCLE_BRICK_URL)
     ,player(new Phonon::VideoPlayer(Phonon::VideoCategory, this))
     ,audioSettingsWidget(NULL)
+    ,tranquilSelectionWidget(NULL)
+    ,trailSelectionWidget(NULL)
     ,videoMask(":/images/images/main_screen_large_video_mask.png")
     ,nextWorkoutStepIndex(0)
     ,nextWorkoutStepTime(0)
@@ -101,9 +103,13 @@ MainScreen::MainScreen(QWidget *parent) :
     player->videoWidget()->hide();
     connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
 
-    audioSettingsWidget.setParent(this);
-    audioSettingsWidget.move(centerPosition);
-    audioSettingsWidget.setMask(videoMask.mask());
+    tranquilSelectionWidget.setParent(&centerWidget);
+    tranquilSelectionWidget.setVisible(false);
+
+    trailSelectionWidget.setParent(&centerWidget);
+    trailSelectionWidget.setVisible(false);
+
+    audioSettingsWidget.setParent(&centerWidget);
     audioSettingsWidget.setVisible(false);
 
     trackWidget->setFixedSize(trackBitmap.size());
@@ -540,7 +546,7 @@ void MainScreen::updateRunningDudeImage(){
 
 void MainScreen::on_audioButton_invisibleButton_pressed()
 {
-    webview->hide();
+    hideWidgets();
     audioSettingsWidget.setVisible(!audioSettingsWidget.isVisible());
 }
 
@@ -561,12 +567,16 @@ void MainScreen::on_web_invisibleButton_pressed()
 
 void MainScreen::on_trails_invisibleButton_pressed()
 {
-    playVideo("trails.avi");
+    hideWidgets();
+    trailSelectionWidget.setVisible(true);
+//    playVideo("trails.avi");
 }
 
 void MainScreen::on_tranquil_invisibleButton_pressed()
 {
-    playVideo("tranquil.avi");
+    hideWidgets();
+    tranquilSelectionWidget.setVisible(true);
+//    playVideo("tranquil.avi");
 }
 
 void MainScreen::playVideo(QString filename)
@@ -584,23 +594,17 @@ void MainScreen::ShowWidget(int selection,QString video)
     hideWidgets();
     switch (selection)
     {
-    case 0:
+    case TRACK_VISUALIZATION:
         trackWidget->show();
         runningDudeWidget->show();
         break;
-    case 1:
+    case WEB_VISUALIZATION:
         webview->setVisible(true);
         break;
-    case 2:
-        playVideo("trails.avi");
-        break;
-    case 3:
-        playVideo("tranquil.avi");
-        break;
-    case 4:
+    case VIDEO_VISUALIZATION:
         playVideo(video);
         break;
-    case 5:     //  use for displaying text for the firefighter/fitness tests
+    case SCORE_VISUALIZATION:
         break;
     default:
         trackWidget->show();
@@ -617,4 +621,7 @@ void MainScreen::hideWidgets(void)
     player->videoWidget()->hide();
     player->setVisible(false);
     runningDudeWidget->hide();
+    audioSettingsWidget.setVisible(false);
+    tranquilSelectionWidget.setVisible(false);
+    trailSelectionWidget.setVisible(false);
 }

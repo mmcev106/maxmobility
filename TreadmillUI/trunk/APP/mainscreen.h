@@ -12,6 +12,13 @@
 #include "workout.h"
 #include <QWebView>
 #include "WebWidget.h"
+#include "tranquilselectionwidget.h"
+#include "trailselectionwidget.h"
+
+#define TRACK_VISUALIZATION 0
+#define WEB_VISUALIZATION   1
+#define VIDEO_VISUALIZATION 3
+#define SCORE_VISUALIZATION 4
 
 namespace Ui {
     class MainScreen;
@@ -62,6 +69,10 @@ private:
     HistoryWidget speedHistoryWidget;
     HistoryWidget gradeHistoryWidget;
     AudioSettingsWidget audioSettingsWidget;
+
+    TranquilSelectionWidget tranquilSelectionWidget;
+    TrailSelectionWidget trailSelectionWidget;
+
     QPixmap videoMask;
     float speed,grade;
     int heartRate;

@@ -49,7 +49,9 @@ HEADERS += startupwindow.h \
     useragentwebpage.h \
     settingsscreen.h \
     calibrationscreen.h \
-    resultsscreen.h
+    resultsscreen.h \
+    tranquilselectionwidget.h \
+    trailselectionwidget.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -66,7 +68,9 @@ FORMS += startupwindow.ui \
     outdoorpathsscreen.ui \
     settingsscreen.ui \
     calibrationscreen.ui \
-    resultsscreen.ui
+    resultsscreen.ui \
+    tranquilselectionwidget.ui \
+    trailselectionwidget.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -112,7 +116,9 @@ SOURCES += main.cpp startupwindow.cpp \
     useragentwebpage.cpp \
     settingsscreen.cpp \
     calibrationscreen.cpp \
-    resultsscreen.cpp
+    resultsscreen.cpp \
+    tranquilselectionwidget.cpp \
+    trailselectionwidget.cpp
 RESOURCES += images.qrc \
     jquery.qrc
 

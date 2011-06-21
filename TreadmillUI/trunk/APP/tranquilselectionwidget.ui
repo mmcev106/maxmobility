@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TranquilSelectionWidget</class>
+ <widget class="QWidget" name="TranquilSelectionWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>756</width>
+    <height>564</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
+QWidget{font-family: Tamworth Gothic}</string>
+  </property>
+  <widget class="QLabel" name="backgroundLabel">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>750</width>
+     <height>557</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/Tranquil.png</pixmap>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="ducks_invisibleButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>33</y>
+     <width>239</width>
+     <height>233</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="blackBackgroundLabel">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>756</width>
+     <height>564</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: black;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="fish_invisibleButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>425</x>
+     <y>32</y>
+     <width>239</width>
+     <height>233</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="ocean_invisibleButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>298</y>
+     <width>239</width>
+     <height>233</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="waterfall_invisibleButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>427</x>
+     <y>296</y>
+     <width>239</width>
+     <height>233</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>InvisibleButton</class>
+   <extends>QWidget</extends>
+   <header>invisiblebutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections/>
+</ui>
