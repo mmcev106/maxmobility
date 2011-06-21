@@ -63,6 +63,7 @@
         <file>images/Trails.png</file>
         <file>images/Tranquil.png</file>
         <file>images/X.png</file>
+        <file>images/Active Radio Button.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>

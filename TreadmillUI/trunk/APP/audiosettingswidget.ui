@@ -33,15 +33,15 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Audio Screen - (FM).png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/Audio-Screen-With-Marker.png</pixmap>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_fm" native="true">
+  <widget class="InvisibleButton" name="invisibleButton_internet" native="true">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>90</y>
-     <width>91</width>
+     <x>559</x>
+     <y>106</y>
+     <width>111</width>
      <height>91</height>
     </rect>
    </property>
@@ -52,8 +52,8 @@ QWidget{font-family: Tamworth Gothic}</string>
   <widget class="InvisibleButton" name="invisibleButton_usb" native="true">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>90</y>
+     <x>217</x>
+     <y>106</y>
      <width>91</width>
      <height>91</height>
     </rect>
@@ -65,10 +65,10 @@ QWidget{font-family: Tamworth Gothic}</string>
   <widget class="InvisibleButton" name="invisibleButton_feedback" native="true">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>90</y>
-     <width>141</width>
-     <height>91</height>
+     <x>221</x>
+     <y>424</y>
+     <width>360</width>
+     <height>85</height>
     </rect>
    </property>
    <property name="text" stdset="0">
@@ -78,125 +78,11 @@ QWidget{font-family: Tamworth Gothic}</string>
   <widget class="InvisibleButton" name="invisibleButton_lineIn" native="true">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>100</y>
-     <width>101</width>
-     <height>81</height>
+     <x>31</x>
+     <y>101</y>
+     <width>112</width>
+     <height>97</height>
     </rect>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_1" native="true">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>500</y>
-     <width>91</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Tamworth Gothic</family>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_2" native="true">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>500</y>
-     <width>91</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Tamworth Gothic</family>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_3" native="true">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>500</y>
-     <width>91</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Tamworth Gothic</family>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_4" native="true">
-   <property name="geometry">
-    <rect>
-     <x>380</x>
-     <y>500</y>
-     <width>91</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Tamworth Gothic</family>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_5" native="true">
-   <property name="geometry">
-    <rect>
-     <x>510</x>
-     <y>500</y>
-     <width>91</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Tamworth Gothic</family>
-     <pointsize>16</pointsize>
-    </font>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_preset_6" native="true">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>500</y>
-     <width>91</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Tamworth Gothic</family>
-     <pointsize>16</pointsize>
-    </font>
    </property>
    <property name="text" stdset="0">
     <string/>
@@ -205,8 +91,8 @@ QWidget{font-family: Tamworth Gothic}</string>
   <widget class="InvisibleButton" name="invisibleButton_video" native="true">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>90</y>
+     <x>395</x>
+     <y>104</y>
      <width>91</width>
      <height>91</height>
     </rect>
@@ -218,8 +104,8 @@ QWidget{font-family: Tamworth Gothic}</string>
   <widget class="InvisibleButton" name="invisibleButton_close" native="true">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>0</y>
+     <x>663</x>
+     <y>12</y>
      <width>61</width>
      <height>61</height>
     </rect>
@@ -244,20 +130,99 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="label_feedback">
+   <property name="geometry">
+    <rect>
+     <x>238</x>
+     <y>437</y>
+     <width>75</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/Check.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_lineIn">
+   <property name="geometry">
+    <rect>
+     <x>54</x>
+     <y>131</y>
+     <width>62</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/Active Radio Button.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_usb">
+   <property name="geometry">
+    <rect>
+     <x>229</x>
+     <y>132</y>
+     <width>62</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/Active Radio Button.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_video">
+   <property name="geometry">
+    <rect>
+     <x>403</x>
+     <y>131</y>
+     <width>62</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/Active Radio Button.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_internet">
+   <property name="geometry">
+    <rect>
+     <x>578</x>
+     <y>131</y>
+     <width>62</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/Active Radio Button.png</pixmap>
+   </property>
+  </widget>
   <zorder>blackBackgroundLabel</zorder>
   <zorder>backgroundLabel</zorder>
-  <zorder>invisibleButton_fm</zorder>
+  <zorder>invisibleButton_internet</zorder>
   <zorder>invisibleButton_usb</zorder>
   <zorder>invisibleButton_feedback</zorder>
   <zorder>invisibleButton_lineIn</zorder>
-  <zorder>invisibleButton_preset_1</zorder>
-  <zorder>invisibleButton_preset_2</zorder>
-  <zorder>invisibleButton_preset_3</zorder>
-  <zorder>invisibleButton_preset_4</zorder>
-  <zorder>invisibleButton_preset_5</zorder>
-  <zorder>invisibleButton_preset_6</zorder>
   <zorder>invisibleButton_video</zorder>
   <zorder>invisibleButton_close</zorder>
+  <zorder>label_feedback</zorder>
+  <zorder>label_lineIn</zorder>
+  <zorder>label_usb</zorder>
+  <zorder>label_video</zorder>
+  <zorder>label_internet</zorder>
  </widget>
  <customwidgets>
   <customwidget>
