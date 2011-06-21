@@ -374,13 +374,20 @@ void MainScreen::updateDisplay(){
     ui->elapsedTimeSecondsLabel->setText(QString(":%1").arg(seconds,2,'g',-1,QLatin1Char('0')));
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
-    grade = (Preferences::getCurrentGrade()*10.0);
-    ui->gradeIntegerLabel->setText(QString("%1").arg(grade/10,1,'g',-1,QLatin1Char('0')));
-    ui->gradeDecimalLabel->setText(QString(".%1").arg(grade%10,1,'g',-1,QLatin1Char('0')));
+    double val;
+    double fracpart = modf(Preferences::getCurrentGrade(),&val);
+    if (fracpart>0 && fracpart < 0.1)
+        fracpart = 0.1;
 
-    speed = (Preferences::getCurrentSpeed()*10.0);
-    ui->speedIntegerLabel->setText(QString("%1").arg(speed/10,1,'g',-1,QLatin1Char('0')));
-    ui->speedDecimalLabel->setText(QString(".%1").arg(speed%10,1,'g',-1,QLatin1Char('0')));
+    ui->gradeIntegerLabel->setText(QString("%1").arg(val,1,'g',-1,QLatin1Char('0')));
+    ui->gradeDecimalLabel->setText(QString(".%1").arg(fracpart*10));
+
+    fracpart = modf(Preferences::getCurrentSpeed(),&val);
+    if (fracpart>0 && fracpart < 0.1)
+        fracpart = 0.1;
+
+    ui->speedIntegerLabel->setText(QString("%1").arg(val,1,'g',-1,QLatin1Char('0')));
+    ui->speedDecimalLabel->setText(QString(".%1").arg(fracpart*10));
 
     heartRate = Preferences::getAverageHeartRate();
 // *****************************************************SET SPEED HERE!!!!************************************************************
