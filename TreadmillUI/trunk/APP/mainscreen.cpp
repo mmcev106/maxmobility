@@ -334,6 +334,8 @@ void MainScreen::endWorkout(){
     }
     Preferences::currentWorkout=NULL;
     delete workout;
+    hideWidgets();
+    webview->SetUrl(HOME_URL);
 
     secondTimer->stop();
     milliSecondTimer->stop();
@@ -341,6 +343,7 @@ void MainScreen::endWorkout(){
 
 MainScreen::~MainScreen()
 {
+    hideWidgets();
     delete workout;
     delete ui;
 
