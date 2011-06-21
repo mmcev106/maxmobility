@@ -127,7 +127,8 @@ void HistoryScreen::displayHistory(bool (*sortFunction)(HistoryItem*, HistoryIte
         if (seconds<10)
             secondsString="0";
         secondsString.append(QString("%1").arg(seconds));
-        QString timeString = QString("%1:%2").arg(minutes).arg(secondsString);
+
+        QString timeString = QString("%1:%2").arg(minutes,2,'g',-1,QLatin1Char('0')).arg(seconds,2,'g',-1,QLatin1Char('0'));
 
         QLabel* timeLabel = new QLabel(listItem);
         timeLabel->setText(timeString);
@@ -321,7 +322,7 @@ QList<HistoryItem*>* HistoryScreen::loadHistory(){
     }
 
     ui->workoutsLabel->setText(QString("%1").arg(history->length()));
-    ui->averageTimeLabel->setText(QString("%1:%2").arg(averageSeconds/60).arg(averageSecondsString));
+    ui->averageTimeLabel->setText(QString("%1:%2").arg(averageSeconds/60,2,'g',-1,QLatin1Char('0')).arg(averageSeconds,2,'g',-1,QLatin1Char('0')));
     ui->averageCaloriesLabel->setText(QString("%1").arg(averageCalories));
     ui->averageDistanceLabel->setText(QString("%1.%2").arg((int)averageDistance).arg(averageDistanceDecimalString));
 

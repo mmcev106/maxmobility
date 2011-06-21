@@ -119,13 +119,11 @@ MainScreen::MainScreen(QWidget *parent) :
     runningDudeWidget->show();
 
     webview = new WebWidget(HOME_URL);
-    webview->setParent(this);
+    webview->setParent(&centerWidget);
     webview->hide();
 
     centerWidget.raise();
     audioSettingsWidget.raise();
-
-//    Preferences::currentState.setOn();        // commented this out because it was causing a fault in the program (William)
 
     //    update the fields before the windows is initially displayed
 
@@ -267,7 +265,7 @@ void MainScreen::writeHistoryEntry(){
     stream << seconds;
     stream << "\t";
 
-    stream << calories;
+    stream << (int)calories;
     stream << "\t";
 
     stream << distance;

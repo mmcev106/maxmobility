@@ -49,10 +49,10 @@ void SettingsScreen::on_connect_invisibleButton_pressed()
 
 void SettingsScreen::updateDisplay(){
 
-    on_time = (Preferences::on_time);
+    on_time = (Preferences::on_time)/24;
     ui->onTimeLabel->setText(QString("%1").arg(on_time,1,'g',-1,QLatin1Char('0')));
 
-    belt_time = (Preferences::belt_time);
+    belt_time = (Preferences::belt_time)/24;
     ui->beltTimeLabel->setText(QString("%1").arg(belt_time,1,'g',-1,QLatin1Char('0')));
 
     if (Preferences::getMeasurementSystem())
