@@ -134,6 +134,6 @@ CONFIG += warn_off
 
 QT += phonon
 QT += opengl
-QT += webkit network
+QT += webkit network multimedia mobile
 LIBS += -lqextserialport
 #DEFINES += QT_NO_DEBUG_OUTPUT NDEBUG

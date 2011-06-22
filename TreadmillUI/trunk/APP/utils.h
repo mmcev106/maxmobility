@@ -5,6 +5,8 @@
 #include "step.h"
 #include "workout.h"
 
+#include <QtMultimedia>
+
 static const float MAX_SPEED_MPH = 12.0;
 static const float MAX_SPEED_KPH = 20.0;
 
@@ -20,9 +22,11 @@ static const long MILLIS_PER_SECOND = 1000;
 static const long MILLIS_PER_MINUTE = MILLIS_PER_SECOND * 60;
 static const long MILLIS_PER_HOUR = MILLIS_PER_MINUTE * 60;
 
+
 class Utils
 {
 public:
+
     static float getMAX_SPEED();
     Utils();
     static void setMAX_SPEED(bool Standard); // This will be called from the Preferences Class when unit system changes
