@@ -9,6 +9,8 @@
 float Utils::MAX_SPEED = MAX_SPEED_MPH;
 float Utils::DEF_SPEED = DEF_SPEED_MPH;
 
+QSound* Utils::feedbackPlayer = new QSound("",NULL);
+
 Utils::Utils()
 {
 }

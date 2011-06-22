@@ -22,10 +22,11 @@ static const long MILLIS_PER_SECOND = 1000;
 static const long MILLIS_PER_MINUTE = MILLIS_PER_SECOND * 60;
 static const long MILLIS_PER_HOUR = MILLIS_PER_MINUTE * 60;
 
-
 class Utils
 {
 public:
+
+    static QSound* feedbackPlayer;
 
     static float getMAX_SPEED();
     Utils();
