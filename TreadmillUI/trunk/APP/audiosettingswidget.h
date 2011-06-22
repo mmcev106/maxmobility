@@ -20,7 +20,7 @@ public:
     ~AudioSettingsWidget();
 
 private:
-    void hide_radio_buttons();
+    void update_radio_buttons();
     Ui::AudioSettingsWidget *ui;
 
     QPixmap activeButtonPixmap;

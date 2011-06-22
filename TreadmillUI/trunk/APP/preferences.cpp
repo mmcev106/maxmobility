@@ -12,6 +12,12 @@ bool Preferences::gender = MALE;
 
 bool Preferences::measurementSystem = STANDARD;
 
+bool Preferences::feedbackEnabled = true;
+bool Preferences::videoSoundEnabled = true;
+bool Preferences::usbSoundEnabled= false;
+bool Preferences::lineInEnabled = false;
+bool Preferences::internetSoundEnabled = false;
+
 float Preferences::WALKING_SPEED;
 float Preferences::FAST_SPEED;
 float Preferences::JOGGING_SPEED;

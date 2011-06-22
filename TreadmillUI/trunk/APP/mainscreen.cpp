@@ -572,14 +572,12 @@ void MainScreen::on_trails_invisibleButton_pressed()
 {
     hideWidgets();
     trailSelectionWidget.setVisible(true);
-//    playVideo("trails.avi");
 }
 
 void MainScreen::on_tranquil_invisibleButton_pressed()
 {
     hideWidgets();
     tranquilSelectionWidget.setVisible(true);
-//    playVideo("tranquil.avi");
 }
 
 void MainScreen::playVideo(QString filename)

@@ -1,5 +1,6 @@
 #include "audiosettingswidget.h"
 #include "ui_audiosettingswidget.h"
+#include "preferences.h"
 #include <QPixmap>
 
 AudioSettingsWidget::AudioSettingsWidget(QWidget *parent) :
@@ -11,11 +12,11 @@ AudioSettingsWidget::AudioSettingsWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->label_internet->setVisible(false);
-    ui->label_usb->setVisible(false);
-    ui->label_lineIn->setVisible(false);
-    ui->label_video->setVisible(true);
-    ui->label_feedback->setVisible(true);
+    ui->label_internet->setVisible(Preferences::internetSoundEnabled);
+    ui->label_usb->setVisible(Preferences::usbSoundEnabled);
+    ui->label_lineIn->setVisible(Preferences::lineInEnabled);
+    ui->label_video->setVisible(Preferences::videoSoundEnabled);
+    ui->label_feedback->setVisible(Preferences::feedbackEnabled);
     ui->label_feedback->setPixmap(checkPixmap);
 
 
@@ -35,31 +36,44 @@ AudioSettingsWidget::~AudioSettingsWidget()
 
 void AudioSettingsWidget::on_invisibleButton_lineIn_pressed()
 {
-    hide_radio_buttons();
-    ui->label_lineIn->setVisible(true);
+    Preferences::lineInEnabled = true;
+    Preferences::videoSoundEnabled = false;
+    Preferences::usbSoundEnabled = false;
+    Preferences::internetSoundEnabled = false;
+    update_radio_buttons();
 }
 
 void AudioSettingsWidget::on_invisibleButton_internet_pressed()
 {
-    hide_radio_buttons();
-    ui->label_internet->setVisible(true);
+    Preferences::lineInEnabled = false;
+    Preferences::videoSoundEnabled = false;
+    Preferences::usbSoundEnabled = false;
+    Preferences::internetSoundEnabled = true;
+    update_radio_buttons();
 }
 
 void AudioSettingsWidget::on_invisibleButton_usb_pressed()
 {
-    hide_radio_buttons();
-    ui->label_usb->setVisible(true);
+    Preferences::lineInEnabled = false;
+    Preferences::videoSoundEnabled = false;
+    Preferences::usbSoundEnabled = true;
+    Preferences::internetSoundEnabled = false;
+    update_radio_buttons();
 }
 
 void AudioSettingsWidget::on_invisibleButton_feedback_pressed()
 {
-    ui->label_feedback->setPixmap(crossPixmap);
+    Preferences::feedbackEnabled = !Preferences::feedbackEnabled;
+    update_radio_buttons();
 }
 
 void AudioSettingsWidget::on_invisibleButton_video_pressed()
 {
-    hide_radio_buttons();
-    ui->label_video->setVisible(true);
+    Preferences::lineInEnabled = false;
+    Preferences::videoSoundEnabled = true;
+    Preferences::usbSoundEnabled = false;
+    Preferences::internetSoundEnabled = false;
+    update_radio_buttons();
 }
 
 void AudioSettingsWidget::on_invisibleButton_close_pressed()
@@ -67,10 +81,14 @@ void AudioSettingsWidget::on_invisibleButton_close_pressed()
     setVisible(false);
 }
 
-void AudioSettingsWidget::hide_radio_buttons()
+void AudioSettingsWidget::update_radio_buttons()
 {
-    ui->label_internet->setVisible(false);
-    ui->label_usb->setVisible(false);
-    ui->label_lineIn->setVisible(false);
-    ui->label_video->setVisible(false);
+    ui->label_internet->setVisible(Preferences::internetSoundEnabled);
+    ui->label_usb->setVisible(Preferences::usbSoundEnabled);
+    ui->label_lineIn->setVisible(Preferences::lineInEnabled);
+    ui->label_video->setVisible(Preferences::videoSoundEnabled);
+    if (Preferences::feedbackEnabled)
+        ui->label_feedback->setPixmap(checkPixmap);
+    else
+        ui->label_feedback->setPixmap(crossPixmap);
 }
