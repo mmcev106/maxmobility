@@ -18,6 +18,8 @@ bool Preferences::usbSoundEnabled= false;
 bool Preferences::lineInEnabled = false;
 bool Preferences::internetSoundEnabled = false;
 
+bool Preferences::accessibilityMode = false;
+
 float Preferences::WALKING_SPEED;
 float Preferences::FAST_SPEED;
 float Preferences::JOGGING_SPEED;

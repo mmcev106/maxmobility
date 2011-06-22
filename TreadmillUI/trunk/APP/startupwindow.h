@@ -51,6 +51,7 @@ private slots:
     void on_invisibleButton_3_pressed();
     void on_invisibleButton_2_pressed();
     void on_invisibleButton_pressed();
+    void on_acc_invisibleButton_pressed();
     void sharedTimerTimeout();
 
 };

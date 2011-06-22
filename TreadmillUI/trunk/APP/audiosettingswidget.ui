@@ -159,14 +159,14 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Active Radio Button.png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/Active-Button.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="label_usb">
    <property name="geometry">
     <rect>
      <x>229</x>
-     <y>132</y>
+     <y>131</y>
      <width>62</width>
      <height>65</height>
     </rect>
@@ -175,7 +175,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Active Radio Button.png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/Active-Button.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="label_video">
@@ -191,7 +191,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Active Radio Button.png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/Active-Button.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="label_internet">
@@ -207,7 +207,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Active Radio Button.png</pixmap>
+    <pixmap resource="images.qrc">:/images/images/Active-Button.png</pixmap>
    </property>
   </widget>
   <zorder>blackBackgroundLabel</zorder>

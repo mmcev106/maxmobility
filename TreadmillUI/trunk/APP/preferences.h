@@ -52,6 +52,8 @@ public:
     static bool lineInEnabled;
     static bool internetSoundEnabled;
 
+    static bool accessibilityMode;
+
     static State currentState;
 
     static State sendState;

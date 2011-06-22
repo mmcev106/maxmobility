@@ -6,7 +6,7 @@
 AudioSettingsWidget::AudioSettingsWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AudioSettingsWidget)
-    ,activeButtonPixmap(":/images/images/Active Radio Button.png")
+    ,activeButtonPixmap(":/images/images/Active Button.png")
     ,checkPixmap(":/images/images/Check.png")
     ,crossPixmap(":/images/images/X.png")
 {

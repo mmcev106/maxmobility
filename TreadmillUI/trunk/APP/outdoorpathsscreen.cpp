@@ -74,6 +74,18 @@ void OutdoorPathsScreen::on_closeButton_pressed(){
     close();
 }
 
+QString OutdoorPathsScreen::selected_Item(void)
+{
+    if (ui->woodedBorder->isVisible())
+        return QString("/videos/trails/radnor.avi");
+    if (ui->deerBorder->isVisible())
+        return QString("/videos/trails/deer.avi");
+    if (ui->lakeBorder->isVisible())
+        return QString("/videos/trails/lake.avi");
+    if (ui->cityBorder->isVisible())
+        return QString("/videos/trails/downtown.avi");
+}
+
 void OutdoorPathsScreen::on_startButton_pressed(){
 
     float percentage = intensitySliderWidget.value/intensitySliderWidget.max;
@@ -84,7 +96,8 @@ void OutdoorPathsScreen::on_startButton_pressed(){
     Workout* workout = Workout::createWorkout("Outdoor Path", speed, grade, timeSliderWidget.value);
     MainScreen::getMainScreen()->startWorkout(workout);
 
-    MainScreen::getMainScreen()-> playVideo("trails.avi"); // change to string of which video was selected later
+    QString selection = selected_Item();
+    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,selection);
 
     close();
 }

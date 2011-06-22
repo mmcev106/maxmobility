@@ -235,6 +235,19 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
     <pixmap resource="images.qrc">:/images/images/Glowing USB Emblem.png</pixmap>
    </property>
   </widget>
+  <widget class="InvisibleButton" name="acc_invisibleButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>901</x>
+     <y>648</y>
+     <width>123</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

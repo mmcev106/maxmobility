@@ -286,6 +286,11 @@ void StartupWindow::on_invisibleButton_16_pressed()
     Screens::show( new HeartRateScreen(0));
 }
 
+void StartupWindow::on_acc_invisibleButton_pressed()
+{
+    Preferences::accessibilityMode = true;
+}
+
 bool StartupWindow::event(QEvent *event)
 {
     if(event->type() == POINTER_EVENT_TYPE){
