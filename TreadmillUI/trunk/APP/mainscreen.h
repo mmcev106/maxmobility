@@ -104,6 +104,7 @@ private slots:
     void updateHistoryWidgets(int speed, int grade);
     void bumpHistoryWidgets();
     void calculateCalories(int speed, int grade, long timeDifference);
+    void updateScoreWidgetText(int time, float speed, float grade);
 
 };
 

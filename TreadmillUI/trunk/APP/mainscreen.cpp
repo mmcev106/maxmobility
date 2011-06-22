@@ -473,6 +473,19 @@ void MainScreen::updateDisplay(){
 
     updateHistoryWidgets(speed, grade);
 
+    updateScoreWidgetText(elapsedTime, speed, grade);
+
+}
+
+void MainScreen:: updateScoreWidgetText(int timeElapsed, float speed, float grade){
+    static int i=0;
+    if (workout->name == "Fire Fighter")
+    {
+        char str[50];
+        sprintf(str, "update number= %d",i);
+        scoreWidget.setText(QString(str),"test2");
+        i++;
+    }
 }
 
 void MainScreen::calculateCalories(int speed, int grade, long timeDifference){
