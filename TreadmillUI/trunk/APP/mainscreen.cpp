@@ -100,7 +100,7 @@ MainScreen::MainScreen(QWidget *parent) :
     player->videoWidget()->setParent(&centerWidget);
     player->setFixedSize(centerSize);
     player->videoWidget()->setFixedSize(centerSize);
-    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
+//    player->videoWidget()->setScaleMode(Phonon::VideoWidget::ScaleAndCrop);
     player->videoWidget()->hide();
     connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
 
