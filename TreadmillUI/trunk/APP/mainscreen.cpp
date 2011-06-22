@@ -354,7 +354,6 @@ void MainScreen::endWorkout(){
 MainScreen::~MainScreen()
 {
     hideWidgets();
-    delete workout;
     delete ui;
 
     player->stop();
