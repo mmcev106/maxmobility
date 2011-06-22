@@ -61,6 +61,7 @@ void FitnessTestScreen::on_startButton_pressed()
     }
     else if(backgroundPixmap == &fireFighterPixmap){
         Preferences::currentWorkout= Workout::createFireFighterWorkout( ageSlider.value, weightSlider.value, Preferences::gender);
+        MainScreen::getMainScreen()->ShowWidget(SCORE_VISUALIZATION,"Testing Firefighter","text");
     }
     else if(backgroundPixmap == &airForcePixmap){
         Preferences::currentWorkout= Workout::createAirForceWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);

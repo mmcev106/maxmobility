@@ -32,7 +32,7 @@ private:
 
     void hideAllBorders();
     void updateHistoryFromIntensity();
-    QString selected_Item(void);
+    const char* selected_Item(void);
 
 protected:
     bool event(QEvent *event);

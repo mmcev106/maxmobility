@@ -42,7 +42,7 @@ public:
     ~MainScreen();
 
     void playVideo(QString filename);
-    void ShowWidget(int selection,QString video);
+    void ShowWidget(int selection,const char* video, const char* text=NULL);
 protected:
     void closeEvent(QCloseEvent * event);
     void keyPressEvent(QKeyEvent* event);

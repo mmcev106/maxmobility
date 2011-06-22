@@ -58,6 +58,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,audioSettingsWidget(NULL)
     ,tranquilSelectionWidget(NULL)
     ,trailSelectionWidget(NULL)
+    ,scoreWidget(NULL)
     ,videoMask(":/images/images/main_screen_large_video_mask.png")
     ,nextWorkoutStepIndex(0)
     ,nextWorkoutStepTime(0)
@@ -590,7 +591,7 @@ void MainScreen::playVideo(QString filename)
     player->videoWidget()->show();
 }
 
-void MainScreen::ShowWidget(int selection,QString video)
+void MainScreen::ShowWidget(int selection,const char* video,const char* text)
 {
     hideWidgets();
     switch (selection)
@@ -606,6 +607,8 @@ void MainScreen::ShowWidget(int selection,QString video)
         playVideo(video);
         break;
     case SCORE_VISUALIZATION:
+        scoreWidget.setVisible(true);
+        scoreWidget.setText(video, text);
         break;
     default:
         trackWidget->show();
@@ -625,4 +628,5 @@ void MainScreen::hideWidgets(void)
     audioSettingsWidget.setVisible(false);
     tranquilSelectionWidget.setVisible(false);
     trailSelectionWidget.setVisible(false);
+    scoreWidget.setVisible(false);
 }
