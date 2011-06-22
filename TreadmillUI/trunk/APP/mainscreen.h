@@ -43,7 +43,7 @@ public:
 
     void playVideo(QString filename);
     void ShowWidget(int selection,const char* video, const char* text=NULL);
-//    void updateScoreWidgetText(int time, float speed, float grade);
+//
 protected:
     void closeEvent(QCloseEvent * event);
     void keyPressEvent(QKeyEvent* event);
@@ -72,7 +72,7 @@ private:
     HistoryWidget gradeHistoryWidget;
     AudioSettingsWidget audioSettingsWidget;
     ScoreWidget scoreWidget;
-
+    void updateScoreWidgetText(long time, float speed, float grade);
     TranquilSelectionWidget tranquilSelectionWidget;
     TrailSelectionWidget trailSelectionWidget;
 

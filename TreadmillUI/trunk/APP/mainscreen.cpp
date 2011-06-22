@@ -477,16 +477,21 @@ void MainScreen::updateDisplay(){
 
 }
 
-//void MainScreen:: updateScoreWidgetText(int timeElapsed, float speed, float grade){
-//    static int i=0;
-//    if (workout->name == "Fire Fighter")
-//    {
-//        char str[50];
-//        sprintf(str, "update number= %d",i);
-//        scoreWidget.setText(QString(str),"test2");
-//        i++;
-//    }
-//}
+void MainScreen::updateScoreWidgetText(long time, float speed, float grade){
+    static int i=0;
+    //if (workout->name.compare(QString("Fire Fighter")))
+    if (workout)
+    {
+        qDebug()<<(workout->name.compare(QString("Fire Fighter")));
+        if (workout->name.contains("Fire Fighter"))
+        {
+
+            //sprintf(str, "update number= %d",i);
+            scoreWidget.setText( QString("%1").arg(i),QString("hey") );
+            i++;
+        }
+    }
+}
 
 void MainScreen::calculateCalories(int speed, int grade, long timeDifference){
 
