@@ -26,7 +26,8 @@ class Utils
 {
 public:
 
-    static QSound* feedbackPlayer;
+    static QSound *feedbackPlayer;
+    static QSound *usbPlayer;
 
     static float getMAX_SPEED();
     Utils();

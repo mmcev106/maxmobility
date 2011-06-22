@@ -43,6 +43,7 @@ public:
 
     void playVideo(QString filename);
     void ShowWidget(int selection,const char* video, const char* text=NULL);
+//    void updateScoreWidgetText(int time, float speed, float grade);
 protected:
     void closeEvent(QCloseEvent * event);
     void keyPressEvent(QKeyEvent* event);
@@ -104,7 +105,6 @@ private slots:
     void updateHistoryWidgets(int speed, int grade);
     void bumpHistoryWidgets();
     void calculateCalories(int speed, int grade, long timeDifference);
-    void updateScoreWidgetText(int time, float speed, float grade);
 
 };
 
