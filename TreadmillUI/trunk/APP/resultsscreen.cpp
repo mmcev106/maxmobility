@@ -1,6 +1,8 @@
 #include "resultsscreen.h"
 #include "ui_resultsscreen.h"
 
+static int counter = 0;
+
 ResultsScreen::ResultsScreen(QWidget *parent, QString message) :
     QWidget(parent),
     ui(new Ui::ResultsScreen)
@@ -31,7 +33,6 @@ void ResultsScreen::on_closeButton_pressed(){
 
 void ResultsScreen::secondTimerTimeout()
 {
-    static int counter = 0;
     counter++;
     if (counter==FIRST_TIMEOUT)
     {
@@ -41,6 +42,7 @@ void ResultsScreen::secondTimerTimeout()
     if (counter==CLOSE_TIMEOUT)
     {
         secondTimer->stop();
+        counter = 0;
         close();
     }
 }
