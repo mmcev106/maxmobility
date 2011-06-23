@@ -26,6 +26,7 @@ class Preferences
 {
 private:
     static QString getCurrentDataPath();
+
 public:
     static const QString FILENAME;
 
@@ -35,7 +36,9 @@ public:
     static float averageHeartRate;
     static int spd_diff,grd_diff;
     static int on_time,belt_time;
-
+    static int age;
+    static void setAge(int a);
+    static int getAge();
     static float WALKING_SPEED;
     static float FAST_SPEED;
     static float JOGGING_SPEED;

@@ -37,7 +37,7 @@ QWidget{font-family: Tamworth Gothic}</string>
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>40</y>
+     <y>80</y>
      <width>751</width>
      <height>131</height>
     </rect>
@@ -68,10 +68,10 @@ QWidget{font-family: Tamworth Gothic}</string>
   <widget class="QLabel" name="messageLabel">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>140</y>
+     <x>70</x>
+     <y>170</y>
      <width>751</width>
-     <height>381</height>
+     <height>321</height>
     </rect>
    </property>
    <property name="palette">
@@ -172,13 +172,13 @@ QWidget{font-family: Tamworth Gothic}</string>
     </font>
    </property>
    <property name="text">
-    <string>Your Current Stage Is #</string>
+    <string>Stage Time Remaining: 00:00</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
    <property name="wordWrap">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

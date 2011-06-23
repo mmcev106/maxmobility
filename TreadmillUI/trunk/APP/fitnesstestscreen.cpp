@@ -56,12 +56,13 @@ void FitnessTestScreen::on_startButton_pressed()
 {
 //    Workout* workout = NULL;
 
-    if(FALSE && backgroundPixmap == &fitnessPixmap){
+    if(backgroundPixmap == &fitnessPixmap){ //FALSE &&
         Preferences::currentWorkout= Workout::createFitnessWorkout(ageSlider.value, weightSlider.value, Preferences::gender);
+        MainScreen::getMainScreen()->ShowWidget(SCORE_VISUALIZATION,"Fitness Workout","Error Displaying Text");
     }
     else if(backgroundPixmap == &fireFighterPixmap){
         Preferences::currentWorkout= Workout::createFireFighterWorkout( ageSlider.value, weightSlider.value, Preferences::gender);
-        MainScreen::getMainScreen()->ShowWidget(SCORE_VISUALIZATION,"Testing Firefighter","text");
+        MainScreen::getMainScreen()->ShowWidget(SCORE_VISUALIZATION,"Firefighter Workout","Error Displaying Text");
     }
     else if(backgroundPixmap == &airForcePixmap){
         Preferences::currentWorkout= Workout::createAirForceWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);

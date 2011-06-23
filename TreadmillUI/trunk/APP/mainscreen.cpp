@@ -363,6 +363,37 @@ void MainScreen::endWorkout(){
     if (workout && (workout->name.contains("Fire Fighter") || workout->name.contains("Fitness")) )
     {
          message = QString("%1 Test Results\n\nYou Made It To Stage %2").arg(workout->name).arg(stage);
+         if (workout->name.contains("Fitness") && Preferences::getAverageHeartRate())
+         {
+             double VO2;
+             if (Preferences::gender) // men
+             {
+                 switch(stage){
+                    case 1: VO2=14.9; break;
+                    case 2: VO2=19.6; break;
+                    case 3: VO2=24.4; break;
+                    case 4: VO2=29.2; break;
+                    case 5: VO2=33.9; break;
+                    default: VO2=0; break;
+                    }
+                 VO2=(VO2*(220-Preferences::getAge()-73))/(Preferences::getAverageHeartRate()-73);
+             }
+             else // women
+             {
+                 switch(stage){
+                    case 1: VO2=14.9; break;
+                    case 2: VO2=18.4; break;
+                    case 3: VO2=22.0; break;
+                    case 4: VO2=25.6; break;
+                    case 5: VO2=29.2; break;
+                    default: VO2=0; break;
+                    }
+                 VO2=(VO2*(220-Preferences::getAge()-63))/(Preferences::getAverageHeartRate()-63);
+             }
+             QString VO = QString("\nVO2 Max: %1").arg(VO2);
+             message.append(VO);
+         }
+
     }
     else{
         message = QString("Workout Results: \n\nTime: %1:%2 \nDistance: %3.%4 \nCalories Burned: %5")
@@ -554,26 +585,19 @@ void MainScreen::updateDisplay(){
 void MainScreen::updateScoreWidgetText(long time, float speed, float grade){
     if (workout)
     {
-        int nextStepTime=nextWorkoutStepTime-time;
-        int scoreMinutes = nextStepTime/60000;
+        int nextStepTime=nextWorkoutStepTime/1000;
+        nextStepTime= nextStepTime-time;
+        int scoreMinutes = nextStepTime/60;
         int scoreSeconds = nextStepTime%60;
         if (workout->name.contains("Fire Fighter"))
-        {
             stage=(nextWorkoutStepIndex-3)/2;
-            if (stage<0)
-                stage=0;
-            //sprintf(str, "update number= %d",i);
-            scoreWidget.setText( QString("You Are Currently In Stage: %1").arg(stage),
-                                 QString("Next Stage Begins in: %1:%2").arg(scoreMinutes,2,'g',-1,QLatin1Char('0')).arg(scoreSeconds,2,'g',-1,QLatin1Char('0')));
-        }
         else if (workout->name.contains("Fitness"))
-        {
-            stage=nextWorkoutStepIndex;
-            if (stage<0)
-                stage=0;
-            //sprintf(str, "update number= %d",i);
-            scoreWidget.setText( "You Are Currently In Stage:",QString("%1").arg(stage) );
-        }
+            stage=(nextWorkoutStepIndex-1)/2;
+        if (stage<0)
+            stage=0;
+        scoreWidget.setText( QString("You Are Currently In Stage: %1").arg(stage),
+                             QString("Stage Time Remaining: %1:%2").arg(scoreMinutes,2,'g',-1,QLatin1Char('0')).arg(scoreSeconds,2,'g',-1,QLatin1Char('0')));
+
     }
 }
 

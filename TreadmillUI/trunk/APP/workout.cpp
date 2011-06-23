@@ -180,10 +180,30 @@ Workout* Workout::createDynamicGradeWorkout(QString name, int minutes, int lowGr
 }
 
 Workout* Workout::createFitnessWorkout(int age, int weight, bool gender){
-//    Workout* workout = new Workout("Fitness", weight);
-//    QList<Step*> *steps = workout->steps;
+    Workout* workout = new Workout("Fitness", weight);
+    QList<Step*> *steps = workout->steps;
+    Preferences::setAge(age);
+    double kphConversion;
+    if(Preferences::getMeasurementSystem())
+        kphConversion=1.0;
+    else
+        kphConversion=1.609;
 
-    return NULL;
+    int grade=0;
+
+    steps->append(new ChangeSpeedStep(3.4*kphConversion));
+    steps->append(new ChangeGradeStep(grade));
+    steps->append(new WaitStep(3*MILLIS_PER_MINUTE));
+    for (int i=0;i<1;i++){
+        if (gender)
+            grade+=4;
+        else
+            grade+=3;
+        steps->append(new ChangeGradeStep(grade));
+        steps->append(new WaitStep(3*MILLIS_PER_MINUTE));
+    }
+
+    return workout;
 }
 
 Workout* Workout::createFireFighterWorkout( int age, int weight, bool gender){
@@ -199,7 +219,7 @@ Workout* Workout::createFireFighterWorkout( int age, int weight, bool gender){
     //warm up
     steps->append(new ChangeSpeedStep(3.0*kphConversion));
     steps->append(new ChangeGradeStep(0));
-    steps->append(new WaitStep(3*MILLIS_PER_MINUTE)); //steps->append(new WaitStep(3 * MILLIS_PER_MINUTE));
+    steps->append(new WaitStep(3*MILLIS_PER_MINUTE));
 
     //workout stages
     steps->append(new ChangeSpeedStep(4.5*kphConversion));        // +1.5

@@ -21,6 +21,7 @@ float Preferences::WALKING_SPEED;
 float Preferences::FAST_SPEED;
 float Preferences::JOGGING_SPEED;
 float Preferences::RUNNING_SPEED;
+int Preferences::age;
 
 QextSerialPort* Preferences::serialPort = NULL;
 QApplication* Preferences::application = NULL;
@@ -199,5 +200,12 @@ QString Preferences::getCurrentWorkoutsPath(){
 
 QString Preferences::getCurrentHistoryPath(){
     return getCurrentDataPath() + "/history";
+}
+
+int Preferences::getAge(){
+    return age;
+}
+void Preferences::setAge(int a){
+    age=a;
 }
 
