@@ -2,10 +2,10 @@
 #define AUDIOSETTINGSWIDGET_H
 
 #include <QWidget>
-#include "radiosliderwidget.h"
 #include <QPushButton>
 #include <QTimer>
 #include <QFile>
+#include "sliderwidget.h"
 
 namespace Ui {
     class AudioSettingsWidget;
@@ -20,20 +20,15 @@ public:
     ~AudioSettingsWidget();
 
 private:
-    void update_radio_buttons();
     Ui::AudioSettingsWidget *ui;
+    SliderWidget feedbackSlider;
+    SliderWidget backgroundSlider;
 
-    QPixmap activeButtonPixmap;
-    QPixmap checkPixmap;
-    QPixmap crossPixmap;
+    QTimer *updateTimer;
 
 private slots:
     void on_invisibleButton_close_pressed();
-    void on_invisibleButton_video_pressed();
-    void on_invisibleButton_feedback_pressed();
-    void on_invisibleButton_usb_pressed();
-    void on_invisibleButton_internet_pressed();
-    void on_invisibleButton_lineIn_pressed();
+    void updateSoundLevels();
 };
 
 #endif // AUDIOSETTINGSWIDGET_H

@@ -36,7 +36,7 @@ void zero(int array[], int length){
     }
 }
 
-//static int *history;
+static int counter=0;
 
 static const int UPDATE_DISPLAY_DELAY = 100;
 static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER_HOUR;
@@ -46,6 +46,7 @@ MainScreen::MainScreen(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer(this))
+    ,feedbackTimer(new QTimer(this))
     ,endTimer(new QTimer(this))
     ,milliSecondTimer(new QTimer(this))
     ,playTimer(new QTimer(this))
@@ -82,6 +83,10 @@ MainScreen::MainScreen(QWidget *parent) :
     connect(secondTimer, SIGNAL(timeout()), this, SLOT( updateDisplay()));
     secondTimer->setSingleShot(false);
     secondTimer->setInterval(UPDATE_DISPLAY_DELAY);
+
+    connect(feedbackTimer,SIGNAL(timeout()), this, SLOT( periodicFeedback()));
+    feedbackTimer->setSingleShot(false);
+    feedbackTimer->setInterval(10*1000);  // every 2 minutes
 
     connect(milliSecondTimer, SIGNAL(timeout()), this, SLOT( updateRunningDudeImage()));
     milliSecondTimer->setSingleShot(false);
@@ -169,6 +174,8 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     this->workout = workout;
     this->recordingWorkout = recordWorkout;
 
+//    realTimeFeedback->play();
+
     weight = workout->_weight;
 
     startTime = QDateTime::currentMSecsSinceEpoch();
@@ -200,6 +207,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
 
     secondTimer->start();
     milliSecondTimer->start();
+    feedbackTimer->start();
 
     updateDisplay();
 
@@ -383,6 +391,7 @@ void MainScreen::endWorkout(){
 
     secondTimer->stop();
     milliSecondTimer->stop();
+    feedbackTimer->stop();
 }
 
 MainScreen::~MainScreen()
@@ -402,6 +411,43 @@ void MainScreen::restartVideo(){
     player->play();
 }
 
+void MainScreen::feedbackAppendNumber(int number,QList<QUrl> *lst)
+{
+    if (number < 100)
+    {
+        if (number < 21)
+        {
+            lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(number) + ".wav"));
+        }
+        else
+        {
+            lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(number - number%10) + ".wav"));
+            if (number%10)
+                lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(number%10) + ".wav"));
+        }
+    }
+    else
+    {
+    }
+}
+
+void MainScreen::periodicFeedback(){
+    if (workout)
+    {
+        counter++;
+        Utils::realTimeFeedback->clear();
+
+        QList<QUrl> fdbk = QList<QUrl>();
+        fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
+        feedbackAppendNumber(counter*2,&fdbk);
+        fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
+
+        Utils::realTimeFeedback->setQueue(fdbk);
+        Utils::realTimeFeedback->play();
+    }
+    else
+        counter = 0;
+}
 
 void MainScreen::updateDisplay(){
 

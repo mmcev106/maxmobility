@@ -17,6 +17,7 @@ public:
 
     void setValue(double);
     double getPercentage();
+    void initialize();
 
 protected:
     void mouseMoveEvent(QMouseEvent *event);
@@ -25,7 +26,6 @@ protected:
     static const int DEFAULT_WIDTH = 540;
     static const int DEFAULT_HEIGHT = 57;
 
-    void initialize();
     virtual int fontSize();
 
 private:

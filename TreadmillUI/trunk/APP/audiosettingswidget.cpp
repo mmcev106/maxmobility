@@ -1,32 +1,38 @@
 #include "audiosettingswidget.h"
 #include "ui_audiosettingswidget.h"
 #include "preferences.h"
+#include "utils.h"
 #include <QPixmap>
 
 AudioSettingsWidget::AudioSettingsWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AudioSettingsWidget)
-    ,activeButtonPixmap(":/images/images/Active Button.png")
-    ,checkPixmap(":/images/images/Check.png")
-    ,crossPixmap(":/images/images/X.png")
+    ,feedbackSlider(this, 0.0, 100.0)
+    ,backgroundSlider(this, 0.0, 100.0)
+    ,updateTimer(new QTimer(this))
 {
     ui->setupUi(this);
 
-    ui->label_internet->setVisible(Preferences::internetSoundEnabled);
-    ui->label_usb->setVisible(Preferences::usbSoundEnabled);
-    ui->label_lineIn->setVisible(Preferences::lineInEnabled);
-    ui->label_video->setVisible(Preferences::videoSoundEnabled);
-    ui->label_feedback->setVisible(Preferences::feedbackEnabled);
-    ui->label_feedback->setPixmap(checkPixmap);
+    connect(updateTimer,SIGNAL(timeout()), this, SLOT( updateSoundLevels()));
+    updateTimer->setSingleShot(false);
+    updateTimer->setInterval(10);  // every 10 ms
 
+    feedbackSlider.setFixedWidth(545);
+    backgroundSlider.setFixedWidth(545);
 
-    ui->label_internet->lower();
-    ui->label_usb->lower();
-    ui->label_lineIn->lower();
-    ui->label_video->lower();
-    ui->label_feedback->lower();
+    feedbackSlider.setValue(Preferences::feedbackSoundLevel);
+    backgroundSlider.setValue(Preferences::backgroundSoundLevel);
+
+    feedbackSlider.move(25, 223);
+    backgroundSlider.move(25, 345);
+
+    feedbackSlider.initialize();
+    backgroundSlider.initialize();
+
     ui->backgroundLabel->lower();
     ui->blackBackgroundLabel->lower();
+
+    updateTimer->start();
 }
 
 AudioSettingsWidget::~AudioSettingsWidget()
@@ -34,61 +40,16 @@ AudioSettingsWidget::~AudioSettingsWidget()
     delete ui;
 }
 
-void AudioSettingsWidget::on_invisibleButton_lineIn_pressed()
-{
-    Preferences::lineInEnabled = true;
-    Preferences::videoSoundEnabled = false;
-    Preferences::usbSoundEnabled = false;
-    Preferences::internetSoundEnabled = false;
-    update_radio_buttons();
-}
-
-void AudioSettingsWidget::on_invisibleButton_internet_pressed()
-{
-    Preferences::lineInEnabled = false;
-    Preferences::videoSoundEnabled = false;
-    Preferences::usbSoundEnabled = false;
-    Preferences::internetSoundEnabled = true;
-    update_radio_buttons();
-}
-
-void AudioSettingsWidget::on_invisibleButton_usb_pressed()
-{
-    Preferences::lineInEnabled = false;
-    Preferences::videoSoundEnabled = false;
-    Preferences::usbSoundEnabled = true;
-    Preferences::internetSoundEnabled = false;
-    update_radio_buttons();
-}
-
-void AudioSettingsWidget::on_invisibleButton_feedback_pressed()
-{
-    Preferences::feedbackEnabled = !Preferences::feedbackEnabled;
-    update_radio_buttons();
-}
-
-void AudioSettingsWidget::on_invisibleButton_video_pressed()
-{
-    Preferences::lineInEnabled = false;
-    Preferences::videoSoundEnabled = true;
-    Preferences::usbSoundEnabled = false;
-    Preferences::internetSoundEnabled = false;
-    update_radio_buttons();
-}
-
 void AudioSettingsWidget::on_invisibleButton_close_pressed()
 {
     setVisible(false);
 }
 
-void AudioSettingsWidget::update_radio_buttons()
+void AudioSettingsWidget::updateSoundLevels()
 {
-    ui->label_internet->setVisible(Preferences::internetSoundEnabled);
-    ui->label_usb->setVisible(Preferences::usbSoundEnabled);
-    ui->label_lineIn->setVisible(Preferences::lineInEnabled);
-    ui->label_video->setVisible(Preferences::videoSoundEnabled);
-    if (Preferences::feedbackEnabled)
-        ui->label_feedback->setPixmap(checkPixmap);
-    else
-        ui->label_feedback->setPixmap(crossPixmap);
+    Preferences::feedbackSoundLevel = feedbackSlider.value;
+    Preferences::backgroundSoundLevel = backgroundSlider.value;
+
+    Utils::feedbackOutput->setVolume(Preferences::feedbackSoundLevel/100.0);
+    Utils::backgroundOutput->setVolume(Preferences::backgroundSoundLevel/100.0);
 }

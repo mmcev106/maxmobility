@@ -9,11 +9,18 @@
 float Utils::MAX_SPEED = MAX_SPEED_MPH;
 float Utils::DEF_SPEED = DEF_SPEED_MPH;
 
-Phonon::MediaObject* Utils::mediaObject = NULL;
-Phonon::AudioOutput* Utils::audioOutput = NULL;
-QAudioInput* Utils::qaudioInput = NULL;
-QAudioOutput* Utils::qaudioOutput = NULL;
-QIODevice* Utils::qdevice = NULL;
+Phonon::MediaObject* Utils::accFeedback = NULL;
+Phonon::AudioOutput* Utils::accOutput = NULL;
+
+Phonon::MediaObject* Utils::backgroundMusic = NULL;
+Phonon::AudioOutput* Utils::backgroundOutput = NULL;
+
+Phonon::MediaObject* Utils::realTimeFeedback = NULL;
+Phonon::AudioOutput* Utils::feedbackOutput = NULL;
+
+//QAudioInput* Utils::qaudioInput = NULL;
+//QAudioOutput* Utils::qaudioOutput = NULL;
+//QIODevice* Utils::qdevice = NULL;
 
 Utils::Utils()
 {
@@ -22,29 +29,37 @@ Utils::Utils()
 void Utils::InitAudio(QWidget* parent)
 {
 
-    Utils::audioOutput = new Phonon::AudioOutput(Phonon::NoCategory,parent);
-    Utils::mediaObject = new Phonon::MediaObject(parent);
+    accOutput = new Phonon::AudioOutput(Phonon::MusicCategory,parent);
+    accFeedback = new Phonon::MediaObject(parent);
+    Phonon::createPath(Utils::accFeedback,Utils::accOutput);
 
-    QAudioFormat format;
-    format.setFrequency(10100);
-    format.setChannels(1);
-    format.setSampleSize(8);
-    format.setCodec("audio/pcm");
-    format.setByteOrder(QAudioFormat::LittleEndian);
-    format.setSampleType(QAudioFormat::UnSignedInt);
-    QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
-    if (!info.isFormatSupported(format)){
-        qWarning()<<"default format not supported, trying to use nearest!";
-        format = info.nearestFormat(format);
-    }
+    backgroundOutput = new Phonon::AudioOutput(Phonon::MusicCategory,parent);
+    backgroundMusic = new Phonon::MediaObject(parent);
+    Phonon::createPath(backgroundMusic,backgroundOutput);
 
-    Utils::qaudioInput = new QAudioInput(format,parent);
+    realTimeFeedback = new Phonon::MediaObject(parent);
+    feedbackOutput = new Phonon::AudioOutput(Phonon::MusicCategory,parent);
+    Phonon::createPath(realTimeFeedback,feedbackOutput);
 
+    Preferences::backgroundSoundLevel = backgroundOutput->volume() * 100;
+    Preferences::feedbackSoundLevel = feedbackOutput->volume() * 100;
 
-    Utils::mediaObject->setCurrentSource(QString("C:/audio/Pro_intro.wav"));
-    Phonon::createPath(Utils::mediaObject,Utils::audioOutput);
-//    Utils::mediaObject->setCurrentSource(Utils::qaudioInput->start());
-//    Utils::mediaObject->play();
+    qDebug() << "Feedback Output sound level = " << feedbackOutput->volume();
+
+//    QAudioFormat format;
+//    format.setFrequency(10100);
+//    format.setChannels(1);
+//    format.setSampleSize(8);
+//    format.setCodec("audio/pcm");
+//    format.setByteOrder(QAudioFormat::LittleEndian);
+//    format.setSampleType(QAudioFormat::UnSignedInt);
+//    QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
+//    if (!info.isFormatSupported(format)){
+//        qWarning()<<"default format not supported, trying to use nearest!";
+//        format = info.nearestFormat(format);
+//    }
+
+//    Utils::qaudioInput = new QAudioInput(format,parent);
 }
 
 float Utils::getMAX_SPEED(){

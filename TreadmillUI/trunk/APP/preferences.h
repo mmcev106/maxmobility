@@ -46,11 +46,8 @@ public:
     static QextSerialPort* serialPort;
     static QApplication* application;
 
-    static bool feedbackEnabled;
-    static bool videoSoundEnabled;
-    static bool usbSoundEnabled;
-    static bool lineInEnabled;
-    static bool internetSoundEnabled;
+    static int feedbackSoundLevel;
+    static int backgroundSoundLevel;
 
     static bool accessibilityMode;
 

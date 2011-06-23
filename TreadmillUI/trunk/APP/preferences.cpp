@@ -12,11 +12,8 @@ bool Preferences::gender = MALE;
 
 bool Preferences::measurementSystem = STANDARD;
 
-bool Preferences::feedbackEnabled = true;
-bool Preferences::videoSoundEnabled = true;
-bool Preferences::usbSoundEnabled= false;
-bool Preferences::lineInEnabled = false;
-bool Preferences::internetSoundEnabled = false;
+int Preferences::feedbackSoundLevel = 100;
+int Preferences::backgroundSoundLevel = 100;
 
 bool Preferences::accessibilityMode = false;
 

@@ -30,8 +30,15 @@ class Utils
 {
 public:
 
-    static Phonon::MediaObject *mediaObject;
-    static Phonon::AudioOutput *audioOutput;
+    static Phonon::MediaObject *accFeedback;
+    static Phonon::AudioOutput *accOutput;
+
+    static Phonon::MediaObject *backgroundMusic;
+    static Phonon::AudioOutput *backgroundOutput;
+
+    static Phonon::MediaObject *realTimeFeedback;
+    static Phonon::AudioOutput *feedbackOutput;
+
     static QAudioInput* qaudioInput;
     static QAudioOutput* qaudioOutput;
     static QIODevice* qdevice;

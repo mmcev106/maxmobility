@@ -15,6 +15,7 @@
 #include "tranquilselectionwidget.h"
 #include "trailselectionwidget.h"
 #include "scorewidget.h"
+#include <phonon>
 
 #define TRACK_VISUALIZATION 0
 #define WEB_VISUALIZATION   1
@@ -50,6 +51,7 @@ protected:
 
 private:
     WebWidget* webview;
+    QLabel *webBackground;
 
     Ui::MainScreen *ui;
     long startTime;
@@ -57,6 +59,7 @@ private:
     QTimer *milliSecondTimer;
     QTimer *playTimer;
     QTimer *endTimer;
+    QTimer *feedbackTimer;
     int nextWorkoutStepIndex;
     long nextWorkoutStepTime;
     Workout* workout;
@@ -96,6 +99,8 @@ private:
     void startWorkout(Workout* workout, bool recordWorkout);
     void recordWaitStep();
 
+    void feedbackAppendNumber(int number,QList<QUrl> *lst);
+
 private slots:
     void on_track_invisibleButton_pressed();
     void on_web_invisibleButton_pressed();
@@ -108,6 +113,7 @@ private slots:
     void restartVideo();
     void updateHistoryWidgets(int speed, int grade);
     void bumpHistoryWidgets();
+    void periodicFeedback();
 
 
 };

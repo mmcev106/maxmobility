@@ -33,72 +33,7 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Audio-Screen-With-Marker.png</pixmap>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_internet" native="true">
-   <property name="geometry">
-    <rect>
-     <x>559</x>
-     <y>106</y>
-     <width>111</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_usb" native="true">
-   <property name="geometry">
-    <rect>
-     <x>217</x>
-     <y>106</y>
-     <width>91</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_feedback" native="true">
-   <property name="geometry">
-    <rect>
-     <x>221</x>
-     <y>424</y>
-     <width>360</width>
-     <height>85</height>
-    </rect>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_lineIn" native="true">
-   <property name="geometry">
-    <rect>
-     <x>31</x>
-     <y>101</y>
-     <width>112</width>
-     <height>97</height>
-    </rect>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
-   </property>
-  </widget>
-  <widget class="InvisibleButton" name="invisibleButton_video" native="true">
-   <property name="geometry">
-    <rect>
-     <x>395</x>
-     <y>104</y>
-     <width>91</width>
-     <height>91</height>
-    </rect>
-   </property>
-   <property name="text" stdset="0">
-    <string/>
+    <pixmap resource="images.qrc">:/images/images/Audio-Screen.png</pixmap>
    </property>
   </widget>
   <widget class="InvisibleButton" name="invisibleButton_close" native="true">
@@ -130,99 +65,9 @@ QWidget{font-family: Tamworth Gothic}</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_feedback">
-   <property name="geometry">
-    <rect>
-     <x>238</x>
-     <y>437</y>
-     <width>75</width>
-     <height>65</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Check.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_lineIn">
-   <property name="geometry">
-    <rect>
-     <x>54</x>
-     <y>131</y>
-     <width>62</width>
-     <height>65</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Active-Button.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_usb">
-   <property name="geometry">
-    <rect>
-     <x>229</x>
-     <y>131</y>
-     <width>62</width>
-     <height>65</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Active-Button.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_video">
-   <property name="geometry">
-    <rect>
-     <x>403</x>
-     <y>131</y>
-     <width>62</width>
-     <height>65</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Active-Button.png</pixmap>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_internet">
-   <property name="geometry">
-    <rect>
-     <x>578</x>
-     <y>131</y>
-     <width>62</width>
-     <height>65</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap resource="images.qrc">:/images/images/Active-Button.png</pixmap>
-   </property>
-  </widget>
   <zorder>blackBackgroundLabel</zorder>
   <zorder>backgroundLabel</zorder>
-  <zorder>invisibleButton_internet</zorder>
-  <zorder>invisibleButton_usb</zorder>
-  <zorder>invisibleButton_feedback</zorder>
-  <zorder>invisibleButton_lineIn</zorder>
-  <zorder>invisibleButton_video</zorder>
   <zorder>invisibleButton_close</zorder>
-  <zorder>label_feedback</zorder>
-  <zorder>label_lineIn</zorder>
-  <zorder>label_usb</zorder>
-  <zorder>label_video</zorder>
-  <zorder>label_internet</zorder>
  </widget>
  <customwidgets>
   <customwidget>

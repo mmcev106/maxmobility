@@ -159,8 +159,8 @@ void StartupWindow::sharedTimerTimeout(){
             secondsPassed=0;
     //        if (Utils::mediaObject->finished())
     //        {
-                Utils::mediaObject->setCurrentSource(AUDIO_ROOT_DIR+"Pro_intro.wav");
-                Utils::mediaObject->play();
+                Utils::accFeedback->setCurrentSource(AUDIO_ROOT_DIR+"Pro_intro.wav");
+                Utils::accFeedback->play();
     //        }
         }
     }
@@ -318,8 +318,18 @@ void StartupWindow::on_invisibleButton_16_pressed()
 void StartupWindow::on_acc_invisibleButton_pressed()
 {
     Preferences::accessibilityMode = true;
-    Utils::mediaObject->setCurrentSource(AUDIO_ROOT_DIR+"Pro_Full_Audio.wav");
-    Utils::mediaObject->play();
+//    Utils::mediaObject->setCurrentSource(AUDIO_ROOT_DIR+"Pro_Full_Audio.wav");
+
+    Utils::accFeedback->clear();
+    QList<QUrl> fdbk = QList<QUrl>();
+    fdbk.append(QUrl(AUDIO_ROOT_DIR+"Pro_Instruction1.wav"));
+    fdbk.append(QUrl(AUDIO_ROOT_DIR+"Pro_Instruction2.wav"));
+    fdbk.append(QUrl(AUDIO_ROOT_DIR+"Both_Instruction3.wav"));
+    fdbk.append(QUrl(AUDIO_ROOT_DIR+"Both_Instruction4.wav"));
+    fdbk.append(QUrl(AUDIO_ROOT_DIR+"Both_Instruction5.wav"));
+    Utils::accFeedback->setQueue(fdbk);
+
+    Utils::accFeedback->play();
 }
 
 bool StartupWindow::event(QEvent *event)
