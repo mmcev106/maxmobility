@@ -27,6 +27,8 @@ ResultsScreen::~ResultsScreen()
 
 
 void ResultsScreen::on_closeButton_pressed(){
+    secondTimer->stop();
+    counter = 0;
     close();
 }
 
