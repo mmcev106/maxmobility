@@ -55,9 +55,9 @@ void WebWidget::changeLocation()
     if (txt.contains(QString("http://www.")))
         url = QUrl(txt);
     else if (txt.contains(QString("www.")))
-        url = QUrl("http://"+txt);
+        url = QUrl(QString("http://")+txt);
     else
-        url = QUrl("http://www."+txt);
+        url = QUrl(QString("http://www.")+txt);
     view->load(url);
     view->setFocus();
 }

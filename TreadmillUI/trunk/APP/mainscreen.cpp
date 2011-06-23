@@ -362,9 +362,8 @@ void MainScreen::endWorkout(){
                       .arg(((int)distance)%100).arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')).arg((int)calories);
     }
 
-        Screens::show(new ResultsScreen(NULL, message));
+    Screens::show(new ResultsScreen(NULL, message));
 
-//    Preferences::setCurrentState(0);        // turn the treadmill off
     hide();
 
     if(Preferences::isUsbDrivePresent()){
@@ -619,7 +618,7 @@ void MainScreen::on_web_invisibleButton_pressed()
 {
     hideWidgets();
 
-    webview->setVisible(true);
+    webview->show();
 }
 
 void MainScreen::on_trails_invisibleButton_pressed()
@@ -654,7 +653,7 @@ void MainScreen::ShowWidget(int selection,QString video,QString text)
         runningDudeWidget->show();
         break;
     case WEB_VISUALIZATION:
-        webview->setVisible(true);
+        webview->show();
         break;
     case VIDEO_VISUALIZATION:
         playVideo(video);
