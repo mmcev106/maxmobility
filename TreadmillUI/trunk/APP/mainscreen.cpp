@@ -508,13 +508,17 @@ void MainScreen::updateDisplay(){
 void MainScreen::updateScoreWidgetText(long time, float speed, float grade){
     if (workout)
     {
+        int nextStepTime=nextWorkoutStepTime-time;
+        int scoreMinutes = nextStepTime/60000;
+        int scoreSeconds = nextStepTime%60;
         if (workout->name.contains("Fire Fighter"))
-        { 
+        {
             stage=(nextWorkoutStepIndex-3)/2;
             if (stage<0)
                 stage=0;
             //sprintf(str, "update number= %d",i);
-            scoreWidget.setText( "You Are Currently In Stage:",QString("%1").arg(stage) );
+            scoreWidget.setText( QString("You Are Currently In Stage: %1").arg(stage),
+                                 QString("Next Stage Begins in: %1:%2").arg(scoreMinutes,2,'g',-1,QLatin1Char('0')).arg(scoreSeconds,2,'g',-1,QLatin1Char('0')));
         }
         else if (workout->name.contains("Fitness"))
         {

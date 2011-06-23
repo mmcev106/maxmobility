@@ -34,12 +34,12 @@ void ResultsScreen::on_closeButton_pressed(){
 void ResultsScreen::secondTimerTimeout()
 {
     counter++;
-    if (counter==FIRST_TIMEOUT)
+    if (counter>=FIRST_TIMEOUT)
     {
         ui->closeButton->setVisible(true);
         ui->closeLabel->setVisible(false);
     }
-    if (counter==CLOSE_TIMEOUT)
+    if (counter>=CLOSE_TIMEOUT)
     {
         secondTimer->stop();
         counter = 0;
