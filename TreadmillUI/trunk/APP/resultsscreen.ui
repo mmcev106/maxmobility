@@ -71,6 +71,22 @@ QLabel{color: #42b4ff; }</string>
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="closeLabel">
+   <property name="geometry">
+    <rect>
+     <x>913</x>
+     <y>36</y>
+     <width>79</width>
+     <height>66</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/black box.png</pixmap>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>

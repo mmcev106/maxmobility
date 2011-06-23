@@ -65,6 +65,7 @@
         <file>images/X.png</file>
         <file>images/Active Radio Button.png</file>
         <file>images/Active-Button.png</file>
+        <file>images/black box.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>
