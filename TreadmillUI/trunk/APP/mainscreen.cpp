@@ -16,6 +16,7 @@
 #include "changespeedstep.h"
 #include "changegradestep.h"
 #include "waitstep.h"
+#include "endstep.h"
 #include "utils.h"
 #include "time.h"
 #include "screens.h"
@@ -45,6 +46,7 @@ MainScreen::MainScreen(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer(this))
+    ,endTimer(new QTimer(this))
     ,milliSecondTimer(new QTimer(this))
     ,playTimer(new QTimer(this))
     ,startTime(0)
@@ -175,6 +177,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     nextWorkoutStepIndex = 0;
     nextWorkoutStepTime = 0;
     calories=0;
+    stage=0;
 
     if(Preferences::getMeasurementSystem()){
         ui->distanceMetricLabel->setText("mi");
@@ -214,7 +217,7 @@ void MainScreen::processNextWorkoutStep() {
     if(workout != NULL){
 
         QList<Step*>* steps = workout->steps;
-
+        static int workoutStep=0;
         for( int i=nextWorkoutStepIndex;i<steps->length();i++){
             Step* step = steps->at(nextWorkoutStepIndex);
             nextWorkoutStepIndex++;
@@ -222,11 +225,13 @@ void MainScreen::processNextWorkoutStep() {
             if(step->getType() == SPEED_CHANGE_TYPE){
                 ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
                 Preferences::setCurrentSpeed(changeSpeedStep->speed);
+
 //                qDebug() << "Workout speed change: " << changeSpeedStep->speed;
             }
             else if(step->getType() == GRADE_CHANGE_TYPE){
                 ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
                 Preferences::setCurrentGrade(changeGradeStep->grade);
+
 //                qDebug() << "Workout grade change: " << changeGradeStep->grade;
             }
             else if(step->getType() == WAIT_TYPE){
@@ -240,7 +245,23 @@ void MainScreen::processNextWorkoutStep() {
                   */
                 return;
             }
+
+            else if(step->getType() == END_TYPE){
+                //This would show a screen in the center widget with time and stuff
+                // end type must be appended onto the end of the programs for this to be called
+
+//                EndStep* endStep = (EndStep*) step;
+//                nextWorkoutStepTime += endStep->time;
+//                QString first("You completed the program ");
+//                first.append(workout->name);
+//                QString second= QString("Time: %1:%2 \nDistance: %3.%4 \nCalories Burned: %5")
+//                                .arg(minutes,2,'g',-1,QLatin1Char('0')).arg(seconds,2,'g',-1,QLatin1Char('0'))
+//                                .arg(((int)distance)%100).arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')).arg((int)calories);
+//                ShowWidget(SCORE_VISUALIZATION, first, second);
+                return;
+            }
         }
+
 
         if(!recordingWorkout){
             // We've completed the workout steps, and we're not recording, so end the workout.
@@ -331,6 +352,18 @@ void MainScreen::closeEvent(QCloseEvent * event){
 }
 
 void MainScreen::endWorkout(){
+    QString message;
+    if (workout && (workout->name.contains("Fire Fighter") || workout->name.contains("Fitness")) )
+    {
+         message = QString("%1 Test Results\n\nYou Made It To Stage %2").arg(workout->name).arg(stage);
+    }
+    else{
+        message = QString("Workout Results: \n\nTime: %1:%2 \nDistance: %3.%4 \nCalories Burned: %5")
+                      .arg(minutes,2,'g',-1,QLatin1Char('0')).arg(seconds,2,'g',-1,QLatin1Char('0'))
+                      .arg(((int)distance)%100).arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')).arg((int)calories);
+    }
+
+        Screens::show(new ResultsScreen(NULL, message));
 
 //    Preferences::setCurrentState(0);        // turn the treadmill off
     hide();
@@ -381,10 +414,10 @@ void MainScreen::updateDisplay(){
         processNextWorkoutStep();
     }
 
-    int minutes = elapsedTime/60;
+    minutes = elapsedTime/60;
     ui->elapsedTimeMinutesLabel->setText( QString("%1").arg(minutes,2,'g',-1,QLatin1Char('0')) );
 
-    int seconds = elapsedTime%60;
+    seconds = elapsedTime%60;
     ui->elapsedTimeSecondsLabel->setText(QString(":%1").arg(seconds,2,'g',-1,QLatin1Char('0')));
 
    // *****************************************************SET SPEED HERE!!!!************************************************************
@@ -440,12 +473,7 @@ void MainScreen::updateDisplay(){
     long timeDifference=thisUpdate-lastUpdate;
     distance += ((((double)speed)/3600000)*(timeDifference));
 
-    if(workout != NULL && distance >= workout->distance){
-        qDebug() << "wham " << minutes << ", " << seconds;
-        QString message = QString("You completed the " + workout->name + " fitness test in %1 minutes and %2 seconds.").arg(minutes).arg(seconds);
-        Screens::show(new ResultsScreen(NULL, message));
-        endWorkout();
-    }
+
 
     lastUpdate=thisUpdate;
 
@@ -475,22 +503,28 @@ void MainScreen::updateDisplay(){
 
     updateHistoryWidgets(speed, grade);
 
-//    updateScoreWidgetText(elapsedTime, speed, grade);
+    updateScoreWidgetText(elapsedTime, speed, grade);
 
 }
 
 void MainScreen::updateScoreWidgetText(long time, float speed, float grade){
-    static int i=0;
-    //if (workout->name.compare(QString("Fire Fighter")))
     if (workout)
     {
-        qDebug()<<(workout->name.compare(QString("Fire Fighter")));
         if (workout->name.contains("Fire Fighter"))
-        {
-
+        { 
+            stage=(nextWorkoutStepIndex-3)/2;
+            if (stage<0)
+                stage=0;
             //sprintf(str, "update number= %d",i);
-            scoreWidget.setText( QString("%1").arg(i),QString("hey") );
-            i++;
+            scoreWidget.setText( "You Are Currently In Stage:",QString("%1").arg(stage) );
+        }
+        else if (workout->name.contains("Fitness"))
+        {
+            stage=nextWorkoutStepIndex;
+            if (stage<0)
+                stage=0;
+            //sprintf(str, "update number= %d",i);
+            scoreWidget.setText( "You Are Currently In Stage:",QString("%1").arg(stage) );
         }
     }
 }
@@ -611,7 +645,7 @@ void MainScreen::playVideo(QString filename)
     player->videoWidget()->show();
 }
 
-void MainScreen::ShowWidget(int selection,const char* video,const char* text)
+void MainScreen::ShowWidget(int selection,QString video,QString text)
 {
     hideWidgets();
     switch (selection)

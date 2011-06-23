@@ -19,19 +19,19 @@ TranquilSelectionWidget::~TranquilSelectionWidget()
 
 void TranquilSelectionWidget::on_ducks_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/ducks.avi");
+    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/ducks.avi",NULL);
 }
 
 void TranquilSelectionWidget::on_fish_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/fish.avi");
+    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/fish.avi",NULL);
 }
 void TranquilSelectionWidget::on_ocean_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/ocean.avi");
+    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/ocean.avi",NULL);
 }
 
 void TranquilSelectionWidget::on_waterfall_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/waterfall.avi");
+    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/waterfall.avi",NULL);
 }

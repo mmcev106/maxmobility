@@ -42,7 +42,7 @@ public:
     ~MainScreen();
 
     void playVideo(QString filename);
-    void ShowWidget(int selection,const char* video, const char* text=NULL);
+    void ShowWidget(int selection,QString video, QString text);
 //
 protected:
     void closeEvent(QCloseEvent * event);
@@ -56,6 +56,7 @@ private:
     QTimer *secondTimer;
     QTimer *milliSecondTimer;
     QTimer *playTimer;
+    QTimer *endTimer;
     int nextWorkoutStepIndex;
     long nextWorkoutStepTime;
     Workout* workout;
@@ -75,11 +76,14 @@ private:
     void updateScoreWidgetText(long time, float speed, float grade);
     TranquilSelectionWidget tranquilSelectionWidget;
     TrailSelectionWidget trailSelectionWidget;
+    void calculateCalories(int speed, int grade, long timeDifference);
+    int stage;
 
     QPixmap videoMask;
     float speed,grade;
     int heartRate;
     int weight;
+    int minutes, seconds;
     float calories;
     bool recordingWorkout;
     long lastStepRecordedTime;
@@ -104,7 +108,7 @@ private slots:
     void restartVideo();
     void updateHistoryWidgets(int speed, int grade);
     void bumpHistoryWidgets();
-    void calculateCalories(int speed, int grade, long timeDifference);
+
 
 };
 

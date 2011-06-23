@@ -7,10 +7,12 @@
 #include "changegradestep.h"
 #include "changespeedstep.h"
 #include "waitstep.h"
+#include "endstep.h"
 #include "utils.h"
 #include "preferences.h"
 
 static int MIN_SPEED = 1;
+static int END_DELAY=10000;
 
 using namespace std;
 
@@ -86,6 +88,7 @@ Workout* Workout::createDynamicSpeedWorkout(QString name, int minutes, int lowSp
 
         steps->append(new WaitStep(sprintLength));
     }
+    //steps->append(new EndStep(END_DELAY)); // add this to call the endstep at the end of my workout
 
     return workout;
 }
@@ -187,37 +190,47 @@ Workout* Workout::createFireFighterWorkout( int age, int weight, bool gender){
     Workout* workout = new Workout("Fire Fighter", weight);
     QList<Step*> *steps = workout->steps;
 
+    double kphConversion;
+    if(Preferences::getMeasurementSystem())
+        kphConversion=1.0;
+    else
+        kphConversion=1.609;
+
     //warm up
-    steps->append(new ChangeSpeedStep(3.0));
+    steps->append(new ChangeSpeedStep(3.0*kphConversion));
     steps->append(new ChangeGradeStep(0));
-    steps->append(new WaitStep(3 * MILLIS_PER_MINUTE));
+    steps->append(new WaitStep(3*MILLIS_PER_MINUTE)); //steps->append(new WaitStep(3 * MILLIS_PER_MINUTE));
 
     //workout stages
-    steps->append(new ChangeSpeedStep(4.5));        // +1.5
+    steps->append(new ChangeSpeedStep(4.5*kphConversion));        // +1.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
     steps->append(new ChangeGradeStep(2.0));        // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(5.0));        // +0.5
+    steps->append(new ChangeSpeedStep(5.0*kphConversion));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
     steps->append(new ChangeGradeStep(4.0));        // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(5.5));        // +0.5
+    steps->append(new ChangeSpeedStep(5.5*kphConversion));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
     steps->append(new ChangeGradeStep(6.0));        // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(6.0));        // +0.5
+    steps->append(new ChangeSpeedStep(6.0*kphConversion));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
     steps->append(new ChangeGradeStep(8.0));        // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(6.5));        // +0.5
+    steps->append(new ChangeSpeedStep(6.5*kphConversion));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
     steps->append(new ChangeGradeStep(10.0));       // +2.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
-    steps->append(new ChangeSpeedStep(7.0));        // +0.5
+    steps->append(new ChangeSpeedStep(7.0*kphConversion));        // +0.5
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeGradeStep(12.0));       // +2.0
+    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+    steps->append(new ChangeSpeedStep(7.5*kphConversion));        // +0.5
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
 
     //cool down
-    steps->append(new ChangeSpeedStep(3.0));        // -4.0
+    steps->append(new ChangeSpeedStep(3.0*kphConversion));        // -4.0
     steps->append(new ChangeGradeStep(0.0));        // -10.0
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
 

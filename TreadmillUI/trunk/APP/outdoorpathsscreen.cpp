@@ -97,7 +97,7 @@ void OutdoorPathsScreen::on_startButton_pressed(){
     MainScreen::getMainScreen()->startWorkout(workout);
 
     const char* selection = selected_Item();
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,selection);
+    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,selection,NULL);
 
     close();
 }
