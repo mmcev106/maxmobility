@@ -94,11 +94,7 @@ bool AbstractScreen::handleAccAction(QString audioFile){
             accActionTimer.start();
             Utils::accFeedback->clear();
 
-//            qDebug() << "playing audio file: " << audioFile;
-//            QList<QUrl> _queue = QList<QUrl>();
-//            _queue.append(QUrl(AUDIO_ROOT_DIR + audioFile));
             Utils::accFeedback->setCurrentSource(QString(AUDIO_ROOT_DIR + audioFile));
-//            Utils::mediaObject->setQueue(_queue);
             Utils::accFeedback->play();
 
             lastAccButtonPressed = currentAccButton;
