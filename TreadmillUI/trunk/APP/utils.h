@@ -24,6 +24,8 @@ static const long MILLIS_PER_SECOND = 1000;
 static const long MILLIS_PER_MINUTE = MILLIS_PER_SECOND * 60;
 static const long MILLIS_PER_HOUR = MILLIS_PER_MINUTE * 60;
 
+static const QString AUDIO_ROOT_DIR = "C:/audio/";
+
 class Utils
 {
 public:

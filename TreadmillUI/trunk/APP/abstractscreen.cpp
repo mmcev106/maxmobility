@@ -58,6 +58,7 @@ void AbstractScreen::keyPressEvent(QKeyEvent* event){
     if (key == Qt::Key_Escape){
         close();
     }
+
     else if (key == Qt::Key_M){
         if(Preferences::measurementSystem == STANDARD){
             Preferences::measurementSystem = METRIC;

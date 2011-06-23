@@ -37,11 +37,8 @@ WebWidget::WebWidget(const QUrl& url) :
     toolBar->setMovable(false);
 
     setCentralWidget(view);
-//    this->setGeometry(140,110,740,545);
     this->setGeometry(10,10,740,540);
     this->setAutoFillBackground(true);
-//    this->setMask(webMask.mask());
-//    this->clearMask();
 }
 //! [3]
 

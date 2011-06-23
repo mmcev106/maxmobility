@@ -30,6 +30,7 @@ using namespace std;
 static int HILL_GRADE = 5;
 static int STEEP_GRADE = MAX_GRADE;
 
+static const int AUDIO_LOOP_DELAY = 30;     // loop delay in seconds
 
 StartupWindow::StartupWindow(QWidget *parent) :
     AbstractScreen(parent)
@@ -148,6 +149,24 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
 }
 
 void StartupWindow::sharedTimerTimeout(){
+    static int secondsPassed=0;
+    unsigned char _state = Preferences::getCurrentState();
+//    if (!(_state & ON_OFF_MASK) && !(_state & CALIBRATING_MASK) && !(_state & SETUP_MASK) && !Preferences::accessibilityMode)
+    if (StartupWindow::isTopLevel())
+    {
+        secondsPassed++;
+        if (secondsPassed == 4*AUDIO_LOOP_DELAY)
+        {
+            secondsPassed=0;
+    //        if (Utils::mediaObject->finished())
+    //        {
+                Utils::mediaObject->setCurrentSource(AUDIO_ROOT_DIR+"Pro_intro.wav");
+                Utils::mediaObject->play();
+    //        }
+        }
+    }
+    else
+        secondsPassed=0;
 
     /**
       * This used to be done by connecting the finished() signal on the player,
@@ -300,6 +319,8 @@ void StartupWindow::on_invisibleButton_16_pressed()
 void StartupWindow::on_acc_invisibleButton_pressed()
 {
     Preferences::accessibilityMode = true;
+    Utils::mediaObject->setCurrentSource(AUDIO_ROOT_DIR+"Pro_Full_Audio.wav");
+    Utils::mediaObject->play();
 }
 
 bool StartupWindow::event(QEvent *event)
