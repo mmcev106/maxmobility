@@ -119,8 +119,11 @@ int main(int argc, char *argv[])
 
     initializeSerialPortConnection(startupWindow);
 
+    Utils::InitAudio(startupWindow);
+
     Screens::show(startupWindow);
     a.exec();
+
 
     savePreferences();
 

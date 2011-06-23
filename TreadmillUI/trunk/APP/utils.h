@@ -5,7 +5,9 @@
 #include "step.h"
 #include "workout.h"
 
-#include <QtMultimedia>
+#include <phonon>
+#include <QAudioInput>
+#include <QAudioOutput>
 
 static const float MAX_SPEED_MPH = 12.0;
 static const float MAX_SPEED_KPH = 20.0;
@@ -26,8 +28,11 @@ class Utils
 {
 public:
 
-    static QSound *feedbackPlayer;
-    static QSound *usbPlayer;
+    static Phonon::MediaObject *mediaObject;
+    static Phonon::AudioOutput *audioOutput;
+    static QAudioInput* qaudioInput;
+    static QAudioOutput* qaudioOutput;
+    static QIODevice* qdevice;
 
     static float getMAX_SPEED();
     Utils();
@@ -38,6 +43,7 @@ public:
 
     static QString toString(unsigned char*, int len);
     static int CRC(unsigned char* msg, int len);
+    static void InitAudio(QWidget* parent);
 private:
     static float MAX_SPEED;
     static float DEF_SPEED;

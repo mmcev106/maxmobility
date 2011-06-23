@@ -9,11 +9,42 @@
 float Utils::MAX_SPEED = MAX_SPEED_MPH;
 float Utils::DEF_SPEED = DEF_SPEED_MPH;
 
-QSound* Utils::feedbackPlayer = new QSound("",NULL);
-QSound* Utils::usbPlayer = new QSound("",NULL);
+Phonon::MediaObject* Utils::mediaObject = NULL;
+Phonon::AudioOutput* Utils::audioOutput = NULL;
+QAudioInput* Utils::qaudioInput = NULL;
+QAudioOutput* Utils::qaudioOutput = NULL;
+QIODevice* Utils::qdevice = NULL;
 
 Utils::Utils()
 {
+}
+
+void Utils::InitAudio(QWidget* parent)
+{
+
+    Utils::audioOutput = new Phonon::AudioOutput(Phonon::NoCategory,parent);
+    Utils::mediaObject = new Phonon::MediaObject(parent);
+
+    QAudioFormat format;
+    format.setFrequency(10100);
+    format.setChannels(1);
+    format.setSampleSize(8);
+    format.setCodec("audio/pcm");
+    format.setByteOrder(QAudioFormat::LittleEndian);
+    format.setSampleType(QAudioFormat::UnSignedInt);
+    QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
+    if (!info.isFormatSupported(format)){
+        qWarning()<<"default format not supported, trying to use nearest!";
+        format = info.nearestFormat(format);
+    }
+
+    Utils::qaudioInput = new QAudioInput(format,parent);
+
+
+    Utils::mediaObject->setCurrentSource(QString("/audio/Both_Instruction1.wav"));
+//    Utils::mediaObject->setCurrentSource(Utils::qaudioInput->start());
+    Phonon::createPath(Utils::mediaObject,Utils::audioOutput);
+//    Utils::mediaObject->play();
 }
 
 float Utils::getMAX_SPEED(){

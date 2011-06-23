@@ -86,14 +86,14 @@ bool AbstractScreen::handleAccAction(QString audioFile){
 
         if(accActionTimer.isActive() && lastAccButtonPressed == currentAccButton){
             accActionTimer.stop();
-            Utils::feedbackPlayer->stop();
+            Utils::mediaObject->stop();
         }
         else{
             accActionTimer.stop();
             accActionTimer.start();
 
             qDebug() << "playing audio file: " << audioFile;
-            Utils::feedbackPlayer->play("C:/audio/" + audioFile);
+            Utils::mediaObject->setCurrentSource(QString("C:/audio/" + audioFile));
 
             lastAccButtonPressed = currentAccButton;
 

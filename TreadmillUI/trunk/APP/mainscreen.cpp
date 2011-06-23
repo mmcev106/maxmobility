@@ -348,6 +348,8 @@ void MainScreen::endWorkout(){
     hideWidgets();
     webview->SetUrl(HOME_URL);
 
+    Preferences::accessibilityMode = false;
+
     secondTimer->stop();
     milliSecondTimer->stop();
 }
