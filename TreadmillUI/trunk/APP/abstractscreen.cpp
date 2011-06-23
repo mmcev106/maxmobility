@@ -94,6 +94,7 @@ bool AbstractScreen::handleAccAction(QString audioFile){
 
             qDebug() << "playing audio file: " << audioFile;
             Utils::mediaObject->setCurrentSource(QString("C:/audio/" + audioFile));
+            Utils::mediaObject->play();
 
             lastAccButtonPressed = currentAccButton;
 

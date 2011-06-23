@@ -67,32 +67,6 @@ StartupWindow::StartupWindow(QWidget *parent) :
     ui->backgroundLabel->lower();
     ui->invisibleButton->setFocusPolicy(Qt::NoFocus);
 
-
-    QAudioFormat format;
-    // Set up the format, eg.
-    format.setFrequency(10100);
-    format.setChannels(1);
-    format.setSampleSize(8);
-    format.setCodec("audio/pcm");
-    format.setByteOrder(QAudioFormat::LittleEndian);
-    format.setSampleType(QAudioFormat::UnSignedInt);
-
-    QAudioDeviceInfo info(QAudioDeviceInfo::defaultOutputDevice());
-    if (!info.isFormatSupported(format)) {
-    qDebug()<<"raw audio format not supported by backend, cannot play audio.";
-    return;
-    }
-
-//    Utils::audioInput = new QAudioInput(format, this);
-//    Utils::audioOutput = new QAudioOutput(format, this);
-
-//    connect(Utils::audioInput,SIGNAL(stateChanged(QAudio::State)),SLOT(audioInputPlaying(QAudio::State)));
-//    Utils::device = Utils::audioInput->start();
-
-//    connect(Utils::audioOutput,SIGNAL(stateChanged(QAudio::State)),SLOT(audioOutputPlaying(QAudio::State)));
-//    Utils::audioOutput->start(Utils::device);
-
-
     Preferences::application->installEventFilter(this);
 }
 
@@ -215,7 +189,7 @@ void showUsbQuestionMarkScreen(){
 
 void StartupWindow::on_invisibleButton_pressed()
 {
-    if(handleAccAction("walk.wav")){
+    if(handleAccAction("QS_Walk.wav")){
         Preferences::currentWorkout = Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
         MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
     }
@@ -223,67 +197,86 @@ void StartupWindow::on_invisibleButton_pressed()
 
 void StartupWindow::on_invisibleButton_2_pressed()
 {
-    Preferences::currentWorkout= Workout::createWorkout("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    if(handleAccAction("QS_Fast_Walk.wav")){
+        Preferences::currentWorkout= Workout::createWorkout("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    }
 }
 
 void StartupWindow::on_invisibleButton_3_pressed()
 {
-    Preferences::currentWorkout= Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
-    MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    if(handleAccAction("QS_Jog.wav")){
+        Preferences::currentWorkout= Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    }
 }
 
 void StartupWindow::on_invisibleButton_4_pressed()
 {
-    Preferences::currentWorkout= Workout::createWorkout("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    if(handleAccAction("QS_Run.wav")){
+        Preferences::currentWorkout= Workout::createWorkout("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    }
 }
 
 void StartupWindow::on_invisibleButton_5_pressed()
 {
-    Preferences::currentWorkout= Workout::createWorkout("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
-    MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    if(handleAccAction("QS_Hill.wav")){
+        Preferences::currentWorkout= Workout::createWorkout("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    }
 }
 
 void StartupWindow::on_invisibleButton_6_pressed()
 {
-    Preferences::currentWorkout= Workout::createWorkout("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
-    MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    if(handleAccAction("QS_Steep_Hill.wav")){
+        Preferences::currentWorkout= Workout::createWorkout("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    }
 }
 
 void StartupWindow::on_invisibleButton_8_pressed()
 {
-    Screens::show(new IntervalScreen(0));
+    if(handleAccAction("Program_Interval_Training.wav")){
+        Screens::show(new IntervalScreen(0));
+    }
 }
 
 void StartupWindow::on_invisibleButton_10_pressed()
 {
-
-    Screens::show( new FatBurnScreen(0));
+    if(handleAccAction("Program_Fat_Burn.wav"))
+        Screens::show( new FatBurnScreen(0));
 }
 
 void StartupWindow::on_invisibleButton_9_pressed()
 {
-    Screens::show( new FitnessTestScreen(0));
+    if(handleAccAction("Program_Fitness_Tests.wav"))
+        Screens::show( new FitnessTestScreen(0));
 }
 
 void StartupWindow::on_invisibleButton_11_pressed()
 {
-    if(Preferences::isUsbDrivePresent()){
-        Screens::show(new MyWorkoutsScreen());
-    }
-    else{
-        showUsbWarningScreen();
+    if(handleAccAction("My_Workout_USB.wav"))
+    {
+        if(Preferences::isUsbDrivePresent()){
+            Screens::show(new MyWorkoutsScreen());
+        }
+        else{
+            showUsbWarningScreen();
+        }
     }
 }
 
 void StartupWindow::on_invisibleButton_12_pressed()
 {
-    if(Preferences::isUsbDrivePresent()){
-        Screens::show(new HistoryScreen());
-    }
-    else{
-        showUsbWarningScreen();
+    if(handleAccAction("My_Workout_History.wav"))
+    {
+        if(Preferences::isUsbDrivePresent()){
+            Screens::show(new HistoryScreen());
+        }
+        else{
+            showUsbWarningScreen();
+        }
     }
 }
 
@@ -294,12 +287,14 @@ void StartupWindow::on_invisibleButton_13_pressed()
 
 void StartupWindow::on_outdoorPathsButton_pressed()
 {
-    Screens::show(new OutdoorPathsScreen());
+    if(handleAccAction("Program_Interval_Training.wav"))
+        Screens::show(new OutdoorPathsScreen());
 }
 
 void StartupWindow::on_invisibleButton_16_pressed()
 {
-    Screens::show( new HeartRateScreen(0));
+    if(handleAccAction("Program_HR_Control.wav"))
+        Screens::show( new HeartRateScreen(0));
 }
 
 void StartupWindow::on_acc_invisibleButton_pressed()

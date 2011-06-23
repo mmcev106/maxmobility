@@ -41,9 +41,9 @@ void Utils::InitAudio(QWidget* parent)
     Utils::qaudioInput = new QAudioInput(format,parent);
 
 
-    Utils::mediaObject->setCurrentSource(QString("/audio/Both_Instruction1.wav"));
-//    Utils::mediaObject->setCurrentSource(Utils::qaudioInput->start());
+    Utils::mediaObject->setCurrentSource(QString("C:/audio/Pro_intro.wav"));
     Phonon::createPath(Utils::mediaObject,Utils::audioOutput);
+//    Utils::mediaObject->setCurrentSource(Utils::qaudioInput->start());
 //    Utils::mediaObject->play();
 }
 
