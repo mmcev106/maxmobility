@@ -4,11 +4,14 @@
 #include "screens.h"
 #include "preferences.h"
 #include <QMessageBox>
+#include "utils.h"
 
 AbstractScreen::AbstractScreen(QWidget *parent) :
     QWidget(parent)
 //    ,mouseTimer(this)
     ,mouseLabel(this)
+    ,accActionTimer(this)
+    ,lastAccButtonPressed(NULL)
 {
     setAttribute( Qt::WA_DeleteOnClose );
 
@@ -24,6 +27,9 @@ AbstractScreen::AbstractScreen(QWidget *parent) :
 
     setFocusPolicy(Qt::ClickFocus);
     setFocus();
+
+    accActionTimer.setInterval(500);
+    accActionTimer.setSingleShot(true);
 }
 
 void AbstractScreen::surroundCursor(){
@@ -64,4 +70,36 @@ void AbstractScreen::keyPressEvent(QKeyEvent* event){
     }
 
     event->accept();
+}
+
+/**
+ * This method is meant is be called from button pressed methods that support accessibility.
+ * If accessibility mode is enabled, the specified audio file is played on single clicks.
+ *
+ * If true is returned, the calling button should perform it's normal action.
+ * If false is returned, the calling button should do nothing.
+ */
+bool AbstractScreen::handleAccAction(QString audioFile){
+
+    if( Preferences::accessibilityMode ) {
+        QObject* currentAccButton = QObject::sender();
+
+        if(accActionTimer.isActive() && lastAccButtonPressed == currentAccButton){
+            accActionTimer.stop();
+            Utils::feedbackPlayer->stop();
+        }
+        else{
+            accActionTimer.stop();
+            accActionTimer.start();
+
+            qDebug() << "playing audio file: " << audioFile;
+            Utils::feedbackPlayer->play("C:/audio/" + audioFile);
+
+            lastAccButtonPressed = currentAccButton;
+
+            return false;
+        }
+    }
+
+    return true;
 }

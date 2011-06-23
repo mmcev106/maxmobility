@@ -15,16 +15,19 @@ public:
 private:
     QTimer* mouseTimer;
     QLabel mouseLabel;
+    QTimer accActionTimer;
+    QObject* lastAccButtonPressed;
 
 protected:
 //    void mouseReleaseEvent(QMouseEvent *event);
       void virtual keyPressEvent(QKeyEvent* event);
 
+      bool handleAccAction(QString audioFile);
+
 signals:
 
 public slots:
     void surroundCursor();
-
 
 };
 

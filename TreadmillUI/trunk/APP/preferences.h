@@ -77,7 +77,6 @@ public:
     static float getAverageHeartRate();                           /*!< Used to store last read in Heart Rate. */
     static float calculateAverageHeartRate(float thisHeartRate);    /*!< Used to calculate calories burned. */
 
-
     static void updateCurrentSpeed(float spd);      /*!< Used by serial listener thread to update the current speed. */
     static void updateCurrentGrade(float grd);      /*!< Used by serial listener thread to update the current grade. */
     static void updateCurrentState(unsigned char _state);  /*!< Used by serial listener thread to update the current state. */

@@ -191,11 +191,11 @@ void showUsbQuestionMarkScreen(){
 
 void StartupWindow::on_invisibleButton_pressed()
 {
-//    showMainScreen("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-//    Workout* workout =  Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    Preferences::currentWorkout = Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-    MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
-    Utils::feedbackPlayer->stop();
+    if(handleAccAction("walk.wav")){
+        Preferences::currentWorkout = Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+        Utils::feedbackPlayer->stop();
+    }
 }
 
 void StartupWindow::on_invisibleButton_2_pressed()
