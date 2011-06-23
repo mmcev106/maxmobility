@@ -94,16 +94,11 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
         {
             // do state-based screen switching here!
             if (Preferences::getCurrentState()&CALIBRATING_MASK)
-            {
                 CalibrationScreen::getCalibrationScreen()->setVisible(false);
-                setVisible(true);
-            }
             else if (Preferences::getCurrentState()&SETUP_MASK)
-            {
                 SettingsScreen::getSettingsScreen()->setVisible(false);
-                setVisible(true);
-            }
             else if (Preferences::getCurrentState()&ON_OFF_MASK)
+//                MainScreen::getMainScreen()->setVisible(false);
                 MainScreen::getMainScreen()->endWorkout();
         }
 
@@ -119,7 +114,6 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                 if (!MainScreen::getMainScreen()->isVisible())
                 {
                     Screens::show( MainScreen::getMainScreen() );
-                    setVisible(false);
                     if (Preferences::currentWorkout==NULL)
                     {
                         Preferences::currentWorkout = Workout::createWorkout("QStart", Utils::getDEF_SPEED(), 0, QUICK_WORKOUT_LENGTH);
@@ -131,19 +125,13 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
         if ( _state&CALIBRATING_MASK )
         {
             if (!CalibrationScreen::getCalibrationScreen()->isVisible())
-            {
                 CalibrationScreen::getCalibrationScreen()->setVisible(true);
-                setVisible(false);
-            }
             Preferences::updateCurrentGrade(((float)grade)/10.0);
         }
         if ( _state&SETUP_MASK )
         {
             if (!SettingsScreen::getSettingsScreen()->isVisible())
-            {
                 SettingsScreen::getSettingsScreen()->setVisible(true);
-                setVisible(false);
-            }
             if ( _state&UNITS_MASK)
             {
                 Preferences::setMeasurementSystem(STANDARD);
@@ -163,8 +151,7 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
 void StartupWindow::sharedTimerTimeout(){
     static int secondsPassed=0;
     unsigned char _state = Preferences::getCurrentState();
-//    if (!(_state & ON_OFF_MASK) && !(_state & CALIBRATING_MASK) && !(_state & SETUP_MASK) && !Preferences::accessibilityMode)
-    if (isVisible() && !Preferences::accessibilityMode)
+    if (!(_state & ON_OFF_MASK) && !(_state & CALIBRATING_MASK) && !(_state & SETUP_MASK) && !Preferences::accessibilityMode)
     {
         secondsPassed++;
         if (secondsPassed == 4*AUDIO_LOOP_DELAY)

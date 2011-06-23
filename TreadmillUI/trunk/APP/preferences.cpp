@@ -8,8 +8,6 @@
 static QString PUSHON = "PushOn";
 const QString Preferences::FILENAME = "Preferences.txt";
 
-StartupWindow* Preferences::startupWindow = NULL;
-
 bool Preferences::gender = MALE;
 
 bool Preferences::measurementSystem = STANDARD;

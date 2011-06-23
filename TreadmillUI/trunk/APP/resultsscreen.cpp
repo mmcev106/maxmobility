@@ -1,6 +1,5 @@
 #include "resultsscreen.h"
 #include "ui_resultsscreen.h"
-#include "preferences.h"
 
 ResultsScreen::ResultsScreen(QWidget *parent, QString message) :
     QWidget(parent),
@@ -26,7 +25,6 @@ ResultsScreen::~ResultsScreen()
 
 
 void ResultsScreen::on_closeButton_pressed(){
-    Preferences::startupWindow->setVisible(true);
     close();
 }
 
@@ -43,7 +41,6 @@ void ResultsScreen::secondTimerTimeout()
     if (counter==CLOSE_TIMEOUT)
     {
         secondTimer->stop();
-        Preferences::startupWindow->setVisible(true);
         close();
     }
 }

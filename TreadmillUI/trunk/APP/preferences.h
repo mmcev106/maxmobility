@@ -8,7 +8,6 @@
 
 #include "qextserialport.h"
 #include "state.h"
-#include "startupwindow.h"
 #include "mainscreen.h"
 #include "workout.h"
 
@@ -28,8 +27,6 @@ class Preferences
 private:
     static QString getCurrentDataPath();
 public:
-    static StartupWindow* startupWindow;
-
     static const QString FILENAME;
 
     static bool gender;

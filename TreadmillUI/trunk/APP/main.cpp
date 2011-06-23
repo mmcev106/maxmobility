@@ -112,16 +112,16 @@ int main(int argc, char *argv[])
 
     loadPreferences();
 
-    Preferences::startupWindow = new StartupWindow();
-    MainScreen::createMainScreen(Preferences::startupWindow);
-    SettingsScreen::createSettingsScreen(Preferences::startupWindow);
-    CalibrationScreen::createCalibrationScreen(Preferences::startupWindow);
+    StartupWindow* startupWindow = new StartupWindow();
+    MainScreen::createMainScreen(startupWindow);
+    SettingsScreen::createSettingsScreen(startupWindow);
+    CalibrationScreen::createCalibrationScreen(startupWindow);
 
-    initializeSerialPortConnection(Preferences::startupWindow);
+    initializeSerialPortConnection(startupWindow);
 
-    Utils::InitAudio(Preferences::startupWindow);
+    Utils::InitAudio(startupWindow);
 
-    Screens::show(Preferences::startupWindow);
+    Screens::show(startupWindow);
     a.exec();
 
 
