@@ -26,6 +26,7 @@
 static int HISTORY_HEIGHT = 13;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
 static bool _update = false;
+static bool wheelchairDude=false;
 
 static float TRACK_LENGTH = .25; // in miles
 
@@ -69,6 +70,8 @@ MainScreen::MainScreen(QWidget *parent) :
     ,trailSelectionWidget(NULL)
     ,scoreWidget(NULL)
     ,videoMask(":/images/images/main_screen_large_video_mask.png")
+    ,wheelchairDudeOn(":/images/images/Wheelchair Mode - (Active).png")
+    ,wheelchairDudeOff(":/images/images/Wheelchair Mode - (Not Active).png")
     ,nextWorkoutStepIndex(0)
     ,nextWorkoutStepTime(0)
     ,workout(NULL)
@@ -144,6 +147,13 @@ MainScreen::MainScreen(QWidget *parent) :
 
     runningDudeWidget->setFixedSize(centerSize);
     runningDudeWidget->show();
+
+    ui->wheelchairDudeImage->setParent(this);
+    ui->wheelchairDudeImage->setVisible(true);
+    ui->wheelchairDudeImage->raise();
+    ui->wheelchairDude_invisibleButton->setParent(this);
+    ui->wheelchairDude_invisibleButton->setVisible(true);
+    ui->wheelchairDude_invisibleButton->raise();
 
     webview = new WebWidget(HOME_URL);
     webview->setParent(&centerWidget);
@@ -770,7 +780,11 @@ void MainScreen::updateRunningDudeImage(){
     QString type;
     int imageCount;
 
-    if(speed < Preferences::FAST_SPEED){ // What about RAMMING SPEED?!
+    if (wheelchairDude){
+        type="Push";
+        imageCount=124;
+    }
+    else if(speed < Preferences::FAST_SPEED){ // What about RAMMING SPEED?!
         type= "Walk";
         imageCount = 149;
     }
@@ -782,6 +796,7 @@ void MainScreen::updateRunningDudeImage(){
        type = "Run";
        imageCount = 49;
     }
+
 
     double imageNumberDouble = percentageAroundTrack*imageCount + 1;
     int imageNumber = imageNumberDouble;
@@ -802,6 +817,26 @@ void MainScreen::on_track_invisibleButton_pressed()
 
     trackWidget->show();
     runningDudeWidget->show();
+
+    ui->wheelchairDudeImage->setVisible(true);
+    ui->wheelchairDudeImage->raise();
+
+    ui->wheelchairDude_invisibleButton->setVisible(true);
+    ui->wheelchairDude_invisibleButton->raise();
+}
+
+void MainScreen::on_wheelchairDude_invisibleButton_pressed(){
+    qDebug()<< "wheelchair button pressed: "<< wheelchairDude;
+    if (!wheelchairDude)
+    {
+        ui->wheelchairDudeImage->setPixmap(wheelchairDudeOn);
+        wheelchairDude=true;
+    }
+    else
+    {
+        ui->wheelchairDudeImage->setPixmap(wheelchairDudeOff);
+        wheelchairDude=false;
+    }
 }
 
 void MainScreen::on_web_invisibleButton_pressed()
@@ -841,6 +876,10 @@ void MainScreen::ShowWidget(int selection,QString video,QString text)
     case TRACK_VISUALIZATION:
         trackWidget->show();
         runningDudeWidget->show();
+        ui->wheelchairDudeImage->setVisible(true);
+        ui->wheelchairDudeImage->raise();
+        ui->wheelchairDude_invisibleButton->setVisible(true);
+        ui->wheelchairDude_invisibleButton->raise();
         break;
     case WEB_VISUALIZATION:
         webview->show();
@@ -871,4 +910,8 @@ void MainScreen::hideWidgets(void)
     tranquilSelectionWidget.setVisible(false);
     trailSelectionWidget.setVisible(false);
     scoreWidget.setVisible(false);
+    ui->wheelchairDudeImage->setVisible(false);
+    ui->wheelchairDudeImage->lower();
+    ui->wheelchairDude_invisibleButton->setVisible(false);
+    ui->wheelchairDude_invisibleButton->lower();
 }

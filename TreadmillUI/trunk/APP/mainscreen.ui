@@ -563,6 +563,38 @@ QLabel{color: #42b4ff; }</string>
     <number>10</number>
    </property>
   </widget>
+  <widget class="QLabel" name="wheelchairDudeImage">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>570</y>
+     <width>54</width>
+     <height>54</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/Wheelchair Mode - (Not Active).png</pixmap>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="wheelchairDude_invisibleButton" native="true">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>560</y>
+     <width>71</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: none;</string>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>

@@ -68,6 +68,8 @@
         <file>images/black box.png</file>
         <file>images/Internet-Background.png</file>
         <file>images/Audio-Screen.png</file>
+        <file>images/Wheelchair Mode - (Active).png</file>
+        <file>images/Wheelchair Mode - (Not Active).png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>

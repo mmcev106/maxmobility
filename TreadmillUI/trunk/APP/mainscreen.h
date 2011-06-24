@@ -71,6 +71,7 @@ private:
     QWidget centerWidget;
     QLabel* trackWidget;
     QLabel* runningDudeWidget;
+
     static const int HISTORY_LENGTH = 7;
     int speedHistory[HISTORY_LENGTH];
     int gradeHistory[HISTORY_LENGTH];
@@ -84,7 +85,8 @@ private:
     TrailSelectionWidget trailSelectionWidget;
     void calculateCalories(int speed, int grade, long timeDifference);
     int stage;
-
+    QPixmap wheelchairDudeOn;
+    QPixmap wheelchairDudeOff;
     QPixmap videoMask;
     float speed,grade;
     int heartRate;
@@ -110,6 +112,7 @@ private slots:
     void on_trails_invisibleButton_pressed();
     void on_tranquil_invisibleButton_pressed();
     void on_audioButton_invisibleButton_pressed();
+    void on_wheelchairDude_invisibleButton_pressed();
     void updateDisplay();
     void updateRunningDudeImage();
     void processNextWorkoutStep();
