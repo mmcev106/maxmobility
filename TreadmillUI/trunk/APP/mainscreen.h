@@ -71,7 +71,7 @@ private:
     QWidget centerWidget;
     QLabel* trackWidget;
     QLabel* runningDudeWidget;
-
+    float lastPosition;
     static const int HISTORY_LENGTH = 7;
     int speedHistory[HISTORY_LENGTH];
     int gradeHistory[HISTORY_LENGTH];

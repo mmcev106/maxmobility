@@ -59,7 +59,7 @@ void SerialSenderThread::run(){
         messageData[5] = (crc>>8)&0xFF;
         messageData[6] = crc&0xFF;
 
-        qDebug() << "Sending: " << Utils::toString( messageData, MESSAGE_LENGTH );
+//        qDebug() << "Sending: " << Utils::toString( messageData, MESSAGE_LENGTH );
         port->write((char*)messageData,8);
         port->flush();
 

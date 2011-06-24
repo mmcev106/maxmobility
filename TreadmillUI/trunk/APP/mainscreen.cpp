@@ -204,6 +204,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     nextWorkoutStepTime = 0;
     calories=0;
     stage=0;
+    lastPosition=0;
 
     if(Preferences::getMeasurementSystem()){
         ui->distanceMetricLabel->setText("mi");
@@ -773,7 +774,6 @@ void MainScreen::updateHistoryWidgets(int speed, int grade){
 }
 
 void MainScreen::updateRunningDudeImage(){
-
     float percentageAroundTrack = distance / TRACK_LENGTH;
     percentageAroundTrack -= (int) percentageAroundTrack;
 
@@ -800,10 +800,17 @@ void MainScreen::updateRunningDudeImage(){
 
     double imageNumberDouble = percentageAroundTrack*imageCount + 1;
     int imageNumber = imageNumberDouble;
+    float currentPosition=(float)imageNumber/(float)imageCount;
 
-    QString imagePath = RUNNING_DUDE_IMAGE_PATH + "/" + type + "/" + type + QString("%1").arg(imageNumber) + ".png";
-    QPixmap runningDudePixmap(imagePath);
-    runningDudeWidget->setPixmap(runningDudePixmap);
+    if (currentPosition>lastPosition){
+        QString imagePath = RUNNING_DUDE_IMAGE_PATH + "/" + type + "/" + type + QString("%1").arg(imageNumber) + ".png";
+        QPixmap runningDudePixmap(imagePath);
+        runningDudeWidget->setPixmap(runningDudePixmap);
+        lastPosition=currentPosition;
+        if (lastPosition==1)
+            lastPosition=0;
+    }
+
 }
 
 void MainScreen::on_audioButton_invisibleButton_pressed()
