@@ -36,8 +36,13 @@ void zero(int array[], int length){
     }
 }
 
-static int counter=0;
+static int counter=0;       // used for counting minutes for periodic feedback
+static float last_speed = 0;      // used for detecting speed change
+static float last_grade = 0;      // used for detecting grade change
+static bool change = false;
 
+static const int PERIODIC_UPDATE_DELAY = 2*60*1000;     // delay in ms between periodic updates
+static const int DETECT_CHANGE_DELAY = 1*1000;          // delay in ms between checking speed and grade for change
 static const int UPDATE_DISPLAY_DELAY = 100;
 static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER_HOUR;
 //QTime LAST_UPDATE=currentTime();
@@ -47,6 +52,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,ui(new Ui::MainScreen)
     ,secondTimer(new QTimer(this))
     ,feedbackTimer(new QTimer(this))
+    ,detectChangeTimer(new QTimer(this))
     ,endTimer(new QTimer(this))
     ,milliSecondTimer(new QTimer(this))
     ,playTimer(new QTimer(this))
@@ -86,7 +92,11 @@ MainScreen::MainScreen(QWidget *parent) :
 
     connect(feedbackTimer,SIGNAL(timeout()), this, SLOT( periodicFeedback()));
     feedbackTimer->setSingleShot(false);
-    feedbackTimer->setInterval(10*1000);  // every 2 minutes
+    feedbackTimer->setInterval(PERIODIC_UPDATE_DELAY);  // every 2 minutes
+
+    connect(detectChangeTimer,SIGNAL(timeout()), this, SLOT(detectChangeFeedback()));
+    detectChangeTimer->setSingleShot(false);
+    detectChangeTimer->setInterval(DETECT_CHANGE_DELAY);
 
     connect(milliSecondTimer, SIGNAL(timeout()), this, SLOT( updateRunningDudeImage()));
     milliSecondTimer->setSingleShot(false);
@@ -208,6 +218,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     secondTimer->start();
     milliSecondTimer->start();
     feedbackTimer->start();
+    detectChangeTimer->start();
 
     updateDisplay();
 
@@ -355,7 +366,9 @@ void MainScreen::recordGradeChange(float grade){
 
 void MainScreen::closeEvent(QCloseEvent * event){
     //used for testing when the escape button is pressed
-    endWorkout();
+    if(Preferences::isTestingMode()){
+        endWorkout();
+    }
 }
 
 void MainScreen::endWorkout(){
@@ -406,6 +419,8 @@ void MainScreen::endWorkout(){
 
     Screens::show(new ResultsScreen(NULL, message));
 
+    Utils::realTimeFeedback->clear();
+
     hide();
 
     if(Preferences::isUsbDrivePresent()){
@@ -426,6 +441,7 @@ void MainScreen::endWorkout(){
     secondTimer->stop();
     milliSecondTimer->stop();
     feedbackTimer->stop();
+    detectChangeTimer->stop();
 }
 
 MainScreen::~MainScreen()
@@ -462,7 +478,65 @@ void MainScreen::feedbackAppendNumber(int number,QList<QUrl> *lst)
     }
     else
     {
+        lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(number/100) + ".wav"));
+        lst->append(QUrl(AUDIO_ROOT_DIR + "hundred.wav"));
+        number = number%100;
+        if (number < 21)
+        {
+            lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(number) + ".wav"));
+        }
+        else
+        {
+            lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(number - number%10) + ".wav"));
+            if (number%10)
+                lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(number%10) + ".wav"));
+        }
     }
+}
+
+
+void MainScreen::feedbackAppendNumber(float number,QList<QUrl> *lst)
+{
+    double intpartD;
+    double fracpart = modf(number,&intpartD);
+    if (fracpart>0.0f && fracpart < 0.1)
+        fracpart = 0.1;
+
+    int intpart = (int)intpartD;
+
+    if (intpart < 100)
+    {
+        if (intpart < 21)
+        {
+            lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(intpart) + ".wav"));
+        }
+        else
+        {
+            lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(intpart - intpart%10) + ".wav"));
+            if (intpart%10)
+                lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(intpart%10) + ".wav"));
+        }
+    }
+    else
+    {
+        lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(intpart/100) + ".wav"));
+        lst->append(QUrl(AUDIO_ROOT_DIR + "hundred.wav"));
+        intpart = intpart%100;
+        if (intpart < 21)
+        {
+            lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(intpart) + ".wav"));
+        }
+        else
+        {
+            lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(intpart - intpart%10) + ".wav"));
+            if (intpart%10)
+                lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(intpart%10) + ".wav"));
+        }
+    }
+
+    lst->append(QUrl(AUDIO_ROOT_DIR + "point.wav"));
+
+    lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(fracpart*10.0) + ".wav"));
 }
 
 void MainScreen::periodicFeedback(){
@@ -481,6 +555,46 @@ void MainScreen::periodicFeedback(){
     }
     else
         counter = 0;
+}
+
+void MainScreen::detectChangeFeedback(){
+    if (workout)
+    {
+        QList<QUrl> fdbk = QList<QUrl>();
+
+        if (speed != last_speed || grade != last_grade)
+        {
+            change = true;
+            Utils::realTimeFeedback->clear();
+            fdbk.clear();
+        }
+        else
+            change = false;
+
+        if (speed != last_speed)
+        {
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Speed.wav"));
+            feedbackAppendNumber(speed,&fdbk);
+            if (Preferences::getMeasurementSystem())
+                fdbk.append(QUrl(AUDIO_ROOT_DIR+"mph.wav"));
+            else
+                fdbk.append(QUrl(AUDIO_ROOT_DIR+"kph.wav"));
+        }
+        if (grade != last_grade)
+        {
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Grade.wav"));
+            feedbackAppendNumber(grade,&fdbk);
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"percent.wav"));
+        }
+
+        if (change)
+        {
+            Utils::realTimeFeedback->setQueue(fdbk);
+            Utils::realTimeFeedback->play();
+        }
+        last_speed = speed;
+        last_grade = grade;
+    }
 }
 
 void MainScreen::updateDisplay(){
@@ -679,7 +793,6 @@ void MainScreen::updateRunningDudeImage(){
 
 void MainScreen::on_audioButton_invisibleButton_pressed()
 {
-    hideWidgets();
     audioSettingsWidget.setVisible(!audioSettingsWidget.isVisible());
 }
 

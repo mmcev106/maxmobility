@@ -100,11 +100,16 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
             // do state-based screen switching here!
             if (Preferences::getCurrentState()&CALIBRATING_MASK)
                 CalibrationScreen::getCalibrationScreen()->setVisible(false);
-            else if (Preferences::getCurrentState()&SETUP_MASK)
-                SettingsScreen::getSettingsScreen()->setVisible(false);
-            else if (Preferences::getCurrentState()&ON_OFF_MASK)
-//                MainScreen::getMainScreen()->setVisible(false);
-                MainScreen::getMainScreen()->endWorkout();
+            else
+            {
+                if (Preferences::getCurrentState()&SETUP_MASK)
+                    SettingsScreen::getSettingsScreen()->setVisible(false);
+                else
+                {
+                    if (Preferences::getCurrentState()&ON_OFF_MASK)
+                        MainScreen::getMainScreen()->endWorkout();
+                }
+            }
         }
 
         Preferences::updateCurrentState(_state);

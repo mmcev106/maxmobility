@@ -44,12 +44,16 @@ void Preferences::setMeasurementSystem(bool Standard)
         measurementSystem = STANDARD;
         Utils::setMAX_SPEED(STANDARD);
         Utils::setDEF_SPEED(STANDARD);
+        currentState.state |= UNITS_MASK;
+        sendState.state |= UNITS_MASK;
     }
     else
     {
         measurementSystem = METRIC;
         Utils::setMAX_SPEED(METRIC);
         Utils::setDEF_SPEED(METRIC);
+        currentState.state &= ~(UNITS_MASK);
+        sendState.state &= ~(UNITS_MASK);
     }
 }
 
@@ -86,6 +90,7 @@ void Preferences::setCurrentState(unsigned char _state)
 void Preferences::updateCurrentState(unsigned char _state)
 {
     currentState.state = _state;
+    sendState.sendstate = _state;
 }
 
 float Preferences::getHeartRate(){

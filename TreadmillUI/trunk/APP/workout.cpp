@@ -70,7 +70,7 @@ Workout* Workout::createDynamicSpeedWorkout(QString name, int minutes, int lowSp
 
     qDebug() << "weight passed in was: " << weight;
 
-    long sprintLength = MILLIS_PER_SECOND * 5;
+    long sprintLength = MILLIS_PER_SECOND * 60;
     long endTime = MILLIS_PER_MINUTE * minutes;
 
     int sprints = endTime / sprintLength;
@@ -157,7 +157,7 @@ Workout* Workout::createDynamicGradeWorkout(QString name, int minutes, int lowGr
     Workout* workout = new Workout(name, weight);//, NULL, weight
     QList<Step*> *steps = workout->steps;
 
-    long sprintLength = MILLIS_PER_SECOND * 5;
+    long sprintLength = MILLIS_PER_SECOND * 60;
     long endTime = MILLIS_PER_MINUTE * minutes;
 
     int sprints = endTime / sprintLength;

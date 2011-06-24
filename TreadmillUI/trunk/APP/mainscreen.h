@@ -62,6 +62,7 @@ private:
     QTimer *playTimer;
     QTimer *endTimer;
     QTimer *feedbackTimer;
+    QTimer *detectChangeTimer;
     int nextWorkoutStepIndex;
     long nextWorkoutStepTime;
     Workout* workout;
@@ -101,6 +102,7 @@ private:
     void recordWaitStep();
 
     void feedbackAppendNumber(int number,QList<QUrl> *lst);
+    void feedbackAppendNumber(float number,QList<QUrl> *lst);
 
 private slots:
     void on_track_invisibleButton_pressed();
@@ -115,6 +117,7 @@ private slots:
     void updateHistoryWidgets(int speed, int grade);
     void bumpHistoryWidgets();
     void periodicFeedback();
+    void detectChangeFeedback();
 
 
 };
