@@ -1,11 +1,14 @@
 #include "newworkoutscreen.h"
 #include "ui_newworkoutscreen.h"
 #include "mainscreen.h"
+#include "startupwindow.h"
 #include "preferences.h"
 #include "screens.h"
 #include "usbwarningscreen.h"
 #include "changespeedstep.h"
 #include "changegradestep.h"
+#include "waitstep.h"
+#include "utils.h"
 
 #include <QDir>
 
@@ -43,11 +46,13 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
 
     if( workoutName.length() > 0){
 
-        Workout* workout = new Workout(workoutName, weightSlider.value);
-        workout->steps->append(new ChangeSpeedStep(speedSlider.value));
-        workout->steps->append(new ChangeGradeStep(gradeSlider.value));
+        Preferences::currentWorkout = new Workout(workoutName, weightSlider.value);
+        Preferences::currentWorkout->steps->append(new ChangeSpeedStep(speedSlider.value));
+        Preferences::currentWorkout->steps->append(new ChangeGradeStep(gradeSlider.value));
+        Preferences::currentWorkout->steps->append(new WaitStep(QUICK_WORKOUT_LENGTH*MILLIS_PER_MINUTE));
 
-        MainScreen::getMainScreen()->recordWorkout(workout);
+
+        MainScreen::getMainScreen()->recordWorkout(Preferences::currentWorkout);
         close();
     }
 }

@@ -571,42 +571,44 @@ void MainScreen::periodicFeedback(){
 void MainScreen::detectChangeFeedback(){
     if (workout)
     {
-        QList<QUrl> fdbk = QList<QUrl>();
-
         if (speed != last_speed || grade != last_grade)
-        {
             change = true;
-            Utils::realTimeFeedback->clear();
-            fdbk.clear();
-        }
         else
             change = false;
 
-        if (speed != last_speed)
-        {
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Speed.wav"));
-            feedbackAppendNumber(speed,&fdbk);
-            if (Preferences::getMeasurementSystem())
-                fdbk.append(QUrl(AUDIO_ROOT_DIR+"mph.wav"));
-            else
-                fdbk.append(QUrl(AUDIO_ROOT_DIR+"kph.wav"));
-        }
-        if (grade != last_grade)
-        {
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Grade.wav"));
-            feedbackAppendNumber(grade,&fdbk);
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"percent.wav"));
-        }
-
         if (change)
         {
-            Utils::realTimeFeedback->setQueue(fdbk);
+            Utils::realTimeFeedback->clear();
+            Utils::realTimeFeedback->setCurrentSource(QUrl(AUDIO_ROOT_DIR + "point.wav"));
             Utils::realTimeFeedback->play();
         }
         last_speed = speed;
         last_grade = grade;
     }
 }
+
+
+QList<QUrl> fdbk = QList<QUrl>();
+//if (speed != last_speed)
+//{
+//    Utils::realTimeFeedback->clear();
+//    fdbk.clear();
+
+//    fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Speed.wav"));
+//    feedbackAppendNumber(speed,&fdbk);
+//    if (Preferences::getMeasurementSystem())
+//        fdbk.append(QUrl(AUDIO_ROOT_DIR+"mph.wav"));
+//    else
+//        fdbk.append(QUrl(AUDIO_ROOT_DIR+"kph.wav"));
+//}
+//if (grade != last_grade)
+//{
+//    fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Grade.wav"));
+//    feedbackAppendNumber(grade,&fdbk);
+//    fdbk.append(QUrl(AUDIO_ROOT_DIR+"percent.wav"));
+//}
+//Utils::realTimeFeedback->setQueue(fdbk);
+//Utils::realTimeFeedback->play();
 
 void MainScreen::updateDisplay(){
 

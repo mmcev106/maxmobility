@@ -23,7 +23,6 @@ void SerialSenderThread::run(){
     while(true){
         unsigned char _state = Preferences::sendState.sendstate;
         messageData[1] = _state;
-//        qDebug() << "sending state: " << _state;
         Preferences::sendState.sendstate &=(~(STATE_CHANGE_MASK));
 
         if ( (_state&CALIBRATING_MASK) && (!(_state&ERROR_MASK)) )			// treadmill is in CALIBRATION state
