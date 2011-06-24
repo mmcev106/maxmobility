@@ -28,7 +28,7 @@ void TranquilSelectionWidget::on_fish_invisibleButton_pressed()
 }
 void TranquilSelectionWidget::on_ocean_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/ocean.avi",NULL);
+    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/tranquil/sea.avi",NULL);
 }
 
 void TranquilSelectionWidget::on_waterfall_invisibleButton_pressed()
