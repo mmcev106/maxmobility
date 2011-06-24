@@ -74,7 +74,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
 void StartupWindow::onSerialEvent(unsigned char* _data)
 {
 
-    unsigned char _state = _data[1] & (~STATE_CHANGE_MASK);
+    unsigned char _state = _data[1];
 
     unsigned char heartRate = _data[2];
     unsigned char speed = _data[3];
@@ -85,10 +85,15 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
     }
     else
     {
+        _state &= ~STATE_CHANGE_MASK;
+        qDebug() << "current state: " << Preferences::getCurrentState();
+        qDebug() << "new state: " << _state;
+
         if (_state&UNITS_MASK)
             Preferences::setMeasurementSystem(STANDARD);
         else
             Preferences::setMeasurementSystem(METRIC);
+
 
         if (Preferences::getCurrentState() != _state)
         {
@@ -113,6 +118,7 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
             {
                 if (!MainScreen::getMainScreen()->isVisible())
                 {
+                    qDebug() << "showing main screen";
                     Screens::show( MainScreen::getMainScreen() );
                     if (Preferences::currentWorkout==NULL)
                     {

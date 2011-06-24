@@ -23,11 +23,11 @@ void SerialSenderThread::run(){
     while(true){
         unsigned char _state = Preferences::sendState.sendstate;
         messageData[1] = _state;
+        qDebug() << "sending state: " << _state;
+        Preferences::sendState.sendstate &=(~(STATE_CHANGE_MASK));
 
         if ( (_state&CALIBRATING_MASK) && (!(_state&ERROR_MASK)) )			// treadmill is in CALIBRATION state
         {
-            Preferences::sendState.sendstate &=(~(STATE_CHANGE_MASK));
-
             messageData[2] 	= 0;        // was command
             messageData[3] 	= 0;
             messageData[4] 	= 0;
@@ -36,8 +36,6 @@ void SerialSenderThread::run(){
         {
             if ( _state&SETUP_MASK )		// treadmill is in SETUP state
             {
-                Preferences::sendState.sendstate &=(~(STATE_CHANGE_MASK));
-
                 messageData[2] 	= 0;  // need to set to reflect units from radio button
                 messageData[3] 	= 0;
                 messageData[4] 	= 0;
@@ -46,7 +44,6 @@ void SerialSenderThread::run(){
             {
                 if ( _state&ON_OFF_MASK || (!(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK)) )		// treadmill is either in ON or OFF state
                 {
-                    Preferences::sendState.sendstate &=(~(STATE_CHANGE_MASK));
 
                     messageData[2] 	= Preferences::heartRate;
 

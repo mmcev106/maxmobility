@@ -359,6 +359,9 @@ void MainScreen::closeEvent(QCloseEvent * event){
 }
 
 void MainScreen::endWorkout(){
+
+    qDebug() << "endWorkout()";
+
     QString message;
     if (workout && (workout->name.contains("Fire Fighter") || workout->name.contains("Fitness")) )
     {
@@ -521,9 +524,9 @@ void MainScreen::updateDisplay(){
     QString paceString;
     if (speed)
     {
-        paceString = QString("%1").arg(60/(int)speed);
+        paceString = QString("%1").arg((int)(60.0f/speed));
         paceString.append(":");
-        int intPaceSeconds = 60000/speed;
+        int intPaceSeconds = 60000.0f/speed;
         intPaceSeconds= (((intPaceSeconds)%1000)*6)/100;
         QString paceSecondsString;
         if (intPaceSeconds < 10)

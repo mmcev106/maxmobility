@@ -51,26 +51,18 @@ void QWidget::mouseReleaseEvent( QMouseEvent * event ){
 
 void AbstractScreen::keyPressEvent(QKeyEvent* event){
 
+
+
+    if(Preferences::isTestingMode()){
+
+        int key = event->key();
+
+        if (key == Qt::Key_Escape){
+            close();
+        }
+    }
+
     QWidget::keyPressEvent(event);
-
-    int key = event->key();
-
-    if (key == Qt::Key_Escape){
-        close();
-    }
-
-    else if (key == Qt::Key_M){
-        if(Preferences::measurementSystem == STANDARD){
-            Preferences::measurementSystem = METRIC;
-            QMessageBox::about(this, "", "The measurement system has been changed to metric.");
-        }
-        else{
-            Preferences::measurementSystem = STANDARD;
-            QMessageBox::about(this, "", "The measurement system has been changed to standard.");
-        }
-    }
-
-    event->accept();
 }
 
 /**

@@ -52,6 +52,7 @@ void WebWidget::changeLocation()
 {
     QString txt = locationEdit->text();
     QUrl url;
+//    QUrl url = txt;
     if (txt.contains(QString("http://www.")))
     {
         url = QUrl(txt);
