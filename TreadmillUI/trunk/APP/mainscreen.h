@@ -44,6 +44,8 @@ public:
 
     void playVideo(QString filename);
     void ShowWidget(int selection,QString video, QString text);
+
+    bool recordingWorkout;
 //
 protected:
     void closeEvent(QCloseEvent * event);
@@ -88,7 +90,6 @@ private:
     int weight;
     int minutes, seconds;
     float calories;
-    bool recordingWorkout;
     long lastStepRecordedTime;
 
     static MainScreen* mainScreen;
