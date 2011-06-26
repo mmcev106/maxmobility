@@ -9,6 +9,8 @@
 static const int HISTORY_WIDTH = 12;
 static const int HISTORY_HEIGHT = 10;
 
+static const QString TRAILS_PATH = "/videos/trails";
+
 OutdoorPathsScreen::OutdoorPathsScreen(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::OutdoorPathsScreen)
@@ -70,34 +72,62 @@ void OutdoorPathsScreen::hideAllBorders(){
     ui->cityBorder->hide();
 }
 
-void OutdoorPathsScreen::on_closeButton_pressed(){
-    close();
-}
 
 const char* OutdoorPathsScreen::selected_Item(void)
 {
     if (ui->woodedBorder->isVisible())
-        return ("/videos/trails/radnor.avi");
+        return ("radnor");
     if (ui->deerBorder->isVisible())
-        return ("/videos/trails/deer.avi");
+        return ("deer");
     if (ui->lakeBorder->isVisible())
-        return ("/videos/trails/lake.avi");
+        return ("lake");
     if (ui->cityBorder->isVisible())
-        return ("/videos/trails/downtown.avi");
+        return ("downtown");
+}
+
+void OutdoorPathsScreen::on_closeButton_pressed(){
+    close();
+}
+
+QString getWorkoutName(QString videoName){
+    if( videoName.compare("radnor") == 0){
+        return "Wooded Path";
+    }
+    else if( videoName.compare("Deer") == 0){
+        return "Deer Trail";
+    }
+    else if( videoName.compare("lake") == 0){
+        return "Lake Trail";
+    }
+    else{ // videoName.compare("downtown") == 0
+        return "City Walk";
+    }
+}
+
+Workout* OutdoorPathsScreen::createTrailWorkout(QString videoName){
+    Workout* workout = Workout::load(TRAILS_PATH, videoName);
+
+    if( workout == NULL){
+        workout = Workout::createWorkout(NULL, MIN_SPEED, 1, timeSliderWidget.value);
+    }
+
+    workout->name = getWorkoutName(videoName);
+    workout->_weight = weightSliderWidget.value;
+
+    Workout::increaseWorkoutIntensity(workout, intensitySliderWidget.getPercentage());
+
+    return workout;
 }
 
 void OutdoorPathsScreen::on_startButton_pressed(){
 
-    float percentage = intensitySliderWidget.value/intensitySliderWidget.max;
+    QString videoName  = selected_Item();
+    QString videoPath = TRAILS_PATH + "/" + videoName + ".avi";
 
-    float speed = percentage * Utils::getMAX_SPEED();
-    float grade = percentage * MAX_GRADE;
-
-    Workout* workout = Workout::createWorkout("Outdoor Path", speed, grade, timeSliderWidget.value);
+    Workout* workout = createTrailWorkout(videoName);
     MainScreen::getMainScreen()->startWorkout(workout);
 
-    const char* selection = selected_Item();
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,selection,NULL);
+    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,videoPath,NULL);
 
     close();
 }

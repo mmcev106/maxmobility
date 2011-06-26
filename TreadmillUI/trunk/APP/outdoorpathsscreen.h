@@ -7,6 +7,7 @@
 #include "weightsliderwidget.h"
 #include "historywidget.h"
 #include "abstractscreen.h"
+#include "workout.h"
 
 namespace Ui {
     class OutdoorPathsScreen;
@@ -33,6 +34,7 @@ private:
     void hideAllBorders();
     void updateHistoryFromIntensity();
     const char* selected_Item(void);
+    Workout* createTrailWorkout(QString videoName);
 
 protected:
     bool event(QEvent *event);

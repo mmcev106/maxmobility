@@ -11,7 +11,6 @@
 #include "utils.h"
 #include "preferences.h"
 
-static int MIN_SPEED = 1;
 static int END_DELAY=10000;
 
 using namespace std;
@@ -40,6 +39,65 @@ Workout::~Workout()
         }
 
         delete steps;
+    }
+}
+
+float Workout::getMaxSpeed(Workout* workout){
+
+    float maxSpeed = 0;
+
+    for(int i=0; i<workout->steps->size();i++){
+        Step* step = workout->steps->at(i);
+
+        if(step->getType() == SPEED_CHANGE_TYPE){
+            ChangeSpeedStep* speedStep = (ChangeSpeedStep*) step;
+
+            if(speedStep->speed > maxSpeed){
+                maxSpeed = speedStep->speed;
+            }
+        }
+    }
+
+    return maxSpeed;
+}
+
+float Workout::getMaxGrade(Workout* workout){
+
+    float maxGrade = 0;
+
+    for(int i=0; i<workout->steps->size();i++){
+        Step* step = workout->steps->at(i);
+
+        if(step->getType() == GRADE_CHANGE_TYPE){
+            ChangeGradeStep* gradeStep = (ChangeGradeStep*) step;
+
+            if(gradeStep->grade > maxGrade){
+                maxGrade = gradeStep->grade;
+            }
+        }
+    }
+
+    return maxGrade;
+}
+
+void Workout::increaseWorkoutIntensity(Workout* workout, float intensityPercentage){
+    float currentMaxSpeed = getMaxSpeed(workout);
+    float currentMaxGrade = getMaxGrade(workout);
+
+    float speedOffset = (Utils::getMAX_SPEED() - currentMaxSpeed) * intensityPercentage;
+    float gradeOffset = (MAX_GRADE - currentMaxGrade) * intensityPercentage;
+
+    for(int i=0; i<workout->steps->size();i++){
+        Step* step = workout->steps->at(i);
+
+        if(step->getType() == SPEED_CHANGE_TYPE){
+            ChangeSpeedStep* speedStep = (ChangeSpeedStep*) step;
+            speedStep->speed += speedOffset;
+        }
+        else if(step->getType() == GRADE_CHANGE_TYPE){
+            ChangeGradeStep* gradeStep = (ChangeGradeStep*) step;
+            gradeStep->grade += gradeOffset;
+        }
     }
 }
 
@@ -323,7 +381,16 @@ void Workout::save(){
 }
 
 Workout* Workout::load(QString workoutName){
-    QFile file(Preferences::getCurrentWorkoutsPath() + "/" + workoutName);
+    return load(Preferences::getCurrentWorkoutsPath(), workoutName);
+}
+
+Workout* Workout::load(QString workoutsDir, QString workoutName){
+    QFile file(workoutsDir + "/" + workoutName);
+
+    if(!file.exists()){
+        return NULL;
+    }
+
     file.open(QFile::ReadOnly);
     QTextStream stream( &file );
 

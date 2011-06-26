@@ -5,6 +5,8 @@
 #include <QList>
 #include "step.h"
 
+static int MIN_SPEED = 1;
+
 class Workout
 {
 public:
@@ -31,6 +33,11 @@ public:
 
     void save();
     static Workout* load(QString workoutName);
+    static Workout* load(QString workoutsDir, QString workoutName);
+
+    static void increaseWorkoutIntensity(Workout* workout, float intensityPercentage);
+    static float getMaxSpeed(Workout* workout);
+    static float getMaxGrade(Workout* workout);
 };
 
 #endif // WORKOUT_H
