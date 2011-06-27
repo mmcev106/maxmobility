@@ -74,7 +74,6 @@ MainScreen::MainScreen(QWidget *parent) :
     ,wheelchairDudeOff(":/images/images/Wheelchair Mode - (Not Active).png")
     ,nextWorkoutStepIndex(0)
     ,nextWorkoutStepTime(0)
-    ,workout(NULL)
     ,distance(0)
     ,speed(0)
     ,grade(0)
@@ -170,6 +169,7 @@ MainScreen::MainScreen(QWidget *parent) :
 }
 
 MainScreen* MainScreen::mainScreen = NULL;
+Workout* MainScreen::workout = NULL;
 
 void MainScreen::createMainScreen(QWidget* parent){
     mainScreen = new MainScreen(parent);
@@ -178,6 +178,10 @@ void MainScreen::createMainScreen(QWidget* parent){
 
 MainScreen* MainScreen::getMainScreen(){
     return mainScreen;
+}
+
+Workout* MainScreen::getWorkout(){
+    return workout;
 }
 
 void MainScreen::startWorkout(Workout* workout){
@@ -196,7 +200,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     this->workout = workout;
     this->recordingWorkout = recordWorkout;
 
-//    realTimeFeedback->play();
+    Utils::accFeedback->clear();
 
     weight = workout->_weight;
 
@@ -434,7 +438,6 @@ void MainScreen::endWorkout(){
 
     Utils::realTimeFeedback->clear();
 
-    hide();
 
     if(Preferences::isUsbDrivePresent()){
         writeHistoryEntry();
@@ -444,8 +447,9 @@ void MainScreen::endWorkout(){
             workout->save();
         }
     }
-    Preferences::currentWorkout=NULL;
+
     delete workout;
+    recordingWorkout = false;
     hideWidgets();
     webview->SetUrl(HOME_URL);
 
@@ -455,6 +459,8 @@ void MainScreen::endWorkout(){
     milliSecondTimer->stop();
     feedbackTimer->stop();
     detectChangeTimer->stop();
+
+    hide();
 }
 
 MainScreen::~MainScreen()
@@ -466,6 +472,7 @@ MainScreen::~MainScreen()
     delete player;
     delete secondTimer;
     delete webview;
+    delete workout;
 }
 
 void MainScreen::restartVideo(){

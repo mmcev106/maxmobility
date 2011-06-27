@@ -107,7 +107,10 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                 else
                 {
                     if (Preferences::getCurrentState()&ON_OFF_MASK)
+                    {
                         MainScreen::getMainScreen()->endWorkout();
+                        qDebug() << "called end workout!";
+                    }
                 }
             }
         }
@@ -125,11 +128,19 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                 {
                     qDebug() << "showing main screen";
                     Screens::show( MainScreen::getMainScreen() );
-                    if (Preferences::currentWorkout==NULL)
+                    if (!MainScreen::getWorkout())
                     {
-                        Preferences::currentWorkout = Workout::createWorkout("QStart", Utils::getDEF_SPEED(), 0, QUICK_WORKOUT_LENGTH);
-                        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+                        Workout* workout = Workout::createWorkout("Upper Board", Utils::getDEF_SPEED(), 0, QUICK_WORKOUT_LENGTH);
+                        MainScreen::getMainScreen()->startWorkout(workout);
                     }
+                }
+            }
+            else
+            {
+                if (MainScreen::getMainScreen()->isVisible())
+                {
+                    qDebug() << "hiding main screen";
+                    MainScreen::getMainScreen()->hide();
                 }
             }
         }
@@ -219,8 +230,8 @@ void showUsbQuestionMarkScreen(){
 void StartupWindow::on_invisibleButton_pressed()
 {
     if(handleAccAction("QS_Walk.wav")){
-        Preferences::currentWorkout = Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+        Workout* workout = Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(workout);
         MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
@@ -228,8 +239,8 @@ void StartupWindow::on_invisibleButton_pressed()
 void StartupWindow::on_invisibleButton_2_pressed()
 {
     if(handleAccAction("QS_Fast_Walk.wav")){
-        Preferences::currentWorkout= Workout::createWorkout("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
-        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+        Workout* workout = Workout::createWorkout("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(workout);
         MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
@@ -237,8 +248,8 @@ void StartupWindow::on_invisibleButton_2_pressed()
 void StartupWindow::on_invisibleButton_3_pressed()
 {
     if(handleAccAction("QS_Jog.wav")){
-        Preferences::currentWorkout= Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
-        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+        Workout* workout = Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(workout);
         MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
@@ -246,8 +257,8 @@ void StartupWindow::on_invisibleButton_3_pressed()
 void StartupWindow::on_invisibleButton_4_pressed()
 {
     if(handleAccAction("QS_Run.wav")){
-        Preferences::currentWorkout= Workout::createWorkout("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
-        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+        Workout* workout = Workout::createWorkout("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(workout);
         MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
@@ -255,8 +266,8 @@ void StartupWindow::on_invisibleButton_4_pressed()
 void StartupWindow::on_invisibleButton_5_pressed()
 {
     if(handleAccAction("QS_Hill.wav")){
-        Preferences::currentWorkout= Workout::createWorkout("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
-        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+        Workout* workout = Workout::createWorkout("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(workout);
         MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
@@ -264,8 +275,8 @@ void StartupWindow::on_invisibleButton_5_pressed()
 void StartupWindow::on_invisibleButton_6_pressed()
 {
     if(handleAccAction("QS_Steep_Hill.wav")){
-        Preferences::currentWorkout= Workout::createWorkout("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
-        MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+        Workout* workout = Workout::createWorkout("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
+        MainScreen::getMainScreen()->startWorkout(workout);
         MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }

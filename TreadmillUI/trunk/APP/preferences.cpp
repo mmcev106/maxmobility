@@ -31,8 +31,6 @@ QThread* Preferences::sender,*Preferences::listener;
 State Preferences::currentState;
 State Preferences::sendState;
 
-Workout* Preferences::currentWorkout=NULL;
-
 float Preferences::speed=0,Preferences::grade=0,Preferences::heartRate=0,Preferences::averageHeartRate=0;
 int Preferences::spd_diff=0,Preferences::grd_diff=0;
 int Preferences::on_time=0,Preferences::belt_time=0;

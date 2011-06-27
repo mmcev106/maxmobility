@@ -33,6 +33,7 @@ class MainScreen : public AbstractScreen
 public:
     static void createMainScreen(QWidget* parent);
     static MainScreen* getMainScreen();
+    static Workout* getWorkout();
     void startWorkout(Workout* workout);
     void recordWorkout(Workout* workout);
     void endWorkout();
@@ -52,6 +53,9 @@ protected:
     void keyPressEvent(QKeyEvent* event);
 
 private:
+
+    static Workout* workout;
+
     WebWidget* webview;
     QLabel *webBackground;
 
@@ -65,7 +69,6 @@ private:
     QTimer *detectChangeTimer;
     int nextWorkoutStepIndex;
     long nextWorkoutStepTime;
-    Workout* workout;
     float distance;
     QSize centerSize;
     QWidget centerWidget;

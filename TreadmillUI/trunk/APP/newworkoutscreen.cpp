@@ -46,13 +46,13 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
 
     if( workoutName.length() > 0){
 
-        Preferences::currentWorkout = new Workout(workoutName, weightSlider.value);
-        Preferences::currentWorkout->steps->append(new ChangeSpeedStep(speedSlider.value));
-        Preferences::currentWorkout->steps->append(new ChangeGradeStep(gradeSlider.value));
-        Preferences::currentWorkout->steps->append(new WaitStep(QUICK_WORKOUT_LENGTH*MILLIS_PER_MINUTE));
+        Workout* workout = new Workout(workoutName, weightSlider.value);
+        workout->steps->append(new ChangeSpeedStep(speedSlider.value));
+        workout->steps->append(new ChangeGradeStep(gradeSlider.value));
+        workout->steps->append(new WaitStep(QUICK_WORKOUT_LENGTH*MILLIS_PER_MINUTE));
 
 
-        MainScreen::getMainScreen()->recordWorkout(Preferences::currentWorkout);
+        MainScreen::getMainScreen()->recordWorkout(workout);
         close();
     }
 }

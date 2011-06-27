@@ -54,34 +54,34 @@ void FitnessTestScreen::on_invisibleButton_5_pressed()
 
 void FitnessTestScreen::on_startButton_pressed()
 {
-//    Workout* workout = NULL;
+    Workout* workout = NULL;
 
     if(backgroundPixmap == &fitnessPixmap){ //FALSE &&
-        Preferences::currentWorkout= Workout::createFitnessWorkout(ageSlider.value, weightSlider.value, Preferences::gender);
+        workout = Workout::createFitnessWorkout(ageSlider.value, weightSlider.value, Preferences::gender);
         MainScreen::getMainScreen()->ShowWidget(SCORE_VISUALIZATION,"Fitness Workout","Error Displaying Text");
     }
     else if(backgroundPixmap == &fireFighterPixmap){
-        Preferences::currentWorkout= Workout::createFireFighterWorkout( ageSlider.value, weightSlider.value, Preferences::gender);
+        workout = Workout::createFireFighterWorkout( ageSlider.value, weightSlider.value, Preferences::gender);
         MainScreen::getMainScreen()->ShowWidget(SCORE_VISUALIZATION,"Firefighter Workout","Error Displaying Text");
     }
     else if(backgroundPixmap == &airForcePixmap){
-        Preferences::currentWorkout= Workout::createAirForceWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
+        workout = Workout::createAirForceWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
     }
     else if(backgroundPixmap == &marinesPixmap){
-        Preferences::currentWorkout= Workout::createMarinesWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
+        workout = Workout::createMarinesWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
     }
     else if(backgroundPixmap == &navyPixmap){
-        Preferences::currentWorkout= Workout::createNavyWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
+        workout = Workout::createNavyWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
     }
     else if(backgroundPixmap == &armyPixmap){
-        Preferences::currentWorkout= Workout::createArmyWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
+        workout = Workout::createArmyWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);
     }
     else{
         qDebug() << "An unknown fitness background was selected";
         return;
     }
 
-    MainScreen::getMainScreen()->startWorkout(Preferences::currentWorkout);
+    MainScreen::getMainScreen()->startWorkout(workout);
     close();
 }
 
