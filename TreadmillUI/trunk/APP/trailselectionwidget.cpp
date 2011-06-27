@@ -1,6 +1,7 @@
 #include "trailselectionwidget.h"
 #include "ui_trailselectionwidget.h"
 #include "mainscreen.h"
+#include "utils.h"
 #include <QPixmap>
 
 TrailSelectionWidget::TrailSelectionWidget(QWidget *parent) :

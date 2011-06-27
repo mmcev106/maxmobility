@@ -35,7 +35,9 @@ void Utils::InitAudio(QWidget* parent)
 
     backgroundOutput = new Phonon::AudioOutput(Phonon::MusicCategory,parent);
     backgroundMusic = new Phonon::MediaObject(parent);
+    backgroundMusic->setCurrentSource(AUDIO_ROOT_DIR + "06 Push It (Dirty Freqs Dancefloor Remix).wav");
     Phonon::createPath(backgroundMusic,backgroundOutput);
+    backgroundMusic->play();
 
     realTimeFeedback = new Phonon::MediaObject(parent);
     feedbackOutput = new Phonon::AudioOutput(Phonon::MusicCategory,parent);
@@ -44,7 +46,7 @@ void Utils::InitAudio(QWidget* parent)
     Preferences::backgroundSoundLevel = backgroundOutput->volume() * 100;
     Preferences::feedbackSoundLevel = feedbackOutput->volume() * 100;
 
-    qDebug() << "Feedback Output sound level = " << feedbackOutput->volume();
+//    qDebug() << "Feedback Output sound level = " << feedbackOutput->volume();
 
 //    QAudioFormat format;
 //    format.setFrequency(10100);

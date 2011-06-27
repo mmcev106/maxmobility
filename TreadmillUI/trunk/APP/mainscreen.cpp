@@ -130,7 +130,9 @@ MainScreen::MainScreen(QWidget *parent) :
     trailSelectionWidget.setParent(&centerWidget);
     trailSelectionWidget.setVisible(false);
 
-    audioSettingsWidget.setParent(&centerWidget);
+    audioSettingsWidget.setParent(this);
+    audioSettingsWidget.move(centerPosition);
+    audioSettingsWidget.setFixedSize(centerSize);
     audioSettingsWidget.setVisible(false);
 
     scoreWidget.setParent(&centerWidget);
@@ -649,29 +651,6 @@ void MainScreen::detectChangeFeedback(){
     }
 }
 
-
-//QList<QUrl> fdbk = QList<QUrl>();
-//if (speed != last_speed)
-//{
-//    Utils::realTimeFeedback->clear();
-//    fdbk.clear();
-
-//    fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Speed.wav"));
-//    feedbackAppendNumber(speed,&fdbk);
-//    if (Preferences::getMeasurementSystem())
-//        fdbk.append(QUrl(AUDIO_ROOT_DIR+"mph.wav"));
-//    else
-//        fdbk.append(QUrl(AUDIO_ROOT_DIR+"kph.wav"));
-//}
-//if (grade != last_grade)
-//{
-//    fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Grade.wav"));
-//    feedbackAppendNumber(grade,&fdbk);
-//    fdbk.append(QUrl(AUDIO_ROOT_DIR+"percent.wav"));
-//}
-//Utils::realTimeFeedback->setQueue(fdbk);
-//Utils::realTimeFeedback->play();
-
 void MainScreen::updateDisplay(){
 
     long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
@@ -880,6 +859,7 @@ void MainScreen::updateRunningDudeImage(){
 void MainScreen::on_audioButton_invisibleButton_pressed()
 {
     audioSettingsWidget.setVisible(!audioSettingsWidget.isVisible());
+    audioSettingsWidget.raise();
 }
 
 void MainScreen::on_track_invisibleButton_pressed()

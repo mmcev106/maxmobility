@@ -1,6 +1,7 @@
 #include "tranquilselectionwidget.h"
 #include "ui_tranquilselectionwidget.h"
 #include "mainscreen.h"
+#include "utils.h"
 #include <QPixmap>
 
 TranquilSelectionWidget::TranquilSelectionWidget(QWidget *parent) :
