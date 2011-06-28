@@ -86,8 +86,8 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
     else
     {
         _state &= ~STATE_CHANGE_MASK;
-        qDebug() << "current state: " << Preferences::getCurrentState();
-        qDebug() << "new state: " << _state;
+//        qDebug() << "current state: " << Preferences::getCurrentState();
+//        qDebug() << "new state: " << _state;
 
         if (_state&UNITS_MASK)
             Preferences::setMeasurementSystem(STANDARD);
@@ -130,8 +130,9 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                     Screens::show( MainScreen::getMainScreen() );
                     if (!MainScreen::getWorkout())
                     {
-                        Workout* workout = Workout::createWorkout("Upper Board", Utils::getDEF_SPEED(), 0, QUICK_WORKOUT_LENGTH);
-                        MainScreen::getMainScreen()->startWorkout(workout);
+//                        Workout* workout = Workout::createWorkout("Upper Board", Utils::getDEF_SPEED(), 0, QUICK_WORKOUT_LENGTH);
+//                        MainScreen::getMainScreen()->startWorkout(workout);
+                        MainScreen::getMainScreen()->defaultWorkout();
                     }
                 }
             }

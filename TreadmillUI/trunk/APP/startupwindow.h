@@ -7,8 +7,6 @@
 #include <QTimer>
 
 
-static int QUICK_WORKOUT_LENGTH = 30; //minutes
-
 namespace Ui {
     class StartupWindow;
 }

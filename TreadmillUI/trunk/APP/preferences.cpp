@@ -81,13 +81,10 @@ unsigned char Preferences::getCurrentState()
 
 void Preferences::setCurrentState(unsigned char _state)
 {
-//    qDebug() << "told to go to: "<<_state;
     bool units = getMeasurementSystem();
     char st = (units) ? (UNITS_MASK|_state):_state;
     st |= STATE_CHANGE_MASK;
-//    qDebug() << "sending : "<<st;
     sendState.sendstate = st;
-//    qDebug() << "sendstate = " << sendState.sendstate;
     hasSentState = false;
 }
 

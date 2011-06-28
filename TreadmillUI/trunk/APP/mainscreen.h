@@ -35,6 +35,7 @@ public:
     static MainScreen* getMainScreen();
     static Workout* getWorkout();
     void startWorkout(Workout* workout);
+    void defaultWorkout();
     void recordWorkout(Workout* workout);
     void endWorkout();
     void hideWidgets(void);

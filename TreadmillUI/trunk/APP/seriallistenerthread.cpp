@@ -30,8 +30,7 @@ void SerialListenerThread::run(){
         if(data.length() != MESSAGE_LENGTH){
         }
         else{
-            QByteArray _data = data;
-            handleMessage((unsigned  char*)_data.data());
+            handleMessage((unsigned  char*)data.data());
         }
 
         QThread::msleep(100);
@@ -56,7 +55,10 @@ void SerialListenerThread::handleMessage(unsigned char* data){
         return;
     }
 
+    unsigned char* _data = new unsigned char[MESSAGE_LENGTH];
+    for (int i=0;i<MESSAGE_LENGTH;i++)
+        _data[i] = data[i];
 
-    qDebug() << "Received Data: " << Utils::toString ( data, 8);
-    emit triggerSerialEvent(data);
+//    qDebug() << "Received Data: " << Utils::toString ( _data, 8);
+    emit triggerSerialEvent(_data);
 }

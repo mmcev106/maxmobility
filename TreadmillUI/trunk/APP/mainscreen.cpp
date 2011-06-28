@@ -31,17 +31,32 @@ static bool wheelchairDude=false;
 
 static float TRACK_LENGTH = .25; // in miles
 
+
+/********************************************
+  *
+  *        Audio Feedback Variables
+  *
+  *******************************************/
+float spd_array[8];
+float grd_array[8];
+
+static int counter=0;       // used for counting minutes for periodic feedback
+static float last_speed = 0;      // used for detecting speed change
+static float last_grade = 0;      // used for detecting grade change
+static bool change = false;
+
+/********************************************
+  *
+  *        End Audio Feedback Variables
+  *
+  *******************************************/
+
 void zero(int array[], int length){
 
     for(int i=0;i<length;i++){
         array[i] = 0;
     }
 }
-
-static int counter=0;       // used for counting minutes for periodic feedback
-static float last_speed = 0;      // used for detecting speed change
-static float last_grade = 0;      // used for detecting grade change
-static bool change = false;
 
 static const int PERIODIC_UPDATE_DELAY = 2*60*1000;     // delay in ms between periodic updates
 static const int DETECT_CHANGE_DELAY = 250;          // delay in ms between checking speed and grade for change
@@ -189,19 +204,23 @@ void MainScreen::startWorkout(Workout* workout){
     startWorkout(workout, FALSE);
 }
 
-void MainScreen::recordWorkout(Workout* workout){
+void MainScreen::defaultWorkout(){
 
-    lastStepRecordedTime = QDateTime::currentMSecsSinceEpoch();
-
-    startWorkout(workout, TRUE);
-}
-
-void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
-
-    this->workout = workout;
-    this->recordingWorkout = recordWorkout;
+    this->workout = Workout::createWorkout(QString("Upper Board"),Utils::getDEF_SPEED(),0,QUICK_WORKOUT_LENGTH);
+    this->recordingWorkout = false;
 
     Utils::accFeedback->clear();
+
+    // clear audio feedback variables
+    for (int i=0;i<8;i++)
+    {
+        spd_array[i]=0.0f;
+        grd_array[i]=0.0f;
+    }
+    counter=0;
+    last_speed = 0.0f;
+    last_grade = 0.0f;
+    change = false;
 
     weight = workout->_weight;
 
@@ -239,13 +258,78 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     detectChangeTimer->start();
 
     updateDisplay();
+}
 
+void MainScreen::recordWorkout(Workout* workout){
+
+    lastStepRecordedTime = QDateTime::currentMSecsSinceEpoch();
+
+    startWorkout(workout, TRUE);
+}
+
+void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
+    // moved these to the beginning so that the state change would always happen before
+    // the spd_diff and grd_diff got sent to the lower board (so that they would not
+    // be ignored by the lower board).
     if(Preferences::isTestingMode()){
         Screens::show(this);
     }
     else{
         Preferences::setCurrentState(ON_OFF_MASK);
     }
+
+    this->workout = workout;
+    this->recordingWorkout = recordWorkout;
+
+    Utils::accFeedback->clear();
+
+    // clear audio feedback variables
+    for (int i=0;i<8;i++)
+    {
+        spd_array[i]=0.0f;
+        grd_array[i]=0.0f;
+    }
+    counter=0;
+    last_speed = 0.0f;
+    last_grade = 0.0f;
+    change = false;
+
+    weight = workout->_weight;
+
+    startTime = QDateTime::currentMSecsSinceEpoch();
+    distance = 0;
+    nextWorkoutStepIndex = 0;
+    nextWorkoutStepTime = 0;
+    calories=0;
+    stage=0;
+    lastPosition=0;
+
+    if(Preferences::getMeasurementSystem()){
+        ui->distanceMetricLabel->setText("mi");
+        ui->paceMetricLabel->setText("(mins/mi)");
+        ui->speedMetricLabel->setText("mph");
+        if (!weight)
+            weight=72.5;
+        else
+            weight=weight*.45359237;
+    }
+    else {
+        ui->distanceMetricLabel->setText("km");
+        ui->paceMetricLabel->setText("(mins/km)");
+        ui->speedMetricLabel->setText("km/h");
+        if (!weight)
+            weight=72.5;
+    }
+
+    zero(speedHistory, HISTORY_LENGTH);
+    zero(gradeHistory, HISTORY_LENGTH);
+
+    secondTimer->start();
+    milliSecondTimer->start();
+    feedbackTimer->start();
+    detectChangeTimer->start();
+
+    updateDisplay();
 }
 
 void MainScreen::processNextWorkoutStep() {
@@ -437,7 +521,6 @@ void MainScreen::endWorkout(){
 
     Utils::realTimeFeedback->clear();
 
-
     if(Preferences::isUsbDrivePresent()){
         writeHistoryEntry();
 
@@ -448,6 +531,7 @@ void MainScreen::endWorkout(){
     }
 
     delete workout;
+    this->workout = NULL;   // needed for the test of !MainScreen::getWorkout()!!!!!!
     recordingWorkout = false;
     hideWidgets();
     webview->SetUrl(HOME_URL);
@@ -575,9 +659,6 @@ void MainScreen::periodicFeedback(){
     else
         counter = 0;
 }
-
-float spd_array[8];
-float grd_array[8];
 
 void MainScreen::detectChangeFeedback(){
     static bool play = false;
