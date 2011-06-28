@@ -40,7 +40,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QSize playerSize(256,191);
+    QSize playerSize(259,194);
 
     player->setFixedSize(playerSize);
     player->move(664,111);
@@ -50,7 +50,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     QPixmap pixmap(":/images/images/startup_sceen_video_mask.png");
     player->videoWidget()->setMask(pixmap.mask());
 
-    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("/videos/trails/radnor.avi");
+    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("/videos/trails/preview.avi");
 
     player->setVolume(0);
     player->play(*mediaSource);
