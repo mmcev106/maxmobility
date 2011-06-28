@@ -9,7 +9,7 @@
 #include <QTextStream>
 #include <QScrollBar>
 
- QString HistoryScreen::DATE_FORMAT = "M-d-yyyy";
+ QString HistoryScreen::DATE_FORMAT = "M-d-yyyy hh:mm:ss";
 
  bool sortByDateDescending(HistoryItem* item1, HistoryItem* item2){
       return item1->date >= item2->date;
@@ -286,7 +286,7 @@ QList<HistoryItem*>* HistoryScreen::loadHistory(){
 
         HistoryItem* item = new HistoryItem();
 
-        item->date = QDate::fromString(args.at(0), DATE_FORMAT);
+        item->date = QDateTime::fromString(args.at(0), DATE_FORMAT);
         item->name = args.at(1);
         item->seconds = QLocale(QLocale::C).toInt(args.at(2));
         item->calories = QLocale(QLocale::C).toInt(args.at(3));

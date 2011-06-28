@@ -18,6 +18,8 @@ public:
     explicit HistoryScreen(QWidget *parent = 0);
     ~HistoryScreen();
 
+    static QString DATE_FORMAT;
+
 private:
     Ui::HistoryScreen *ui;
     QList<HistoryItem*>* history;
@@ -30,7 +32,6 @@ private:
 
     QList<HistoryItem*>* loadHistory();
 
-    static QString DATE_FORMAT;
     int rowHeight;
 
     void resetHeaderImages();

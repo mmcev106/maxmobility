@@ -22,6 +22,7 @@
 #include "screens.h"
 #include "resultsscreen.h"
 #include "scorewidget.h"
+#include "historyscreen.h"
 
 static int HISTORY_HEIGHT = 13;
 static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
@@ -316,11 +317,9 @@ void MainScreen::writeHistoryEntry(){
 
     QTextStream stream(&historyFile);
 
-    QDate today = QDate::currentDate();
+    QDateTime now = QDateTime::currentDateTime();
 
-    stream << QString("%1").arg(today.month());
-    stream << '-' << QString("%1").arg(today.day());
-    stream << '-' << QString("%1").arg(today.year());
+    stream << now.toString(HistoryScreen::DATE_FORMAT);
     stream << "\t";
 
     stream << workout->name;

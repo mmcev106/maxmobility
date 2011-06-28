@@ -1,7 +1,7 @@
 #ifndef HISTORYITEM_H
 #define HISTORYITEM_H
 
-#include <QDate>
+#include <QDateTime>
 #include <QString>
 
 class HistoryItem
@@ -9,7 +9,7 @@ class HistoryItem
 public:
     HistoryItem();
 
-    QDate date;
+    QDateTime date;
     QString name;
     short seconds;
     short calories;
