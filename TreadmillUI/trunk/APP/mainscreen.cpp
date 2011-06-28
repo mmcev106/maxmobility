@@ -350,25 +350,25 @@ void MainScreen::recordWaitStep(){
     lastStepRecordedTime = currentTime;
 }
 
-void MainScreen::keyPressEvent(QKeyEvent* event){
+//void MainScreen::keyPressEvent(QKeyEvent* event){
 
-    bool eventConsumed = FALSE;
+//    bool eventConsumed = FALSE;
 
-    if(recordingWorkout){
-        if(event->key() == Qt::Key_G){
-            eventConsumed = TRUE;
-            recordGradeChange(1.1);
-        }
-        else if(event->key() == Qt::Key_S){
-            eventConsumed = TRUE;
-            recordSpeedChange(2.2);
-        }
-    }
+//    if(recordingWorkout){
+//        if(event->key() == Qt::Key_G){
+//            eventConsumed = TRUE;
+//            recordGradeChange(1.1);
+//        }
+//        else if(event->key() == Qt::Key_S){
+//            eventConsumed = TRUE;
+//            recordSpeedChange(2.2);
+//        }
+//    }
 
-    if(!eventConsumed){
-        AbstractScreen::keyPressEvent(event);
-    }
-}
+//    if(!eventConsumed){
+//        AbstractScreen::keyPressEvent(event);
+//    }
+//}
 
 void MainScreen::recordSpeedChange(float speed){
     recordWaitStep();
@@ -380,12 +380,12 @@ void MainScreen::recordGradeChange(float grade){
     workout->steps->append(new ChangeGradeStep(grade));
 }
 
-void MainScreen::closeEvent(QCloseEvent * event){
-    //used for testing when the escape button is pressed
-    if(Preferences::isTestingMode()){
-        endWorkout();
-    }
-}
+//void MainScreen::closeEvent(QCloseEvent * event){
+//    //used for testing when the escape button is pressed
+//    if(Preferences::isTestingMode()){
+//        endWorkout();
+//    }
+//}
 
 void MainScreen::endWorkout(){
 

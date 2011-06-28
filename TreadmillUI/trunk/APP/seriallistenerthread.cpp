@@ -56,6 +56,6 @@ void SerialListenerThread::handleMessage(unsigned char* data){
     }
 
 
-//    qDebug() << "Received Data: " << Utils::toString ( data, 8);
+    qDebug() << "Received Data: " << Utils::toString ( data, 8);
     emit triggerSerialEvent(data);
 }

@@ -58,6 +58,8 @@ public:
 
     static State sendState;
 
+    static bool hasSentState;
+
     static void setMeasurementSystem(bool Standard);    /*!< Used to set the Units system (mph/kph). */
     static bool getMeasurementSystem(void);             /*!< Used to read the state of the Units system. */
 

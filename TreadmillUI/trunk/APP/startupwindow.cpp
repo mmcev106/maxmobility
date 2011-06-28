@@ -360,17 +360,17 @@ void StartupWindow::on_acc_invisibleButton_pressed()
     Utils::accFeedback->play();
 }
 
-bool StartupWindow::event(QEvent *event)
-{
-    if(event->type() == POINTER_EVENT_TYPE){
-        PointerEvent* pointerEvent = (PointerEvent*)event;
+//bool StartupWindow::event(QEvent *event)
+//{
+//    if(event->type() == POINTER_EVENT_TYPE){
+//        PointerEvent* pointerEvent = (PointerEvent*)event;
 
-        if(pointerEvent->pointer == player){
-            on_outdoorPathsButton_pressed();
-        }
-    }
+//        if(pointerEvent->pointer == player){
+//            on_outdoorPathsButton_pressed();
+//        }
+//    }
 
-    return AbstractScreen::event(event);
-}
+//    return AbstractScreen::event(event);
+//}
 
 

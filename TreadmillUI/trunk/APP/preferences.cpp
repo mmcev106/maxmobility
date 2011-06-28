@@ -17,6 +17,8 @@ int Preferences::backgroundSoundLevel = 30;
 
 bool Preferences::accessibilityMode = false;
 
+bool Preferences::hasSentState = true;
+
 float Preferences::WALKING_SPEED;
 float Preferences::FAST_SPEED;
 float Preferences::JOGGING_SPEED;
@@ -79,16 +81,21 @@ unsigned char Preferences::getCurrentState()
 
 void Preferences::setCurrentState(unsigned char _state)
 {
+//    qDebug() << "told to go to: "<<_state;
     bool units = getMeasurementSystem();
     char st = (units) ? (UNITS_MASK|_state):_state;
     st |= STATE_CHANGE_MASK;
+//    qDebug() << "sending : "<<st;
     sendState.sendstate = st;
+//    qDebug() << "sendstate = " << sendState.sendstate;
+    hasSentState = false;
 }
 
 void Preferences::updateCurrentState(unsigned char _state)
 {
     currentState.state = _state;
-    sendState.sendstate = _state;
+    if (hasSentState)
+        sendState.sendstate = _state;
 }
 
 float Preferences::getHeartRate(){
