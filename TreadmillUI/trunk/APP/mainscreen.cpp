@@ -719,7 +719,7 @@ void MainScreen::detectChangeFeedback(){
         if (change)
         {
             Utils::realTimeFeedback->clear();
-            fdbk.append(QUrl(AUDIO_ROOT_DIR + "Windows Error1.wav"));
+            fdbk.append(QUrl(AUDIO_ROOT_DIR + "ding.wav"));
             Utils::realTimeFeedback->setQueue(fdbk);
             Utils::realTimeFeedback->play();
         }

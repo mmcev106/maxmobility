@@ -35,7 +35,7 @@ void Utils::InitAudio(QWidget* parent)
 
     backgroundOutput = new Phonon::AudioOutput(Phonon::MusicCategory,parent);
     backgroundMusic = new Phonon::MediaObject(parent);
-    backgroundMusic->setCurrentSource(AUDIO_ROOT_DIR + "06 Push It (Dirty Freqs Dancefloor Remix).wav");
+    backgroundMusic->setCurrentSource(AUDIO_ROOT_DIR + "background.wav");
     Phonon::createPath(backgroundMusic,backgroundOutput);
     backgroundMusic->play();
 
@@ -45,23 +45,6 @@ void Utils::InitAudio(QWidget* parent)
 
     Preferences::backgroundSoundLevel = backgroundOutput->volume() * 100;
     Preferences::feedbackSoundLevel = feedbackOutput->volume() * 100;
-
-//    qDebug() << "Feedback Output sound level = " << feedbackOutput->volume();
-
-//    QAudioFormat format;
-//    format.setFrequency(10100);
-//    format.setChannels(1);
-//    format.setSampleSize(8);
-//    format.setCodec("audio/pcm");
-//    format.setByteOrder(QAudioFormat::LittleEndian);
-//    format.setSampleType(QAudioFormat::UnSignedInt);
-//    QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
-//    if (!info.isFormatSupported(format)){
-//        qWarning()<<"default format not supported, trying to use nearest!";
-//        format = info.nearestFormat(format);
-//    }
-
-//    Utils::qaudioInput = new QAudioInput(format,parent);
 }
 
 float Utils::getMAX_SPEED(){
