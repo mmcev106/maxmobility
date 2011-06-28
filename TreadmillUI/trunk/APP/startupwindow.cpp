@@ -86,8 +86,8 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
     else
     {
         _state &= ~STATE_CHANGE_MASK;
-//        qDebug() << "current state: " << Preferences::getCurrentState();
-//        qDebug() << "new state: " << _state;
+        qDebug() << "current state: " << Preferences::getCurrentState();
+        qDebug() << "new state: " << _state;
 
         if (_state&UNITS_MASK)
             Preferences::setMeasurementSystem(STANDARD);

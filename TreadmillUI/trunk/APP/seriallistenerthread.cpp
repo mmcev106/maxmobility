@@ -30,7 +30,8 @@ void SerialListenerThread::run(){
         if(data.length() != MESSAGE_LENGTH){
         }
         else{
-            handleMessage((unsigned  char*)data.data());
+            QByteArray _data = data;
+            handleMessage((unsigned  char*)_data.data());
         }
 
         QThread::msleep(100);
