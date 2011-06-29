@@ -50,16 +50,20 @@ StartupWindow::StartupWindow(QWidget *parent) :
     QPixmap pixmap(":/images/images/startup_sceen_video_mask.png");
     player->videoWidget()->setMask(pixmap.mask());
 
-    Phonon::MediaSource *mediaSource = new Phonon::MediaSource("/videos/trails/preview.avi");
+    mediaSource = new Phonon::MediaSource("/videos/trails/preview.avi");
 
     player->setVolume(0);
     player->play(*mediaSource);
     player->setVisible(true);
+//    connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
     player->show();
 
     connect(&sharedTimer, SIGNAL(timeout()), this, SLOT( sharedTimerTimeout()));
     sharedTimer.setInterval(250);
     sharedTimer.start();
+
+
+    connect(Utils::backgroundMusic, SIGNAL(finished()), this, SLOT(restartMusic()));
 
     //hide the usbLabel by default
      ui->usbLabel->hide();
@@ -69,6 +73,27 @@ StartupWindow::StartupWindow(QWidget *parent) :
     ui->invisibleButton->setFocusPolicy(Qt::NoFocus);
 
     Preferences::application->installEventFilter(this);
+}
+
+void StartupWindow::restartVideo(){
+//    player->stop();
+    player->play(*mediaSource);
+    player->seek(0);
+}
+
+void StartupWindow::restartMusic(){
+
+    QList<QUrl> playlist = QList<QUrl>();
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL1.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL2.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL3.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL4.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL5.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL6.wav"));
+
+    Utils::backgroundMusic->setQueue(playlist);
+//    Utils::backgroundMusic->stop();
+    Utils::backgroundMusic->play();
 }
 
 void StartupWindow::onSerialEvent(unsigned char* _data)
@@ -86,8 +111,6 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
     else
     {
         _state &= ~STATE_CHANGE_MASK;
-//        qDebug() << "current state: " << Preferences::getCurrentState();
-//        qDebug() << "new state: " << _state;
 
         if (_state&UNITS_MASK)
             Preferences::setMeasurementSystem(STANDARD);
@@ -130,8 +153,6 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                     Screens::show( MainScreen::getMainScreen() );
                     if (!MainScreen::getWorkout())
                     {
-//                        Workout* workout = Workout::createWorkout("Upper Board", Utils::getDEF_SPEED(), 0, QUICK_WORKOUT_LENGTH);
-//                        MainScreen::getMainScreen()->startWorkout(workout);
                         MainScreen::getMainScreen()->defaultWorkout();
                     }
                 }

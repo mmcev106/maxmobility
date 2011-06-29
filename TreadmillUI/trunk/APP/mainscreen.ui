@@ -566,8 +566,8 @@ QLabel{color: #42b4ff; }</string>
   <widget class="QLabel" name="wheelchairDudeImage">
    <property name="geometry">
     <rect>
-     <x>800</x>
-     <y>570</y>
+     <x>828</x>
+     <y>605</y>
      <width>54</width>
      <height>54</height>
     </rect>
@@ -582,8 +582,8 @@ QLabel{color: #42b4ff; }</string>
   <widget class="InvisibleButton" name="wheelchairDude_invisibleButton" native="true">
    <property name="geometry">
     <rect>
-     <x>790</x>
-     <y>560</y>
+     <x>818</x>
+     <y>595</y>
      <width>71</width>
      <height>71</height>
     </rect>

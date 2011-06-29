@@ -45,11 +45,19 @@ static float last_speed = 0;      // used for detecting speed change
 static float last_grade = 0;      // used for detecting grade change
 static bool change = false;
 
+static bool playing_feedback = false;
+
 /********************************************
   *
   *        End Audio Feedback Variables
   *
   *******************************************/
+
+static float speed_offset = 0.0f;
+static float grade_offset = 0.0f;
+
+static float step_current_grade;
+static float step_current_speed;
 
 void zero(int array[], int length){
 
@@ -119,6 +127,8 @@ MainScreen::MainScreen(QWidget *parent) :
     connect(milliSecondTimer, SIGNAL(timeout()), this, SLOT( updateRunningDudeImage()));
     milliSecondTimer->setSingleShot(false);
     milliSecondTimer->setInterval(10);
+
+    connect(Utils::realTimeFeedback, SIGNAL(finished()),this,SLOT(feedbackEnded()));
 
     //     add the history widgets
     int historyY = 577;
@@ -206,7 +216,7 @@ void MainScreen::startWorkout(Workout* workout){
 
 void MainScreen::defaultWorkout(){
 
-    this->workout = Workout::createWorkout(QString("Upper Board"),Utils::getDEF_SPEED(),0,QUICK_WORKOUT_LENGTH);
+    this->workout = Workout::createWorkout(QString("Manual"),Utils::getDEF_SPEED(),0,QUICK_WORKOUT_LENGTH);
     this->recordingWorkout = false;
 
     Utils::accFeedback->clear();
@@ -257,6 +267,11 @@ void MainScreen::defaultWorkout(){
     feedbackTimer->start();
     detectChangeTimer->start();
 
+    speed_offset=0.0f;
+    grade_offset=0.0f;
+    step_current_speed = 0.0f;
+    step_current_grade = 0.0f;
+
     updateDisplay();
 }
 
@@ -294,6 +309,11 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     last_grade = 0.0f;
     change = false;
 
+    speed_offset=0.0f;
+    grade_offset=0.0f;
+    step_current_speed = 0.0f;
+    step_current_grade = 0.0f;
+
     weight = workout->_weight;
 
     startTime = QDateTime::currentMSecsSinceEpoch();
@@ -329,68 +349,95 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     feedbackTimer->start();
     detectChangeTimer->start();
 
+
+    if (this->recordingWorkout)
+    {
+        QList<Step*>* steps = workout->steps;
+        for( int i=nextWorkoutStepIndex;i<steps->length();i++)
+        {
+            Step* step = steps->at(nextWorkoutStepIndex);
+            nextWorkoutStepIndex++;
+
+            if(step->getType() == SPEED_CHANGE_TYPE)
+            {
+                ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
+                Preferences::setCurrentSpeed(changeSpeedStep->speed);
+            }
+            else if(step->getType() == GRADE_CHANGE_TYPE)
+            {
+                ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
+                Preferences::setCurrentGrade(changeGradeStep->grade);
+            }
+        }
+    }
+
+
     updateDisplay();
 }
 
 void MainScreen::processNextWorkoutStep() {
 
-    if(workout != NULL){
+    if(workout != NULL)
+    {
+        if (!this->recordingWorkout)
+        {
+            QList<Step*>* steps = workout->steps;
+            static int workoutStep=0;
+            for( int i=nextWorkoutStepIndex;i<steps->length();i++){
+                Step* step = steps->at(nextWorkoutStepIndex);
+                nextWorkoutStepIndex++;
 
-        QList<Step*>* steps = workout->steps;
-        static int workoutStep=0;
-        for( int i=nextWorkoutStepIndex;i<steps->length();i++){
-            Step* step = steps->at(nextWorkoutStepIndex);
-            nextWorkoutStepIndex++;
+                if(step->getType() == SPEED_CHANGE_TYPE){
+                    ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
 
-            if(step->getType() == SPEED_CHANGE_TYPE){
-                ChangeSpeedStep* changeSpeedStep = (ChangeSpeedStep*) step;
-                Preferences::setCurrentSpeed(changeSpeedStep->speed);
+                    step_current_speed = changeSpeedStep->speed;
+                    Preferences::setCurrentSpeed(changeSpeedStep->speed + speed_offset);
 
-//                qDebug() << "Workout speed change: " << changeSpeedStep->speed;
+    //                qDebug() << "Workout speed change: " << changeSpeedStep->speed;
+                }
+                else if(step->getType() == GRADE_CHANGE_TYPE){
+                    ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
+                    step_current_grade = changeGradeStep->grade;
+                    Preferences::setCurrentGrade(changeGradeStep->grade + grade_offset);
+
+    //                qDebug() << "Workout grade change: " << changeGradeStep->grade;
+                }
+                else if(step->getType() == WAIT_TYPE){
+                    WaitStep* waitStep = (WaitStep*) step;
+                    nextWorkoutStepTime += waitStep->time;
+    //                qDebug() << "Workout wait: " << waitStep->time;
+
+                    /**
+                      * Return.  This method will get called again during updateDisplay()
+                      * and will pick up where it left off.
+                      */
+                    return;
+                }
+
+                else if(step->getType() == END_TYPE){
+                    //This would show a screen in the center widget with time and stuff
+                    // end type must be appended onto the end of the programs for this to be called
+
+    //                EndStep* endStep = (EndStep*) step;
+    //                nextWorkoutStepTime += endStep->time;
+    //                QString first("You completed the program ");
+    //                first.append(workout->name);
+    //                QString second= QString("Time: %1:%2 \nDistance: %3.%4 \nCalories Burned: %5")
+    //                                .arg(minutes,2,'g',-1,QLatin1Char('0')).arg(seconds,2,'g',-1,QLatin1Char('0'))
+    //                                .arg(((int)distance)%100).arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')).arg((int)calories);
+    //                ShowWidget(SCORE_VISUALIZATION, first, second);
+                    return;
+                }
             }
-            else if(step->getType() == GRADE_CHANGE_TYPE){
-                ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
-                Preferences::setCurrentGrade(changeGradeStep->grade);
 
-//                qDebug() << "Workout grade change: " << changeGradeStep->grade;
-            }
-            else if(step->getType() == WAIT_TYPE){
-                WaitStep* waitStep = (WaitStep*) step;
-                nextWorkoutStepTime += waitStep->time;
-//                qDebug() << "Workout wait: " << waitStep->time;
-
-                /**
-                  * Return.  This method will get called again during updateDisplay()
-                  * and will pick up where it left off.
-                  */
-                return;
-            }
-
-            else if(step->getType() == END_TYPE){
-                //This would show a screen in the center widget with time and stuff
-                // end type must be appended onto the end of the programs for this to be called
-
-//                EndStep* endStep = (EndStep*) step;
-//                nextWorkoutStepTime += endStep->time;
-//                QString first("You completed the program ");
-//                first.append(workout->name);
-//                QString second= QString("Time: %1:%2 \nDistance: %3.%4 \nCalories Burned: %5")
-//                                .arg(minutes,2,'g',-1,QLatin1Char('0')).arg(seconds,2,'g',-1,QLatin1Char('0'))
-//                                .arg(((int)distance)%100).arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')).arg((int)calories);
-//                ShowWidget(SCORE_VISUALIZATION, first, second);
-                return;
-            }
-        }
-
-
-        if(!recordingWorkout){
             // We've completed the workout steps, and we're not recording, so end the workout.
             Preferences::setCurrentState(0);
 
-            if(Preferences::isTestingMode()){
+            if(Preferences::isTestingMode())
+            {
                 endWorkout();
             }
-        }
+        }   // end if ! recording
     }
 }
 
@@ -434,26 +481,6 @@ void MainScreen::recordWaitStep(){
     lastStepRecordedTime = currentTime;
 }
 
-//void MainScreen::keyPressEvent(QKeyEvent* event){
-
-//    bool eventConsumed = FALSE;
-
-//    if(recordingWorkout){
-//        if(event->key() == Qt::Key_G){
-//            eventConsumed = TRUE;
-//            recordGradeChange(1.1);
-//        }
-//        else if(event->key() == Qt::Key_S){
-//            eventConsumed = TRUE;
-//            recordSpeedChange(2.2);
-//        }
-//    }
-
-//    if(!eventConsumed){
-//        AbstractScreen::keyPressEvent(event);
-//    }
-//}
-
 void MainScreen::recordSpeedChange(float speed){
     recordWaitStep();
     workout->steps->append(new ChangeSpeedStep(speed));
@@ -463,13 +490,6 @@ void MainScreen::recordGradeChange(float grade){
     recordWaitStep();
     workout->steps->append(new ChangeGradeStep(grade));
 }
-
-//void MainScreen::closeEvent(QCloseEvent * event){
-//    //used for testing when the escape button is pressed
-//    if(Preferences::isTestingMode()){
-//        endWorkout();
-//    }
-//}
 
 void MainScreen::endWorkout(){
 
@@ -542,6 +562,11 @@ void MainScreen::endWorkout(){
     milliSecondTimer->stop();
     feedbackTimer->stop();
     detectChangeTimer->stop();
+
+    step_current_speed = 0.0f;
+    step_current_grade = 0.0f;
+    speed_offset=0.0f;
+    grade_offset=0.0f;
 
     hide();
 }
@@ -642,19 +667,38 @@ void MainScreen::feedbackAppendNumber(float number,QList<QUrl> *lst)
     lst->append(QUrl(AUDIO_ROOT_DIR + QString("%1").arg(fracpart*10.0) + ".wav"));
 }
 
+void MainScreen::feedbackEnded(){
+    playing_feedback = false;
+}
+
 void MainScreen::periodicFeedback(){
     if (workout)
     {
         counter++;
-        Utils::realTimeFeedback->clear();
 
-        QList<QUrl> fdbk = QList<QUrl>();
-        fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
-        feedbackAppendNumber(counter*2,&fdbk);
-        fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
+        if (playing_feedback)
+        {
+            QList<QUrl> fdbk = QList<QUrl>();
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
+            feedbackAppendNumber(counter*2,&fdbk);
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
 
-        Utils::realTimeFeedback->setQueue(fdbk);
-        Utils::realTimeFeedback->play();
+            Utils::realTimeFeedback->enqueue(fdbk);
+            playing_feedback = true;
+        }
+        else
+        {
+            Utils::realTimeFeedback->clear();
+
+            QList<QUrl> fdbk = QList<QUrl>();
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
+            feedbackAppendNumber(counter*2,&fdbk);
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
+
+            Utils::realTimeFeedback->setQueue(fdbk);
+            Utils::realTimeFeedback->play();
+            playing_feedback = true;
+        }
     }
     else
         counter = 0;
@@ -671,9 +715,6 @@ void MainScreen::detectChangeFeedback(){
         if (spd_array[0]!=spd_array[1] && spd_array[1]==spd_array[2] && spd_array[2]==spd_array[3] && spd_array[3]==spd_array[4]
             && spd_array[4]==spd_array[5] && spd_array[5]==spd_array[6] && spd_array[6]==spd_array[7])
         {
-            Utils::realTimeFeedback->clear();
-            fdbk.clear();
-
             fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Speed.wav"));
             feedbackAppendNumber(speed,&fdbk);
             if (Preferences::getMeasurementSystem())
@@ -694,9 +735,7 @@ void MainScreen::detectChangeFeedback(){
             }
             else
             {
-                Utils::realTimeFeedback->clear();
                 fdbk.clear();
-
                 fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Grade.wav"));
                 feedbackAppendNumber(grade,&fdbk);
                 fdbk.append(QUrl(AUDIO_ROOT_DIR+"percent.wav"));
@@ -706,9 +745,20 @@ void MainScreen::detectChangeFeedback(){
 
         if (play)
         {
-            Utils::realTimeFeedback->setQueue(fdbk);
-            Utils::realTimeFeedback->play();
-            play=false;
+            if (playing_feedback)
+            {
+                Utils::realTimeFeedback->enqueue(fdbk);
+                play=false;
+                playing_feedback = true;
+            }
+            else
+            {
+                Utils::realTimeFeedback->clear();
+                Utils::realTimeFeedback->setQueue(fdbk);
+                Utils::realTimeFeedback->play();
+                play=false;
+                playing_feedback = true;
+            }
         }
 
         if (speed != last_speed || grade != last_grade)
@@ -718,10 +768,35 @@ void MainScreen::detectChangeFeedback(){
 
         if (change)
         {
-            Utils::realTimeFeedback->clear();
             fdbk.append(QUrl(AUDIO_ROOT_DIR + "ding.wav"));
-            Utils::realTimeFeedback->setQueue(fdbk);
-            Utils::realTimeFeedback->play();
+            if (playing_feedback)
+            {
+                Utils::realTimeFeedback->enqueue(fdbk);
+//                Utils::realTimeFeedback->play();
+                playing_feedback = true;
+            }
+            else
+            {
+                Utils::realTimeFeedback->clear();
+                Utils::realTimeFeedback->setQueue(fdbk);
+                Utils::realTimeFeedback->play();
+                playing_feedback = true;
+            }
+
+            if (speed!=step_current_speed)
+            {
+                speed_offset = (speed-step_current_speed);
+            }
+            if (grade!=step_current_grade)
+            {
+                grade_offset = (grade-step_current_grade);
+            }
+
+            if(this->recordingWorkout)
+            {
+                recordSpeedChange(speed);
+                recordGradeChange(grade);
+            }
         }
         last_speed = speed;
         last_grade = grade;
@@ -733,6 +808,7 @@ void MainScreen::detectChangeFeedback(){
     }
     else
     {
+        playing_feedback = false;
         for (int i=0;i<8;i++)
             spd_array[i]=grd_array[i]=0.0f;
     }
@@ -964,7 +1040,7 @@ void MainScreen::on_track_invisibleButton_pressed()
 }
 
 void MainScreen::on_wheelchairDude_invisibleButton_pressed(){
-    qDebug()<< "wheelchair button pressed: "<< wheelchairDude;
+//    qDebug()<< "wheelchair button pressed: "<< wheelchairDude;
     if (!wheelchairDude)
     {
         ui->wheelchairDudeImage->setPixmap(wheelchairDudeOn);

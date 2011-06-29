@@ -147,10 +147,6 @@ void Preferences::updateCurrentSpeed(float spd)
         speed = Utils::getMAX_SPEED();
     else
         speed = spd;
-
-    if(MainScreen::getMainScreen()->recordingWorkout){
-        MainScreen::getMainScreen()->recordSpeedChange(speed);
-    }
 }
 
 void Preferences::updateCurrentGrade(float grd)
@@ -159,10 +155,6 @@ void Preferences::updateCurrentGrade(float grd)
         grade = MAX_GRADE;
     else
         grade = grd;
-
-    if(MainScreen::getMainScreen()->recordingWorkout){
-        MainScreen::getMainScreen()->recordGradeChange(speed);
-    }
 }
 
 QString Preferences::getCurrentDataPath(){

@@ -29,6 +29,7 @@ protected:
 private:
     Ui::StartupWindow *ui;
     VideoPlayer *player;
+    Phonon::MediaSource* mediaSource;
 
     void showMainScreen(QString name, float speed, float grade, int minutes);
     QTimer sharedTimer;
@@ -51,6 +52,8 @@ private slots:
     void on_invisibleButton_pressed();
     void on_acc_invisibleButton_pressed();
     void sharedTimerTimeout();
+    void restartVideo();
+    void restartMusic();
 
 };
 

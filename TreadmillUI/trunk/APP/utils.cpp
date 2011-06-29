@@ -26,6 +26,7 @@ Utils::Utils()
 {
 }
 
+QList<QUrl> playlist;
 void Utils::InitAudio(QWidget* parent)
 {
 
@@ -35,7 +36,18 @@ void Utils::InitAudio(QWidget* parent)
 
     backgroundOutput = new Phonon::AudioOutput(Phonon::MusicCategory,parent);
     backgroundMusic = new Phonon::MediaObject(parent);
-    backgroundMusic->setCurrentSource(AUDIO_ROOT_DIR + "background.wav");
+
+    playlist = QList<QUrl>();
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL1.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL2.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL3.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL4.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL5.wav"));
+    playlist.append(QUrl(AUDIO_ROOT_DIR+"PL6.wav"));
+
+    Utils::backgroundMusic->setQueue(playlist);
+
+//    backgroundMusic->setCurrentSource(AUDIO_ROOT_DIR + "background.wav");
     Phonon::createPath(backgroundMusic,backgroundOutput);
     backgroundMusic->play();
 

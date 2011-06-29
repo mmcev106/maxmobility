@@ -49,7 +49,7 @@ void NewWorkoutScreen::on_invisibleButton_6_pressed()
         Workout* workout = new Workout(workoutName, weightSlider.value);
         workout->steps->append(new ChangeSpeedStep(speedSlider.value));
         workout->steps->append(new ChangeGradeStep(gradeSlider.value));
-        workout->steps->append(new WaitStep(QUICK_WORKOUT_LENGTH*MILLIS_PER_MINUTE));
+//        workout->steps->append(new WaitStep(QUICK_WORKOUT_LENGTH*MILLIS_PER_MINUTE));
 
 
         MainScreen::getMainScreen()->recordWorkout(workout);

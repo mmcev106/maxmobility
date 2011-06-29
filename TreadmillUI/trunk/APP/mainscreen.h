@@ -125,8 +125,7 @@ private slots:
     void bumpHistoryWidgets();
     void periodicFeedback();
     void detectChangeFeedback();
-
-
+    void feedbackEnded();
 };
 
 #endif // MAINSCREEN_H
