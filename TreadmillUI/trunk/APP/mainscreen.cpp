@@ -676,29 +676,15 @@ void MainScreen::periodicFeedback(){
     {
         counter++;
 
-        if (playing_feedback)
-        {
-            QList<QUrl> fdbk = QList<QUrl>();
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
-            feedbackAppendNumber(counter*2,&fdbk);
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
+        Utils::realTimeFeedback->clear();
 
-            Utils::realTimeFeedback->enqueue(fdbk);
-            playing_feedback = true;
-        }
-        else
-        {
-            Utils::realTimeFeedback->clear();
+        QList<QUrl> fdbk = QList<QUrl>();
+        fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
+        feedbackAppendNumber(counter*2,&fdbk);
+        fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
 
-            QList<QUrl> fdbk = QList<QUrl>();
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
-            feedbackAppendNumber(counter*2,&fdbk);
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
-
-            Utils::realTimeFeedback->setQueue(fdbk);
-            Utils::realTimeFeedback->play();
-            playing_feedback = true;
-        }
+        Utils::realTimeFeedback->setQueue(fdbk);
+        Utils::realTimeFeedback->play();
     }
     else
         counter = 0;
@@ -727,38 +713,18 @@ void MainScreen::detectChangeFeedback(){
         if (grd_array[0]!=grd_array[1] && grd_array[1]==grd_array[2] && grd_array[2]==grd_array[3] && grd_array[3]==grd_array[4]
             && grd_array[4]==grd_array[5] && grd_array[5]==grd_array[6] && grd_array[6]==grd_array[7])
         {
-            if (play)
-            {
-                fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Grade.wav"));
-                feedbackAppendNumber(grade,&fdbk);
-                fdbk.append(QUrl(AUDIO_ROOT_DIR+"percent.wav"));
-            }
-            else
-            {
-                fdbk.clear();
-                fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Grade.wav"));
-                feedbackAppendNumber(grade,&fdbk);
-                fdbk.append(QUrl(AUDIO_ROOT_DIR+"percent.wav"));
-                play=true;
-            }
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"Current_Grade.wav"));
+            feedbackAppendNumber(grade,&fdbk);
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"percent.wav"));
+            play=true;
         }
 
         if (play)
         {
-            if (playing_feedback)
-            {
-                Utils::realTimeFeedback->enqueue(fdbk);
-                play=false;
-                playing_feedback = true;
-            }
-            else
-            {
-                Utils::realTimeFeedback->clear();
-                Utils::realTimeFeedback->setQueue(fdbk);
-                Utils::realTimeFeedback->play();
-                play=false;
-                playing_feedback = true;
-            }
+            Utils::realTimeFeedback->clear();
+            Utils::realTimeFeedback->setQueue(fdbk);
+            Utils::realTimeFeedback->play();
+            play=false;
         }
 
         if (speed != last_speed || grade != last_grade)
@@ -769,19 +735,9 @@ void MainScreen::detectChangeFeedback(){
         if (change)
         {
             fdbk.append(QUrl(AUDIO_ROOT_DIR + "ding.wav"));
-            if (playing_feedback)
-            {
-                Utils::realTimeFeedback->enqueue(fdbk);
-//                Utils::realTimeFeedback->play();
-                playing_feedback = true;
-            }
-            else
-            {
-                Utils::realTimeFeedback->clear();
-                Utils::realTimeFeedback->setQueue(fdbk);
-                Utils::realTimeFeedback->play();
-                playing_feedback = true;
-            }
+            Utils::realTimeFeedback->clear();
+            Utils::realTimeFeedback->setQueue(fdbk);
+            Utils::realTimeFeedback->play();
 
             if (speed!=step_current_speed)
             {
