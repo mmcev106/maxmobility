@@ -105,6 +105,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,weight(0)
     ,recordingWorkout(FALSE)
     ,lastStepRecordedTime(0)
+    ,pauseTime(0)
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose, false );
@@ -481,6 +482,66 @@ void MainScreen::recordWaitStep(){
     lastStepRecordedTime = currentTime;
 }
 
+void MainScreen::keyPressEvent(QKeyEvent* event){
+
+    bool eventConsumed = FALSE;
+
+    if(Preferences::isTestingMode()){
+        if(recordingWorkout){
+            if(event->key() == Qt::Key_G){
+                eventConsumed = TRUE;
+                recordGradeChange(1.1);
+            }
+            else if(event->key() == Qt::Key_S){
+                eventConsumed = TRUE;
+                recordSpeedChange(2.2);
+            }
+        }
+
+        if(event->key() == Qt::Key_P){
+
+            eventConsumed = TRUE;
+
+            if(isWorkoutPaused()){
+                unPauseWorkout();
+            }
+            else{
+                pauseWorkout();
+            }
+        }
+    }
+
+    if(!eventConsumed){
+        AbstractScreen::keyPressEvent(event);
+    }
+}
+
+void MainScreen::pauseWorkout(){
+    if(!isWorkoutPaused()){
+        pauseTime = QDateTime::currentMSecsSinceEpoch();
+
+        if(player->isPlaying()){
+            player->pause();
+        }
+    }
+}
+
+void MainScreen::unPauseWorkout(){
+    if(isWorkoutPaused()){
+        long pauseLength = QDateTime::currentMSecsSinceEpoch() - pauseTime;
+        startTime += pauseLength;
+        pauseTime = 0;
+
+        if(player->isPaused()){
+            player->play();
+        }
+    }
+}
+
+bool MainScreen::isWorkoutPaused(){
+    return pauseTime != 0;
+}
+
 void MainScreen::recordSpeedChange(float speed){
     recordWaitStep();
     workout->steps->append(new ChangeSpeedStep(speed));
@@ -771,6 +832,11 @@ void MainScreen::detectChangeFeedback(){
 }
 
 void MainScreen::updateDisplay(){
+
+    if(isWorkoutPaused()){
+        //do nothing
+        return;
+    }
 
     long elapsedTimeMillis = QDateTime::currentMSecsSinceEpoch() - startTime;
     long elapsedTime = elapsedTimeMillis/1000;
