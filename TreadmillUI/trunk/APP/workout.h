@@ -19,6 +19,11 @@ public:
     int _weight;
     float distance;
 
+    int visualization;
+    QString scoreTitle;
+    QString scoreResults;
+    QString videoPath;
+
     static Workout* createWorkout(QString name, float speed, float grade, int minutes);
     static Workout* createDynamicGradeWorkout(QString name, int minutes, int lowGrade , int highGrade, int age, int weight);
     static Workout* createIntensityWorkout(QString name, int minutes, int initialSpeed, double intensityPercent, int weight);

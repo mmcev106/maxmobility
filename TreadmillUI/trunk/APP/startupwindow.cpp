@@ -254,7 +254,6 @@ void StartupWindow::on_invisibleButton_pressed()
     if(handleAccAction("QS_Walk.wav")){
         Workout* workout = Workout::createWorkout("Walk", Preferences::WALKING_SPEED, 0, QUICK_WORKOUT_LENGTH);
         MainScreen::getMainScreen()->startWorkout(workout);
-        MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
 
@@ -263,7 +262,6 @@ void StartupWindow::on_invisibleButton_2_pressed()
     if(handleAccAction("QS_Fast_Walk.wav")){
         Workout* workout = Workout::createWorkout("Fast Walk", Preferences::FAST_SPEED, 0, QUICK_WORKOUT_LENGTH);
         MainScreen::getMainScreen()->startWorkout(workout);
-        MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
 
@@ -272,7 +270,6 @@ void StartupWindow::on_invisibleButton_3_pressed()
     if(handleAccAction("QS_Jog.wav")){
         Workout* workout = Workout::createWorkout("Jog",Preferences::JOGGING_SPEED,0,QUICK_WORKOUT_LENGTH);
         MainScreen::getMainScreen()->startWorkout(workout);
-        MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
 
@@ -281,7 +278,6 @@ void StartupWindow::on_invisibleButton_4_pressed()
     if(handleAccAction("QS_Run.wav")){
         Workout* workout = Workout::createWorkout("Run", Preferences::RUNNING_SPEED, 0, QUICK_WORKOUT_LENGTH);
         MainScreen::getMainScreen()->startWorkout(workout);
-        MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
 
@@ -290,7 +286,6 @@ void StartupWindow::on_invisibleButton_5_pressed()
     if(handleAccAction("QS_Hill.wav")){
         Workout* workout = Workout::createWorkout("Hill Walk", Preferences::WALKING_SPEED, HILL_GRADE, QUICK_WORKOUT_LENGTH);
         MainScreen::getMainScreen()->startWorkout(workout);
-        MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
 
@@ -299,7 +294,6 @@ void StartupWindow::on_invisibleButton_6_pressed()
     if(handleAccAction("QS_Steep_Hill.wav")){
         Workout* workout = Workout::createWorkout("Steep Walk", Preferences::WALKING_SPEED, STEEP_GRADE, QUICK_WORKOUT_LENGTH);
         MainScreen::getMainScreen()->startWorkout(workout);
-        MainScreen::getMainScreen()->ShowWidget(TRACK_VISUALIZATION, "", "");
     }
 }
 

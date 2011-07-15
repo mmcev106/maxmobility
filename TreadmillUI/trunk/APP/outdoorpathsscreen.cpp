@@ -125,9 +125,10 @@ void OutdoorPathsScreen::on_startButton_pressed(){
     QString videoPath = TRAILS_PATH + "/" + videoName + ".avi";
 
     Workout* workout = createTrailWorkout(videoName);
-    MainScreen::getMainScreen()->startWorkout(workout);
+    workout->visualization = VIDEO_VISUALIZATION;
+    workout->videoPath = videoPath;
 
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,videoPath,NULL);
+    MainScreen::getMainScreen()->startWorkout(workout);
 
     close();
 }

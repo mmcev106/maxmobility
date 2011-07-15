@@ -20,19 +20,19 @@ TrailSelectionWidget::~TrailSelectionWidget()
 
 void TrailSelectionWidget::on_radnor_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/trails/radnor.avi",NULL);
+    MainScreen::getMainScreen()->playVideo("/videos/trails/radnor.avi");
 }
 
 void TrailSelectionWidget::on_couchville_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/trails/couchville.avi",NULL);
+    MainScreen::getMainScreen()->playVideo("/videos/trails/couchville.avi");
 }
 void TrailSelectionWidget::on_deer_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/trails/deer.avi",NULL);
+    MainScreen::getMainScreen()->playVideo("/videos/trails/deer.avi");
 }
 
 void TrailSelectionWidget::on_nashville_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->ShowWidget(VIDEO_VISUALIZATION,"/videos/trails/downtown.avi",NULL);
+    MainScreen::getMainScreen()->playVideo("/videos/trails/downtown.avi");
 }

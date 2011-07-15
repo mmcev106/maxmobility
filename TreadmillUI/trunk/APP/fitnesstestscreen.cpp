@@ -58,11 +58,15 @@ void FitnessTestScreen::on_startButton_pressed()
 
     if(backgroundPixmap == &fitnessPixmap){ //FALSE &&
         workout = Workout::createFitnessWorkout(ageSlider.value, weightSlider.value, Preferences::gender);
-        MainScreen::getMainScreen()->ShowWidget(SCORE_VISUALIZATION,"Fitness Workout","Error Displaying Text");
+        workout->visualization = SCORE_VISUALIZATION;
+        workout->scoreTitle = "Fitness Workout";
+        workout->scoreResults = "Error Displaying Text";
     }
     else if(backgroundPixmap == &fireFighterPixmap){
         workout = Workout::createFireFighterWorkout( ageSlider.value, weightSlider.value, Preferences::gender);
-        MainScreen::getMainScreen()->ShowWidget(SCORE_VISUALIZATION,"Firefighter Workout","Error Displaying Text");
+        workout->visualization = SCORE_VISUALIZATION;
+        workout->scoreTitle = "Firefighter Workout";
+        workout->scoreResults = "Error Displaying Text";
     }
     else if(backgroundPixmap == &airForcePixmap){
         workout = Workout::createAirForceWorkout(initialSpeedSlider.value, ageSlider.value, weightSlider.value, Preferences::gender);

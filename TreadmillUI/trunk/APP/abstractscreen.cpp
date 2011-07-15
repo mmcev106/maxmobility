@@ -51,7 +51,7 @@ void QWidget::mouseReleaseEvent( QMouseEvent * event ){
 
 void AbstractScreen::keyPressEvent(QKeyEvent* event){
 
-
+    bool eventConsumed = FALSE;
 
     if(Preferences::isTestingMode()){
 
@@ -59,10 +59,13 @@ void AbstractScreen::keyPressEvent(QKeyEvent* event){
 
         if (key == Qt::Key_Escape){
             close();
+            eventConsumed = TRUE;
         }
     }
 
-    QWidget::keyPressEvent(event);
+    if(!eventConsumed){
+        QWidget::keyPressEvent(event);
+    }
 }
 
 /**

@@ -25,7 +25,13 @@
 #include "historyscreen.h"
 
 static int HISTORY_HEIGHT = 13;
-static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
+
+#ifdef Q_WS_MAC
+    static QString RUNNING_DUDE_IMAGE_PATH ="../../../images/Running Dude";
+#else
+    static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
+#endif
+
 static bool _update = false;
 static bool wheelchairDude=false;
 
@@ -372,7 +378,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
         }
     }
 
-
+    showWorkoutVisualization();
     updateDisplay();
 }
 
@@ -1104,33 +1110,27 @@ void MainScreen::playVideo(QString filename)
     player->videoWidget()->show();
 }
 
-void MainScreen::ShowWidget(int selection,QString video,QString text)
+void MainScreen::showWorkoutVisualization()
 {
     hideWidgets();
-    switch (selection)
-    {
-    case TRACK_VISUALIZATION:
+
+    if(workout->visualization == WEB_VISUALIZATION){
+         webview->show();
+    }
+    else if(workout->visualization == VIDEO_VISUALIZATION){
+        playVideo(workout->videoPath);
+    }
+    else if(workout->visualization == SCORE_VISUALIZATION){
+        scoreWidget.setVisible(true);
+        scoreWidget.setText(workout->scoreTitle, workout->scoreResults);
+    }
+    else{
         trackWidget->show();
         runningDudeWidget->show();
         ui->wheelchairDudeImage->setVisible(true);
         ui->wheelchairDudeImage->raise();
         ui->wheelchairDude_invisibleButton->setVisible(true);
         ui->wheelchairDude_invisibleButton->raise();
-        break;
-    case WEB_VISUALIZATION:
-        webview->show();
-        break;
-    case VIDEO_VISUALIZATION:
-        playVideo(video);
-        break;
-    case SCORE_VISUALIZATION:
-        scoreWidget.setVisible(true);
-        scoreWidget.setText(video, text);
-        break;
-    default:
-        trackWidget->show();
-        runningDudeWidget->show();
-        break;
     }
 }
 

@@ -45,13 +45,16 @@ public:
     ~MainScreen();
 
     void playVideo(QString filename);
-    void ShowWidget(int selection,QString video, QString text);
 
     bool recordingWorkout;
+
+    void pauseWorkout();
+    void unPauseWorkout();
+    bool isWorkoutPaused();
 //
 protected:
 //    void closeEvent(QCloseEvent * event);
-//    void keyPressEvent(QKeyEvent* event);
+    void keyPressEvent(QKeyEvent* event);
 
 private:
 
@@ -98,11 +101,13 @@ private:
     int minutes, seconds;
     float calories;
     long lastStepRecordedTime;
+    long pauseTime;
 
     static MainScreen* mainScreen;
 
     explicit MainScreen(QWidget *parent);
     void writeHistoryEntry();
+    void showWorkoutVisualization();
 
     void startWorkout(Workout* workout, bool recordWorkout);
     void recordWaitStep();
