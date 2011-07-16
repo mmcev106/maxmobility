@@ -84,7 +84,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,secondTimer(new QTimer(this))
     ,feedbackTimer(new QTimer(this))
     ,detectChangeTimer(new QTimer(this))
-    ,endTimer(new QTimer(this))
+    ,hideScreenTimer(new QTimer(this))
     ,milliSecondTimer(new QTimer(this))
     ,playTimer(new QTimer(this))
     ,startTime(0)
@@ -98,7 +98,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,audioSettingsWidget(NULL)
     ,tranquilSelectionWidget(NULL)
     ,trailSelectionWidget(NULL)
-    ,scoreWidget(NULL)
+    ,scoreWidget(&centerWidget)
     ,videoMask(":/images/images/main_screen_large_video_mask.png")
     ,wheelchairDudeOn(":/images/images/Wheelchair Mode - (Active).png")
     ,wheelchairDudeOff(":/images/images/Wheelchair Mode - (Not Active).png")
@@ -135,6 +135,10 @@ MainScreen::MainScreen(QWidget *parent) :
     milliSecondTimer->setSingleShot(false);
     milliSecondTimer->setInterval(10);
 
+    connect(hideScreenTimer, SIGNAL(timeout()), this, SLOT( hide()));
+    hideScreenTimer->setSingleShot(true);
+    hideScreenTimer->setInterval(5000);
+
     connect(Utils::realTimeFeedback, SIGNAL(finished()),this,SLOT(feedbackEnded()));
 
     //     add the history widgets
@@ -167,7 +171,6 @@ MainScreen::MainScreen(QWidget *parent) :
     audioSettingsWidget.setFixedSize(centerSize);
     audioSettingsWidget.setVisible(false);
 
-    scoreWidget.setParent(&centerWidget);
     scoreWidget.setVisible(false);
 
     trackWidget->setFixedSize(trackBitmap.size());
@@ -604,7 +607,10 @@ void MainScreen::endWorkout(){
                       .arg(((int)distance)%100).arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')).arg((int)calories);
     }
 
-    Screens::show(new ResultsScreen(NULL, message));
+    hideWidgets();
+    scoreWidget.setText("\n" + message, "");
+    scoreWidget.setVisible(true);
+    hideScreenTimer->start();
 
     Utils::realTimeFeedback->clear();
 
@@ -620,7 +626,6 @@ void MainScreen::endWorkout(){
     delete workout;
     this->workout = NULL;   // needed for the test of !MainScreen::getWorkout()!!!!!!
     recordingWorkout = false;
-    hideWidgets();
     webview->SetUrl(HOME_URL);
 
     Preferences::accessibilityMode = false;
@@ -634,8 +639,6 @@ void MainScreen::endWorkout(){
     step_current_grade = 0.0f;
     speed_offset=0.0f;
     grade_offset=0.0f;
-
-    hide();
 }
 
 MainScreen::~MainScreen()

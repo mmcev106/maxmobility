@@ -68,7 +68,7 @@ private:
     QTimer *secondTimer;
     QTimer *milliSecondTimer;
     QTimer *playTimer;
-    QTimer *endTimer;
+    QTimer *hideScreenTimer;
     QTimer *feedbackTimer;
     QTimer *detectChangeTimer;
     int nextWorkoutStepIndex;
