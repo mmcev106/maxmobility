@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ResultsScreen</class>
- <widget class="QWidget" name="ResultsScreen">
+ <class>MessageScreen</class>
+ <widget class="QWidget" name="MessageScreen">
   <property name="geometry">
    <rect>
     <x>0</x>

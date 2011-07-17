@@ -16,6 +16,7 @@
 #include "trailselectionwidget.h"
 #include "scorewidget.h"
 #include <phonon>
+#include "messagescreen.h"
 
 #define TRACK_VISUALIZATION 0
 #define WEB_VISUALIZATION   1
@@ -102,6 +103,7 @@ private:
     float calories;
     long lastStepRecordedTime;
     long pauseTime;
+    MessageScreen safetyMessageScreen;
 
     static MainScreen* mainScreen;
 

@@ -20,13 +20,12 @@
 #include "utils.h"
 #include "time.h"
 #include "screens.h"
-#include "resultsscreen.h"
 #include "scorewidget.h"
 #include "historyscreen.h"
 
 static int HISTORY_HEIGHT = 13;
 
-#ifdef Q_WS_MAC
+#ifdef Q_WS_MAC //used for testing on Mac's where the current directory defaults to inside the application folder
     static QString RUNNING_DUDE_IMAGE_PATH ="../../../images/Running Dude";
 #else
     static QString RUNNING_DUDE_IMAGE_PATH ="images/Running Dude";
@@ -112,6 +111,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,recordingWorkout(FALSE)
     ,lastStepRecordedTime(0)
     ,pauseTime(0)
+    ,safetyMessageScreen(NULL, "Replace safety magnet to continue")
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose, false );
@@ -527,16 +527,20 @@ void MainScreen::keyPressEvent(QKeyEvent* event){
 
 void MainScreen::pauseWorkout(){
     if(!isWorkoutPaused()){
+
         pauseTime = QDateTime::currentMSecsSinceEpoch();
 
         if(player->isPlaying()){
             player->pause();
         }
+
+        Screens::show(&safetyMessageScreen);
     }
 }
 
 void MainScreen::unPauseWorkout(){
     if(isWorkoutPaused()){
+
         long pauseLength = QDateTime::currentMSecsSinceEpoch() - pauseTime;
         startTime += pauseLength;
         pauseTime = 0;
@@ -544,6 +548,8 @@ void MainScreen::unPauseWorkout(){
         if(player->isPaused()){
             player->play();
         }
+
+        safetyMessageScreen.hide();
     }
 }
 

@@ -49,7 +49,7 @@ HEADERS += startupwindow.h \
     useragentwebpage.h \
     settingsscreen.h \
     calibrationscreen.h \
-    resultsscreen.h \
+    messagescreen.h \
     tranquilselectionwidget.h \
     trailselectionwidget.h \
     scorewidget.h \
@@ -70,7 +70,7 @@ FORMS += startupwindow.ui \
     outdoorpathsscreen.ui \
     settingsscreen.ui \
     calibrationscreen.ui \
-    resultsscreen.ui \
+    messagescreen.ui \
     tranquilselectionwidget.ui \
     trailselectionwidget.ui \
     scorewidget.ui
@@ -119,7 +119,7 @@ SOURCES += main.cpp startupwindow.cpp \
     useragentwebpage.cpp \
     settingsscreen.cpp \
     calibrationscreen.cpp \
-    resultsscreen.cpp \
+    messagescreen.cpp \
     tranquilselectionwidget.cpp \
     trailselectionwidget.cpp \
     scorewidget.cpp \
