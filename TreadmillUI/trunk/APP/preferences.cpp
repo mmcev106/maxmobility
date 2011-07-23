@@ -187,6 +187,9 @@ bool Preferences::isTestingMode(){
     if( QHostInfo::localHostName().compare("Mark-McEvers-MacBook.local") == 0){
         return true;
     }
+    else if( QHostInfo::localHostName().compare("MarkMax-PC") == 0){
+        return true;
+    }
 
     return false;
 }

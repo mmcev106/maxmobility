@@ -12,9 +12,15 @@ public:
 protected:
     void mouseMoveEvent ( QMouseEvent * event );
     void mousePressEvent( QMouseEvent * event);
+    void mouseReleaseEvent( QMouseEvent * event);
 
 private:
+    QPoint lastPressPoint;
     QPoint lastTouchPoint;
+
+    int unusedDx;
+    int unusedDy;
+    long lastScrollTime;
 
 signals:
 
