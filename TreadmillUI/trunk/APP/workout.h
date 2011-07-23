@@ -43,6 +43,7 @@ public:
     static void increaseWorkoutIntensity(Workout* workout, float intensityPercentage);
     static float getMaxSpeed(Workout* workout);
     static float getMaxGrade(Workout* workout);
+
 };
 
 #endif // WORKOUT_H

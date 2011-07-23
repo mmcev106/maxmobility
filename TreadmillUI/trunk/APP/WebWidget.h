@@ -2,8 +2,8 @@
 #define WEBWIDGET_H
 
 #include <QtGui>
-#include <QWebView>
 #include "abstractscreen.h"
+#include "webview.h"
 
 const QUrl HOME_URL = QUrl("http://www.google.com");
 

@@ -16,7 +16,7 @@ WebWidget::WebWidget(const QUrl& url) :
     file.close();
     QNetworkProxyFactory::setUseSystemConfiguration(true);
 
-    view = new QWebView(this);
+    view = new WebView(this);
     view->load(url);
     view->settings()->setAttribute(QWebSettings::PluginsEnabled,true);
 //    view->setPage(new UserAgentWebPage(this));
@@ -84,4 +84,3 @@ void WebWidget::SetUrl(const QUrl &url)
 {
     view->load(url);
 }
-
