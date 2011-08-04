@@ -25,8 +25,8 @@ void WebView::mouseMoveEvent(QMouseEvent *event){
         unusedDx += lastTouchPoint.x() - currentTouchPoint.x();
         unusedDy += lastTouchPoint.y() - currentTouchPoint.y();
 
-        long currentTime = QDateTime::currentMSecsSinceEpoch();
-        long timeSinceLastScroll = currentTime - lastScrollTime;
+        qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
+        qint64 timeSinceLastScroll = currentTime - lastScrollTime;
 
         /**
          * We need to ensure that scroll calls aren't made too often
@@ -34,6 +34,7 @@ void WebView::mouseMoveEvent(QMouseEvent *event){
          * the user is scrolling on complex sites.
          */
         if(timeSinceLastScroll > SCROLL_THRESHOLD){
+
             page()->mainFrame()->scroll(unusedDx, unusedDy);
             unusedDx = 0;
             unusedDy = 0;
