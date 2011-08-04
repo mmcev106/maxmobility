@@ -67,7 +67,8 @@ void initializeSerialPortConnection(StartupWindow* _window){
 
     QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
 
-    QString portName = ports.back().portName;
+//    QString portName = ports.back().portName;
+    QString portName = ports.front().portName;
 
     QStringList list;
     qDebug() << "Serial Port: " + portName;

@@ -11,7 +11,7 @@
 HeartRateScreen::HeartRateScreen(QWidget *parent) :
     AbstractMultiSliderScreen(parent)
     ,ui(new Ui::HeartRateScreen)
-    ,weightSlider(this)
+    ,ageSlider(this)
     ,initialSpeedSlider(this)
     ,timeSlider(this)
     ,lowPercentageSlider(this, 1, 100)
@@ -54,7 +54,7 @@ void HeartRateScreen::setConstantGrade(){
     highPercentageSlider.hide();
 
     initialSpeedSlider.move(SLIDER_X, SLIDER3_Y);
-    weightSlider.move(SLIDER_X, SLIDER4_Y);
+    ageSlider.move(SLIDER_X, SLIDER4_Y);
 
     updateHistory();
 }
@@ -65,7 +65,7 @@ void HeartRateScreen::setDynamicGrade(){
     highPercentageSlider.show();
 
     initialSpeedSlider.move(SLIDER_X, SLIDER4_Y);
-    weightSlider.move(SLIDER_X, SLIDER5_Y);
+    ageSlider.move(SLIDER_X, SLIDER5_Y);
 
     updateHistory();
 }
@@ -100,7 +100,7 @@ void HeartRateScreen::on_invisibleButton_6_pressed()
     int minutes = (int) timeSlider.value;
     float lowPercentage = lowPercentageSlider.value/100;
     int initialSpeed = (int) initialSpeedSlider.value;
-    int weight = (int) weightSlider.value;
+    int age = (int) ageSlider.value;
 
     float highPercentage;
     if(highPercentageSlider.isVisible()){
@@ -110,7 +110,7 @@ void HeartRateScreen::on_invisibleButton_6_pressed()
         highPercentage = lowPercentage;
     }
 
-    Workout* workout = Workout::createHeartRateWorkout("Heart Rate", minutes, lowPercentage, highPercentage, initialSpeed, weight);
+    Workout* workout = Workout::createHeartRateWorkout("Heart Rate", minutes, lowPercentage, highPercentage, initialSpeed, age);
 //    workout = Workout::createHeartRateWorkout("Heart Rate", 1, lowPercentage, highPercentage, initialSpeed, weight);
     MainScreen::getMainScreen()->startWorkout( workout);
 

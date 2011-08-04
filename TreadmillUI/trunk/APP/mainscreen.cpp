@@ -72,6 +72,7 @@ void zero(int array[], int length){
 }
 
 static const int PERIODIC_UPDATE_DELAY = 2*60*1000;     // delay in ms between periodic updates
+static const int HEART_RATE_DELAY   = 10*60*1000;       // delay in ms between checking the heartrate for HR control profile
 static const int DETECT_CHANGE_DELAY = 250;          // delay in ms between checking speed and grade for change
 static const int UPDATE_DISPLAY_DELAY = 100;
 static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER_HOUR;
@@ -83,6 +84,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,secondTimer(new QTimer(this))
     ,feedbackTimer(new QTimer(this))
     ,detectChangeTimer(new QTimer(this))
+    ,HRMTimer(new QTimer(this))
     ,hideScreenTimer(new QTimer(this))
     ,milliSecondTimer(new QTimer(this))
     ,playTimer(new QTimer(this))
@@ -113,6 +115,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,pauseTime(0)
     ,safetyMessageScreen(NULL, "Replace safety magnet to continue")
 {
+    workoutrunning = false;
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose, false );
 
@@ -126,6 +129,10 @@ MainScreen::MainScreen(QWidget *parent) :
     connect(feedbackTimer,SIGNAL(timeout()), this, SLOT( periodicFeedback()));
     feedbackTimer->setSingleShot(false);
     feedbackTimer->setInterval(PERIODIC_UPDATE_DELAY);  // every 2 minutes
+
+    connect(HRMTimer,SIGNAL(timeout()),this,SLOT(CheckHeartRate()));
+    HRMTimer->setSingleShot(false);
+    HRMTimer->setInterval(HEART_RATE_DELAY);
 
     connect(detectChangeTimer,SIGNAL(timeout()), this, SLOT(detectChangeFeedback()));
     detectChangeTimer->setSingleShot(false);
@@ -226,6 +233,7 @@ void MainScreen::startWorkout(Workout* workout){
 
 void MainScreen::defaultWorkout(){
 
+    workoutrunning = true;
     this->workout = Workout::createWorkout(QString("Manual"),Utils::getDEF_SPEED(),0,QUICK_WORKOUT_LENGTH);
     this->recordingWorkout = false;
 
@@ -276,6 +284,7 @@ void MainScreen::defaultWorkout(){
     milliSecondTimer->start();
     feedbackTimer->start();
     detectChangeTimer->start();
+    HRMTimer->start();
 
     speed_offset=0.0f;
     grade_offset=0.0f;
@@ -302,6 +311,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     else{
         Preferences::setCurrentState(ON_OFF_MASK);
     }
+    workoutrunning = true;
 
     this->workout = workout;
     this->recordingWorkout = recordWorkout;
@@ -385,6 +395,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     updateDisplay();
 }
 
+static bool grade_stage = false;
 void MainScreen::processNextWorkoutStep() {
 
     if(workout != NULL)
@@ -392,7 +403,7 @@ void MainScreen::processNextWorkoutStep() {
         if (!this->recordingWorkout)
         {
             QList<Step*>* steps = workout->steps;
-            static int workoutStep=0;
+            grade_stage = false;
             for( int i=nextWorkoutStepIndex;i<steps->length();i++){
                 Step* step = steps->at(nextWorkoutStepIndex);
                 nextWorkoutStepIndex++;
@@ -409,6 +420,10 @@ void MainScreen::processNextWorkoutStep() {
                     ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
                     step_current_grade = changeGradeStep->grade;
                     Preferences::setCurrentGrade(changeGradeStep->grade + grade_offset);
+                    if ( workout->name.contains("Heart Rate") )
+                    {
+                        grade_stage= !grade_stage;
+                    }
 
     //                qDebug() << "Workout grade change: " << changeGradeStep->grade;
                 }
@@ -570,6 +585,7 @@ void MainScreen::recordGradeChange(float grade){
 void MainScreen::endWorkout(){
 
     qDebug() << "endWorkout()";
+    workoutrunning = false;
 
     QString message;
     if (workout && (workout->name.contains("Fire Fighter") || workout->name.contains("Fitness")) )
@@ -640,6 +656,7 @@ void MainScreen::endWorkout(){
     milliSecondTimer->stop();
     feedbackTimer->stop();
     detectChangeTimer->stop();
+    HRMTimer->stop();
 
     step_current_speed = 0.0f;
     step_current_grade = 0.0f;
@@ -846,6 +863,35 @@ void MainScreen::detectChangeFeedback(){
     }
 }
 
+void MainScreen::CheckHeartRate(){
+    if ( workout && workout->name.contains("Heart Rate") )
+    {
+        int _HR = Preferences::getHeartRate();
+        if (!grade_stage)
+        {
+            if ( (_HR - workout->min_HR) > 5 )
+            {
+                grade_offset -= 0.5f;
+            }
+            if ( (workout->min_HR - _HR) > 5 )
+            {
+                grade_offset += 0.5f;
+            }
+        }
+        else
+        {
+            if ( (_HR - workout->max_HR) > 5 )
+            {
+                grade_offset -= 0.5f;
+            }
+            if ( (workout->max_HR - _HR) > 5 )
+            {
+                grade_offset += 0.5f;
+            }
+        }
+    }
+}
+
 void MainScreen::updateDisplay(){
 
     if(isWorkoutPaused()){
@@ -884,10 +930,16 @@ void MainScreen::updateDisplay(){
     ui->speedIntegerLabel->setText(QString("%1").arg(intpart,1,'g',-1,QLatin1Char('0')));
     ui->speedDecimalLabel->setText(QString(".%1").arg(fracpart*10));
 
-    heartRate = Preferences::getAverageHeartRate();
+    heartRate = Preferences::getHeartRate();
 // *****************************************************SET SPEED HERE!!!!************************************************************
 
+
+    // HEART RATE HERE
     ui->heartRateLabel->setText(QString("%1").arg(heartRate));
+
+
+
+    // END HEART RATE
 
     QString paceString;
     if (speed)

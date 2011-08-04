@@ -48,6 +48,7 @@ public:
     void playVideo(QString filename);
 
     bool recordingWorkout;
+    bool workoutrunning;
 
     void pauseWorkout();
     void unPauseWorkout();
@@ -72,6 +73,7 @@ private:
     QTimer *hideScreenTimer;
     QTimer *feedbackTimer;
     QTimer *detectChangeTimer;
+    QTimer *HRMTimer;
     int nextWorkoutStepIndex;
     long nextWorkoutStepTime;
     float distance;
@@ -133,6 +135,7 @@ private slots:
     void periodicFeedback();
     void detectChangeFeedback();
     void feedbackEnded();
+    void CheckHeartRate();
 };
 
 #endif // MAINSCREEN_H

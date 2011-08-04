@@ -107,9 +107,15 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
 
     if (_state & ERROR_MASK)
     {
+        _state &= ~STATE_CHANGE_MASK;
+        if (_state&EM_STOP_ERROR_MASK)
+        {
+            MainScreen::getMainScreen()->pauseWorkout();
+        }
     }
     else
     {
+        MainScreen::getMainScreen()->unPauseWorkout();
         _state &= ~STATE_CHANGE_MASK;
 
         if (_state&UNITS_MASK)
@@ -159,10 +165,11 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
             }
             else
             {
-                if (MainScreen::getMainScreen()->isVisible())
+                if (MainScreen::getMainScreen()->isVisible() && MainScreen::getMainScreen()->workoutrunning)
                 {
                     qDebug() << "hiding main screen";
-                    MainScreen::getMainScreen()->hide();
+//                    MainScreen::getMainScreen()->hide();
+                    MainScreen::getMainScreen()->endWorkout();
                 }
             }
         }

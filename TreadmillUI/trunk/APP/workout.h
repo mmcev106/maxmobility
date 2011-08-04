@@ -18,6 +18,7 @@ public:
     QString name;
     int _weight;
     float distance;
+    int max_HR,min_HR;
 
     int visualization;
     QString scoreTitle;
