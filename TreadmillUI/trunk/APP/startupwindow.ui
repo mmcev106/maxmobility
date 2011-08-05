@@ -197,9 +197,9 @@ QWidget[objectName|=&quot;invisibleButton&quot;]{border: none; }
    <property name="geometry">
     <rect>
      <x>640</x>
-     <y>305</y>
+     <y>306</y>
      <width>301</width>
-     <height>51</height>
+     <height>50</height>
     </rect>
    </property>
    <property name="text" stdset="0">

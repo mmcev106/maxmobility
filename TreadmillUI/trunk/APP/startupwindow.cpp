@@ -156,10 +156,11 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                 if (!MainScreen::getMainScreen()->isVisible())
                 {
                     qDebug() << "showing main screen";
-                    Screens::show( MainScreen::getMainScreen() );
                     if (!MainScreen::getWorkout())
                     {
-                        MainScreen::getMainScreen()->defaultWorkout();
+//                        MainScreen::getMainScreen()->defaultWorkout();
+                        Workout* workout = Workout::createWorkout("Manual", 0, 0, QUICK_WORKOUT_LENGTH);
+                        MainScreen::getMainScreen()->startWorkout(workout);
                     }
                 }
             }
