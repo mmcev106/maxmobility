@@ -115,7 +115,6 @@ MainScreen::MainScreen(QWidget *parent) :
     ,pauseTime(0)
     ,safetyMessageScreen(NULL, "Replace safety magnet to continue")
 {
-    workoutrunning = false;
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose, false );
 
@@ -233,7 +232,6 @@ void MainScreen::startWorkout(Workout* workout){
 
 void MainScreen::defaultWorkout(){
 
-    workoutrunning = true;
     this->workout = Workout::createWorkout(QString("Manual"),Utils::getDEF_SPEED(),0,QUICK_WORKOUT_LENGTH);
     this->recordingWorkout = false;
 
@@ -311,7 +309,6 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     else{
         Preferences::setCurrentState(ON_OFF_MASK);
     }
-    workoutrunning = true;
 
     this->workout = workout;
     this->recordingWorkout = recordWorkout;
@@ -585,7 +582,6 @@ void MainScreen::recordGradeChange(float grade){
 void MainScreen::endWorkout(){
 
     qDebug() << "endWorkout()";
-    workoutrunning = false;
 
     QString message;
     if (workout && (workout->name.contains("Fire Fighter") || workout->name.contains("Fitness")) )

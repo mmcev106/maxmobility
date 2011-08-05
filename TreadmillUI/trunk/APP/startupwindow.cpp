@@ -95,9 +95,9 @@ void StartupWindow::restartMusic(){
 //    Utils::backgroundMusic->stop();
     Utils::backgroundMusic->play();
 }
-
 void StartupWindow::onSerialEvent(unsigned char* _data)
 {
+    static bool _workoutrunning = false;
 
     unsigned char _state = _data[1];
 
@@ -124,30 +124,34 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
             Preferences::setMeasurementSystem(METRIC);
 
 
-        if (Preferences::getCurrentState() != _state)
-        {
-            // do state-based screen switching here!
-            if (Preferences::getCurrentState()&CALIBRATING_MASK)
-                CalibrationScreen::getCalibrationScreen()->setVisible(false);
-            else
-            {
-                if (Preferences::getCurrentState()&SETUP_MASK)
-                    SettingsScreen::getSettingsScreen()->setVisible(false);
-                else
-                {
-                    if (Preferences::getCurrentState()&ON_OFF_MASK)
-                    {
-                        MainScreen::getMainScreen()->endWorkout();
-                        qDebug() << "called end workout!";
-                    }
-                }
-            }
-        }
+//        if (Preferences::getCurrentState() != _state)
+//        {
+//            // do state-based screen switching here!
+//            if (Preferences::getCurrentState()&CALIBRATING_MASK)
+//                CalibrationScreen::getCalibrationScreen()->setVisible(false);
+//            else
+//            {
+//                if (Preferences::getCurrentState()&SETUP_MASK)
+//                    SettingsScreen::getSettingsScreen()->setVisible(false);
+//                else
+//                {
+//                    if (Preferences::getCurrentState()&ON_OFF_MASK)
+//                    {
+//                        MainScreen::getMainScreen()->endWorkout();
+//                        qDebug() << "called end workout!";
+//                    }
+//                }
+//            }
+//        }
 
         Preferences::updateCurrentState(_state);
 
         if ( _state&ON_OFF_MASK || ( !(_state&CALIBRATING_MASK) && !(_state&SETUP_MASK) ) )
         {
+            if (CalibrationScreen::getCalibrationScreen()->isVisible())
+                CalibrationScreen::getCalibrationScreen()->setVisible(false);
+            if (SettingsScreen::getSettingsScreen()->isVisible())
+                SettingsScreen::getSettingsScreen()->setVisible(false);
             Preferences::updateCurrentGrade(((float)grade)/10.0);
             Preferences::updateCurrentSpeed(((float)speed)/10.0);
             Preferences::setHeartRate(heartRate);
@@ -155,19 +159,22 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
             {
                 if (!MainScreen::getMainScreen()->isVisible())
                 {
-                    qDebug() << "showing main screen";
-                    if (!MainScreen::getWorkout())
+                    _workoutrunning = true;
+                    if (MainScreen::getWorkout()==NULL)
                     {
 //                        MainScreen::getMainScreen()->defaultWorkout();
-                        Workout* workout = Workout::createWorkout("Manual", 0, 0, QUICK_WORKOUT_LENGTH);
+                        Workout* workout = Workout::createWorkout("Manual", Utils::getDEF_SPEED(), 0, QUICK_WORKOUT_LENGTH);
                         MainScreen::getMainScreen()->startWorkout(workout);
                     }
+                    qDebug() << "showing main screen";
+                    Screens::show( MainScreen::getMainScreen() );
                 }
             }
             else
             {
-                if (MainScreen::getMainScreen()->isVisible() && MainScreen::getMainScreen()->workoutrunning)
+                if (MainScreen::getMainScreen()->isVisible() && _workoutrunning)
                 {
+                    _workoutrunning = false;
                     qDebug() << "hiding main screen";
 //                    MainScreen::getMainScreen()->hide();
                     MainScreen::getMainScreen()->endWorkout();

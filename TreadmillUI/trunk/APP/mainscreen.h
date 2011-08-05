@@ -48,7 +48,6 @@ public:
     void playVideo(QString filename);
 
     bool recordingWorkout;
-    bool workoutrunning;
 
     void pauseWorkout();
     void unPauseWorkout();
