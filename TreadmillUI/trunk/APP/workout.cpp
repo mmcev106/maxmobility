@@ -279,7 +279,7 @@ Workout* Workout::createFitnessWorkout(int age, int weight, bool gender){
     steps->append(new ChangeSpeedStep(3.4*kphConversion));
     steps->append(new ChangeGradeStep(grade));
     steps->append(new WaitStep(3*MILLIS_PER_MINUTE));
-    for (int i=0;i<1;i++){
+    for (int i=0;i<4;i++){
         if (gender)
             grade+=4;
         else
@@ -335,9 +335,9 @@ Workout* Workout::createFireFighterWorkout( int age, int weight, bool gender){
     steps->append(new WaitStep(MILLIS_PER_MINUTE));
 
     //cool down
-    steps->append(new ChangeSpeedStep(3.0*kphConversion));        // -4.0
-    steps->append(new ChangeGradeStep(0.0));        // -10.0
-    steps->append(new WaitStep(MILLIS_PER_MINUTE));
+//    steps->append(new ChangeSpeedStep(3.0*kphConversion));        // -4.0
+//    steps->append(new ChangeGradeStep(0.0));        // -10.0
+//    steps->append(new WaitStep(MILLIS_PER_MINUTE));
 
     return workout;
 }

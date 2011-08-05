@@ -113,7 +113,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,recordingWorkout(FALSE)
     ,lastStepRecordedTime(0)
     ,pauseTime(0)
-    ,safetyMessageScreen(NULL, "Replace safety magnet to continue")
+    ,safetyMessageScreen(NULL, "Replace safety magnet.\n\nPress the Start Button to continue.")
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose, false );
@@ -586,7 +586,7 @@ void MainScreen::endWorkout(){
     QString message;
     if (workout && (workout->name.contains("Fire Fighter") || workout->name.contains("Fitness")) )
     {
-         message = QString("%1 Test Results\n\nYou Made It To Stage %2").arg(workout->name).arg(stage);
+         message = QString("%1 Test Results:\n\nYou Made It To Stage %2!").arg(workout->name).arg(stage);
          if (workout->name.contains("Fitness") && Preferences::getAverageHeartRate())
          {
              double VO2;
@@ -998,6 +998,23 @@ void MainScreen::updateDisplay(){
     updateHistoryWidgets(speed, grade);
 
     updateScoreWidgetText(elapsedTime, speed, grade);
+    if ( workout )
+    {
+        if ( workout->name.contains("Army") || workout->name.contains("Navy") || workout->name.contains("Marines") || workout->name.contains("Air Force") )
+        {
+            if(Preferences::getMeasurementSystem()){
+                if ( distance >= workout->distance )
+                    // We've completed the workout steps, and we're not recording, so end the workout.
+                    Preferences::setCurrentState(0);
+            }
+            else
+            {
+                if ( distance >= (workout->distance)*1.609f )
+                    // We've completed the workout steps, and we're not recording, so end the workout.
+                    Preferences::setCurrentState(0);
+            }
+        }
+    }
 
 }
 
@@ -1014,8 +1031,8 @@ void MainScreen::updateScoreWidgetText(long time, float speed, float grade){
             stage=(nextWorkoutStepIndex-1)/2;
         if (stage<0)
             stage=0;
-        scoreWidget.setText( QString("You Are Currently In Stage: %1").arg(stage),
-                             QString("Stage Time Remaining: %1:%2").arg(scoreMinutes,2,'g',-1,QLatin1Char('0')).arg(scoreSeconds,2,'g',-1,QLatin1Char('0')));
+        scoreWidget.setText( QString("You Are Currently In Stage: %1\n\nStage Time Remaining: %2:%3\n").arg(stage).arg(scoreMinutes,2,'g',-1,QLatin1Char('0')).arg(scoreSeconds,2,'g',-1,QLatin1Char('0'))
+                             ,"");
 
     }
 }
