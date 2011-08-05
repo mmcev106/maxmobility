@@ -626,7 +626,7 @@ void MainScreen::endWorkout(){
     }
 
     hideWidgets();
-    scoreWidget.setText("\n" + message, "");
+    scoreWidget.setText(message, "");
     scoreWidget.setVisible(true);
     hideScreenTimer->start();
 

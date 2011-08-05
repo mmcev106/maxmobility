@@ -39,7 +39,7 @@ QWidget{font-family: Tamworth Gothic}</string>
      <x>0</x>
      <y>80</y>
      <width>751</width>
-     <height>131</height>
+     <height>441</height>
     </rect>
    </property>
    <property name="palette">
