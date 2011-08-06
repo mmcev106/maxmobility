@@ -57,6 +57,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     player->setVisible(true);
 //    connect(player, SIGNAL(finished()), this, SLOT(restartVideo()));
     player->show();
+    player->raise();
 
     connect(&sharedTimer, SIGNAL(timeout()), this, SLOT( sharedTimerTimeout()));
     sharedTimer.setInterval(250);
@@ -205,6 +206,19 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                 Preferences::belt_time = (((int)(_data[3]))*256) + (_data[4]);
         }
     }
+}
+
+bool StartupWindow::event(QEvent *event)
+{
+    if(event->type() == POINTER_EVENT_TYPE){
+        PointerEvent* pointerEvent = (PointerEvent*)event;
+
+        if(pointerEvent->pointer == player){
+            on_outdoorPathsButton_pressed();
+        }
+    }
+
+    return AbstractScreen::event(event);
 }
 
 void StartupWindow::sharedTimerTimeout(){

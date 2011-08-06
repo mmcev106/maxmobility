@@ -24,7 +24,7 @@ public slots:
 
 protected:
 //    bool eventFilter(QObject * watched, QEvent *event);
-//    bool event(QEvent *event);
+    bool event(QEvent *event);
 
 private:
     Ui::StartupWindow *ui;
