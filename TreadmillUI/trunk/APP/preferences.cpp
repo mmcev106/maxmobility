@@ -190,6 +190,9 @@ bool Preferences::isTestingMode(){
     else if( QHostInfo::localHostName().compare("MarkMax-PC") == 0){
         return true;
     }
+    else if( QHostInfo::localHostName().compare("virtualbox_xp") == 0){
+        return true;
+    }
 
     return false;
 }

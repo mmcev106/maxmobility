@@ -25,6 +25,7 @@ WebWidget::WebWidget(const QUrl& url) :
     connect(view, SIGNAL(loadFinished(bool)), SLOT(finishLoading(bool)));
 
     locationEdit = new QLineEdit(this);
+    locationEdit->setStyleSheet("font-size: 18px");
     locationEdit->setSizePolicy(QSizePolicy::Expanding, locationEdit->sizePolicy().verticalPolicy());
     connect(locationEdit, SIGNAL(returnPressed()), SLOT(changeLocation()));
 
