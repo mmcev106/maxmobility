@@ -72,7 +72,7 @@ void zero(int array[], int length){
 }
 
 static const int PERIODIC_UPDATE_DELAY = 2*60*1000;     // delay in ms between periodic updates
-static const int HEART_RATE_DELAY   = 10*60*1000;       // delay in ms between checking the heartrate for HR control profile
+static const int HEART_RATE_DELAY   = 15*1000;       // delay in ms between checking the heartrate for HR control profile
 static const int DETECT_CHANGE_DELAY = 250;          // delay in ms between checking speed and grade for change
 static const int UPDATE_DISPLAY_DELAY = 100;
 static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER_HOUR;
@@ -282,7 +282,6 @@ void MainScreen::defaultWorkout(){
     milliSecondTimer->start();
     feedbackTimer->start();
     detectChangeTimer->start();
-    HRMTimer->start();
 
     speed_offset=0.0f;
     grade_offset=0.0f;
@@ -365,6 +364,9 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     milliSecondTimer->start();
     feedbackTimer->start();
     detectChangeTimer->start();
+//    qDebug() << "Workout name contains HR?" << workout->name.contains("Heart Rate");
+//    if ( workout->name.contains("Heart Rate") )
+        HRMTimer->start();
 
 
     if (this->recordingWorkout)
@@ -620,7 +622,7 @@ void MainScreen::endWorkout(){
 
     }
     else{
-        if (Preferences::getMeasurementSystem())
+        if (Preferences::getMeasurementSystem()==STANDARD)
         {
             message = QString("Workout Results: \n\nTime: %1:%2 \nDistance: %3.%4 mi \nCalories Burned: %5")
                           .arg(minutes,2,'g',-1,QLatin1Char('0')).arg(seconds,2,'g',-1,QLatin1Char('0'))
@@ -871,27 +873,30 @@ void MainScreen::detectChangeFeedback(){
 void MainScreen::CheckHeartRate(){
     if ( workout && workout->name.contains("Heart Rate") )
     {
-        int _HR = Preferences::getHeartRate();
+        int _HR = Preferences::getAverageHeartRate();
+//        qDebug() << "Heart Rate:" << _HR;
+//        qDebug() << "min HR:" << workout->min_HR;
+//        qDebug() << "max HR:" << workout->max_HR;
         if (!grade_stage)
         {
             if ( (_HR - workout->min_HR) > 5 )
             {
-                grade_offset -= 0.5f;
+                Preferences::setCurrentGrade(Preferences::getCurrentGrade() - 0.5f);
             }
             if ( (workout->min_HR - _HR) > 5 )
             {
-                grade_offset += 0.5f;
+                Preferences::setCurrentGrade(Preferences::getCurrentGrade() + 0.5f);
             }
         }
         else
         {
             if ( (_HR - workout->max_HR) > 5 )
             {
-                grade_offset -= 0.5f;
+                Preferences::setCurrentGrade(Preferences::getCurrentGrade() - 0.5f);
             }
             if ( (workout->max_HR - _HR) > 5 )
             {
-                grade_offset += 0.5f;
+                Preferences::setCurrentGrade(Preferences::getCurrentGrade() + 0.5f);
             }
         }
     }
@@ -935,7 +940,7 @@ void MainScreen::updateDisplay(){
     ui->speedIntegerLabel->setText(QString("%1").arg(intpart,1,'g',-1,QLatin1Char('0')));
     ui->speedDecimalLabel->setText(QString(".%1").arg(fracpart*10));
 
-    heartRate = Preferences::getHeartRate();
+    heartRate = Preferences::getAverageHeartRate();
 // *****************************************************SET SPEED HERE!!!!************************************************************
 
 

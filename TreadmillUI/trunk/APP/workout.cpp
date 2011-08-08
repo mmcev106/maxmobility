@@ -121,8 +121,8 @@ Workout* Workout::createHeartRateWorkout(QString name, int minutes, float lowPer
     int weight = 72.5;          // default weight (since no weight slider)
 
     Workout* workout = new Workout(name, weight);//, NULL, weight
-    workout->min_HR = lowPercentage*(220.0f-age)/100.0f;
-    workout->max_HR = highPercentage*(220.0f-age)/100.0f;
+    workout->min_HR = lowPercentage*(220.0f-age);
+    workout->max_HR = highPercentage*(220.0f-age);
 
     QList<Step*> *steps = workout->steps;
 
