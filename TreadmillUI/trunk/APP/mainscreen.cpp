@@ -620,9 +620,18 @@ void MainScreen::endWorkout(){
 
     }
     else{
-        message = QString("Workout Results: \n\nTime: %1:%2 \nDistance: %3.%4 \nCalories Burned: %5")
-                      .arg(minutes,2,'g',-1,QLatin1Char('0')).arg(seconds,2,'g',-1,QLatin1Char('0'))
-                      .arg(((int)distance)%100).arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')).arg((int)calories);
+        if (Preferences::getMeasurementSystem())
+        {
+            message = QString("Workout Results: \n\nTime: %1:%2 \nDistance: %3.%4 mi \nCalories Burned: %5")
+                          .arg(minutes,2,'g',-1,QLatin1Char('0')).arg(seconds,2,'g',-1,QLatin1Char('0'))
+                          .arg(((int)distance)%100).arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')).arg((int)calories);
+        }
+        else
+        {
+            message = QString("Workout Results: \n\nTime: %1:%2 \nDistance: %3.%4 km \nCalories Burned: %5")
+                          .arg(minutes,2,'g',-1,QLatin1Char('0')).arg(seconds,2,'g',-1,QLatin1Char('0'))
+                          .arg(((int)distance)%100).arg(((int)(distance*100))%100,2,'g',-1,QLatin1Char('0')).arg((int)calories);
+        }
     }
 
     hideWidgets();
