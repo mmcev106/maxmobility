@@ -68,6 +68,10 @@ float Preferences::getCurrentSpeed(){
 
 void Preferences::setCurrentSpeed(float spd)
 {
+    if (spd>Utils::getMAX_SPEED())
+        spd = Utils::getMAX_SPEED();
+    if (spd<0.0f)
+        spd = 0.0f;
     if (spd>speed)
         spd_diff = ((int)((spd-speed)*10)) | (1<<7);
     else
@@ -135,6 +139,10 @@ float Preferences::getCurrentGrade(){
 }
 
 void Preferences::setCurrentGrade(float grd){
+    if (grd>12.0f)
+        grd = 12.0f;
+    if (grd<0.0f)
+        grd = 0.0f;
     if (grd>grade)
         grd_diff = ((int)((grd-grade)*10)) | (1<<7);
     else

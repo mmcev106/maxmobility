@@ -71,6 +71,8 @@ void zero(int array[], int length){
     }
 }
 
+static bool grade_stage;
+
 static const int PERIODIC_UPDATE_DELAY = 2*60*1000;     // delay in ms between periodic updates
 static const int HEART_RATE_DELAY   = 15*1000;       // delay in ms between checking the heartrate for HR control profile
 static const int DETECT_CHANGE_DELAY = 250;          // delay in ms between checking speed and grade for change
@@ -367,7 +369,9 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
 //    qDebug() << "Workout name contains HR?" << workout->name.contains("Heart Rate");
 //    if ( workout->name.contains("Heart Rate") )
         HRMTimer->start();
+        grade_stage = true;     // has to be true so that when the first is called it becomes false
 
+    wheelchairDude = false;
 
     if (this->recordingWorkout)
     {
@@ -394,7 +398,6 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     updateDisplay();
 }
 
-static bool grade_stage = false;
 void MainScreen::processNextWorkoutStep() {
 
     if(workout != NULL)
@@ -402,7 +405,6 @@ void MainScreen::processNextWorkoutStep() {
         if (!this->recordingWorkout)
         {
             QList<Step*>* steps = workout->steps;
-            grade_stage = false;
             for( int i=nextWorkoutStepIndex;i<steps->length();i++){
                 Step* step = steps->at(nextWorkoutStepIndex);
                 nextWorkoutStepIndex++;
@@ -419,10 +421,10 @@ void MainScreen::processNextWorkoutStep() {
                     ChangeGradeStep* changeGradeStep = (ChangeGradeStep*) step;
                     step_current_grade = changeGradeStep->grade;
                     Preferences::setCurrentGrade(changeGradeStep->grade + grade_offset);
-                    if ( workout->name.contains("Heart Rate") )
-                    {
+//                    if ( workout->name.contains("Heart Rate") )
+//                    {
                         grade_stage= !grade_stage;
-                    }
+//                    }
 
     //                qDebug() << "Workout grade change: " << changeGradeStep->grade;
                 }
@@ -874,11 +876,12 @@ void MainScreen::CheckHeartRate(){
     if ( workout && workout->name.contains("Heart Rate") )
     {
         int _HR = Preferences::getAverageHeartRate();
-//        qDebug() << "Heart Rate:" << _HR;
-//        qDebug() << "min HR:" << workout->min_HR;
-//        qDebug() << "max HR:" << workout->max_HR;
+        qDebug() << "Heart Rate:" << _HR;
+        qDebug() << "min HR:" << workout->min_HR;
+        qDebug() << "max HR:" << workout->max_HR;
         if (!grade_stage)
         {
+            qDebug() << "Grade Stage:" << "Min HR";
             if ( (_HR - workout->min_HR) > 5 )
             {
                 Preferences::setCurrentGrade(Preferences::getCurrentGrade() - 0.5f);
@@ -890,6 +893,7 @@ void MainScreen::CheckHeartRate(){
         }
         else
         {
+            qDebug() << "Grade Stage:" << "Max HR";
             if ( (_HR - workout->max_HR) > 5 )
             {
                 Preferences::setCurrentGrade(Preferences::getCurrentGrade() - 0.5f);
