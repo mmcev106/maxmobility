@@ -44,3 +44,8 @@ void MessageScreen::keyPressEvent(QKeyEvent* event){
     }
 }
 
+void MessageScreen::setText(QString message)
+{
+    ui->messageLabel->setText(message);
+}
+

@@ -104,7 +104,7 @@ private:
     float calories;
     long lastStepRecordedTime;
     long pauseTime;
-    MessageScreen safetyMessageScreen;
+//    MessageScreen safetyMessageScreen;
 
     static MainScreen* mainScreen;
 

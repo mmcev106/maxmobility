@@ -115,7 +115,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,recordingWorkout(FALSE)
     ,lastStepRecordedTime(0)
     ,pauseTime(0)
-    ,safetyMessageScreen(NULL, "Replace safety magnet.\n\nPress the Start Button to continue.")
+//    ,safetyMessageScreen(NULL, "Replace safety magnet.\n\nPress the Start Button to continue.")
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose, false );
@@ -549,8 +549,6 @@ void MainScreen::pauseWorkout(){
         if(player->isPlaying()){
             player->pause();
         }
-
-        Screens::show(&safetyMessageScreen);
     }
 }
 
@@ -564,8 +562,6 @@ void MainScreen::unPauseWorkout(){
         if(player->isPaused()){
             player->play();
         }
-
-        safetyMessageScreen.hide();
     }
 }
 

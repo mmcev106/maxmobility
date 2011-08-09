@@ -18,6 +18,7 @@ class MessageScreen : public AbstractScreen
 public:
     explicit MessageScreen(QWidget *parent, QString message);
     ~MessageScreen();
+    void setText(QString message);
 
 private:
     Ui::MessageScreen *ui;

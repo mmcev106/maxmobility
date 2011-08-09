@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "abstractscreen.h"
 #include "videoplayer.h"
+#include "messagescreen.h"
 #include <QTimer>
 
 
@@ -27,6 +28,7 @@ protected:
     bool event(QEvent *event);
 
 private:
+    MessageScreen errorMessageScreen;
     Ui::StartupWindow *ui;
     VideoPlayer *player;
     Phonon::MediaSource* mediaSource;

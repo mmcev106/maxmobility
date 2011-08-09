@@ -37,6 +37,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     ,ui(new Ui::StartupWindow)
     ,player(new VideoPlayer(this))
     ,sharedTimer(this)
+    ,errorMessageScreen(NULL, "Error: ")
 {
     ui->setupUi(this);
 
@@ -109,13 +110,63 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
     if (_state & ERROR_MASK)
     {
         _state &= ~STATE_CHANGE_MASK;
+//        QString _err = QString("Error Code: %1\n").arg(_state);
+        QString _err;
         if (_state&EM_STOP_ERROR_MASK)
         {
-            MainScreen::getMainScreen()->pauseWorkout();
+            _err.append("Replace safety magnet.\n");
         }
+        else
+        {
+            if (_state&TOE_SAFETY_ERROR_MASK)
+            {
+                _err.append("Toe saftey switch activated.\n");
+            }
+            else
+            {
+                if (_state&GRADE_CONTROL_ERROR_MASK)
+                {
+                    _err.append("Grade Control Error.\n");
+                }
+                else
+                {
+                    if (_state&SPEED_CONTROL_ERROR_MASK)
+                    {
+                        _err.append("Speed Control Error.\n");
+                    }
+                    else
+                    {
+                        if (_state&SERIAL_RECEIVING_ERROR_MASK)
+                        {
+                            _err.append("Serial Receive Error.\n");
+                        }
+                        else
+                        {
+                            if (_state&SERIAL_SENDING_ERROR_MASK)
+                            {
+                                _err.append("Serial Sending Error.\n");
+                            }
+                            else
+                            {
+                                if (_state&CRITICAL_ERROR_MASK)
+                                {
+                                    _err.append("Critical Error.\n");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        _err.append("\nPress the Start Button to continue.");
+        errorMessageScreen.setText(_err);
+        MainScreen::getMainScreen()->pauseWorkout();
+        Screens::show(&errorMessageScreen);
     }
     else
     {
+        if (errorMessageScreen.isVisible())
+            errorMessageScreen.hide();
         MainScreen::getMainScreen()->unPauseWorkout();
         _state &= ~STATE_CHANGE_MASK;
 
@@ -392,6 +443,7 @@ void StartupWindow::on_acc_invisibleButton_pressed()
 {
     Preferences::accessibilityMode = true;
 //    Utils::mediaObject->setCurrentSource(AUDIO_ROOT_DIR+"Pro_Full_Audio.wav");
+    Utils::feedbackOutput->setVolume(70.0/100.0);
 
     Utils::accFeedback->clear();
     QList<QUrl> fdbk = QList<QUrl>();
