@@ -17,6 +17,7 @@ public:
     explicit KeyboardWidget(QWidget *parent = 0);
     ~KeyboardWidget();
     QString text();
+    void setText(QString);
 
 private:
     static const int KEYS_START_X = 30;

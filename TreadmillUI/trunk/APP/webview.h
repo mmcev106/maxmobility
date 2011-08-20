@@ -2,6 +2,8 @@
 #define WEBVIEW_H
 
 #include <QWebView>
+#include "invisiblebutton.h"
+#include "keyboardscreen.h"
 
 class WebView : public QWebView
 {
@@ -25,6 +27,8 @@ private:
 signals:
 
 public slots:
+    void onTextFieldClicked(QString text);
+    void onLoadFinished(bool ok);
 
 };
 

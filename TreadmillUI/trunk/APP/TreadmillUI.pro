@@ -54,7 +54,8 @@ HEADERS += startupwindow.h \
     trailselectionwidget.h \
     scorewidget.h \
     endstep.h \
-    webview.h
+    webview.h \
+    keyboardscreen.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -74,7 +75,8 @@ FORMS += startupwindow.ui \
     messagescreen.ui \
     tranquilselectionwidget.ui \
     trailselectionwidget.ui \
-    scorewidget.ui
+    scorewidget.ui \
+    keyboardscreen.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -125,7 +127,8 @@ SOURCES += main.cpp startupwindow.cpp \
     trailselectionwidget.cpp \
     scorewidget.cpp \
     endstep.cpp \
-    webview.cpp
+    webview.cpp \
+    keyboardscreen.cpp
 RESOURCES += images.qrc \
     jquery.qrc
 

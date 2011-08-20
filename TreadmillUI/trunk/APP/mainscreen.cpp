@@ -116,6 +116,7 @@ MainScreen::MainScreen(QWidget *parent) :
     ,lastStepRecordedTime(0)
     ,pauseTime(0)
 //    ,safetyMessageScreen(NULL, "Replace safety magnet.\n\nPress the Start Button to continue.")
+    ,webview(new WebWidget(HOME_URL))
 {
     ui->setupUi(this);
     setAttribute( Qt::WA_DeleteOnClose, false );
@@ -200,7 +201,6 @@ MainScreen::MainScreen(QWidget *parent) :
     ui->wheelchairDude_invisibleButton->setVisible(true);
     ui->wheelchairDude_invisibleButton->raise();
 
-    webview = new WebWidget(HOME_URL);
     webview->setParent(&centerWidget);
     webview->hide();
 

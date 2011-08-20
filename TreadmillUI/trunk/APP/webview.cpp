@@ -4,6 +4,10 @@
 #include <QMouseEvent>
 #include <QWebFrame>
 #include <QDateTime>
+#include <QCoreApplication>
+#include <QMessageBox>
+#include <QWebElement>
+#include "screens.h"
 
 static int CLICK_MOVE_THRESHOLD = 10; //in pixels
 static int SCROLL_THRESHOLD = 50; //in milliseconds
@@ -14,6 +18,7 @@ WebView::WebView(QWidget *parent) :
   ,unusedDy(0)
   ,lastScrollTime(0)
 {
+    connect(this, SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
 }
 
 void WebView::mouseMoveEvent(QMouseEvent *event){
@@ -69,4 +74,28 @@ void WebView::mouseReleaseEvent( QMouseEvent * event){
     if(totalDx < CLICK_MOVE_THRESHOLD && totalDy < CLICK_MOVE_THRESHOLD){
         QWebView::mouseReleaseEvent(event);
     }
+}
+
+
+void WebView::onTextFieldClicked(QString text){
+
+    Screens::show(new KeyboardScreen(text, this));
+}
+
+void WebView::onLoadFinished(bool ok){
+
+    /**
+      * Map the receive focus event for input boxes in webpages to this.onTextFieldFocused();
+      */
+    QWebFrame* mainFrame = page()->mainFrame();
+    mainFrame->addToJavaScriptWindowObject("webWidget", this);
+    mainFrame->documentElement().evaluateJavaScript(
+        "function isTextElement(el) { "
+            "return el.tagName == \"INPUT\" && el.type == \"text\"; "
+        "} "
+        "this.addEventListener(\"click\", function(e) { "
+            "if (isTextElement(e.target)) { "
+                "webWidget.onTextFieldClicked(e.target.value); "
+            "} "
+        "}, false); ");
 }

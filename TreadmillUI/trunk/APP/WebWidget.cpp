@@ -7,7 +7,8 @@
 #include "useragentwebpage.h"
 
 WebWidget::WebWidget(const QUrl& url) :
-        webMask(":/images/images/main_screen_large_video_mask.png")
+    webMask(":/images/images/main_screen_large_video_mask.png")
+    ,keyboardButton(this)
 {
     QFile file;
     file.setFileName(":/jquery.min.js");
@@ -24,10 +25,14 @@ WebWidget::WebWidget(const QUrl& url) :
     connect(view, SIGNAL(loadFinished(bool)), SLOT(adjustLocation()));
     connect(view, SIGNAL(loadFinished(bool)), SLOT(finishLoading(bool)));
 
-    locationEdit = new QLineEdit(this);
+    locationEdit = new MyLineEdit();
+    locationEdit->setParent(this);
     locationEdit->setStyleSheet("font-size: 18px");
     locationEdit->setSizePolicy(QSizePolicy::Expanding, locationEdit->sizePolicy().verticalPolicy());
     connect(locationEdit, SIGNAL(returnPressed()), SLOT(changeLocation()));
+
+    goButton = new QPushButton("GO");
+    connect(goButton, SIGNAL(pressed()), SLOT(changeLocation()));
 
     QToolBar *toolBar = addToolBar(tr("Navigation"));
     toolBar->addAction(view->pageAction(QWebPage::Back));
@@ -35,11 +40,18 @@ WebWidget::WebWidget(const QUrl& url) :
     toolBar->addAction(view->pageAction(QWebPage::Reload));
     toolBar->addAction(view->pageAction(QWebPage::Stop));
     toolBar->addWidget(locationEdit);
+    toolBar->addWidget(goButton);
     toolBar->setMovable(false);
 
-    setCentralWidget(view);
+    QWidget* container = new QWidget();
+    view->setParent(container);
+    keyboardButton.setParent(container);
+
+    setCentralWidget(container);
     this->setGeometry(10,10,740,540);
     this->setAutoFillBackground(true);
+
+    connect(view->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
 }
 //! [3]
 
@@ -51,6 +63,7 @@ void WebWidget::adjustLocation()
 
 void WebWidget::changeLocation()
 {
+
     QString txt = locationEdit->text();
     QUrl url;
 //    QUrl url = txt;

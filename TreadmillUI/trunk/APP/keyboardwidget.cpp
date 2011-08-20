@@ -49,8 +49,8 @@ KeyboardWidget::KeyboardWidget(QWidget *parent) :
     addKeyButton("b");
     addKeyButton("n");
     addKeyButton("m");
-    addKeyButton("[");
-    addKeyButton("]");
+    addKeyButton(".");
+    addKeyButton("/");
     addKeyButton("_");
 
     ui->backgroundLabel->lower();
@@ -87,9 +87,7 @@ void KeyboardWidget::buttonPressed(){
         ui->invisibleButton_shift->setHighlighted(false);
     }
 
-    QLabel* inputLabel = ui->inputLabel;
-    inputLabel->setText(inputLabel->text().append(key));
-
+    ui->inputBox->setText(ui->inputBox->text().append(key));
 }
 
 KeyboardWidget::~KeyboardWidget()
@@ -103,15 +101,13 @@ KeyboardWidget::~KeyboardWidget()
 
 void KeyboardWidget::on_invisibleButton_backspace_pressed()
 {
-    QLabel* inputLabel = ui->inputLabel;
-    QString text = inputLabel->text();
-    inputLabel->setText(text.left(text.length()-1));
+    QString text = ui->inputBox->text();
+    ui->inputBox->setText(text.left(text.length()-1));
 }
 
 void KeyboardWidget::on_invisibleButton_space_pressed()
 {
-    QLabel* inputLabel = ui->inputLabel;
-    inputLabel->setText(inputLabel->text().append(' '));
+    ui->inputBox->setText(ui->inputBox->text().append(' '));
 }
 
 void KeyboardWidget::on_invisibleButton_shift_pressed()
@@ -121,5 +117,9 @@ void KeyboardWidget::on_invisibleButton_shift_pressed()
 }
 
 QString KeyboardWidget::text(){
-    return ui->inputLabel->text();
+    return ui->inputBox->text();
+}
+
+void KeyboardWidget::setText(QString text){
+    return ui->inputBox->setText(text);
 }

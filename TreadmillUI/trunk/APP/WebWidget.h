@@ -4,6 +4,8 @@
 #include <QtGui>
 #include "abstractscreen.h"
 #include "webview.h"
+#include "keyboardscreen.h"
+#include "screens.h"
 
 const QUrl HOME_URL = QUrl("http://www.google.com");
 
@@ -23,15 +25,25 @@ private:
     QString jQuery;
     QWebView *view;
     QLineEdit *locationEdit;
+    QPushButton *goButton;
     QAction *rotateAction;
 
     QPixmap webMask;
+
+    InvisibleButton keyboardButton;
 
 protected slots:
 
     void adjustLocation();
     void changeLocation();
     void finishLoading(bool);
+};
+
+class MyLineEdit : public QLineEdit{
+    void mousePressEvent(QMouseEvent* event){
+        Screens::show(new KeyboardScreen(text(), this));
+        QLineEdit::mousePressEvent(event);
+    }
 };
 
 #endif // WEBWIDGET_H
