@@ -17,8 +17,10 @@ WebView::WebView(QWidget *parent) :
   ,unusedDx(0)
   ,unusedDy(0)
   ,lastScrollTime(0)
+  ,clickEventListenerAdded(false)
 {
-    connect(this, SIGNAL(loadFinished(bool)), this, SLOT(onLoadFinished(bool)));
+    connect(this, SIGNAL(loadStarted()), this, SLOT(onLoadStarted()));
+    connect(this, SIGNAL(loadProgress(int)), this, SLOT(onLoadProgress(int)));
 }
 
 void WebView::mouseMoveEvent(QMouseEvent *event){
@@ -82,20 +84,33 @@ void WebView::onTextFieldClicked(QString text){
     Screens::show(new KeyboardScreen(text, this));
 }
 
-void WebView::onLoadFinished(bool ok){
+void WebView::onLoadStarted(){
+    clickEventListenerAdded = false;
+}
+
+void WebView::onLoadProgress(int progress){
 
     /**
-      * Map the receive focus event for input boxes in webpages to this.onTextFieldFocused();
-      */
-    QWebFrame* mainFrame = page()->mainFrame();
-    mainFrame->addToJavaScriptWindowObject("webWidget", this);
-    mainFrame->documentElement().evaluateJavaScript(
-        "function isTextElement(el) { "
-            "return el.tagName == \"INPUT\" && el.type == \"text\"; "
-        "} "
-        "this.addEventListener(\"click\", function(e) { "
-            "if (isTextElement(e.target)) { "
-                "webWidget.onTextFieldClicked(e.target.value); "
+     *  Adding the click event listener on loadStarted() doesn't work,
+     *  so wait until the page has loaded at least 25%
+     */
+    if(!clickEventListenerAdded && progress > 25){
+
+        /**
+          * Map the receive focus event for input boxes in webpages to this.onTextFieldFocused();
+          */
+        QWebFrame* mainFrame = page()->mainFrame();
+        mainFrame->addToJavaScriptWindowObject("webWidget", this);
+        mainFrame->documentElement().evaluateJavaScript(
+            "function isTextElement(el) { "
+                "return el.tagName == \"INPUT\" && el.type == \"text\"; "
             "} "
-        "}, false); ");
+            "this.addEventListener(\"click\", function(e) { "
+                "if (isTextElement(e.target)) { "
+                    "webWidget.onTextFieldClicked(e.target.value); "
+                "} "
+            "}, false); ");
+
+        clickEventListenerAdded = true;
+    }
 }

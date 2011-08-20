@@ -23,12 +23,14 @@ private:
     int unusedDx;
     int unusedDy;
     long lastScrollTime;
+    bool clickEventListenerAdded;
 
 signals:
 
 public slots:
     void onTextFieldClicked(QString text);
-    void onLoadFinished(bool ok);
+    void onLoadStarted();
+    void onLoadProgress(int progress);
 
 };
 
