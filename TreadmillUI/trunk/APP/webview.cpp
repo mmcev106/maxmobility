@@ -103,7 +103,7 @@ void WebView::onLoadProgress(int progress){
         mainFrame->addToJavaScriptWindowObject("webWidget", this);
         mainFrame->documentElement().evaluateJavaScript(
             "function isTextElement(el) { "
-                "return el.tagName == \"INPUT\" && el.type == \"text\"; "
+                    "return el.tagName == 'INPUT' && (el.type == 'text' || el.type == 'password'); "
             "} "
             "this.addEventListener(\"click\", function(e) { "
                 "if (isTextElement(e.target)) { "
