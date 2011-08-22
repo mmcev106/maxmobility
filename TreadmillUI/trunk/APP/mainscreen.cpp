@@ -372,6 +372,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
         grade_stage = true;     // has to be true so that when the first is called it becomes false
 
     wheelchairDude = false;
+    ui->wheelchairDudeImage->setPixmap(wheelchairDudeOff);
 
     if (this->recordingWorkout)
     {
