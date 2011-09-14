@@ -1,16 +1,18 @@
-#include "keyboardwidget.h"
+#include "abstractkeyboardwidget.h"
 #include "ui_keyboardwidget.h"
 #include <QDebug>
 #include <QPainter>
 
 #include "invisiblebutton.h"
 
-KeyboardWidget::KeyboardWidget(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::KeyboardWidget)
+AbstractKeyboardWidget::AbstractKeyboardWidget(QRect keyRect, QWidget *parent, QString customKeys[]) :
+    QWidget(parent)
     ,buttons()
 {
-    ui->setupUi(this);
+    keyStartX = keyRect.x();
+    keyStartY = keyRect.y();
+    keyWidth = keyRect.width();
+    keyHeight = keyRect.height();
 
     addKeyButton("1");
     addKeyButton("2");
@@ -41,7 +43,7 @@ KeyboardWidget::KeyboardWidget(QWidget *parent) :
     addKeyButton("j");
     addKeyButton("k");
     addKeyButton("l");
-    addKeyButton("-");
+    addKeyButton(customKeys[0]);
     addKeyButton("z");
     addKeyButton("x");
     addKeyButton("c");
@@ -49,25 +51,22 @@ KeyboardWidget::KeyboardWidget(QWidget *parent) :
     addKeyButton("b");
     addKeyButton("n");
     addKeyButton("m");
-    addKeyButton(".");
-    addKeyButton("/");
-    addKeyButton("_");
-
-    ui->backgroundLabel->lower();
-    show();
+    addKeyButton(customKeys[1]);
+    addKeyButton(customKeys[2]);
+    addKeyButton(customKeys[3]);
 }
 
-void KeyboardWidget::addKeyButton(QString c ){
+void AbstractKeyboardWidget::addKeyButton(QString c ){
 
     InvisibleButton* button = new InvisibleButton(this);
-    button->setFixedSize(KEY_WIDTH,KEY_HEIGHT);
+    button->setFixedSize(keyWidth,keyHeight);
     button->setAccessibleName(c);
 
     int column = buttons.size()%KEYS_PER_ROW;
-    int x = KEYS_START_X + column*KEY_WIDTH;
+    int x = keyStartX + column*keyWidth;
 
     int row = buttons.size()/KEYS_PER_ROW;
-    int y = KEYS_START_Y + row*KEY_HEIGHT;
+    int y = keyStartY + row*keyHeight;
 
     button->move(x, y);
     button->show();
@@ -77,49 +76,47 @@ void KeyboardWidget::addKeyButton(QString c ){
     buttons.append(button);
 }
 
-void KeyboardWidget::buttonPressed(){
+void AbstractKeyboardWidget::buttonPressed(){
     QPushButton* button = (QPushButton*)sender();
 
     QString key = button->accessibleName();
 
-    if(ui->invisibleButton_shift->isHighlighted()){
+    if(getShiftButton()->isHighlighted()){
         key = key.toUpper();
-        ui->invisibleButton_shift->setHighlighted(false);
+        getShiftButton()->setHighlighted(false);
     }
 
-    ui->inputBox->setText(ui->inputBox->text().append(key));
+    getInputBox()->setText(getInputBox()->text().append(key));
 }
 
-KeyboardWidget::~KeyboardWidget()
+AbstractKeyboardWidget::~AbstractKeyboardWidget()
 {
     for(int i=0;i<buttons.size();i++){
         delete buttons.at(i);
     }
-
-    delete ui;
 }
 
-void KeyboardWidget::on_invisibleButton_backspace_pressed()
+void AbstractKeyboardWidget::on_invisibleButton_backspace_pressed()
 {
-    QString text = ui->inputBox->text();
-    ui->inputBox->setText(text.left(text.length()-1));
+    QString text = getInputBox()->text();
+    getInputBox()->setText(text.left(text.length()-1));
 }
 
-void KeyboardWidget::on_invisibleButton_space_pressed()
+void AbstractKeyboardWidget::on_invisibleButton_space_pressed()
 {
-    ui->inputBox->setText(ui->inputBox->text().append(' '));
+    getInputBox()->setText(getInputBox()->text().append(' '));
 }
 
-void KeyboardWidget::on_invisibleButton_shift_pressed()
+void AbstractKeyboardWidget::on_invisibleButton_shift_pressed()
 {
-    ui->invisibleButton_shift->setHighlighted(!ui->invisibleButton_shift->isHighlighted());
+    getShiftButton()->setHighlighted(!getShiftButton()->isHighlighted());
     update();
 }
 
-QString KeyboardWidget::text(){
-    return ui->inputBox->text();
+QString AbstractKeyboardWidget::text(){
+    return getInputBox()->text();
 }
 
-void KeyboardWidget::setText(QString text){
-    return ui->inputBox->setText(text);
+void AbstractKeyboardWidget::setText(QString text){
+    return getInputBox()->setText(text);
 }

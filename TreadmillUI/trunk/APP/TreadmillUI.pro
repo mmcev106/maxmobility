@@ -23,7 +23,7 @@ HEADERS += startupwindow.h \
     pointerevent.h \
     audiosettingswidget.h \
     radiosliderwidget.h \
-    keyboardwidget.h \
+    abstractkeyboardwidget.h \
     myworkoutsscreen.h \
     newworkoutscreen.h \
     invisiblebutton.h \
@@ -55,7 +55,9 @@ HEADERS += startupwindow.h \
     scorewidget.h \
     endstep.h \
     webview.h \
-    keyboardscreen.h
+    keyboardscreen.h \
+    largekeyboardwidget.h \
+    smallkeyboardwidget.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -63,7 +65,7 @@ FORMS += startupwindow.ui \
     fatburnscreen.ui \
     intervalscreen.ui \
     audiosettingswidget.ui \
-    keyboardwidget.ui \
+    smallkeyboardwidget.ui \
     myworkoutsscreen.ui \
     newworkoutscreen.ui \
     historyscreen.ui \
@@ -76,7 +78,8 @@ FORMS += startupwindow.ui \
     tranquilselectionwidget.ui \
     trailselectionwidget.ui \
     scorewidget.ui \
-    keyboardscreen.ui
+    keyboardscreen.ui \
+    largekeyboardwidget.ui
 SOURCES += main.cpp startupwindow.cpp \
     mainscreen.cpp \
     historywidget.cpp \
@@ -96,7 +99,7 @@ SOURCES += main.cpp startupwindow.cpp \
     pointerevent.cpp \
     audiosettingswidget.cpp \
     radiosliderwidget.cpp \
-    keyboardwidget.cpp \
+    abstractkeyboardwidget.cpp \
     myworkoutsscreen.cpp \
     newworkoutscreen.cpp \
     invisiblebutton.cpp \
@@ -128,7 +131,9 @@ SOURCES += main.cpp startupwindow.cpp \
     scorewidget.cpp \
     endstep.cpp \
     webview.cpp \
-    keyboardscreen.cpp
+    keyboardscreen.cpp \
+    largekeyboardwidget.cpp \
+    smallkeyboardwidget.cpp
 RESOURCES += images.qrc \
     jquery.qrc
 

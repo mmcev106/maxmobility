@@ -3,7 +3,6 @@
 
 #include <QWebView>
 #include "invisiblebutton.h"
-#include "keyboardscreen.h"
 
 class WebView : public QWebView
 {

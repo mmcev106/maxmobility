@@ -4,34 +4,35 @@
 #include <QWidget>
 #include <QList>
 #include <QPushButton>
+#include "invisiblebutton.h"
+#include <QLineEdit>
 
-namespace Ui {
-    class KeyboardWidget;
-}
-
-class KeyboardWidget : public QWidget
+class AbstractKeyboardWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit KeyboardWidget(QWidget *parent = 0);
-    ~KeyboardWidget();
+    explicit AbstractKeyboardWidget(QRect keyRect, QWidget *parent = 0, QString customKeys[]=NULL);
+    ~AbstractKeyboardWidget();
     QString text();
     void setText(QString);
+    virtual InvisibleButton* getEnterButton() {}
+
+protected:
+    virtual InvisibleButton* getShiftButton() {}
+    virtual QLineEdit* getInputBox() {}
 
 private:
-    static const int KEYS_START_X = 30;
-    static const int KEYS_START_Y = 73;
-
-    static const int KEY_WIDTH = 65;
-    static const int KEY_HEIGHT = 67;
+    int keyStartX;
+    int keyStartY;
+    int keyWidth;
+    int keyHeight;
     static const int KEYS_PER_ROW = 10;
 
-    Ui::KeyboardWidget *ui;
     QList<QPushButton*> buttons;
     void addKeyButton(QString c );
 
-private slots:
+protected slots:
     void on_invisibleButton_shift_pressed();
     void on_invisibleButton_space_pressed();
     void on_invisibleButton_backspace_pressed();

@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QWebElement>
 #include "screens.h"
+#include "keyboardscreen.h"
 
 static int CLICK_MOVE_THRESHOLD = 10; //in pixels
 static int SCROLL_THRESHOLD = 50; //in milliseconds

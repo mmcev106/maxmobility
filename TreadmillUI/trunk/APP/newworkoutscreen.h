@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "abstractscreen.h"
-#include "keyboardwidget.h"
+#include "smallkeyboardwidget.h"
 #include "gradesliderwidget.h"
 #include "speedsliderwidget.h"
 #include "weightsliderwidget.h"
@@ -22,7 +22,7 @@ public:
 
 private:
     Ui::NewWorkoutScreen *ui;
-    KeyboardWidget keyboardWidget;
+    SmallKeyboardWidget keyboardWidget;
     SpeedSliderWidget speedSlider;
     GradeSliderWidget gradeSlider;
     WeightSliderWidget weightSlider;

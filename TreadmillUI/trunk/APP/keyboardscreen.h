@@ -2,7 +2,7 @@
 #define KEYBOARDSCREEN_H
 
 #include <QWidget>
-#include "keyboardwidget.h"
+#include "largekeyboardwidget.h"
 #include "abstractscreen.h"
 
 namespace Ui {
@@ -20,13 +20,12 @@ public:
 private:
     Ui::KeyboardScreen *ui;
     QWidget* targetWidget;
-    KeyboardWidget keyboardWidget;
+    LargeKeyboardWidget keyboardWidget;
 
-
-private slots:
-    void on_clearButton_pressed();
+public slots:
+    void on_enterButton_pressed();
     void on_invisibleButton_close_pressed();
-    void on_doneButton_pressed();
+
 };
 
 #endif // KEYBOARDSCREEN_H

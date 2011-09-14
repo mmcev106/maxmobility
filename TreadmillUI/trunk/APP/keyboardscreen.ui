@@ -29,24 +29,6 @@
     <pixmap resource="images.qrc">:/images/images/blank background.png</pixmap>
    </property>
   </widget>
-  <widget class="QPushButton" name="doneButton">
-   <property name="geometry">
-    <rect>
-     <x>760</x>
-     <y>600</y>
-     <width>191</width>
-     <height>111</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>46</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Done</string>
-   </property>
-  </widget>
   <widget class="InvisibleButton" name="invisibleButton_close" native="true">
    <property name="geometry">
     <rect>
@@ -58,24 +40,6 @@
    </property>
    <property name="text" stdset="0">
     <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="clearButton">
-   <property name="geometry">
-    <rect>
-     <x>904</x>
-     <y>110</y>
-     <width>101</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>20</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Clear</string>
    </property>
   </widget>
  </widget>

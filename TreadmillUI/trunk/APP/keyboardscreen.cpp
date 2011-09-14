@@ -14,8 +14,9 @@ KeyboardScreen::KeyboardScreen(QString text, QWidget* targetWidget) :
     this->targetWidget = targetWidget;
 
     keyboardWidget.setText(text);
-    keyboardWidget.move(156, 100);
+    keyboardWidget.move(40, 135);
     keyboardWidget.raise();
+    connect(keyboardWidget.getEnterButton(), SIGNAL(pressed()), this, SLOT(on_enterButton_pressed()));
 }
 
 KeyboardScreen::~KeyboardScreen()
@@ -27,13 +28,11 @@ void KeyboardScreen::on_invisibleButton_close_pressed(){
     close();
 }
 
-void KeyboardScreen::on_doneButton_pressed()
+void KeyboardScreen::on_enterButton_pressed()
 {
     QKeyEvent *event;
 
-    /**
-     * Delete any existing characters on either side of the cursor
-     */
+    // Delete any existing characters on either side of the cursor
     for(int i=0; i<500; i++){
         event = new QKeyEvent ( QEvent::KeyPress, Qt::Key_Backspace, Qt::NoModifier);
         QCoreApplication::postEvent (targetWidget, event);
@@ -49,9 +48,4 @@ void KeyboardScreen::on_doneButton_pressed()
     QCoreApplication::postEvent (targetWidget, event);
 
     close();
-}
-
-void KeyboardScreen::on_clearButton_pressed()
-{
-    keyboardWidget.setText("");
 }

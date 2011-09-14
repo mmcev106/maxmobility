@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LargeKeyboardWidget</class>
+ <widget class="QWidget" name="LargeKeyboardWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>990</width>
+    <height>585</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="backgroundLabel">
+   <property name="geometry">
+    <rect>
+     <x>-28</x>
+     <y>-30</y>
+     <width>1044</width>
+     <height>616</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/Keyboard-with-Input.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="inputBox">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>37</y>
+     <width>805</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Tamworth Gothic</family>
+     <pointsize>37</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="invisibleButton_shift" native="true">
+   <property name="geometry">
+    <rect>
+     <x>820</x>
+     <y>294</y>
+     <width>78</width>
+     <height>83</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="invisibleButton_clear" native="true">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>470</y>
+     <width>171</width>
+     <height>55</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="invisibleButton_enter" native="true">
+   <property name="geometry">
+    <rect>
+     <x>216</x>
+     <y>473</y>
+     <width>512</width>
+     <height>48</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="invisibleButton_backspace" native="true">
+   <property name="geometry">
+    <rect>
+     <x>39</x>
+     <y>473</y>
+     <width>171</width>
+     <height>55</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>InvisibleButton</class>
+   <extends>QWidget</extends>
+   <header>invisiblebutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections/>
+</ui>
