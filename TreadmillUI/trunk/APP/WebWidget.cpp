@@ -43,12 +43,21 @@ WebWidget::WebWidget(const QUrl& url) :
     toolBar->addWidget(goButton);
     toolBar->setMovable(false);
 
+    /**
+      * I'm not sure why there are so many nested QWidgets
+      * here that must be set to the same size, but it's not
+      * work refactoring right now.
+      */
+    QRect geometry(10,10,740, 540);
+
     QWidget* container = new QWidget();
+    container->setFixedSize(geometry.size());;
     view->setParent(container);
+    view->setFixedSize(geometry.size());
     keyboardButton.setParent(container);
 
     setCentralWidget(container);
-    this->setGeometry(10,10,740,540);
+    this->setGeometry(geometry);
     this->setAutoFillBackground(true);
 
     connect(view->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(onJavaScriptWindowObjectCleared()));
