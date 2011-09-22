@@ -2,12 +2,14 @@
 #include "ui_keyboardwidget.h"
 #include <QDebug>
 #include <QPainter>
+#include <QDateTime>
 
 #include "invisiblebutton.h"
 
 AbstractKeyboardWidget::AbstractKeyboardWidget(QRect keyRect, QWidget *parent, QString customKeys[]) :
     QWidget(parent)
     ,buttons()
+    ,backspaceTimer(this)
 {
     keyStartX = keyRect.x();
     keyStartY = keyRect.y();
@@ -54,6 +56,10 @@ AbstractKeyboardWidget::AbstractKeyboardWidget(QRect keyRect, QWidget *parent, Q
     addKeyButton(customKeys[1]);
     addKeyButton(customKeys[2]);
     addKeyButton(customKeys[3]);
+
+    backspaceTimer.setSingleShot(false);
+    backspaceTimer.setInterval(BACKSPACE_DELAY_1);
+    connect( &backspaceTimer, SIGNAL(timeout()), this, SLOT(backspaceTimerTimeout() ));
 }
 
 void AbstractKeyboardWidget::addKeyButton(QString c ){
@@ -133,8 +139,41 @@ AbstractKeyboardWidget::~AbstractKeyboardWidget()
 
 void AbstractKeyboardWidget::on_invisibleButton_backspace_pressed()
 {
+    deleteChars(1);
+    backspaceDownTime = QDateTime::currentMSecsSinceEpoch();
+    backspaceTimer.start();
+}
+
+void AbstractKeyboardWidget::on_invisibleButton_backspace_released(){
+    backspaceTimer.stop();
+}
+
+void AbstractKeyboardWidget::backspaceTimerTimeout(){
+
+    qint64 holdTime = QDateTime::currentMSecsSinceEpoch() - backspaceDownTime;
+
+    if(holdTime > BACKSPACE_DELAY_2){
+
+        int charsToRemove = 1;
+
+        if(holdTime > BACKSPACE_DELAY_3){
+            charsToRemove = (holdTime - BACKSPACE_DELAY_3) / BACKSPACE_DELAY_1;
+        }
+
+        deleteChars(charsToRemove);
+    }
+}
+
+void AbstractKeyboardWidget::deleteChars(int charsToRemove){
     QString text = getInputBox()->text();
-    getInputBox()->setText(text.left(text.length()-1));
+
+    int newLength = text.length() - charsToRemove;
+
+    if(newLength < 0){
+        newLength = 0;
+    }
+
+    getInputBox()->setText(text.left(newLength));
 }
 
 void AbstractKeyboardWidget::on_invisibleButton_space_pressed()

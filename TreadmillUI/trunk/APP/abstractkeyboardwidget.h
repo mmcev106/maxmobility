@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include "invisiblebutton.h"
 #include <QLineEdit>
+#include <QTimer>
 
 class AbstractKeyboardWidget : public QWidget
 {
@@ -32,11 +33,22 @@ private:
     QList<QPushButton*> buttons;
     void addKeyButton(QString c );
 
+    qint64 backspaceDownTime;
+    QTimer backspaceTimer;
+    void deleteChars(int charsToRemove);
+    const static int BACKSPACE_DELAY_1 = 200;
+    const static int BACKSPACE_DELAY_2 = 500;
+    const static int BACKSPACE_DELAY_3 = 1000;
+
 protected slots:
     void on_invisibleButton_shift_pressed();
     void on_invisibleButton_space_pressed();
     void on_invisibleButton_backspace_pressed();
+    void on_invisibleButton_backspace_released();
     void buttonPressed();
+
+private slots:
+    void backspaceTimerTimeout();
 
 };
 
