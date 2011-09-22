@@ -1,7 +1,7 @@
 #include "largekeyboardwidget.h"
 #include "ui_largekeyboardwidget.h"
 
-QString LargeKeyboardWidget::CUSTOM_KEYS[] = {"shift", ".", "/", " "};
+QString LargeKeyboardWidget::CUSTOM_KEYS[] = {"shift", ".", "/", "-"};
 QRect LargeKeyboardWidget::KEY_RECT = QRect(42, 115, 86, 88.5);
 
 LargeKeyboardWidget::LargeKeyboardWidget(QWidget* parent) :
@@ -28,6 +28,6 @@ QLineEdit* LargeKeyboardWidget::getInputBox(){
     return ui->inputBox;
 }
 
-void LargeKeyboardWidget::on_invisibleButton_clear_pressed(){
-    getInputBox()->clear();
+void LargeKeyboardWidget::on_invisibleButton_space_pressed(){
+    getInputBox()->setText(getInputBox()->text().append(" "));
 }

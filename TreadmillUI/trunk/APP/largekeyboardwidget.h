@@ -26,7 +26,7 @@ private:
     static QRect KEY_RECT;
 
 private slots:
-    void on_invisibleButton_clear_pressed();
+    void on_invisibleButton_space_pressed();
 };
 
 #endif // LARGEKEYBOARDWIDGET_H

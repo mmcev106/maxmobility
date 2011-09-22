@@ -82,6 +82,41 @@ void AbstractKeyboardWidget::buttonPressed(){
     QString key = button->accessibleName();
 
     if(getShiftButton()->isHighlighted()){
+
+        if(key.compare("1") == 0){
+            key = "!";
+        }
+        else if(key.compare("2") == 0){
+            key = "@";
+        }
+        else if(key.compare("3") == 0){
+            key = "#";
+        }
+        else if(key.compare("4") == 0){
+            key = "$";
+        }
+        else if(key.compare("5") == 0){
+            key = "%";
+        }
+        else if(key.compare("6") == 0){
+            key = "^";
+        }
+        else if(key.compare("7") == 0){
+            key = "&";
+        }
+        else if(key.compare("8") == 0){
+            key = "*";
+        }
+        else if(key.compare("9") == 0){
+            key = "(";
+        }
+        else if(key.compare("0") == 0){
+            key = ")";
+        }
+        else if(key.compare("-") == 0){
+            key = "_";
+        }
+
         key = key.toUpper();
         getShiftButton()->setHighlighted(false);
     }

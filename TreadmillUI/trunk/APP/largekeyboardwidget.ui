@@ -61,7 +61,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_clear" native="true">
+  <widget class="InvisibleButton" name="invisibleButton_enter" native="true">
    <property name="geometry">
     <rect>
      <x>730</x>
@@ -74,7 +74,7 @@
     <string/>
    </property>
   </widget>
-  <widget class="InvisibleButton" name="invisibleButton_enter" native="true">
+  <widget class="InvisibleButton" name="invisibleButton_space" native="true">
    <property name="geometry">
     <rect>
      <x>216</x>
