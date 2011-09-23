@@ -65,10 +65,22 @@ void savePreferences(){
 
 void initializeSerialPortConnection(StartupWindow* _window){
 
-    QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
+    QFile serialFile("serial.txt");
 
-//    QString portName = ports.back().portName;
-    QString portName = ports.front().portName;
+    QString portName;
+    if(serialFile.exists()){
+        serialFile.open(QFile::ReadOnly);
+        QTextStream stream(&serialFile);
+
+        portName = stream.readLine();
+    }
+    else{
+
+        QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
+
+    //    portName = ports.back().portName;
+        portName = ports.front().portName;
+    }
 
     QStringList list;
     qDebug() << "Serial Port: " + portName;
