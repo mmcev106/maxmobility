@@ -41,11 +41,12 @@ void KeyboardScreen::on_enterButton_pressed()
         QCoreApplication::postEvent (targetWidget, event);
     }
 
-
     QString text = keyboardWidget.text();
 
     event = new QKeyEvent ( QEvent::KeyPress, 0, Qt::NoModifier, text);
     QCoreApplication::postEvent (targetWidget, event);
+
+    emit enterPressed(text);
 
     close();
 }

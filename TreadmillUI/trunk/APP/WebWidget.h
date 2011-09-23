@@ -25,7 +25,7 @@ private:
     QString jQuery;
     QWebView *view;
     QLineEdit *locationEdit;
-    QPushButton *goButton;
+//    QPushButton *goButton;
     QAction *rotateAction;
 
     QPixmap webMask;
@@ -36,14 +36,35 @@ protected slots:
 
     void adjustLocation();
     void changeLocation();
+    void changeLocation(QString);
     void finishLoading(bool);
 };
 
 class MyLineEdit : public QLineEdit{
+
+    Q_OBJECT
+
     void mousePressEvent(QMouseEvent* event){
-        Screens::show(new KeyboardScreen(text(), this));
+        KeyboardScreen* keyboardScreen = new KeyboardScreen(text(), this);
+
+        connect(keyboardScreen, SIGNAL(enterPressed(QString)), this, SLOT(enterPressed(QString)));
+
+        Screens::show(keyboardScreen);
         QLineEdit::mousePressEvent(event);
     }
+
+public:
+    WebWidget* webWidget;
+
+signals:
+    void addressEntered(QString url);
+
+private slots:
+    void enterPressed(QString url){
+        emit addressEntered(url);
+    }
+
+
 };
 
 #endif // WEBWIDGET_H

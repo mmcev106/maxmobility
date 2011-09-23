@@ -26,6 +26,9 @@ public slots:
     void on_enterButton_pressed();
     void on_invisibleButton_close_pressed();
 
+signals:
+    void enterPressed(QString url);
+
 };
 
 #endif // KEYBOARDSCREEN_H

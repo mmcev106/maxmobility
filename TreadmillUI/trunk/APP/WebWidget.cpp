@@ -27,12 +27,13 @@ WebWidget::WebWidget(const QUrl& url) :
 
     locationEdit = new MyLineEdit();
     locationEdit->setParent(this);
-    locationEdit->setStyleSheet("font-size: 18px");
+    locationEdit->setStyleSheet("font-size: 18px; margin-right: 5px");
     locationEdit->setSizePolicy(QSizePolicy::Expanding, locationEdit->sizePolicy().verticalPolicy());
     connect(locationEdit, SIGNAL(returnPressed()), SLOT(changeLocation()));
+    connect(locationEdit, SIGNAL(addressEntered(QString)), SLOT(changeLocation(QString)));
 
-    goButton = new QPushButton("GO");
-    connect(goButton, SIGNAL(pressed()), SLOT(changeLocation()));
+//    goButton = new QPushButton("GO");
+//    connect(goButton, SIGNAL(pressed()), SLOT(changeLocation()));
 
     QToolBar *toolBar = addToolBar(tr("Navigation"));
     toolBar->addAction(view->pageAction(QWebPage::Back));
@@ -40,7 +41,7 @@ WebWidget::WebWidget(const QUrl& url) :
     toolBar->addAction(view->pageAction(QWebPage::Reload));
     toolBar->addAction(view->pageAction(QWebPage::Stop));
     toolBar->addWidget(locationEdit);
-    toolBar->addWidget(goButton);
+//    toolBar->addWidget(goButton);
     toolBar->setMovable(false);
 
     /**
@@ -72,8 +73,12 @@ void WebWidget::adjustLocation()
 
 void WebWidget::changeLocation()
 {
+    changeLocation(locationEdit->text());
+}
 
-    QString txt = locationEdit->text();
+void WebWidget::changeLocation(QString txt)
+{
+
     QUrl url;
 //    QUrl url = txt;
     if (txt.contains(QString("http://www.")))
