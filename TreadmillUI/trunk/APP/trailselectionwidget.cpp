@@ -25,7 +25,7 @@ void TrailSelectionWidget::on_radnor_invisibleButton_pressed()
 
 void TrailSelectionWidget::on_couchville_invisibleButton_pressed()
 {
-    MainScreen::getMainScreen()->playVideo("/videos/trails/couchville.avi");
+    MainScreen::getMainScreen()->playVideo("/videos/trails/lake.avi");
 }
 void TrailSelectionWidget::on_deer_invisibleButton_pressed()
 {
