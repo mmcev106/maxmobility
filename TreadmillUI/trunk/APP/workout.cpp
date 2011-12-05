@@ -114,7 +114,7 @@ Workout* Workout::createWorkout(QString name, float speed, float grade, int minu
 }
 
 Workout* Workout::createHeartRateWorkout(QString name, int minutes, float lowPercentage , float highPercentage, int initialSpeed, int age){
-    float range = 12.0f;
+    float range = 6.0f;
     float lowGrade = lowPercentage*range;
     float highGrade = highPercentage*range;
 
