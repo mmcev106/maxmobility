@@ -7,7 +7,7 @@
 #include "keyboardscreen.h"
 #include "screens.h"
 
-const QUrl HOME_URL = QUrl("http://www.google.com");
+const QUrl HOME_URL = QUrl("http://max-mobility.com/launchpad");
 
 namespace Ui {
     class WebWidget;
