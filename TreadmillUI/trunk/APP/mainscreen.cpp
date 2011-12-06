@@ -36,6 +36,8 @@ static bool wheelchairDude=false;
 
 static float TRACK_LENGTH = .25; // in miles
 
+static int MAX_HEART_RATE = 220;
+
 
 /********************************************
   *
@@ -601,7 +603,7 @@ void MainScreen::endWorkout(){
                     case 5: VO2=33.9; break;
                     default: VO2=0; break;
                     }
-                 VO2=(VO2*(220-Preferences::getAge()-73))/(Preferences::getAverageHeartRate()-73);
+                 VO2=(VO2*(MAX_HEART_RATE-Preferences::getAge()-73))/(Preferences::getAverageHeartRate()-73);
              }
              else // women
              {
@@ -613,7 +615,7 @@ void MainScreen::endWorkout(){
                     case 5: VO2=29.2; break;
                     default: VO2=0; break;
                     }
-                 VO2=(VO2*(220-Preferences::getAge()-63))/(Preferences::getAverageHeartRate()-63);
+                 VO2=(VO2*(MAX_HEART_RATE-Preferences::getAge()-63))/(Preferences::getAverageHeartRate()-63);
              }
              QString VO = QString("\nVO2 Max: %1").arg(VO2);
              message.append(VO);
@@ -946,9 +948,16 @@ void MainScreen::updateDisplay(){
 
 
     // HEART RATE HERE
-    ui->heartRateLabel->setText(QString("%1").arg(heartRate));
 
+    QString heartRateText;
+    if(heartRate == 0 || heartRate == MAX_HEART_RATE){
+        heartRateText = "--";
+    }
+    else{
+       heartRateText = QString("%1").arg(heartRate);
+    }
 
+    ui->heartRateLabel->setText(heartRateText);
 
     // END HEART RATE
 
