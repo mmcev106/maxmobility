@@ -173,7 +173,10 @@ void AbstractKeyboardWidget::deleteChars(int charsToRemove){
         newLength = 0;
     }
 
-    getInputBox()->setText(text.left(newLength));
+    for(int i=0; i<charsToRemove; i++){
+        QKeyEvent *event = new QKeyEvent ( QEvent::KeyPress, Qt::Key_Backspace, Qt::NoModifier);
+        QCoreApplication::postEvent (getInputBox(), event);
+    }
 }
 
 void AbstractKeyboardWidget::on_invisibleButton_space_pressed()

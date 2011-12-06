@@ -31,3 +31,7 @@ QLineEdit* LargeKeyboardWidget::getInputBox(){
 void LargeKeyboardWidget::on_invisibleButton_space_pressed(){
     getInputBox()->setText(getInputBox()->text().append(" "));
 }
+
+void LargeKeyboardWidget::on_invisibleButton_deleteAll_pressed(){
+    getInputBox()->setText("");
+}

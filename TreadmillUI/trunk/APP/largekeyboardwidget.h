@@ -27,6 +27,7 @@ private:
 
 private slots:
     void on_invisibleButton_space_pressed();
+    void on_invisibleButton_deleteAll_pressed();
 };
 
 #endif // LARGEKEYBOARDWIDGET_H

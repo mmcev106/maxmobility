@@ -34,7 +34,7 @@
     <rect>
      <x>70</x>
      <y>37</y>
-     <width>805</width>
+     <width>761</width>
      <height>61</height>
     </rect>
    </property>
@@ -94,6 +94,35 @@
      <y>473</y>
      <width>171</width>
      <height>55</height>
+    </rect>
+   </property>
+   <property name="text" stdset="0">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="deleteAllLabel">
+   <property name="geometry">
+    <rect>
+     <x>844</x>
+     <y>44</y>
+     <width>51</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="images.qrc">:/images/images/grayX.png</pixmap>
+   </property>
+  </widget>
+  <widget class="InvisibleButton" name="invisibleButton_deleteAll" native="true">
+   <property name="geometry">
+    <rect>
+     <x>840</x>
+     <y>30</y>
+     <width>61</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="text" stdset="0">

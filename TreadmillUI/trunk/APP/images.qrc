@@ -71,6 +71,7 @@
         <file>images/Wheelchair Mode - (Active).png</file>
         <file>images/Wheelchair Mode - (Not Active).png</file>
         <file>images/Keyboard-with-Input.png</file>
+        <file>images/grayX.png</file>
     </qresource>
     <qresource prefix="/My Workouts">
         <file>images/Down Arrow.png</file>
