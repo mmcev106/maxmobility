@@ -115,6 +115,14 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
         if (_state&EM_STOP_ERROR_MASK)
         {
             _err.append("Replace safety magnet.\n");
+
+            Utils::realTimeFeedback->clear();
+
+            QList<QUrl> fdbk = QList<QUrl>();
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"Replace_Safety_Magnet.wav"));
+
+            Utils::realTimeFeedback->setQueue(fdbk);
+            Utils::realTimeFeedback->play();
         }
         else
         {
