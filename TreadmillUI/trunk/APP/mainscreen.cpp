@@ -85,7 +85,7 @@ static const double HOURS_PER_UPDATE = ((double)UPDATE_DISPLAY_DELAY)/MILLIS_PER
 MainScreen::MainScreen(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
-    ,secondTimer(new QTimer(this))
+    ,updateDisplayTimer(new QTimer(this))
     ,feedbackTimer(new QTimer(this))
     ,detectChangeTimer(new QTimer(this))
     ,HRMTimer(new QTimer(this))
@@ -126,9 +126,9 @@ MainScreen::MainScreen(QWidget *parent) :
     //Put the background behind the player
     ui->backgroundLabel->lower();
 
-    connect(secondTimer, SIGNAL(timeout()), this, SLOT( updateDisplay()));
-    secondTimer->setSingleShot(false);
-    secondTimer->setInterval(UPDATE_DISPLAY_DELAY);
+    connect(updateDisplayTimer, SIGNAL(timeout()), this, SLOT( updateDisplay()));
+    updateDisplayTimer->setSingleShot(false);
+    updateDisplayTimer->setInterval(UPDATE_DISPLAY_DELAY);
 
     connect(feedbackTimer,SIGNAL(timeout()), this, SLOT( periodicFeedback()));
     feedbackTimer->setSingleShot(false);
@@ -282,7 +282,7 @@ void MainScreen::defaultWorkout(){
     zero(speedHistory, HISTORY_LENGTH);
     zero(gradeHistory, HISTORY_LENGTH);
 
-    secondTimer->start();
+    updateDisplayTimer->start();
     milliSecondTimer->start();
     feedbackTimer->start();
     detectChangeTimer->start();
@@ -364,7 +364,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
     zero(speedHistory, HISTORY_LENGTH);
     zero(gradeHistory, HISTORY_LENGTH);
 
-    secondTimer->start();
+    updateDisplayTimer->start();
     milliSecondTimer->start();
     feedbackTimer->start();
     detectChangeTimer->start();
@@ -660,7 +660,7 @@ void MainScreen::endWorkout(){
 
     Preferences::accessibilityMode = false;
 
-    secondTimer->stop();
+    updateDisplayTimer->stop();
     milliSecondTimer->stop();
     feedbackTimer->stop();
     detectChangeTimer->stop();
@@ -679,7 +679,7 @@ MainScreen::~MainScreen()
 
     player->stop();
     delete player;
-    delete secondTimer;
+    delete updateDisplayTimer;
     delete webview;
     delete workout;
 }
@@ -775,17 +775,19 @@ void MainScreen::feedbackEnded(){
 void MainScreen::periodicFeedback(){
     if (workout)
     {
-        counter++;
+        if(!isWorkoutPaused()){
+            counter++;
 
-        Utils::realTimeFeedback->clear();
+            Utils::realTimeFeedback->clear();
 
-        QList<QUrl> fdbk = QList<QUrl>();
-        fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
-        feedbackAppendNumber(counter*2,&fdbk);
-        fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
+            QList<QUrl> fdbk = QList<QUrl>();
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
+            feedbackAppendNumber(counter*2,&fdbk);
+            fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
 
-        Utils::realTimeFeedback->setQueue(fdbk);
-        Utils::realTimeFeedback->play();
+            Utils::realTimeFeedback->setQueue(fdbk);
+            Utils::realTimeFeedback->play();
+        }
     }
     else
         counter = 0;
