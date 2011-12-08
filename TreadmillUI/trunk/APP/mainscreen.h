@@ -66,7 +66,7 @@ private:
 
     Ui::MainScreen *ui;
     long startTime;
-    QTimer *secondTimer;
+    QTimer *updateDisplayTimer;
     QTimer *milliSecondTimer;
     QTimer *playTimer;
     QTimer *hideScreenTimer;

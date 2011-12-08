@@ -148,7 +148,6 @@ MainScreen::MainScreen(QWidget *parent) :
 
     connect(hideScreenTimer, SIGNAL(timeout()), this, SLOT( hide()));
     hideScreenTimer->setSingleShot(true);
-    hideScreenTimer->setInterval(5000);
 
     connect(Utils::realTimeFeedback, SIGNAL(finished()),this,SLOT(feedbackEnded()));
 
@@ -640,6 +639,9 @@ void MainScreen::endWorkout(){
     hideWidgets();
     scoreWidget.setText(message, "");
     scoreWidget.setVisible(true);
+
+    int scoreWidgetSeconds = speed*2 + 3;
+    hideScreenTimer->setInterval(scoreWidgetSeconds*MILLIS_PER_SECOND);
     hideScreenTimer->start();
 
     Utils::realTimeFeedback->clear();
