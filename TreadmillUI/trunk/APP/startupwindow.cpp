@@ -276,15 +276,15 @@ void StartupWindow::mockSerialEvent()
 
     if(mockData == NULL){
         mockData = new unsigned char[2];
-        mockData[1] = 0;
+        mockData[1] = SETUP_MASK;
     }
 
-    if (mockData[1] == 0){
+    /*if (mockData[1] == 0){
         mockData[1] = ERROR_MASK | EM_STOP_ERROR_MASK;
     }
     else{
         mockData[1] = 0;
-    }
+    }*/
 
     onSerialEvent(mockData);
 }

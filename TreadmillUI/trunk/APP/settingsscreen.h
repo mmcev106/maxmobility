@@ -27,6 +27,7 @@ private:
     QTimer *secondTimer;
 
 private slots:
+    void on_pushButton_pressed();
     void on_connect_invisibleButton_pressed();
     void updateDisplay();
 };

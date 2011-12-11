@@ -61,3 +61,8 @@ void SettingsScreen::updateDisplay(){
         ui->unitsLabel->setText(QString("Metric"));
 }
 
+
+void SettingsScreen::on_pushButton_pressed()
+{
+    Preferences::application->exit();
+}
