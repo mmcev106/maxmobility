@@ -134,6 +134,15 @@ int main(int argc, char *argv[])
 
     Utils::InitAudio(startupWindow);
 
+    if(Preferences::isTestingMode()){
+        //Mark uses this for simulating serial events
+
+        /*QTimer* testTimer = new QTimer(startupWindow);
+        testTimer->setInterval(1000);
+        testTimer->connect(testTimer,SIGNAL(timeout()),startupWindow,SLOT(mockSerialEvent()));
+        testTimer->start();*/
+    }
+
     Screens::show(startupWindow);
     a.exec();
 

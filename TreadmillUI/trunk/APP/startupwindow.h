@@ -22,6 +22,7 @@ public:
 
 public slots:
     void onSerialEvent(unsigned char* _data);
+    void mockSerialEvent();
 
 protected:
 //    bool eventFilter(QObject * watched, QEvent *event);
@@ -35,6 +36,7 @@ private:
 
     void showMainScreen(QString name, float speed, float grade, int minutes);
     QTimer sharedTimer;
+    unsigned char* mockData;
 
 private slots:
     void on_invisibleButton_16_pressed();

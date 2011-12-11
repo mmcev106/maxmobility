@@ -38,6 +38,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     ,player(new VideoPlayer(this))
     ,sharedTimer(this)
     ,errorMessageScreen(NULL, "Error: ")
+    ,mockData(NULL)
 {
     ui->setupUi(this);
 
@@ -116,13 +117,15 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
         {
             _err.append("Replace safety magnet.\n");
 
-            Utils::realTimeFeedback->clear();
+            if(Utils::realTimeFeedback->state() != Phonon::PlayingState){
+                Utils::realTimeFeedback->clear();
 
-            QList<QUrl> fdbk = QList<QUrl>();
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"Replace_Safety_Magnet.wav"));
+                QList<QUrl> fdbk = QList<QUrl>();
+                fdbk.append(QUrl(AUDIO_ROOT_DIR+"Replace_Safety_Magnet.wav"));
 
-            Utils::realTimeFeedback->setQueue(fdbk);
-            Utils::realTimeFeedback->play();
+                Utils::realTimeFeedback->setQueue(fdbk);
+                Utils::realTimeFeedback->play();
+            }
         }
         else
         {
@@ -266,6 +269,26 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
         }
     }
 }
+
+void StartupWindow::mockSerialEvent()
+{
+    qDebug() << "Sending mock serial event";
+
+    if(mockData == NULL){
+        mockData = new unsigned char[2];
+        mockData[1] = 0;
+    }
+
+    if (mockData[1] == 0){
+        mockData[1] = ERROR_MASK | EM_STOP_ERROR_MASK;
+    }
+    else{
+        mockData[1] = 0;
+    }
+
+    onSerialEvent(mockData);
+}
+
 
 bool StartupWindow::event(QEvent *event)
 {
