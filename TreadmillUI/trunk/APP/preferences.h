@@ -49,6 +49,9 @@ public:
     static QextSerialPort* serialPort;
     static QApplication* application;
 
+    const static int DEFAULT_FEEDBACK_SOUND_LEVEL;
+    const static int DEFAULT_BACKGROUND_SOUND_LEVEL;
+
     static int feedbackSoundLevel;
     static int backgroundSoundLevel;
 

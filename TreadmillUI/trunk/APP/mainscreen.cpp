@@ -536,6 +536,11 @@ void MainScreen::keyPressEvent(QKeyEvent* event){
                 pauseWorkout();
             }
         }
+
+        if(event->key() == Qt::Key_Escape){
+            endWorkout();
+            eventConsumed = TRUE;
+        }
     }
 
     if(!eventConsumed){
@@ -641,6 +646,11 @@ void MainScreen::endWorkout(){
     scoreWidget.setVisible(true);
 
     int scoreWidgetSeconds = speed*2 + 3;
+
+    if(Preferences::isTestingMode()){
+        scoreWidgetSeconds = 1;
+    }
+
     hideScreenTimer->setInterval(scoreWidgetSeconds*MILLIS_PER_SECOND);
     hideScreenTimer->start();
 
@@ -659,6 +669,10 @@ void MainScreen::endWorkout(){
     this->workout = NULL;   // needed for the test of !MainScreen::getWorkout()!!!!!!
     recordingWorkout = false;
     webview->SetUrl(HOME_URL);
+
+    //revert back to default volume settings
+    audioSettingsWidget.feedbackSlider.setValue(Preferences::DEFAULT_FEEDBACK_SOUND_LEVEL);
+    audioSettingsWidget.backgroundSlider.setValue(Preferences::DEFAULT_BACKGROUND_SOUND_LEVEL);
 
     Preferences::accessibilityMode = false;
 

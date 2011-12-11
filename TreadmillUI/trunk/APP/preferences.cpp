@@ -12,8 +12,11 @@ bool Preferences::gender = MALE;
 
 bool Preferences::measurementSystem = STANDARD;
 
-int Preferences::feedbackSoundLevel = 70;
-int Preferences::backgroundSoundLevel = 30;
+const int Preferences::DEFAULT_FEEDBACK_SOUND_LEVEL = 70;
+const int Preferences::DEFAULT_BACKGROUND_SOUND_LEVEL = 30;
+
+int Preferences::feedbackSoundLevel = DEFAULT_FEEDBACK_SOUND_LEVEL;
+int Preferences::backgroundSoundLevel = DEFAULT_BACKGROUND_SOUND_LEVEL;
 
 bool Preferences::accessibilityMode = false;
 

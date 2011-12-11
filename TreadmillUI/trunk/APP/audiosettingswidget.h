@@ -18,12 +18,11 @@ class AudioSettingsWidget : public QWidget
 public:
     explicit AudioSettingsWidget(QWidget *parent = 0);
     ~AudioSettingsWidget();
-
-private:
-    Ui::AudioSettingsWidget *ui;
     SliderWidget feedbackSlider;
     SliderWidget backgroundSlider;
 
+private:
+    Ui::AudioSettingsWidget *ui;
     QTimer *updateTimer;
 
 private slots:
