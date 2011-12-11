@@ -127,7 +127,15 @@ void AbstractKeyboardWidget::buttonPressed(){
         getShiftButton()->setHighlighted(false);
     }
 
-    getInputBox()->setText(getInputBox()->text().append(key));
+    QLineEdit* inputBox = getInputBox();
+    int cursorPosition = inputBox->cursorPosition();
+    QString text = inputBox->text();
+
+    QString newText = text.insert(cursorPosition, key);
+    int newCursorPosition = cursorPosition + key.length();
+
+    getInputBox()->setText(newText);
+    getInputBox()->setCursorPosition(newCursorPosition);
 }
 
 AbstractKeyboardWidget::~AbstractKeyboardWidget()
