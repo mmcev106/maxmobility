@@ -70,7 +70,6 @@ private:
     QTimer *milliSecondTimer;
     QTimer *playTimer;
     QTimer *hideScreenTimer;
-    QTimer *feedbackTimer;
     QTimer *detectChangeTimer;
     QTimer *HRMTimer;
     int nextWorkoutStepIndex;
@@ -131,7 +130,7 @@ private slots:
     void restartVideo();
     void updateHistoryWidgets(int speed, int grade);
     void bumpHistoryWidgets();
-    void periodicFeedback();
+    void periodicFeedback(int minutes);
     void detectChangeFeedback();
     void feedbackEnded();
     void CheckHeartRate();

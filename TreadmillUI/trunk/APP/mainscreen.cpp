@@ -47,7 +47,6 @@ static int MAX_HEART_RATE = 220;
 float spd_array[8];
 float grd_array[8];
 
-static int counter=0;       // used for counting minutes for periodic feedback
 static float last_speed = 0;      // used for detecting speed change
 static float last_grade = 0;      // used for detecting grade change
 static bool change = false;
@@ -86,7 +85,6 @@ MainScreen::MainScreen(QWidget *parent) :
     AbstractScreen(parent)
     ,ui(new Ui::MainScreen)
     ,updateDisplayTimer(new QTimer(this))
-    ,feedbackTimer(new QTimer(this))
     ,detectChangeTimer(new QTimer(this))
     ,HRMTimer(new QTimer(this))
     ,hideScreenTimer(new QTimer(this))
@@ -129,10 +127,6 @@ MainScreen::MainScreen(QWidget *parent) :
     connect(updateDisplayTimer, SIGNAL(timeout()), this, SLOT( updateDisplay()));
     updateDisplayTimer->setSingleShot(false);
     updateDisplayTimer->setInterval(UPDATE_DISPLAY_DELAY);
-
-    connect(feedbackTimer,SIGNAL(timeout()), this, SLOT( periodicFeedback()));
-    feedbackTimer->setSingleShot(false);
-    feedbackTimer->setInterval(PERIODIC_UPDATE_DELAY);  // every 2 minutes
 
     connect(HRMTimer,SIGNAL(timeout()),this,SLOT(CheckHeartRate()));
     HRMTimer->setSingleShot(false);
@@ -246,7 +240,7 @@ void MainScreen::defaultWorkout(){
         spd_array[i]=0.0f;
         grd_array[i]=0.0f;
     }
-    counter=0;
+
     last_speed = 0.0f;
     last_grade = 0.0f;
     change = false;
@@ -283,7 +277,6 @@ void MainScreen::defaultWorkout(){
 
     updateDisplayTimer->start();
     milliSecondTimer->start();
-    feedbackTimer->start();
     detectChangeTimer->start();
 
     speed_offset=0.0f;
@@ -323,7 +316,7 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
         spd_array[i]=0.0f;
         grd_array[i]=0.0f;
     }
-    counter=0;
+
     last_speed = 0.0f;
     last_grade = 0.0f;
     change = false;
@@ -365,7 +358,6 @@ void MainScreen::startWorkout(Workout* workout, bool recordWorkout){
 
     updateDisplayTimer->start();
     milliSecondTimer->start();
-    feedbackTimer->start();
     detectChangeTimer->start();
 //    qDebug() << "Workout name contains HR?" << workout->name.contains("Heart Rate");
 //    if ( workout->name.contains("Heart Rate") )
@@ -678,7 +670,6 @@ void MainScreen::endWorkout(){
 
     updateDisplayTimer->stop();
     milliSecondTimer->stop();
-    feedbackTimer->stop();
     detectChangeTimer->stop();
     HRMTimer->stop();
 
@@ -788,25 +779,17 @@ void MainScreen::feedbackEnded(){
     playing_feedback = false;
 }
 
-void MainScreen::periodicFeedback(){
-    if (workout)
-    {
-        if(!isWorkoutPaused()){
-            counter++;
+void MainScreen::periodicFeedback(int minutes){
 
-            Utils::realTimeFeedback->clear();
+    Utils::realTimeFeedback->clear();
 
-            QList<QUrl> fdbk = QList<QUrl>();
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
-            feedbackAppendNumber(counter*2,&fdbk);
-            fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
+    QList<QUrl> fdbk = QList<QUrl>();
+    fdbk.append(QUrl(AUDIO_ROOT_DIR+"exercise_time.wav"));
+    feedbackAppendNumber(minutes,&fdbk);
+    fdbk.append(QUrl(AUDIO_ROOT_DIR+"minutes.wav"));
 
-            Utils::realTimeFeedback->setQueue(fdbk);
-            Utils::realTimeFeedback->play();
-        }
-    }
-    else
-        counter = 0;
+    Utils::realTimeFeedback->setQueue(fdbk);
+    Utils::realTimeFeedback->play();
 }
 
 void MainScreen::detectChangeFeedback(){
@@ -938,7 +921,16 @@ void MainScreen::updateDisplay(){
     }
 
     minutes = elapsedTime/60;
-    ui->elapsedTimeMinutesLabel->setText( QString("%1").arg(minutes,2,'g',-1,QLatin1Char('0')) );
+    QString newMinutesText = QString("%1").arg(minutes,2,'g',-1,QLatin1Char('0'));
+    if(minutes > 0 && minutes%2 == 0){
+        QString oldMinutesText = ui->elapsedTimeMinutesLabel->text();
+        if(oldMinutesText.compare(newMinutesText) != 0){
+            //the minute just now changed
+            periodicFeedback(minutes);
+        }
+    }
+
+    ui->elapsedTimeMinutesLabel->setText(newMinutesText);
 
     seconds = elapsedTime%60;
     ui->elapsedTimeSecondsLabel->setText(QString(":%1").arg(seconds,2,'g',-1,QLatin1Char('0')));
@@ -1008,8 +1000,6 @@ void MainScreen::updateDisplay(){
 
     long timeDifference=thisUpdate-lastUpdate;
     distance += ((((double)speed)/3600000)*(timeDifference));
-
-
 
     lastUpdate=thisUpdate;
 
