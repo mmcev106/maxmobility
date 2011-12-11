@@ -1188,6 +1188,7 @@ void MainScreen::on_web_invisibleButton_pressed()
     hideWidgets();
 
     webview->show();
+    webview->changeLocation(HOME_URL);
 }
 
 void MainScreen::on_trails_invisibleButton_pressed()

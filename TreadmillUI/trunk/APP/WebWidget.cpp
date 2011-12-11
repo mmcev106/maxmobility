@@ -6,7 +6,7 @@
 #include "qdebug.h"
 #include "useragentwebpage.h"
 
-WebWidget::WebWidget(const QUrl& url) :
+WebWidget::WebWidget(QString url) :
     webMask(":/images/images/main_screen_large_video_mask.png")
     ,keyboardButton(this)
 {
@@ -18,7 +18,7 @@ WebWidget::WebWidget(const QUrl& url) :
     QNetworkProxyFactory::setUseSystemConfiguration(true);
 
     view = new WebView(this);
-    view->load(url);
+    view->load(QUrl(url));
     view->settings()->setAttribute(QWebSettings::PluginsEnabled,true);
 //    view->setPage(new UserAgentWebPage(this));
 
@@ -76,27 +76,14 @@ void WebWidget::changeLocation()
     changeLocation(locationEdit->text());
 }
 
-void WebWidget::changeLocation(QString txt)
+void WebWidget::changeLocation(QString url)
 {
 
-    QUrl url;
-//    QUrl url = txt;
-    if (txt.contains(QString("http://www.")))
-    {
-        url = QUrl(txt);
+    if(!url.startsWith("http://")){
+        url = url.prepend("http://");
     }
-    else
-    {
-        if (txt.contains(QString("www.")))
-        {
-            url = QUrl(QString("http://")+txt);
-        }
-        else
-        {
-            url = QUrl(QString("http://www.")+txt);
-        }
-    }
-    view->load(url);
+
+    view->load(QUrl(url));
     view->setFocus();
 }
 //! [4]
