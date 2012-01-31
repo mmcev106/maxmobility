@@ -13,13 +13,12 @@
 
 static const int READ_WAIT_LIMIT = 0;//1000 * 60 * 5
 
-SerialListenerThread::SerialListenerThread()
+SerialListenerThread::SerialListenerThread(QextSerialPort* port)
 {
+    this->port = port;
 }
 
 void SerialListenerThread::run(){
-
-    QextSerialPort* port =  Preferences::serialPort;
 
     while(port->isOpen()){     //port->waitForReadyRead( READ_WAIT_LIMIT )
         QByteArray data = port->read(MESSAGE_LENGTH);

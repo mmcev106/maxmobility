@@ -268,6 +268,8 @@ void StartupWindow::onSerialEvent(unsigned char* _data)
                 Preferences::belt_time = (((int)(_data[3]))*256) + (_data[4]);
         }
     }
+
+    Preferences::lastSerialMessageReceivedTime = QDateTime::currentMSecsSinceEpoch();
 }
 
 void StartupWindow::mockSerialEvent()

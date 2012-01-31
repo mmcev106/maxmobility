@@ -4,12 +4,14 @@
 #include <QThread>
 #include <QByteArray>
 
+#include "qextserialport.h"
+
 class SerialListenerThread : public QThread
 {
     Q_OBJECT
 
 public:
-    SerialListenerThread();
+    SerialListenerThread(QextSerialPort* port);
     void run();
 
 signals:
@@ -17,6 +19,7 @@ signals:
 
 private:
     void handleMessage(unsigned char* data);
+    QextSerialPort* port;
 };
 
 #endif // SERIALLISTENERTHREAD_H

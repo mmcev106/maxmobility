@@ -7,17 +7,14 @@
 #include <QDir>
 #include <QCoreApplication>
 
-#include "qextserialport.h"
-#include "qextserialenumerator.h"
 #include "startupwindow.h"
 #include "preferences.h"
 #include "screens.h"
-#include "seriallistenerthread.h"
-#include "serialsenderthread.h"
 #include "state.h"
 #include "utils.h"
 #include "settingsscreen.h"
 #include "calibrationscreen.h"
+#include "serialreconnectthread.h"
 
 using namespace std;
 
@@ -63,56 +60,6 @@ void savePreferences(){
     file.close();
 }
 
-void initializeSerialPortConnection(StartupWindow* _window){
-
-    QFile serialFile("serial.txt");
-
-    QString portName;
-    if(serialFile.exists()){
-        serialFile.open(QFile::ReadOnly);
-        QTextStream stream(&serialFile);
-
-        portName = stream.readLine();
-    }
-    else{
-
-        QList<QextPortInfo> ports = QextSerialEnumerator::getPorts();
-
-    //    portName = ports.back().portName;
-        portName = ports.front().portName;
-    }
-
-    QStringList list;
-    qDebug() << "Serial Port: " + portName;
-    list = portName.split(QRegExp("\\W+"));
-    QString name = list.last();
-    qDebug() << "Actual Port: " + name;
-
-    QextSerialPort* port = new QextSerialPort(name, QextSerialPort::EventDriven);
-    port->setBaudRate(BAUD9600);
-    port->setFlowControl(FLOW_OFF);
-    port->setParity(PAR_NONE);
-    port->setDataBits(DATA_8);
-    port->setStopBits(STOP_1);
-    qDebug() << "Opening Port.";
-    bool open = port->open(QextSerialPort::ReadWrite);
-
-    if(open){
-        Preferences::serialPort = port;
-        qDebug() << "Port Opened!" + Preferences::serialPort->readLine();
-
-        Preferences::listener = new SerialListenerThread();
-        Preferences::listener->start();
-        Preferences::sender = new SerialSenderThread();
-        Preferences::sender->start();
-        QObject::connect(Preferences::listener,SIGNAL(triggerSerialEvent(unsigned char*)),_window,SLOT(onSerialEvent(unsigned char*)));
-    }else{
-        qDebug() << "An error occurred while opening the serial port!";
-    }
-}
-
-
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -125,14 +72,15 @@ int main(int argc, char *argv[])
 
     loadPreferences();
 
-    StartupWindow* startupWindow = new StartupWindow();
-    MainScreen::createMainScreen(startupWindow);
-    SettingsScreen::createSettingsScreen(startupWindow);
-    CalibrationScreen::createCalibrationScreen(startupWindow);
+    Preferences::startupWindow = new StartupWindow();
+    MainScreen::createMainScreen(Preferences::startupWindow);
+    SettingsScreen::createSettingsScreen(Preferences::startupWindow);
+    CalibrationScreen::createCalibrationScreen(Preferences::startupWindow);
 
-    initializeSerialPortConnection(startupWindow);
+    SerialReconnectThread* serialReconnectThread = new SerialReconnectThread();
+    serialReconnectThread->start();
 
-    Utils::InitAudio(startupWindow);
+    Utils::InitAudio(Preferences::startupWindow);
 
     if(Preferences::isTestingMode()){
         //Mark M uses this for simulating serial events
@@ -143,7 +91,7 @@ int main(int argc, char *argv[])
         testTimer->start();*/
     }
 
-    Screens::show(startupWindow);
+    Screens::show(Preferences::startupWindow);
     a.exec();
 
     savePreferences();

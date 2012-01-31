@@ -6,13 +6,12 @@
 
 static int MESSAGE_DELAY = 100;
 
-SerialSenderThread::SerialSenderThread()
+SerialSenderThread::SerialSenderThread(QextSerialPort* port)
 {
+    this->port = port;
 }
 
 void SerialSenderThread::run(){
-
-    QextSerialPort* port =  Preferences::serialPort;
 
     unsigned char* messageData = new unsigned char[10];
 
@@ -20,7 +19,7 @@ void SerialSenderThread::run(){
     messageData[MESSAGE_LENGTH-1] = '\n';
     int crc;
 
-    while(true){
+    while(port->isOpen()){
         unsigned char _state = Preferences::sendState.sendstate;
         messageData[1] = _state;
         Preferences::sendState.sendstate &=(~(STATE_CHANGE_MASK));

@@ -22,16 +22,16 @@ bool Preferences::accessibilityMode = false;
 
 bool Preferences::hasSentState = true;
 
+qint64 Preferences::lastSerialMessageReceivedTime = 0;
+StartupWindow* Preferences::startupWindow = NULL;
+
 float Preferences::WALKING_SPEED;
 float Preferences::FAST_SPEED;
 float Preferences::JOGGING_SPEED;
 float Preferences::RUNNING_SPEED;
 int Preferences::age;
 
-QextSerialPort* Preferences::serialPort = NULL;
 QApplication* Preferences::application = NULL;
-
-QThread* Preferences::sender,*Preferences::listener;
 
 State Preferences::currentState;
 State Preferences::sendState;

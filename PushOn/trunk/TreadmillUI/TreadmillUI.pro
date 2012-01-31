@@ -57,7 +57,8 @@ HEADERS += startupwindow.h \
     webview.h \
     keyboardscreen.h \
     largekeyboardwidget.h \
-    smallkeyboardwidget.h
+    smallkeyboardwidget.h \
+    serialreconnectthread.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -133,7 +134,8 @@ SOURCES += main.cpp startupwindow.cpp \
     webview.cpp \
     keyboardscreen.cpp \
     largekeyboardwidget.cpp \
-    smallkeyboardwidget.cpp
+    smallkeyboardwidget.cpp \
+    serialreconnectthread.cpp
 RESOURCES += images.qrc \
     jquery.qrc
 

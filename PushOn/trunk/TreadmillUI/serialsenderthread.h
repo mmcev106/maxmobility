@@ -3,11 +3,16 @@
 
 #include <QThread>
 
+#include "qextserialport.h"
+
 class SerialSenderThread : public QThread
 {
 public:
-    SerialSenderThread();
+    SerialSenderThread(QextSerialPort* port);
     void run();
+
+private:
+    QextSerialPort* port;
 };
 
 #endif // SERIALSENDERTHREAD_H

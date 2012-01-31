@@ -10,6 +10,7 @@
 #include "state.h"
 #include "mainscreen.h"
 #include "workout.h"
+#include "startupwindow.h"
 
 static const bool MALE = true;
 static const bool FEMALE = false;
@@ -44,9 +45,6 @@ public:
     static float JOGGING_SPEED;
     static float RUNNING_SPEED;
 
-    static QThread* listener,*sender;
-
-    static QextSerialPort* serialPort;
     static QApplication* application;
 
     const static int DEFAULT_FEEDBACK_SOUND_LEVEL;
@@ -62,6 +60,9 @@ public:
     static State sendState;
 
     static bool hasSentState;
+
+    static qint64 lastSerialMessageReceivedTime;
+    static StartupWindow* startupWindow;
 
     static void setMeasurementSystem(bool Standard);    /*!< Used to set the Units system (mph/kph). */
     static bool getMeasurementSystem(void);             /*!< Used to read the state of the Units system. */
