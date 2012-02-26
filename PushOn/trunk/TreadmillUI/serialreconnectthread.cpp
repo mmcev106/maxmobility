@@ -23,14 +23,29 @@ void SerialReconnectThread::run(){
         if(Preferences::lastSerialMessageReceivedTime < minimumMessageTime){
             qDebug() << "A serial message was not received in the expected time frame, reconnecting.....";
 
-            port->close();
+            qDebug() << "Closing the old serial port connection.....";
+            if(port->isOpen()){
+                port->close();
+            }
 
             //wait for the previous listener and sender threads to complete
-            listener->wait();
-            sender->wait();
 
+            qDebug() << "Waiting for the listener thread to complete.....";
+            if(listener && listener->isRunning()){
+                listener->wait();
+            }
+
+            qDebug() << "Waiting for the sender thread to complete.....";
+            if(sender && sender->isRunning()){
+                sender->wait();
+            }
+
+            qDebug() << "Cleaning up old resources.....";
             delete listener, sender, port;
+            listener = 0;
+            sender = 0;
 
+            qDebug() << "Initializing the new serial port connection.....";
             initializeSerialPortConnection();
         }
     }
@@ -73,6 +88,9 @@ void SerialReconnectThread::initializeSerialPortConnection(){
     port->setDataBits(DATA_8);
     port->setStopBits(STOP_1);
     qDebug() << "Opening Port.";
+
+    listener = 0;
+    sender = 0;
 
     if(port->open(QextSerialPort::ReadWrite)){
         qDebug() << "Port Opened!";

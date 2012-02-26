@@ -58,7 +58,29 @@ HEADERS += startupwindow.h \
     keyboardscreen.h \
     largekeyboardwidget.h \
     smallkeyboardwidget.h \
-    serialreconnectthread.h
+    serialreconnectthread.h \
+    ../TreadmillUI-build-desktop/ui_videoscreen.h \
+    ../TreadmillUI-build-desktop/ui_usbwarningscreen.h \
+    ../TreadmillUI-build-desktop/ui_tranquilselectionwidget.h \
+    ../TreadmillUI-build-desktop/ui_trailselectionwidget.h \
+    ../TreadmillUI-build-desktop/ui_startupwindow.h \
+    ../TreadmillUI-build-desktop/ui_smallkeyboardwidget.h \
+    ../TreadmillUI-build-desktop/ui_settingsscreen.h \
+    ../TreadmillUI-build-desktop/ui_scorewidget.h \
+    ../TreadmillUI-build-desktop/ui_outdoorpathsscreen.h \
+    ../TreadmillUI-build-desktop/ui_newworkoutscreen.h \
+    ../TreadmillUI-build-desktop/ui_myworkoutsscreen.h \
+    ../TreadmillUI-build-desktop/ui_messagescreen.h \
+    ../TreadmillUI-build-desktop/ui_mainscreen.h \
+    ../TreadmillUI-build-desktop/ui_largekeyboardwidget.h \
+    ../TreadmillUI-build-desktop/ui_keyboardscreen.h \
+    ../TreadmillUI-build-desktop/ui_intervalscreen.h \
+    ../TreadmillUI-build-desktop/ui_historyscreen.h \
+    ../TreadmillUI-build-desktop/ui_heartratescreen.h \
+    ../TreadmillUI-build-desktop/ui_fitnesstestscreen.h \
+    ../TreadmillUI-build-desktop/ui_fatburnscreen.h \
+    ../TreadmillUI-build-desktop/ui_calibrationscreen.h \
+    ../TreadmillUI-build-desktop/ui_audiosettingswidget.h
 FORMS += startupwindow.ui \
     mainscreen.ui \
     heartratescreen.ui \
@@ -149,5 +171,6 @@ CONFIG += warn_off
 QT += phonon
 QT += opengl
 QT += webkit network multimedia
+QT += testlib #for displaying a console on release builds
 LIBS += -lqextserialport
 #DEFINES += QT_NO_DEBUG_OUTPUT NDEBUG

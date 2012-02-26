@@ -1,8 +1,9 @@
 #include "abstractkeyboardwidget.h"
-#include "ui_keyboardwidget.h"
+//#include "ui_keyboardwidget.h"
 #include <QDebug>
 #include <QPainter>
 #include <QDateTime>
+#include <QCoreApplication>
 
 #include "invisiblebutton.h"
 

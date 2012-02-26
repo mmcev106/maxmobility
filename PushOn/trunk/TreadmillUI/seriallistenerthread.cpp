@@ -51,6 +51,7 @@ void SerialListenerThread::handleMessage(unsigned char* data){
     int _crc = crcMsb*256 + crcLsb;
     if (_crc != Utils::CRC(data,5))
     {
+        qDebug() << "Ignoring message due to invalid CRC!";
         return;
     }
 
