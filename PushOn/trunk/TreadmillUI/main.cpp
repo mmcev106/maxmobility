@@ -77,8 +77,10 @@ int main(int argc, char *argv[])
     SettingsScreen::createSettingsScreen(Preferences::startupWindow);
     CalibrationScreen::createCalibrationScreen(Preferences::startupWindow);
 
-    SerialReconnectThread* serialReconnectThread = new SerialReconnectThread();
-    serialReconnectThread->start();
+    if(!Preferences::isTestingMode()){
+        SerialReconnectThread* serialReconnectThread = new SerialReconnectThread();
+        serialReconnectThread->start();
+    }
 
     Utils::InitAudio(Preferences::startupWindow);
 
