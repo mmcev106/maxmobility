@@ -781,6 +781,8 @@ void MainScreen::feedbackEnded(){
 
 void MainScreen::periodicFeedback(int minutes){
 
+    qDebug() << "Playing audio feedback for " << minutes << " minutes";
+
     Utils::realTimeFeedback->clear();
 
     QList<QUrl> fdbk = QList<QUrl>();
