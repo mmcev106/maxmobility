@@ -27,7 +27,8 @@ static const long MILLIS_PER_HOUR = MILLIS_PER_MINUTE * 60;
 
 static int QUICK_WORKOUT_LENGTH = 30; //minutes
 
-static const QString AUDIO_ROOT_DIR = "file:///audio/";
+//static const QString AUDIO_ROOT_DIR = "file:///audio/";
+static const QString AUDIO_ROOT_DIR = "/audio/";
 
 class Utils
 {
