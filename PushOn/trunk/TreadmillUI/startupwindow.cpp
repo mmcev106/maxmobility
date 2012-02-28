@@ -65,7 +65,7 @@ StartupWindow::StartupWindow(QWidget *parent) :
     sharedTimer.setInterval(250);
     sharedTimer.start();
 
-
+    Utils::InitAudio(Preferences::startupWindow);
     connect(Utils::backgroundMusic, SIGNAL(finished()), this, SLOT(restartMusic()));
 
     //hide the usbLabel by default
@@ -95,7 +95,7 @@ void StartupWindow::restartMusic(){
     playlist.append(QUrl(AUDIO_ROOT_DIR+"PL6.wav"));
 
     Utils::backgroundMusic->setQueue(playlist);
-//    Utils::backgroundMusic->stop();
+    Utils::backgroundMusic->stop();
     Utils::backgroundMusic->play();
 }
 void StartupWindow::onSerialEvent(unsigned char* _data)

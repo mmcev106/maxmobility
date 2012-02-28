@@ -82,8 +82,6 @@ int main(int argc, char *argv[])
         serialReconnectThread->start();
     }
 
-    Utils::InitAudio(Preferences::startupWindow);
-
     if(Preferences::isTestingMode()){
         //Mark M uses this for simulating serial events
 
