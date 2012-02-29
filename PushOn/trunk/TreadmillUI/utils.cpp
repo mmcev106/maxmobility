@@ -55,8 +55,8 @@ void Utils::InitAudio(QWidget* parent)
     feedbackOutput = new Phonon::AudioOutput(Phonon::MusicCategory,parent);
     Phonon::createPath(realTimeFeedback,feedbackOutput);
 
-    Preferences::backgroundSoundLevel = backgroundOutput->volume() * 100;
-    Preferences::feedbackSoundLevel = feedbackOutput->volume() * 100;
+    backgroundOutput->setVolume(Preferences::backgroundSoundLevel/100);
+    feedbackOutput->setVolume(Preferences::feedbackSoundLevel/100);
 }
 
 float Utils::getMAX_SPEED(){
